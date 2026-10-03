@@ -1,0 +1,6400 @@
+{
+  "schema_version": 1,
+  "note": "AUTHORITATIVE. Reviewed by a human and committed. The site build reads this file and never regenerates it. Country codes are unique within a season, not across seasons — see season_overrides.",
+  "season_overrides": {
+    "2017": {
+      "11": "south-america",
+      "12": "oceania",
+      "13": "north-america",
+      "14": "europe",
+      "15": "asia",
+      "16": "africa"
+    },
+    "2018": {
+      "11": "south-america",
+      "12": "oceania",
+      "13": "north-america",
+      "14": "europe",
+      "16": "africa"
+    },
+    "2024": {
+      "15": "tw"
+    },
+    "2025": {
+      "15": "tw"
+    }
+  },
+  "teams": [
+    {
+      "team_id": "ad",
+      "name": "Andorra",
+      "display_name": "Team Andorra",
+      "entity_type": "country",
+      "iso2": "ad",
+      "code3": "AND",
+      "aliases": {
+        "country_code": [
+          "AD"
+        ],
+        "name": [
+          "Team Andorra"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ae",
+      "name": "United Arab Emirates",
+      "display_name": "Team United Arab Emirates",
+      "entity_type": "country",
+      "iso2": "ae",
+      "code3": "UAE",
+      "aliases": {
+        "country_code": [
+          "AE"
+        ],
+        "name": [
+          "Team United Arab Emirates",
+          "UAE",
+          "United Arab Emirates"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "af",
+      "name": "Afghanistan",
+      "display_name": "Team Afghanistan",
+      "entity_type": "country",
+      "iso2": "af",
+      "code3": "AFG",
+      "aliases": {
+        "country_code": [
+          "AF"
+        ],
+        "name": [
+          "Afghanistan",
+          "Team Afghanistan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "africa",
+      "name": "Africa",
+      "display_name": "Team Africa",
+      "entity_type": "continental",
+      "iso2": null,
+      "code3": null,
+      "aliases": {
+        "country_code": [
+          "16"
+        ],
+        "name": [
+          "Team Africa"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ag",
+      "name": "Antigua and Barbuda",
+      "display_name": "Team Antigua and Barbuda",
+      "entity_type": "country",
+      "iso2": "ag",
+      "code3": "ANT",
+      "aliases": {
+        "country_code": [
+          "AG"
+        ],
+        "name": [
+          "Antigua and Barbuda",
+          "Team Antigua & Barbuda",
+          "Team Antigua and Barbuda"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ai",
+      "name": "Anguilla",
+      "display_name": "Team Anguilla",
+      "entity_type": "country",
+      "iso2": "ai",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "al",
+      "name": "Albania",
+      "display_name": "Team Albania",
+      "entity_type": "country",
+      "iso2": "al",
+      "code3": "ALB",
+      "aliases": {
+        "country_code": [
+          "AL"
+        ],
+        "name": [
+          "Albania",
+          "Team Albania"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "am",
+      "name": "Armenia",
+      "display_name": "Team Armenia",
+      "entity_type": "country",
+      "iso2": "am",
+      "code3": "ARM",
+      "aliases": {
+        "country_code": [
+          "AM"
+        ],
+        "name": [
+          "Armenia",
+          "Team Armenia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ao",
+      "name": "Angola",
+      "display_name": "Team Angola",
+      "entity_type": "country",
+      "iso2": "ao",
+      "code3": "ANG",
+      "aliases": {
+        "country_code": [
+          "AO"
+        ],
+        "name": [
+          "Angola",
+          "Team Angola"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "aq",
+      "name": "Antarctica",
+      "display_name": "Team Antarctica",
+      "entity_type": "country",
+      "iso2": "aq",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "ar",
+      "name": "Argentina",
+      "display_name": "Team Argentina",
+      "entity_type": "country",
+      "iso2": "ar",
+      "code3": "ARG",
+      "aliases": {
+        "country_code": [
+          "AR"
+        ],
+        "name": [
+          "Argentina",
+          "Team Argentina"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "as",
+      "name": "American Samoa",
+      "display_name": "Team American Samoa",
+      "entity_type": "country",
+      "iso2": "as",
+      "code3": "ASA",
+      "aliases": {
+        "country_code": [
+          "AS"
+        ],
+        "name": [
+          "American Samoa",
+          "Team American Samoa"
+        ]
+      },
+      "first_season": 2023,
+      "seasons_active": [
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "asia",
+      "name": "Asia",
+      "display_name": "Team Asia",
+      "entity_type": "continental",
+      "iso2": null,
+      "code3": null,
+      "aliases": {
+        "country_code": [
+          "15"
+        ],
+        "name": [
+          "Team Asia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "at",
+      "name": "Austria",
+      "display_name": "Team Austria",
+      "entity_type": "country",
+      "iso2": "at",
+      "code3": "AUT",
+      "aliases": {
+        "country_code": [
+          "AT"
+        ],
+        "name": [
+          "Austria",
+          "Team Austria"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "au",
+      "name": "Australia",
+      "display_name": "Team Australia",
+      "entity_type": "country",
+      "iso2": "au",
+      "code3": "AUS",
+      "aliases": {
+        "country_code": [
+          "AU"
+        ],
+        "name": [
+          "Australia",
+          "Team Australia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "aw",
+      "name": "Aruba",
+      "display_name": "Team Aruba",
+      "entity_type": "country",
+      "iso2": "aw",
+      "code3": "ARU",
+      "aliases": {
+        "country_code": [
+          "AW"
+        ],
+        "name": [
+          "Aruba",
+          "Team Aruba"
+        ]
+      },
+      "first_season": 2023,
+      "seasons_active": [
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ax",
+      "name": "Aland Islands",
+      "display_name": "Team Aland Islands",
+      "entity_type": "country",
+      "iso2": "ax",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "az",
+      "name": "Azerbaijan",
+      "display_name": "Team Azerbaijan",
+      "entity_type": "country",
+      "iso2": "az",
+      "code3": "AZE",
+      "aliases": {
+        "country_code": [
+          "AZ"
+        ],
+        "name": [
+          "Azerbaijan",
+          "Team Azerbaijan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ba",
+      "name": "Bosnia and Herzegovina",
+      "display_name": "Team Bosnia and Herzegovina",
+      "entity_type": "country",
+      "iso2": "ba",
+      "code3": "BIH",
+      "aliases": {
+        "country_code": [
+          "BA"
+        ],
+        "name": [
+          "Bosnia and Herzegovina",
+          "Team Bosnia & Herzegovina",
+          "Team Bosnia and Herzegovina"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bb",
+      "name": "Barbados",
+      "display_name": "Team Barbados",
+      "entity_type": "country",
+      "iso2": "bb",
+      "code3": "BAR",
+      "aliases": {
+        "country_code": [
+          "BB"
+        ],
+        "name": [
+          "Barbados",
+          "Team Barbados"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bd",
+      "name": "Bangladesh",
+      "display_name": "Team Bangladesh",
+      "entity_type": "country",
+      "iso2": "bd",
+      "code3": "BAN",
+      "aliases": {
+        "country_code": [
+          "BD"
+        ],
+        "name": [
+          "Bangladesh",
+          "Team Bangladesh"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "be",
+      "name": "Belgium",
+      "display_name": "Team Belgium",
+      "entity_type": "country",
+      "iso2": "be",
+      "code3": "BEL",
+      "aliases": {
+        "country_code": [
+          "BE"
+        ],
+        "name": [
+          "Belgium",
+          "Team Belgium"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bf",
+      "name": "Burkina Faso",
+      "display_name": "Team Burkina Faso",
+      "entity_type": "country",
+      "iso2": "bf",
+      "code3": "BUR",
+      "aliases": {
+        "country_code": [
+          "BF"
+        ],
+        "name": [
+          "Burkina Faso",
+          "Team Burkina Faso"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bg",
+      "name": "Bulgaria",
+      "display_name": "Team Bulgaria",
+      "entity_type": "country",
+      "iso2": "bg",
+      "code3": "BUL",
+      "aliases": {
+        "country_code": [
+          "BG"
+        ],
+        "name": [
+          "Bulgaria",
+          "Team Bulgaria"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bh",
+      "name": "Bahrain",
+      "display_name": "Team Bahrain",
+      "entity_type": "country",
+      "iso2": "bh",
+      "code3": "BRN",
+      "aliases": {
+        "country_code": [
+          "BH"
+        ],
+        "name": [
+          "Bahrain",
+          "Team Bahrain"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bi",
+      "name": "Burundi",
+      "display_name": "Team Burundi",
+      "entity_type": "country",
+      "iso2": "bi",
+      "code3": "BDI",
+      "aliases": {
+        "country_code": [
+          "BI"
+        ],
+        "name": [
+          "Burundi",
+          "Team Burundi"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bj",
+      "name": "Benin",
+      "display_name": "Team Benin",
+      "entity_type": "country",
+      "iso2": "bj",
+      "code3": "BEN",
+      "aliases": {
+        "country_code": [
+          "BJ"
+        ],
+        "name": [
+          "Benin",
+          "Team Benin"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bl",
+      "name": "Saint Barthélemy",
+      "display_name": "Team Saint Barthélemy",
+      "entity_type": "country",
+      "iso2": "bl",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "bm",
+      "name": "Bermuda",
+      "display_name": "Team Bermuda",
+      "entity_type": "country",
+      "iso2": "bm",
+      "code3": "BER",
+      "aliases": {
+        "country_code": [
+          "BM"
+        ],
+        "name": [
+          "Bermuda",
+          "Team Bermuda"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bn",
+      "name": "Brunei Darussalam",
+      "display_name": "Team Brunei Darussalam",
+      "entity_type": "country",
+      "iso2": "bn",
+      "code3": "BRU",
+      "aliases": {
+        "country_code": [
+          "BN"
+        ],
+        "name": [
+          "Brunei",
+          "Brunei Darussalam",
+          "Team Brunei Darussalam"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bo",
+      "name": "Bolivia",
+      "display_name": "Team Bolivia",
+      "entity_type": "country",
+      "iso2": "bo",
+      "code3": "BOL",
+      "aliases": {
+        "country_code": [
+          "BO"
+        ],
+        "name": [
+          "Bolivia",
+          "Team Bolivia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bq",
+      "name": "Bonaire, Sint Eustatius and Saba",
+      "display_name": "Team Bonaire, Sint Eustatius and Saba",
+      "entity_type": "country",
+      "iso2": "bq",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "br",
+      "name": "Brazil",
+      "display_name": "Team Brazil",
+      "entity_type": "country",
+      "iso2": "br",
+      "code3": "BRA",
+      "aliases": {
+        "country_code": [
+          "BR"
+        ],
+        "name": [
+          "Brazil",
+          "Team Brazil"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bs",
+      "name": "Bahamas",
+      "display_name": "Team Bahamas",
+      "entity_type": "country",
+      "iso2": "bs",
+      "code3": "BAH",
+      "aliases": {
+        "country_code": [
+          "BS"
+        ],
+        "name": [
+          "Bahamas",
+          "Team Bahamas"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bt",
+      "name": "Bhutan",
+      "display_name": "Team Bhutan",
+      "entity_type": "country",
+      "iso2": "bt",
+      "code3": "BHU",
+      "aliases": {
+        "country_code": [
+          "BT"
+        ],
+        "name": [
+          "Bhutan",
+          "Team Bhutan"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bv",
+      "name": "Bouvet Island",
+      "display_name": "Team Bouvet Island",
+      "entity_type": "country",
+      "iso2": "bv",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "bw",
+      "name": "Botswana",
+      "display_name": "Team Botswana",
+      "entity_type": "country",
+      "iso2": "bw",
+      "code3": "BOT",
+      "aliases": {
+        "country_code": [
+          "BW"
+        ],
+        "name": [
+          "Botswana",
+          "Team Botswana"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "by",
+      "name": "Belarus",
+      "display_name": "Team Belarus",
+      "entity_type": "country",
+      "iso2": "by",
+      "code3": "BLR",
+      "aliases": {
+        "country_code": [
+          "BY"
+        ],
+        "name": [
+          "Belarus",
+          "Team Belarus"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "bz",
+      "name": "Belize",
+      "display_name": "Team Belize",
+      "entity_type": "country",
+      "iso2": "bz",
+      "code3": "BIZ",
+      "aliases": {
+        "country_code": [
+          "BZ"
+        ],
+        "name": [
+          "Belize",
+          "Team Belize"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ca",
+      "name": "Canada",
+      "display_name": "Team Canada",
+      "entity_type": "country",
+      "iso2": "ca",
+      "code3": "CAN",
+      "aliases": {
+        "country_code": [
+          "CA"
+        ],
+        "name": [
+          "Canada",
+          "Team Canada"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cc",
+      "name": "Cocos (Keeling) Islands",
+      "display_name": "Team Cocos (Keeling) Islands",
+      "entity_type": "country",
+      "iso2": "cc",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "cd",
+      "name": "Democratic Republic of the Congo",
+      "display_name": "Team Democratic Republic of the Congo",
+      "entity_type": "country",
+      "iso2": "cd",
+      "code3": "COD",
+      "aliases": {
+        "country_code": [
+          "CD"
+        ],
+        "name": [
+          "Congo DRC",
+          "Democratic Republic of the Congo",
+          "Team Democratic Republic of the Congo"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cf",
+      "name": "Central African Republic",
+      "display_name": "Team Central African Republic",
+      "entity_type": "country",
+      "iso2": "cf",
+      "code3": "CAF",
+      "aliases": {
+        "country_code": [
+          "CF"
+        ],
+        "name": [
+          "Team Central African Republic"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2023
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cg",
+      "name": "Congo",
+      "display_name": "Team Congo",
+      "entity_type": "country",
+      "iso2": "cg",
+      "code3": "CGO",
+      "aliases": {
+        "country_code": [
+          "CG"
+        ],
+        "name": [
+          "Congo",
+          "Team Congo",
+          "Team Republic Of Congo",
+          "Team Republic of Congo"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ch",
+      "name": "Switzerland",
+      "display_name": "Team Switzerland",
+      "entity_type": "country",
+      "iso2": "ch",
+      "code3": "SUI",
+      "aliases": {
+        "country_code": [
+          "CH"
+        ],
+        "name": [
+          "Switzerland",
+          "Team Switzerland"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ci",
+      "name": "Côte d'Ivoire",
+      "display_name": "Team Côte d'Ivoire",
+      "entity_type": "country",
+      "iso2": "ci",
+      "code3": "CIV",
+      "aliases": {
+        "country_code": [
+          "CI"
+        ],
+        "name": [
+          "Cote D'IVoire",
+          "Côte d`Ivoire",
+          "Team Cote d'Ivoire",
+          "Team Cote d`Ivoire",
+          "Team Cote d’Ivoire",
+          "Team Côte d`Ivoire"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ck",
+      "name": "Cook Islands",
+      "display_name": "Team Cook Islands",
+      "entity_type": "country",
+      "iso2": "ck",
+      "code3": "COK",
+      "aliases": {
+        "country_code": [
+          "CK"
+        ],
+        "name": [
+          "Cook Islands",
+          "Team Cook Islands"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cl",
+      "name": "Chile",
+      "display_name": "Team Chile",
+      "entity_type": "country",
+      "iso2": "cl",
+      "code3": "CHI",
+      "aliases": {
+        "country_code": [
+          "CL"
+        ],
+        "name": [
+          "Chile",
+          "Team Chile"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cm",
+      "name": "Cameroon",
+      "display_name": "Team Cameroon",
+      "entity_type": "country",
+      "iso2": "cm",
+      "code3": "CMR",
+      "aliases": {
+        "country_code": [
+          "CM"
+        ],
+        "name": [
+          "Cameroon",
+          "Team Cameroon"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cn",
+      "name": "People's Republic of China",
+      "display_name": "Team People's Republic of China",
+      "entity_type": "country",
+      "iso2": "cn",
+      "code3": "CHN",
+      "aliases": {
+        "country_code": [
+          "CN"
+        ],
+        "name": [
+          "China",
+          "People`s Republic of China",
+          "Team China",
+          "Team People's Republic of China",
+          "Team People`s Republic Of China",
+          "Team People`s Republic of China"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "co",
+      "name": "Colombia",
+      "display_name": "Team Colombia",
+      "entity_type": "country",
+      "iso2": "co",
+      "code3": "COL",
+      "aliases": {
+        "country_code": [
+          "CO"
+        ],
+        "name": [
+          "Colombia",
+          "Team Colombia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cr",
+      "name": "Costa Rica",
+      "display_name": "Team Costa Rica",
+      "entity_type": "country",
+      "iso2": "cr",
+      "code3": "CRC",
+      "aliases": {
+        "country_code": [
+          "CR"
+        ],
+        "name": [
+          "Costa Rica",
+          "Team Costa Rica"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cu",
+      "name": "Cuba",
+      "display_name": "Team Cuba",
+      "entity_type": "country",
+      "iso2": "cu",
+      "code3": "CUB",
+      "aliases": {
+        "country_code": [
+          "CU"
+        ],
+        "name": [
+          "Cuba",
+          "Team Cuba"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cv",
+      "name": "Cabo Verde",
+      "display_name": "Team Cabo Verde",
+      "entity_type": "country",
+      "iso2": "cv",
+      "code3": "CPV",
+      "aliases": {
+        "country_code": [
+          "CV"
+        ],
+        "name": [
+          "Cabo Verde",
+          "Team Cabo Verde"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cw",
+      "name": "Curaçao",
+      "display_name": "Team Curaçao",
+      "entity_type": "country",
+      "iso2": "cw",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "cx",
+      "name": "Christmas Island",
+      "display_name": "Team Christmas Island",
+      "entity_type": "country",
+      "iso2": "cx",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "cy",
+      "name": "Cyprus",
+      "display_name": "Team Cyprus",
+      "entity_type": "country",
+      "iso2": "cy",
+      "code3": "CYP",
+      "aliases": {
+        "country_code": [
+          "CY"
+        ],
+        "name": [
+          "Cyprus",
+          "Team Cyprus"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "cz",
+      "name": "Czechia",
+      "display_name": "Team Czechia",
+      "entity_type": "country",
+      "iso2": "cz",
+      "code3": "CZE",
+      "aliases": {
+        "country_code": [
+          "CZ"
+        ],
+        "name": [
+          "Czech Republic",
+          "Czechia",
+          "Team Czech Republic",
+          "Team Czechia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "de",
+      "name": "Germany",
+      "display_name": "Team Germany",
+      "entity_type": "country",
+      "iso2": "de",
+      "code3": "GER",
+      "aliases": {
+        "country_code": [
+          "DE"
+        ],
+        "name": [
+          "Germany",
+          "Team Germany"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "dj",
+      "name": "Djibouti",
+      "display_name": "Team Djibouti",
+      "entity_type": "country",
+      "iso2": "dj",
+      "code3": "DJI",
+      "aliases": {
+        "country_code": [
+          "DJ"
+        ],
+        "name": [
+          "Djibouti",
+          "Team Djibouti"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "dk",
+      "name": "Denmark",
+      "display_name": "Team Denmark",
+      "entity_type": "country",
+      "iso2": "dk",
+      "code3": "DEN",
+      "aliases": {
+        "country_code": [
+          "DK"
+        ],
+        "name": [
+          "Denmark",
+          "Team Denmark"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "dm",
+      "name": "Dominica",
+      "display_name": "Team Dominica",
+      "entity_type": "country",
+      "iso2": "dm",
+      "code3": "DMA",
+      "aliases": {
+        "country_code": [
+          "DM"
+        ],
+        "name": [
+          "Dominica",
+          "Team Dominica"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "do",
+      "name": "Dominican Republic",
+      "display_name": "Team Dominican Republic",
+      "entity_type": "country",
+      "iso2": "do",
+      "code3": "DOM",
+      "aliases": {
+        "country_code": [
+          "DO"
+        ],
+        "name": [
+          "Dominican Republic",
+          "Team Dominican Republic"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "dz",
+      "name": "Algeria",
+      "display_name": "Team Algeria",
+      "entity_type": "country",
+      "iso2": "dz",
+      "code3": "ALG",
+      "aliases": {
+        "country_code": [
+          "DZ"
+        ],
+        "name": [
+          "Algeria",
+          "Team Algeria"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ec",
+      "name": "Ecuador",
+      "display_name": "Team Ecuador",
+      "entity_type": "country",
+      "iso2": "ec",
+      "code3": "ECU",
+      "aliases": {
+        "country_code": [
+          "EC"
+        ],
+        "name": [
+          "Ecuador",
+          "Team Ecuador"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ee",
+      "name": "Estonia",
+      "display_name": "Team Estonia",
+      "entity_type": "country",
+      "iso2": "ee",
+      "code3": "EST",
+      "aliases": {
+        "country_code": [
+          "EE"
+        ],
+        "name": [
+          "Estonia",
+          "Team Estonia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "eg",
+      "name": "Egypt",
+      "display_name": "Team Egypt",
+      "entity_type": "country",
+      "iso2": "eg",
+      "code3": "EGY",
+      "aliases": {
+        "country_code": [
+          "EG"
+        ],
+        "name": [
+          "Egypt",
+          "Team Egypt"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "eh",
+      "name": "Western Sahara",
+      "display_name": "Team Western Sahara",
+      "entity_type": "country",
+      "iso2": "eh",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "er",
+      "name": "Eritrea",
+      "display_name": "Team Eritrea",
+      "entity_type": "country",
+      "iso2": "er",
+      "code3": "ERI",
+      "aliases": {
+        "country_code": [
+          "ER"
+        ],
+        "name": [
+          "Eritrea",
+          "Team Eritrea"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "es",
+      "name": "Spain",
+      "display_name": "Team Spain",
+      "entity_type": "country",
+      "iso2": "es",
+      "code3": "ESP",
+      "aliases": {
+        "country_code": [
+          "ES"
+        ],
+        "name": [
+          "Spain",
+          "Team Spain"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "et",
+      "name": "Ethiopia",
+      "display_name": "Team Ethiopia",
+      "entity_type": "country",
+      "iso2": "et",
+      "code3": "ETH",
+      "aliases": {
+        "country_code": [
+          "ET"
+        ],
+        "name": [
+          "Ethiopia",
+          "Team Ethiopia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "europe",
+      "name": "Europe",
+      "display_name": "Team Europe",
+      "entity_type": "continental",
+      "iso2": null,
+      "code3": null,
+      "aliases": {
+        "country_code": [
+          "14"
+        ],
+        "name": [
+          "Team Europe"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "fi",
+      "name": "Finland",
+      "display_name": "Team Finland",
+      "entity_type": "country",
+      "iso2": "fi",
+      "code3": "FIN",
+      "aliases": {
+        "country_code": [
+          "FI"
+        ],
+        "name": [
+          "Finland",
+          "Team Finland"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "fj",
+      "name": "Fiji",
+      "display_name": "Team Fiji",
+      "entity_type": "country",
+      "iso2": "fj",
+      "code3": "FIJ",
+      "aliases": {
+        "country_code": [
+          "FJ"
+        ],
+        "name": [
+          "Fiji",
+          "Team Fiji"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "fk",
+      "name": "Falkland Islands",
+      "display_name": "Team Falkland Islands",
+      "entity_type": "country",
+      "iso2": "fk",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "fm",
+      "name": "Federated States of Micronesia",
+      "display_name": "Team Federated States of Micronesia",
+      "entity_type": "country",
+      "iso2": "fm",
+      "code3": "FSM",
+      "aliases": {
+        "country_code": [
+          "FM"
+        ],
+        "name": [
+          "Federated States of Micronesia",
+          "Micronesia",
+          "Team Federated States of Micronesia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "fo",
+      "name": "Faroe Islands",
+      "display_name": "Team Faroe Islands",
+      "entity_type": "country",
+      "iso2": "fo",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "fr",
+      "name": "France",
+      "display_name": "Team France",
+      "entity_type": "country",
+      "iso2": "fr",
+      "code3": "FRA",
+      "aliases": {
+        "country_code": [
+          "FR"
+        ],
+        "name": [
+          "France",
+          "Team France"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ga",
+      "name": "Gabon",
+      "display_name": "Team Gabon",
+      "entity_type": "country",
+      "iso2": "ga",
+      "code3": "GAB",
+      "aliases": {
+        "country_code": [
+          "GA"
+        ],
+        "name": [
+          "Gabon",
+          "Team Gabon"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gb",
+      "name": "Great Britain",
+      "display_name": "Team Great Britain",
+      "entity_type": "country",
+      "iso2": "gb",
+      "code3": "GBR",
+      "aliases": {
+        "country_code": [
+          "GB"
+        ],
+        "name": [
+          "Great Britain",
+          "Team Great Britain",
+          "Team United Kingdom",
+          "United Kingdom"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gd",
+      "name": "Grenada",
+      "display_name": "Team Grenada",
+      "entity_type": "country",
+      "iso2": "gd",
+      "code3": "GRN",
+      "aliases": {
+        "country_code": [
+          "GD"
+        ],
+        "name": [
+          "Grenada",
+          "Team Grenada"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ge",
+      "name": "Georgia",
+      "display_name": "Team Georgia",
+      "entity_type": "country",
+      "iso2": "ge",
+      "code3": "GEO",
+      "aliases": {
+        "country_code": [
+          "GE"
+        ],
+        "name": [
+          "Georgia",
+          "Team Georgia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gf",
+      "name": "French Guiana",
+      "display_name": "Team French Guiana",
+      "entity_type": "country",
+      "iso2": "gf",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "gg",
+      "name": "Guernsey",
+      "display_name": "Team Guernsey",
+      "entity_type": "country",
+      "iso2": "gg",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "gh",
+      "name": "Ghana",
+      "display_name": "Team Ghana",
+      "entity_type": "country",
+      "iso2": "gh",
+      "code3": "GHA",
+      "aliases": {
+        "country_code": [
+          "GH"
+        ],
+        "name": [
+          "Ghana",
+          "Team Ghana"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gi",
+      "name": "Gibraltar",
+      "display_name": "Team Gibraltar",
+      "entity_type": "country",
+      "iso2": "gi",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "gl",
+      "name": "Greenland",
+      "display_name": "Team Greenland",
+      "entity_type": "country",
+      "iso2": "gl",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "gm",
+      "name": "Gambia",
+      "display_name": "Team Gambia",
+      "entity_type": "country",
+      "iso2": "gm",
+      "code3": "GAM",
+      "aliases": {
+        "country_code": [
+          "GM"
+        ],
+        "name": [
+          "Gambia",
+          "Team Gambia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gn",
+      "name": "Guinea",
+      "display_name": "Team Guinea",
+      "entity_type": "country",
+      "iso2": "gn",
+      "code3": "GUI",
+      "aliases": {
+        "country_code": [
+          "GN"
+        ],
+        "name": [
+          "Team Guinea"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2023,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gp",
+      "name": "Guadeloupe",
+      "display_name": "Team Guadeloupe",
+      "entity_type": "country",
+      "iso2": "gp",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "gq",
+      "name": "Equatorial Guinea",
+      "display_name": "Team Equatorial Guinea",
+      "entity_type": "country",
+      "iso2": "gq",
+      "code3": "GEQ",
+      "aliases": {
+        "country_code": [
+          "GQ"
+        ],
+        "name": [
+          "Equatorial Guinea",
+          "Team Equatorial Guinea"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gr",
+      "name": "Greece",
+      "display_name": "Team Greece",
+      "entity_type": "country",
+      "iso2": "gr",
+      "code3": "GRE",
+      "aliases": {
+        "country_code": [
+          "GR"
+        ],
+        "name": [
+          "Greece",
+          "Team Greece"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gs",
+      "name": "South Georgia and the South Sandwich Islands",
+      "display_name": "Team South Georgia and the South Sandwich Islands",
+      "entity_type": "country",
+      "iso2": "gs",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "gt",
+      "name": "Guatemala",
+      "display_name": "Team Guatemala",
+      "entity_type": "country",
+      "iso2": "gt",
+      "code3": "GUA",
+      "aliases": {
+        "country_code": [
+          "GT"
+        ],
+        "name": [
+          "Guatemala",
+          "Team Guatemala"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gu",
+      "name": "Guam",
+      "display_name": "Team Guam",
+      "entity_type": "country",
+      "iso2": "gu",
+      "code3": "GUM",
+      "aliases": {
+        "country_code": [
+          "GU"
+        ],
+        "name": [
+          "Guam",
+          "Team Guam"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gw",
+      "name": "Guinea-Bissau",
+      "display_name": "Team Guinea-Bissau",
+      "entity_type": "country",
+      "iso2": "gw",
+      "code3": "GBS",
+      "aliases": {
+        "country_code": [
+          "GW"
+        ],
+        "name": [
+          "Guinea-Bissau",
+          "Team Guinea-Bissau"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "gy",
+      "name": "Guyana",
+      "display_name": "Team Guyana",
+      "entity_type": "country",
+      "iso2": "gy",
+      "code3": "GUY",
+      "aliases": {
+        "country_code": [
+          "GY"
+        ],
+        "name": [
+          "Guyana",
+          "Team Guyana"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "hk",
+      "name": "Hong Kong, China",
+      "display_name": "Team Hong Kong, China",
+      "entity_type": "country",
+      "iso2": "hk",
+      "code3": "HKG",
+      "aliases": {
+        "country_code": [
+          "HK"
+        ],
+        "name": [
+          "Hong Kong",
+          "Hong Kong (China)",
+          "Team Hong Kong",
+          "Team Hong Kong (China)",
+          "Team Hong Kong - China",
+          "Team Hong Kong, China"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "hm",
+      "name": "Heard Island and McDonald Islands",
+      "display_name": "Team Heard Island and McDonald Islands",
+      "entity_type": "country",
+      "iso2": "hm",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "hn",
+      "name": "Honduras",
+      "display_name": "Team Honduras",
+      "entity_type": "country",
+      "iso2": "hn",
+      "code3": "HON",
+      "aliases": {
+        "country_code": [
+          "HN"
+        ],
+        "name": [
+          "Honduras",
+          "Team Honduras"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "hope",
+      "name": "Hope",
+      "display_name": "Team Hope (Refugees)",
+      "entity_type": "refugee",
+      "iso2": null,
+      "code3": null,
+      "aliases": {
+        "country_code": [
+          "10",
+          "10_HOPE"
+        ],
+        "name": [
+          "Hope (Refugees)",
+          "Refugees",
+          "Team Hope",
+          "Team Hope (Refugees)"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "hr",
+      "name": "Croatia",
+      "display_name": "Team Croatia",
+      "entity_type": "country",
+      "iso2": "hr",
+      "code3": "CRO",
+      "aliases": {
+        "country_code": [
+          "HR"
+        ],
+        "name": [
+          "Croatia",
+          "Team Croatia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ht",
+      "name": "Haiti",
+      "display_name": "Team Haiti",
+      "entity_type": "country",
+      "iso2": "ht",
+      "code3": "HAI",
+      "aliases": {
+        "country_code": [
+          "HT"
+        ],
+        "name": [
+          "Haiti",
+          "Team Haiti"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "hu",
+      "name": "Hungary",
+      "display_name": "Team Hungary",
+      "entity_type": "country",
+      "iso2": "hu",
+      "code3": "HUN",
+      "aliases": {
+        "country_code": [
+          "HU"
+        ],
+        "name": [
+          "Hungary",
+          "Team Hungary"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "id",
+      "name": "Indonesia",
+      "display_name": "Team Indonesia",
+      "entity_type": "country",
+      "iso2": "id",
+      "code3": "INA",
+      "aliases": {
+        "country_code": [
+          "ID"
+        ],
+        "name": [
+          "Indonesia",
+          "Team Indonesia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ie",
+      "name": "Ireland",
+      "display_name": "Team Ireland",
+      "entity_type": "country",
+      "iso2": "ie",
+      "code3": "IRL",
+      "aliases": {
+        "country_code": [
+          "IE"
+        ],
+        "name": [
+          "Ireland",
+          "Team Ireland"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "il",
+      "name": "Israel",
+      "display_name": "Team Israel",
+      "entity_type": "country",
+      "iso2": "il",
+      "code3": "ISR",
+      "aliases": {
+        "country_code": [
+          "IL"
+        ],
+        "name": [
+          "Israel",
+          "Team Israel"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "im",
+      "name": "Isle of Man",
+      "display_name": "Team Isle of Man",
+      "entity_type": "country",
+      "iso2": "im",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "in",
+      "name": "India",
+      "display_name": "Team India",
+      "entity_type": "country",
+      "iso2": "in",
+      "code3": "IND",
+      "aliases": {
+        "country_code": [
+          "IN"
+        ],
+        "name": [
+          "India",
+          "Team India"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "io",
+      "name": "British Indian Ocean Territory",
+      "display_name": "Team British Indian Ocean Territory",
+      "entity_type": "country",
+      "iso2": "io",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "iq",
+      "name": "Iraq",
+      "display_name": "Team Iraq",
+      "entity_type": "country",
+      "iso2": "iq",
+      "code3": "IRQ",
+      "aliases": {
+        "country_code": [
+          "IQ"
+        ],
+        "name": [
+          "Iraq",
+          "Team Iraq"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ir",
+      "name": "Islamic Republic of Iran",
+      "display_name": "Team Islamic Republic of Iran",
+      "entity_type": "country",
+      "iso2": "ir",
+      "code3": "IRI",
+      "aliases": {
+        "country_code": [
+          "IR"
+        ],
+        "name": [
+          "Iran",
+          "Islamic Republic of Iran",
+          "Team Iran",
+          "Team Islamic Republic of Iran"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "is",
+      "name": "Iceland",
+      "display_name": "Team Iceland",
+      "entity_type": "country",
+      "iso2": "is",
+      "code3": "ISL",
+      "aliases": {
+        "country_code": [
+          "IS"
+        ],
+        "name": [
+          "Iceland",
+          "Team Iceland"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "it",
+      "name": "Italy",
+      "display_name": "Team Italy",
+      "entity_type": "country",
+      "iso2": "it",
+      "code3": "ITA",
+      "aliases": {
+        "country_code": [
+          "IT"
+        ],
+        "name": [
+          "Italy",
+          "Team Italy"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "je",
+      "name": "Jersey",
+      "display_name": "Team Jersey",
+      "entity_type": "country",
+      "iso2": "je",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "jm",
+      "name": "Jamaica",
+      "display_name": "Team Jamaica",
+      "entity_type": "country",
+      "iso2": "jm",
+      "code3": "JAM",
+      "aliases": {
+        "country_code": [
+          "JM"
+        ],
+        "name": [
+          "Jamaica",
+          "Team Jamaica"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "jo",
+      "name": "Jordan",
+      "display_name": "Team Jordan",
+      "entity_type": "country",
+      "iso2": "jo",
+      "code3": "JOR",
+      "aliases": {
+        "country_code": [
+          "JO"
+        ],
+        "name": [
+          "Jordan",
+          "Team Jordan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "jp",
+      "name": "Japan",
+      "display_name": "Team Japan",
+      "entity_type": "country",
+      "iso2": "jp",
+      "code3": "JPN",
+      "aliases": {
+        "country_code": [
+          "JP"
+        ],
+        "name": [
+          "Japan",
+          "Team Japan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ke",
+      "name": "Kenya",
+      "display_name": "Team Kenya",
+      "entity_type": "country",
+      "iso2": "ke",
+      "code3": "KEN",
+      "aliases": {
+        "country_code": [
+          "KE"
+        ],
+        "name": [
+          "Kenya",
+          "Team Kenya"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "kg",
+      "name": "Kyrgyzstan",
+      "display_name": "Team Kyrgyzstan",
+      "entity_type": "country",
+      "iso2": "kg",
+      "code3": "KGZ",
+      "aliases": {
+        "country_code": [
+          "KG"
+        ],
+        "name": [
+          "Kyrgyzstan",
+          "Team Kyrgyzstan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "kh",
+      "name": "Cambodia",
+      "display_name": "Team Cambodia",
+      "entity_type": "country",
+      "iso2": "kh",
+      "code3": "CAM",
+      "aliases": {
+        "country_code": [
+          "KH"
+        ],
+        "name": [
+          "Cambodia",
+          "Team Cambodia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ki",
+      "name": "Kiribati",
+      "display_name": "Team Kiribati",
+      "entity_type": "country",
+      "iso2": "ki",
+      "code3": "KIR",
+      "aliases": {
+        "country_code": [
+          "KI"
+        ],
+        "name": [
+          "Kiribati",
+          "Team Kiribati"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "km",
+      "name": "Comoros",
+      "display_name": "Team Comoros",
+      "entity_type": "country",
+      "iso2": "km",
+      "code3": "COM",
+      "aliases": {
+        "country_code": [
+          "KM"
+        ],
+        "name": [
+          "Comoros",
+          "Team Comoros"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "kn",
+      "name": "Saint Kitts and Nevis",
+      "display_name": "Team Saint Kitts and Nevis",
+      "entity_type": "country",
+      "iso2": "kn",
+      "code3": "SKN",
+      "aliases": {
+        "country_code": [
+          "KN"
+        ],
+        "name": [
+          "Saint Kitts and Nevis",
+          "Team Saint Kitts & Nevis",
+          "Team Saint Kitts and Nevis"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "kp",
+      "name": "Democratic People's Republic of Korea",
+      "display_name": "Team Democratic People's Republic of Korea",
+      "entity_type": "country",
+      "iso2": "kp",
+      "code3": "PRK",
+      "aliases": {
+        "country_code": [
+          "KP"
+        ],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "kr",
+      "name": "Republic of Korea",
+      "display_name": "Team Republic of Korea",
+      "entity_type": "country",
+      "iso2": "kr",
+      "code3": "KOR",
+      "aliases": {
+        "country_code": [
+          "KR"
+        ],
+        "name": [
+          "Republic of Korea",
+          "South Korea",
+          "Team Republic Of Korea",
+          "Team Republic of Korea"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "kw",
+      "name": "Kuwait",
+      "display_name": "Team Kuwait",
+      "entity_type": "country",
+      "iso2": "kw",
+      "code3": "KUW",
+      "aliases": {
+        "country_code": [
+          "KW"
+        ],
+        "name": [
+          "Kuwait",
+          "Team Kuwait"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ky",
+      "name": "Cayman Islands",
+      "display_name": "Team Cayman Islands",
+      "entity_type": "country",
+      "iso2": "ky",
+      "code3": "CAY",
+      "aliases": {
+        "country_code": [
+          "KY"
+        ],
+        "name": [
+          "Cayman Islands",
+          "Team Cayman Islands"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "kz",
+      "name": "Kazakhstan",
+      "display_name": "Team Kazakhstan",
+      "entity_type": "country",
+      "iso2": "kz",
+      "code3": "KAZ",
+      "aliases": {
+        "country_code": [
+          "KZ"
+        ],
+        "name": [
+          "Kazakhstan",
+          "Team Kazakhstan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "la",
+      "name": "Lao People's Democratic Republic",
+      "display_name": "Team Lao People's Democratic Republic",
+      "entity_type": "country",
+      "iso2": "la",
+      "code3": "LAO",
+      "aliases": {
+        "country_code": [
+          "LA"
+        ],
+        "name": [
+          "Lao People`s Democratic Republic",
+          "Laos",
+          "Team Lao People`s Democratic Republic",
+          "Team Laos"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "lb",
+      "name": "Lebanon",
+      "display_name": "Team Lebanon",
+      "entity_type": "country",
+      "iso2": "lb",
+      "code3": "LBN",
+      "aliases": {
+        "country_code": [
+          "LB"
+        ],
+        "name": [
+          "Lebanon",
+          "Team Lebanon"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "lc",
+      "name": "Saint Lucia",
+      "display_name": "Team Saint Lucia",
+      "entity_type": "country",
+      "iso2": "lc",
+      "code3": "LCA",
+      "aliases": {
+        "country_code": [
+          "LC"
+        ],
+        "name": [
+          "Saint Lucia",
+          "Team Saint Lucia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "li",
+      "name": "Liechtenstein",
+      "display_name": "Team Liechtenstein",
+      "entity_type": "country",
+      "iso2": "li",
+      "code3": "LIE",
+      "aliases": {
+        "country_code": [
+          "LI"
+        ],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "lk",
+      "name": "Sri Lanka",
+      "display_name": "Team Sri Lanka",
+      "entity_type": "country",
+      "iso2": "lk",
+      "code3": "SRI",
+      "aliases": {
+        "country_code": [
+          "LK"
+        ],
+        "name": [
+          "Sri Lanka",
+          "Team Sri Lanka"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "lr",
+      "name": "Liberia",
+      "display_name": "Team Liberia",
+      "entity_type": "country",
+      "iso2": "lr",
+      "code3": "LBR",
+      "aliases": {
+        "country_code": [
+          "LR"
+        ],
+        "name": [
+          "Liberia",
+          "Team Liberia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ls",
+      "name": "Lesotho",
+      "display_name": "Team Lesotho",
+      "entity_type": "country",
+      "iso2": "ls",
+      "code3": "LES",
+      "aliases": {
+        "country_code": [
+          "LS"
+        ],
+        "name": [
+          "Lesotho",
+          "Team Lesotho"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "lt",
+      "name": "Lithuania",
+      "display_name": "Team Lithuania",
+      "entity_type": "country",
+      "iso2": "lt",
+      "code3": "LTU",
+      "aliases": {
+        "country_code": [
+          "LT"
+        ],
+        "name": [
+          "Lithuania",
+          "Team Lithuania"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "lu",
+      "name": "Luxembourg",
+      "display_name": "Team Luxembourg",
+      "entity_type": "country",
+      "iso2": "lu",
+      "code3": "LUX",
+      "aliases": {
+        "country_code": [
+          "LU"
+        ],
+        "name": [
+          "Luxembourg",
+          "Team Luxembourg"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "lv",
+      "name": "Latvia",
+      "display_name": "Team Latvia",
+      "entity_type": "country",
+      "iso2": "lv",
+      "code3": "LAT",
+      "aliases": {
+        "country_code": [
+          "LV"
+        ],
+        "name": [
+          "Latvia",
+          "Team Latvia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ly",
+      "name": "Libya",
+      "display_name": "Team Libya",
+      "entity_type": "country",
+      "iso2": "ly",
+      "code3": "LBA",
+      "aliases": {
+        "country_code": [
+          "LY"
+        ],
+        "name": [
+          "Libya",
+          "Team Libya"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ma",
+      "name": "Morocco",
+      "display_name": "Team Morocco",
+      "entity_type": "country",
+      "iso2": "ma",
+      "code3": "MAR",
+      "aliases": {
+        "country_code": [
+          "MA"
+        ],
+        "name": [
+          "Morocco",
+          "Team Morocco"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mc",
+      "name": "Monaco",
+      "display_name": "Team Monaco",
+      "entity_type": "country",
+      "iso2": "mc",
+      "code3": "MON",
+      "aliases": {
+        "country_code": [
+          "MC"
+        ],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "md",
+      "name": "Republic of Moldova",
+      "display_name": "Team Republic of Moldova",
+      "entity_type": "country",
+      "iso2": "md",
+      "code3": "MDA",
+      "aliases": {
+        "country_code": [
+          "MD"
+        ],
+        "name": [
+          "Moldova",
+          "Republic of Moldova",
+          "Team Moldova",
+          "Team Republic of Moldova"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "me",
+      "name": "Montenegro",
+      "display_name": "Team Montenegro",
+      "entity_type": "country",
+      "iso2": "me",
+      "code3": "MNE",
+      "aliases": {
+        "country_code": [
+          "ME"
+        ],
+        "name": [
+          "Montenegro",
+          "Team Montenegro"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mf",
+      "name": "Saint Martin",
+      "display_name": "Team Saint Martin",
+      "entity_type": "country",
+      "iso2": "mf",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "mg",
+      "name": "Madagascar",
+      "display_name": "Team Madagascar",
+      "entity_type": "country",
+      "iso2": "mg",
+      "code3": "MAD",
+      "aliases": {
+        "country_code": [
+          "MG"
+        ],
+        "name": [
+          "Madagascar",
+          "Team Madagascar"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mh",
+      "name": "Marshall Islands",
+      "display_name": "Team Marshall Islands",
+      "entity_type": "country",
+      "iso2": "mh",
+      "code3": "MHL",
+      "aliases": {
+        "country_code": [
+          "MH"
+        ],
+        "name": [
+          "Marshall Islands",
+          "Team Marshall Islands"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mk",
+      "name": "North Macedonia",
+      "display_name": "Team North Macedonia",
+      "entity_type": "country",
+      "iso2": "mk",
+      "code3": "MKD",
+      "aliases": {
+        "country_code": [
+          "MK"
+        ],
+        "name": [
+          "North Macedonia",
+          "Team North Macedonia"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ml",
+      "name": "Mali",
+      "display_name": "Team Mali",
+      "entity_type": "country",
+      "iso2": "ml",
+      "code3": "MLI",
+      "aliases": {
+        "country_code": [
+          "ML"
+        ],
+        "name": [
+          "Mali",
+          "Team Mali"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mm",
+      "name": "Myanmar",
+      "display_name": "Team Myanmar",
+      "entity_type": "country",
+      "iso2": "mm",
+      "code3": "MYA",
+      "aliases": {
+        "country_code": [
+          "MM"
+        ],
+        "name": [
+          "Myanmar",
+          "Team Myanmar"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mn",
+      "name": "Mongolia",
+      "display_name": "Team Mongolia",
+      "entity_type": "country",
+      "iso2": "mn",
+      "code3": "MGL",
+      "aliases": {
+        "country_code": [
+          "MN"
+        ],
+        "name": [
+          "Mongolia",
+          "Team Mongolia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mo",
+      "name": "Macau",
+      "display_name": "Team Macau",
+      "entity_type": "country",
+      "iso2": "mo",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "mp",
+      "name": "Northern Mariana Islands",
+      "display_name": "Team Northern Mariana Islands",
+      "entity_type": "country",
+      "iso2": "mp",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "mq",
+      "name": "Martinique",
+      "display_name": "Team Martinique",
+      "entity_type": "country",
+      "iso2": "mq",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "mr",
+      "name": "Mauritania",
+      "display_name": "Team Mauritania",
+      "entity_type": "country",
+      "iso2": "mr",
+      "code3": "MTN",
+      "aliases": {
+        "country_code": [
+          "MR"
+        ],
+        "name": [
+          "Mauritania",
+          "Team Mauritania"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ms",
+      "name": "Montserrat",
+      "display_name": "Team Montserrat",
+      "entity_type": "country",
+      "iso2": "ms",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "mt",
+      "name": "Malta",
+      "display_name": "Team Malta",
+      "entity_type": "country",
+      "iso2": "mt",
+      "code3": "MLT",
+      "aliases": {
+        "country_code": [
+          "MT"
+        ],
+        "name": [
+          "Malta",
+          "Team Malta"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mu",
+      "name": "Mauritius",
+      "display_name": "Team Mauritius",
+      "entity_type": "country",
+      "iso2": "mu",
+      "code3": "MRI",
+      "aliases": {
+        "country_code": [
+          "MU"
+        ],
+        "name": [
+          "Mauritius",
+          "Team Mauritius"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mv",
+      "name": "Maldives",
+      "display_name": "Team Maldives",
+      "entity_type": "country",
+      "iso2": "mv",
+      "code3": "MDV",
+      "aliases": {
+        "country_code": [
+          "MV"
+        ],
+        "name": [
+          "Maldives",
+          "Team Maldives"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mw",
+      "name": "Malawi",
+      "display_name": "Team Malawi",
+      "entity_type": "country",
+      "iso2": "mw",
+      "code3": "MAW",
+      "aliases": {
+        "country_code": [
+          "MW"
+        ],
+        "name": [
+          "Malawi",
+          "Team Malawi"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mx",
+      "name": "Mexico",
+      "display_name": "Team Mexico",
+      "entity_type": "country",
+      "iso2": "mx",
+      "code3": "MEX",
+      "aliases": {
+        "country_code": [
+          "MX"
+        ],
+        "name": [
+          "Mexico",
+          "Team Mexico"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "my",
+      "name": "Malaysia",
+      "display_name": "Team Malaysia",
+      "entity_type": "country",
+      "iso2": "my",
+      "code3": "MAS",
+      "aliases": {
+        "country_code": [
+          "MY"
+        ],
+        "name": [
+          "Malaysia",
+          "Team Malaysia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "mz",
+      "name": "Mozambique",
+      "display_name": "Team Mozambique",
+      "entity_type": "country",
+      "iso2": "mz",
+      "code3": "MOZ",
+      "aliases": {
+        "country_code": [
+          "MZ"
+        ],
+        "name": [
+          "Mozambique",
+          "Team Mozambique"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "na",
+      "name": "Namibia",
+      "display_name": "Team Namibia",
+      "entity_type": "country",
+      "iso2": "na",
+      "code3": "NAM",
+      "aliases": {
+        "country_code": [
+          "NA"
+        ],
+        "name": [
+          "Namibia",
+          "Team Namibia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "nc",
+      "name": "New Caledonia",
+      "display_name": "Team New Caledonia",
+      "entity_type": "country",
+      "iso2": "nc",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "ne",
+      "name": "Niger",
+      "display_name": "Team Niger",
+      "entity_type": "country",
+      "iso2": "ne",
+      "code3": "NIG",
+      "aliases": {
+        "country_code": [
+          "NE"
+        ],
+        "name": [
+          "Niger",
+          "Team Niger"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "nf",
+      "name": "Norfolk Island",
+      "display_name": "Team Norfolk Island",
+      "entity_type": "country",
+      "iso2": "nf",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "ng",
+      "name": "Nigeria",
+      "display_name": "Team Nigeria",
+      "entity_type": "country",
+      "iso2": "ng",
+      "code3": "NGR",
+      "aliases": {
+        "country_code": [
+          "NG"
+        ],
+        "name": [
+          "Nigeria",
+          "Team Nigeria"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ni",
+      "name": "Nicaragua",
+      "display_name": "Team Nicaragua",
+      "entity_type": "country",
+      "iso2": "ni",
+      "code3": "NCA",
+      "aliases": {
+        "country_code": [
+          "NI"
+        ],
+        "name": [
+          "Nicaragua",
+          "Team Nicaragua"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "nl",
+      "name": "Netherlands",
+      "display_name": "Team Netherlands",
+      "entity_type": "country",
+      "iso2": "nl",
+      "code3": "NED",
+      "aliases": {
+        "country_code": [
+          "NL"
+        ],
+        "name": [
+          "Netherlands",
+          "Team Netherlands"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "no",
+      "name": "Norway",
+      "display_name": "Team Norway",
+      "entity_type": "country",
+      "iso2": "no",
+      "code3": "NOR",
+      "aliases": {
+        "country_code": [
+          "NO"
+        ],
+        "name": [
+          "Norway",
+          "Team Norway"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "north-america",
+      "name": "North America",
+      "display_name": "Team North America",
+      "entity_type": "continental",
+      "iso2": null,
+      "code3": null,
+      "aliases": {
+        "country_code": [
+          "13"
+        ],
+        "name": [
+          "Team North America"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "np",
+      "name": "Nepal",
+      "display_name": "Team Nepal",
+      "entity_type": "country",
+      "iso2": "np",
+      "code3": "NEP",
+      "aliases": {
+        "country_code": [
+          "NP"
+        ],
+        "name": [
+          "Nepal",
+          "Team Nepal"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "nr",
+      "name": "Naoero",
+      "display_name": "Team Naoero",
+      "entity_type": "country",
+      "iso2": "nr",
+      "code3": "NRO",
+      "aliases": {
+        "country_code": [
+          "NR"
+        ],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "nu",
+      "name": "Niue",
+      "display_name": "Team Niue",
+      "entity_type": "country",
+      "iso2": "nu",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "nz",
+      "name": "New Zealand",
+      "display_name": "Team New Zealand",
+      "entity_type": "country",
+      "iso2": "nz",
+      "code3": "NZL",
+      "aliases": {
+        "country_code": [
+          "NZ"
+        ],
+        "name": [
+          "New Zealand",
+          "Team New Zealand"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "oceania",
+      "name": "Oceania",
+      "display_name": "Team Oceania",
+      "entity_type": "continental",
+      "iso2": null,
+      "code3": null,
+      "aliases": {
+        "country_code": [
+          "12"
+        ],
+        "name": [
+          "Team Oceania"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "om",
+      "name": "Oman",
+      "display_name": "Team Oman",
+      "entity_type": "country",
+      "iso2": "om",
+      "code3": "OMA",
+      "aliases": {
+        "country_code": [
+          "OM"
+        ],
+        "name": [
+          "Oman",
+          "Team Oman"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "pa",
+      "name": "Panama",
+      "display_name": "Team Panama",
+      "entity_type": "country",
+      "iso2": "pa",
+      "code3": "PAN",
+      "aliases": {
+        "country_code": [
+          "PA"
+        ],
+        "name": [
+          "Panama",
+          "Team Panama"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "pe",
+      "name": "Peru",
+      "display_name": "Team Peru",
+      "entity_type": "country",
+      "iso2": "pe",
+      "code3": "PER",
+      "aliases": {
+        "country_code": [
+          "PE"
+        ],
+        "name": [
+          "Peru",
+          "Team Peru"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "pf",
+      "name": "French Polynesia",
+      "display_name": "Team French Polynesia",
+      "entity_type": "country",
+      "iso2": "pf",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "pg",
+      "name": "Papua New Guinea",
+      "display_name": "Team Papua New Guinea",
+      "entity_type": "country",
+      "iso2": "pg",
+      "code3": "PNG",
+      "aliases": {
+        "country_code": [
+          "PG"
+        ],
+        "name": [
+          "Papua New Guinea",
+          "Team Papua New Guinea"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ph",
+      "name": "Philippines",
+      "display_name": "Team Philippines",
+      "entity_type": "country",
+      "iso2": "ph",
+      "code3": "PHI",
+      "aliases": {
+        "country_code": [
+          "PH"
+        ],
+        "name": [
+          "Philippines",
+          "Team Philippines"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "pk",
+      "name": "Pakistan",
+      "display_name": "Team Pakistan",
+      "entity_type": "country",
+      "iso2": "pk",
+      "code3": "PAK",
+      "aliases": {
+        "country_code": [
+          "PK"
+        ],
+        "name": [
+          "Pakistan",
+          "Team Pakistan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "pl",
+      "name": "Poland",
+      "display_name": "Team Poland",
+      "entity_type": "country",
+      "iso2": "pl",
+      "code3": "POL",
+      "aliases": {
+        "country_code": [
+          "PL"
+        ],
+        "name": [
+          "Poland",
+          "Team Poland"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "pm",
+      "name": "Saint Pierre and Miquelon",
+      "display_name": "Team Saint Pierre and Miquelon",
+      "entity_type": "country",
+      "iso2": "pm",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "pn",
+      "name": "Pitcairn",
+      "display_name": "Team Pitcairn",
+      "entity_type": "country",
+      "iso2": "pn",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "pr",
+      "name": "Puerto Rico",
+      "display_name": "Team Puerto Rico",
+      "entity_type": "country",
+      "iso2": "pr",
+      "code3": "PUR",
+      "aliases": {
+        "country_code": [
+          "PR"
+        ],
+        "name": [
+          "Puerto Rico",
+          "Team Puerto Rico"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ps",
+      "name": "Palestine",
+      "display_name": "Team Palestine",
+      "entity_type": "country",
+      "iso2": "ps",
+      "code3": "PLE",
+      "aliases": {
+        "country_code": [
+          "PS"
+        ],
+        "name": [
+          "Palestine",
+          "Team Palestine"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "pt",
+      "name": "Portugal",
+      "display_name": "Team Portugal",
+      "entity_type": "country",
+      "iso2": "pt",
+      "code3": "POR",
+      "aliases": {
+        "country_code": [
+          "PT"
+        ],
+        "name": [
+          "Portugal",
+          "Team Portugal"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "pw",
+      "name": "Palau",
+      "display_name": "Team Palau",
+      "entity_type": "country",
+      "iso2": "pw",
+      "code3": "PLW",
+      "aliases": {
+        "country_code": [
+          "PW"
+        ],
+        "name": [
+          "Team Palau"
+        ]
+      },
+      "first_season": 2023,
+      "seasons_active": [
+        2023
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "py",
+      "name": "Paraguay",
+      "display_name": "Team Paraguay",
+      "entity_type": "country",
+      "iso2": "py",
+      "code3": "PAR",
+      "aliases": {
+        "country_code": [
+          "PY"
+        ],
+        "name": [
+          "Paraguay",
+          "Team Paraguay"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "qa",
+      "name": "Qatar",
+      "display_name": "Team Qatar",
+      "entity_type": "country",
+      "iso2": "qa",
+      "code3": "QAT",
+      "aliases": {
+        "country_code": [
+          "QA"
+        ],
+        "name": [
+          "Qatar",
+          "Team Qatar"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "re",
+      "name": "Réunion",
+      "display_name": "Team Réunion",
+      "entity_type": "country",
+      "iso2": "re",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "ro",
+      "name": "Romania",
+      "display_name": "Team Romania",
+      "entity_type": "country",
+      "iso2": "ro",
+      "code3": "ROU",
+      "aliases": {
+        "country_code": [
+          "RO"
+        ],
+        "name": [
+          "Romania",
+          "Team Romania"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "rs",
+      "name": "Serbia",
+      "display_name": "Team Serbia",
+      "entity_type": "country",
+      "iso2": "rs",
+      "code3": "SRB",
+      "aliases": {
+        "country_code": [
+          "RS"
+        ],
+        "name": [
+          "Serbia",
+          "Team Serbia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ru",
+      "name": "Russian Federation",
+      "display_name": "Team Russian Federation",
+      "entity_type": "country",
+      "iso2": "ru",
+      "code3": "RUS",
+      "aliases": {
+        "country_code": [
+          "RU"
+        ],
+        "name": [
+          "Russia",
+          "Team Russia",
+          "Team Russian Federation"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "rw",
+      "name": "Rwanda",
+      "display_name": "Team Rwanda",
+      "entity_type": "country",
+      "iso2": "rw",
+      "code3": "RWA",
+      "aliases": {
+        "country_code": [
+          "RW"
+        ],
+        "name": [
+          "Rwanda",
+          "Team Rwanda"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sa",
+      "name": "Saudi Arabia",
+      "display_name": "Team Saudi Arabia",
+      "entity_type": "country",
+      "iso2": "sa",
+      "code3": "KSA",
+      "aliases": {
+        "country_code": [
+          "SA"
+        ],
+        "name": [
+          "Saudi Arabia",
+          "Team Saudi Arabia"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sb",
+      "name": "Solomon Islands",
+      "display_name": "Team Solomon Islands",
+      "entity_type": "country",
+      "iso2": "sb",
+      "code3": "SOL",
+      "aliases": {
+        "country_code": [
+          "SB"
+        ],
+        "name": [
+          "Solomon Islands",
+          "Team Solomon Islands"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sc",
+      "name": "Seychelles",
+      "display_name": "Team Seychelles",
+      "entity_type": "country",
+      "iso2": "sc",
+      "code3": "SEY",
+      "aliases": {
+        "country_code": [
+          "SC"
+        ],
+        "name": [
+          "Seychelles",
+          "Team Seychelles"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sd",
+      "name": "Sudan",
+      "display_name": "Team Sudan",
+      "entity_type": "country",
+      "iso2": "sd",
+      "code3": "SUD",
+      "aliases": {
+        "country_code": [
+          "SD"
+        ],
+        "name": [
+          "Sudan",
+          "Team Sudan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "se",
+      "name": "Sweden",
+      "display_name": "Team Sweden",
+      "entity_type": "country",
+      "iso2": "se",
+      "code3": "SWE",
+      "aliases": {
+        "country_code": [
+          "SE"
+        ],
+        "name": [
+          "Sweden",
+          "Team Sweden"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sg",
+      "name": "Singapore",
+      "display_name": "Team Singapore",
+      "entity_type": "country",
+      "iso2": "sg",
+      "code3": "SGP",
+      "aliases": {
+        "country_code": [
+          "SG"
+        ],
+        "name": [
+          "Singapore",
+          "Team Singapore"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sh",
+      "name": "Saint Helena, Ascension and Tristan da Cunha",
+      "display_name": "Team Saint Helena, Ascension and Tristan da Cunha",
+      "entity_type": "country",
+      "iso2": "sh",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "si",
+      "name": "Slovenia",
+      "display_name": "Team Slovenia",
+      "entity_type": "country",
+      "iso2": "si",
+      "code3": "SLO",
+      "aliases": {
+        "country_code": [
+          "SI"
+        ],
+        "name": [
+          "Slovenia",
+          "Team Slovenia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sj",
+      "name": "Svalbard and Jan Mayen",
+      "display_name": "Team Svalbard and Jan Mayen",
+      "entity_type": "country",
+      "iso2": "sj",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "sk",
+      "name": "Slovakia",
+      "display_name": "Team Slovakia",
+      "entity_type": "country",
+      "iso2": "sk",
+      "code3": "SVK",
+      "aliases": {
+        "country_code": [
+          "SK"
+        ],
+        "name": [
+          "Slovakia",
+          "Team Slovakia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sl",
+      "name": "Sierra Leone",
+      "display_name": "Team Sierra Leone",
+      "entity_type": "country",
+      "iso2": "sl",
+      "code3": "SLE",
+      "aliases": {
+        "country_code": [
+          "SL"
+        ],
+        "name": [
+          "Sierra Leone",
+          "Team Sierra Leone"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sm",
+      "name": "San Marino",
+      "display_name": "Team San Marino",
+      "entity_type": "country",
+      "iso2": "sm",
+      "code3": "SMR",
+      "aliases": {
+        "country_code": [
+          "SM"
+        ],
+        "name": [
+          "San Marino",
+          "Team San Marino"
+        ]
+      },
+      "first_season": 2024,
+      "seasons_active": [
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sn",
+      "name": "Senegal",
+      "display_name": "Team Senegal",
+      "entity_type": "country",
+      "iso2": "sn",
+      "code3": "SEN",
+      "aliases": {
+        "country_code": [
+          "SN"
+        ],
+        "name": [
+          "Senegal",
+          "Team Senegal"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "so",
+      "name": "Somalia",
+      "display_name": "Team Somalia",
+      "entity_type": "country",
+      "iso2": "so",
+      "code3": "SOM",
+      "aliases": {
+        "country_code": [
+          "SO"
+        ],
+        "name": [
+          "Team Somalia"
+        ]
+      },
+      "first_season": 2023,
+      "seasons_active": [
+        2023
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "south-america",
+      "name": "South America",
+      "display_name": "Team South America",
+      "entity_type": "continental",
+      "iso2": null,
+      "code3": null,
+      "aliases": {
+        "country_code": [
+          "11"
+        ],
+        "name": [
+          "Team South America"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sr",
+      "name": "Suriname",
+      "display_name": "Team Suriname",
+      "entity_type": "country",
+      "iso2": "sr",
+      "code3": "SUR",
+      "aliases": {
+        "country_code": [
+          "SR"
+        ],
+        "name": [
+          "Suriname",
+          "Team Suriname"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ss",
+      "name": "South Sudan",
+      "display_name": "Team South Sudan",
+      "entity_type": "country",
+      "iso2": "ss",
+      "code3": "SSD",
+      "aliases": {
+        "country_code": [
+          "SS"
+        ],
+        "name": [
+          "South Sudan",
+          "Team South Sudan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "st",
+      "name": "Sao Tome and Principe",
+      "display_name": "Team Sao Tome and Principe",
+      "entity_type": "country",
+      "iso2": "st",
+      "code3": "STP",
+      "aliases": {
+        "country_code": [
+          "ST"
+        ],
+        "name": [
+          "São Tomé and Príncipe",
+          "Team Sao Tome & Principe",
+          "Team Sao Tome and Principe",
+          "Team São Tomé and Príncipe"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sv",
+      "name": "El Salvador",
+      "display_name": "Team El Salvador",
+      "entity_type": "country",
+      "iso2": "sv",
+      "code3": "ESA",
+      "aliases": {
+        "country_code": [
+          "SV"
+        ],
+        "name": [
+          "El Salvador",
+          "Team El Salvador"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sx",
+      "name": "Sint Maarten",
+      "display_name": "Team Sint Maarten",
+      "entity_type": "country",
+      "iso2": "sx",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "sy",
+      "name": "Syrian Arab Republic",
+      "display_name": "Team Syrian Arab Republic",
+      "entity_type": "country",
+      "iso2": "sy",
+      "code3": "SYR",
+      "aliases": {
+        "country_code": [
+          "SY"
+        ],
+        "name": [
+          "Syrian Arab Republic",
+          "Team Syria",
+          "Team Syrian Arab Republic"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "sz",
+      "name": "Eswatini",
+      "display_name": "Team Eswatini",
+      "entity_type": "country",
+      "iso2": "sz",
+      "code3": "SWZ",
+      "aliases": {
+        "country_code": [
+          "SZ"
+        ],
+        "name": [
+          "Eswatini",
+          "Team Eswatini",
+          "Team eSwatini"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tc",
+      "name": "Turks and Caicos Islands",
+      "display_name": "Team Turks and Caicos Islands",
+      "entity_type": "country",
+      "iso2": "tc",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "td",
+      "name": "Chad",
+      "display_name": "Team Chad",
+      "entity_type": "country",
+      "iso2": "td",
+      "code3": "CHA",
+      "aliases": {
+        "country_code": [
+          "TD"
+        ],
+        "name": [
+          "Chad",
+          "Team Chad"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tf",
+      "name": "French Southern Territories",
+      "display_name": "Team French Southern Territories",
+      "entity_type": "country",
+      "iso2": "tf",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "tg",
+      "name": "Togo",
+      "display_name": "Team Togo",
+      "entity_type": "country",
+      "iso2": "tg",
+      "code3": "TOG",
+      "aliases": {
+        "country_code": [
+          "TG"
+        ],
+        "name": [
+          "Team Togo",
+          "Togo"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "th",
+      "name": "Thailand",
+      "display_name": "Team Thailand",
+      "entity_type": "country",
+      "iso2": "th",
+      "code3": "THA",
+      "aliases": {
+        "country_code": [
+          "TH"
+        ],
+        "name": [
+          "Team Thailand"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tj",
+      "name": "Tajikistan",
+      "display_name": "Team Tajikistan",
+      "entity_type": "country",
+      "iso2": "tj",
+      "code3": "TJK",
+      "aliases": {
+        "country_code": [
+          "TJ"
+        ],
+        "name": [
+          "Tajikistan",
+          "Team Tajikistan"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tk",
+      "name": "Tokelau",
+      "display_name": "Team Tokelau",
+      "entity_type": "country",
+      "iso2": "tk",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "tl",
+      "name": "Timor-Leste",
+      "display_name": "Team Timor-Leste",
+      "entity_type": "country",
+      "iso2": "tl",
+      "code3": "TLS",
+      "aliases": {
+        "country_code": [
+          "TL"
+        ],
+        "name": [
+          "Team Timor- Leste",
+          "Team Timor-Leste",
+          "Timor-Leste"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tm",
+      "name": "Turkmenistan",
+      "display_name": "Team Turkmenistan",
+      "entity_type": "country",
+      "iso2": "tm",
+      "code3": "TKM",
+      "aliases": {
+        "country_code": [
+          "TM"
+        ],
+        "name": [
+          "Team Turkmenistan",
+          "Turkmenistan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tn",
+      "name": "Tunisia",
+      "display_name": "Team Tunisia",
+      "entity_type": "country",
+      "iso2": "tn",
+      "code3": "TUN",
+      "aliases": {
+        "country_code": [
+          "TN"
+        ],
+        "name": [
+          "Team Tunisia",
+          "Tunisia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "to",
+      "name": "Tonga",
+      "display_name": "Team Tonga",
+      "entity_type": "country",
+      "iso2": "to",
+      "code3": "TGA",
+      "aliases": {
+        "country_code": [
+          "TO"
+        ],
+        "name": [
+          "Team Tonga",
+          "Tonga"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tr",
+      "name": "Türkiye",
+      "display_name": "Team Türkiye",
+      "entity_type": "country",
+      "iso2": "tr",
+      "code3": "TUR",
+      "aliases": {
+        "country_code": [
+          "TR"
+        ],
+        "name": [
+          "Team Turkey",
+          "Team Turkiye",
+          "Team Türkiye",
+          "Turkey",
+          "Türkiye"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tt",
+      "name": "Trinidad and Tobago",
+      "display_name": "Team Trinidad and Tobago",
+      "entity_type": "country",
+      "iso2": "tt",
+      "code3": "TTO",
+      "aliases": {
+        "country_code": [
+          "TT"
+        ],
+        "name": [
+          "Team Trinidad & Tobago",
+          "Team Trinidad and Tobago",
+          "Trinidad and Tobago"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tv",
+      "name": "Tuvalu",
+      "display_name": "Team Tuvalu",
+      "entity_type": "country",
+      "iso2": "tv",
+      "code3": "TUV",
+      "aliases": {
+        "country_code": [
+          "TV"
+        ],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "tw",
+      "name": "Chinese Taipei",
+      "display_name": "Team Chinese Taipei",
+      "entity_type": "country",
+      "iso2": "tw",
+      "code3": "TPE",
+      "aliases": {
+        "country_code": [
+          "15",
+          "TW"
+        ],
+        "name": [
+          "Chinese Taipei",
+          "Team Chinese Taipei"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "tz",
+      "name": "United Republic of Tanzania",
+      "display_name": "Team United Republic of Tanzania",
+      "entity_type": "country",
+      "iso2": "tz",
+      "code3": "TAN",
+      "aliases": {
+        "country_code": [
+          "TZ"
+        ],
+        "name": [
+          "Tanzania",
+          "Team Tanzania",
+          "Team United Republic of Tanzania",
+          "United Republic of Tanzania"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ua",
+      "name": "Ukraine",
+      "display_name": "Team Ukraine",
+      "entity_type": "country",
+      "iso2": "ua",
+      "code3": "UKR",
+      "aliases": {
+        "country_code": [
+          "UA"
+        ],
+        "name": [
+          "Team Ukraine",
+          "Ukraine"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ug",
+      "name": "Uganda",
+      "display_name": "Team Uganda",
+      "entity_type": "country",
+      "iso2": "ug",
+      "code3": "UGA",
+      "aliases": {
+        "country_code": [
+          "UG"
+        ],
+        "name": [
+          "Team Uganda",
+          "Uganda"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "um",
+      "name": "United States Minor Outlying Islands",
+      "display_name": "Team United States Minor Outlying Islands",
+      "entity_type": "country",
+      "iso2": "um",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "us",
+      "name": "United States of America",
+      "display_name": "Team United States of America",
+      "entity_type": "country",
+      "iso2": "us",
+      "code3": "USA",
+      "aliases": {
+        "country_code": [
+          "US"
+        ],
+        "name": [
+          "Team United States of America",
+          "United States",
+          "United States of America"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "uy",
+      "name": "Uruguay",
+      "display_name": "Team Uruguay",
+      "entity_type": "country",
+      "iso2": "uy",
+      "code3": "URU",
+      "aliases": {
+        "country_code": [
+          "UY"
+        ],
+        "name": [
+          "Team Uruguay",
+          "Uruguay"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "uz",
+      "name": "Uzbekistan",
+      "display_name": "Team Uzbekistan",
+      "entity_type": "country",
+      "iso2": "uz",
+      "code3": "UZB",
+      "aliases": {
+        "country_code": [
+          "UZ"
+        ],
+        "name": [
+          "Team Uzbekistan",
+          "Uzbekistan"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "va",
+      "name": "Holy See",
+      "display_name": "Team Holy See",
+      "entity_type": "country",
+      "iso2": "va",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "vc",
+      "name": "Saint Vincent and the Grenadines",
+      "display_name": "Team Saint Vincent and the Grenadines",
+      "entity_type": "country",
+      "iso2": "vc",
+      "code3": "VIN",
+      "aliases": {
+        "country_code": [
+          "VC"
+        ],
+        "name": [
+          "Saint Vincent and the Grenadines",
+          "Team Saint Vincent and the Grenadines"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ve",
+      "name": "Venezuela",
+      "display_name": "Team Venezuela",
+      "entity_type": "country",
+      "iso2": "ve",
+      "code3": "VEN",
+      "aliases": {
+        "country_code": [
+          "VE"
+        ],
+        "name": [
+          "Team Venezuela",
+          "Venezuela"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "vg",
+      "name": "British Virgin Islands",
+      "display_name": "Team British Virgin Islands",
+      "entity_type": "country",
+      "iso2": "vg",
+      "code3": "IVB",
+      "aliases": {
+        "country_code": [
+          "VG"
+        ],
+        "name": [
+          "British Virgin Islands",
+          "Team British Virgin Islands"
+        ]
+      },
+      "first_season": 2023,
+      "seasons_active": [
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "vi",
+      "name": "U.S. Virgin Islands",
+      "display_name": "Team U.S. Virgin Islands",
+      "entity_type": "country",
+      "iso2": "vi",
+      "code3": "ISV",
+      "aliases": {
+        "country_code": [
+          "VI"
+        ],
+        "name": [
+          "Team U.S. Virgin Islands",
+          "Team Virgin Islands (US)",
+          "U.S. Virgin Islands"
+        ]
+      },
+      "first_season": 2018,
+      "seasons_active": [
+        2018,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "vn",
+      "name": "Vietnam",
+      "display_name": "Team Vietnam",
+      "entity_type": "country",
+      "iso2": "vn",
+      "code3": "VIE",
+      "aliases": {
+        "country_code": [
+          "VN"
+        ],
+        "name": [
+          "Team Vietnam",
+          "Vietnam"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "vu",
+      "name": "Vanuatu",
+      "display_name": "Team Vanuatu",
+      "entity_type": "country",
+      "iso2": "vu",
+      "code3": "VAN",
+      "aliases": {
+        "country_code": [
+          "VU"
+        ],
+        "name": [
+          "Team Vanuatu",
+          "Vanuatu"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "wf",
+      "name": "Wallis and Futuna",
+      "display_name": "Team Wallis and Futuna",
+      "entity_type": "country",
+      "iso2": "wf",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "ws",
+      "name": "Samoa",
+      "display_name": "Team Samoa",
+      "entity_type": "country",
+      "iso2": "ws",
+      "code3": "SAM",
+      "aliases": {
+        "country_code": [
+          "WS"
+        ],
+        "name": [
+          "Team Samoa"
+        ]
+      },
+      "first_season": 2019,
+      "seasons_active": [
+        2019
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "xk",
+      "name": "Kosovo",
+      "display_name": "Team Kosovo",
+      "entity_type": "country",
+      "iso2": "xk",
+      "code3": "KOS",
+      "aliases": {
+        "country_code": [
+          "XK"
+        ],
+        "name": [
+          "Kosovo",
+          "Team Kosovo"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "ye",
+      "name": "Yemen",
+      "display_name": "Team Yemen",
+      "entity_type": "country",
+      "iso2": "ye",
+      "code3": "YEM",
+      "aliases": {
+        "country_code": [
+          "YE"
+        ],
+        "name": [
+          "Team Yemen",
+          "Yemen"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2019,
+        2023,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "yt",
+      "name": "Mayotte",
+      "display_name": "Team Mayotte",
+      "entity_type": "country",
+      "iso2": "yt",
+      "code3": null,
+      "aliases": {
+        "country_code": [],
+        "name": []
+      },
+      "first_season": null,
+      "seasons_active": [],
+      "notes": ""
+    },
+    {
+      "team_id": "za",
+      "name": "South Africa",
+      "display_name": "Team South Africa",
+      "entity_type": "country",
+      "iso2": "za",
+      "code3": "RSA",
+      "aliases": {
+        "country_code": [
+          "ZA"
+        ],
+        "name": [
+          "South Africa",
+          "Team South Africa"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "zm",
+      "name": "Zambia",
+      "display_name": "Team Zambia",
+      "entity_type": "country",
+      "iso2": "zm",
+      "code3": "ZAM",
+      "aliases": {
+        "country_code": [
+          "ZM"
+        ],
+        "name": [
+          "Team Zambia",
+          "Zambia"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    },
+    {
+      "team_id": "zw",
+      "name": "Zimbabwe",
+      "display_name": "Team Zimbabwe",
+      "entity_type": "country",
+      "iso2": "zw",
+      "code3": "ZIM",
+      "aliases": {
+        "country_code": [
+          "ZW"
+        ],
+        "name": [
+          "Team Zimbabwe",
+          "Zimbabwe"
+        ]
+      },
+      "first_season": 2017,
+      "seasons_active": [
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "notes": ""
+    }
+  ]
+}

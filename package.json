@@ -1,0 +1,17 @@
+{
+  "name": "the-first-global-alliance",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent archive and live-coverage platform for the FIRST Global Challenge",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "probe": "node pipeline/fetch/cli.mjs probe",
+    "fetch": "node pipeline/fetch/cli.mjs backfill",
+    "fetch:details": "node pipeline/fetch/cli.mjs details",
+    "build": "node site/build.mjs",
+    "issues": "node scripts/create-issues.mjs"
+  }
+}
