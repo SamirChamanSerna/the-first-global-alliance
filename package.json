@@ -11,6 +11,16 @@
     "probe": "node pipeline/fetch/cli.mjs probe",
     "fetch": "node pipeline/fetch/cli.mjs backfill",
     "fetch:details": "node pipeline/fetch/cli.mjs details",
+    "identity": "node pipeline/lookups/build-team-identity.mjs",
+    "seasons": "node pipeline/lookups/build-seasons.mjs",
+    "normalize": "node pipeline/normalize/cli.mjs",
+    "quality": "node pipeline/quality/cli.mjs",
+    "emit": "node pipeline/emit/cli.mjs",
+    "pipeline": "npm run normalize && npm run emit",
+    "verify": "node pipeline/quality/cli.mjs",
+    "videos": "node scripts/video-coverage.mjs",
+    "test:determinism": "node scripts/test-determinism.mjs",
+    "check": "npm run quality && npm run videos && npm run test:determinism",
     "build": "node site/build.mjs",
     "issues": "node scripts/create-issues.mjs"
   }

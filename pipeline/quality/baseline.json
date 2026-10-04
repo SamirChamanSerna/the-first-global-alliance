@@ -1,0 +1,68 @@
+{
+  "note": "Recorded counts. A drop of more than 20% in any field is treated as a truncated upstream response and blocks publishing. Update with `npm run quality -- --update-baseline` after verifying a change is real.",
+  "identity": {
+    "teams": 257
+  },
+  "totals": {
+    "matches": 1098,
+    "teams": 257
+  },
+  "seasons": {
+    "2017": {
+      "matches": 0,
+      "played": 0,
+      "with_details": 0,
+      "standings": 163,
+      "awards": 10,
+      "award_recipients": 30
+    },
+    "2018": {
+      "matches": 0,
+      "played": 0,
+      "with_details": 0,
+      "standings": 161,
+      "awards": 21,
+      "award_recipients": 119
+    },
+    "2019": {
+      "matches": 0,
+      "played": 0,
+      "with_details": 0,
+      "standings": 189,
+      "awards": 18,
+      "award_recipients": 63
+    },
+    "2022": {
+      "matches": 0,
+      "played": 0,
+      "with_details": 0,
+      "standings": 162,
+      "awards": 19,
+      "award_recipients": 65
+    },
+    "2023": {
+      "matches": 338,
+      "played": 338,
+      "with_details": 338,
+      "standings": 191,
+      "awards": 21,
+      "award_recipients": 71
+    },
+    "2024": {
+      "matches": 379,
+      "played": 379,
+      "with_details": 379,
+      "standings": 180,
+      "awards": 23,
+      "award_recipients": 218
+    },
+    "2025": {
+      "matches": 381,
+      "played": 381,
+      "with_details": 381,
+      "standings": 181,
+      "awards": 19,
+      "award_recipients": 177
+    }
+  }
+}

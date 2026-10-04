@@ -38,10 +38,7 @@ data/                                  # PUBLISHED. immutable. served at /data/v
 │   │       ├─ index.json              # ← the Team History page
 │   │       └─ <year>.json             # ← the Team/Season page
 │   │
-│   ├─ matches/
-│   │   └─ <year>/
-│   │       └─ <stage>/
-│   │           └─ <id>.json           # ← the Match page
+│   │   # NOTE: there is deliberately NO per-match directory. See below.
 │   │
 │   ├─ insights/
 │   │   ├─ index.json                  # ← Insights (all-time)
@@ -66,6 +63,13 @@ pipeline/overlays/                     # BUILD INPUTS. never published. see §6
 **Why the version segment.** Immutable caching is only truthful if the URL changes when the bytes change. Without `v<N>`, a corrected file is unreachable behind a year-long cache ([01 §5](01-architecture.md)). With it, a correction is "bump `N`, rebuild, deploy" and no cache anywhere needs invalidating. The version is written into every URL at build time, and every URL is already precomputed — so this costs one integer.
 
 **Why the overlay is not in `data/`.** Everything published under `/data/v<N>/` is immutable, which means *nothing mutable may live there*. The video overlay is not a runtime artifact at all: the build merges it into the compact match rows and the browser never requests it. Keeping it as a build input removes the only path that would otherwise have needed a short cache inside an immutable tree.
+
+**Why there are no per-match files.** An earlier draft emitted `matches/<year>/<stage>/<id>.json` — one file per match, ~1,100 of them. They were dropped for two reasons that reinforce each other:
+
+1. **Nothing fetches them.** Archive pages inline their data ([01 §3.2](01-architecture.md)), so a match page reads no JSON at all at runtime. The files would have been a public-API surface only, and the API is not a shipped feature.
+2. **~1,100 tiny files are bad in git.** This is the same problem that forced the raw match details to be consolidated into one file per season — the second time in this project the same mistake has come up, which is why it is written down.
+
+A match page's data comes from `seasons/<year>/matches.json`, which the build reads at build time. The "one page = one fetch" rule governs the **runtime** contract; it does not oblige the emitter to pre-slice files nobody requests.
 
 ### 2.1 Size check
 
@@ -183,7 +187,7 @@ The **compact match row** is the shape repeated everywhere a match list is rende
   "played": true,
   "alliances": { "red":  ["af","mx","br"], "blue": ["pe","cl","ar"] },
   "is_team_red": true,                      // precomputed highlight flag
-  "video": { "url": "https://youtu.be/…?t=4213", "t": 4213, "precision": "exact" },
+  "video": { "url": "https://youtu.be/…?t=4213", "t": 4213 },   // null when the owner has no timestamp
   "breakdown": {                            // ⓗ null until derived metrics exist
     "available": false,
     "components": null
@@ -260,10 +264,19 @@ For a season with `data_coverage: "awards_only"`, `standings_top` is `[]` and th
   "score": { "red": 88, "blue": 74 },
   "penalties": { "red": {"minor":0,"major":0}, "blue": {"minor":0,"major":0} },
   "alliances": {
-    "red":  [ { "team_id":"af", "slot":1, "name":"Afghanistan", "flag":"af",
-                "station":11, "disqualified":false, "no_show":false,
-                "components": { "parking": 0.25 } } ],
+    "red":  [ { "team_id":"af", "slot":1, "country_code_raw":"AF",
+                "station":11, "disqualified":false, "card_status":0, "no_show":false } ],
     "blue": [ /* … */ ]
+  },
+  "components": {                           // the normalised component vocabulary
+    "model": "fgc2025",
+    "positioning_label": "Parking",         // "Proficiency" 2023, "Parked" 2024, "BraceState" 2026
+    "positioning_scale": [0, 0.125, 0.25, 0.375, 0.5],
+    "coopertition": 30,                     // null where the season does not populate it
+    "per_team": {
+      "red":  [ {"positioning": 0.5}, {"positioning": 0.5}, {"positioning": 0.5} ],
+      "blue": [ /* … */ ]
+    }
   },
   "component_model": "fgc2025",             // which adapter produced `components`
   "breakdown": {                            // the raw, season-specific scoring values
@@ -271,11 +284,22 @@ For a season with `data_coverage: "awards_only"`, `standings_top` is `[]` and th
     "raw": { "barriersInRedMitigator": 2, "coopertition": 10, "…": 0 }
   },
   "derived": null,                          // ⓗ ratings contributions, later
-  "video": { "url": "https://youtu.be/…?t=4213", "t": 4213, "precision": "exact" }
+  "video": { "url": "https://youtu.be/…?t=4213", "t": 4213 }
 }
 ```
 
-The raw `details` vocabulary is season-specific ([discovery 01 §4](../discovery/01-data-sources.md)) and is rendered **only** on that season's match pages, never charted across years. `components` is the normalized subset that does generalize (per-robot positioning + coopertition).
+The raw `details` vocabulary is season-specific ([discovery 01 §4](../discovery/01-data-sources.md)) and is rendered **only** on that season's match pages, never charted across years. `components` is the normalized subset that does generalize — per-robot positioning and coopertition — and it lives in `pipeline/adapters/<model>.mjs`.
+
+> **`positioning` unifies the *shape*, not the *scale*.** The underlying element has been renamed three times and rescaled twice:
+>
+> | Season | Key | Scale |
+> |---|---|---|
+> | 2023 | `red{One,Two,Three}Proficiency` | `0, 1, 2` |
+> | 2024 | `redRobot{One,Two,Three}Parked` | `0, 1, 2` |
+> | 2025 | `redRobot{One,Two,Three}Parking` | `0, 0.125, 0.25, 0.375, 0.5` |
+> | 2026 | `redRobot{One,Two,Three}BraceState` | `0, 0.05, 0.1, 0.2, 0.3` |
+>
+> `positioning_scale` is carried on every match precisely so nothing compares these values across seasons by accident. `season_specific` is **not** duplicated into `components` — the raw `details` on the same match already holds every key untouched.
 
 ### 3.9 `medals.json` and `insights/*.json`
 
@@ -302,6 +326,22 @@ These come from [discovery 02 §3](../discovery/02-data-model.md) and [12](../di
 6. Scores are rounded to 6 decimals; times stored as `{ utc, offset, local }`. Never a bare local timestamp.
 7. Absent data is `null`, never `0`, never omitted. **Null is meaningful** — it means "no data", and the UI must say so.
 8. Exclude `no_show = 1` and `disqualified = 1` participants from aggregates; treat `card_status = 2` as a disqualification.
+8b. **Where matches exist, derive W-L-T from `matches` — never from `rankings[].wins/losses/ties`.** The upstream ranking rows are **internally inconsistent**: they report more results than games played.
+
+    | Season | Rows where `w+l+t ≠ played` |
+    |---|---|
+    | 2017 | 163 / 163 (all zeroed) |
+    | 2018 | 161 / 161 (all zeroed) |
+    | 2019 | **3 / 189** |
+    | 2022 | 135 / 162 |
+    | 2023 | 64 / 191 |
+    | 2024 | 51 / 180 |
+    | 2025 | **148 / 181** |
+
+    The discrepancy is always **extra losses**: in 2025, `al` reports `played: 12` alongside `w:4 l:8 t:3` — fifteen results in twelve games. Where a row is self-consistent, it agrees with the match-derived record exactly, which is what makes this a defect in the breakdown rather than in the match count.
+
+    Consequences: 2023–2025 W-L-T comes from `matches`. **2019 is the exception and remains usable from rankings** (3 rows off by one, otherwise exact) — it is the only pre-2023 season where this holds. 2017/2018 are zeroed and 2022 is corrupt, as previously documented.
+8c. `card_status` does *not* explain the ranking discrepancies — tested, and it does not reconcile them. Record it, do not use it to repair the record.
 9. Every record carries provenance: `source` (`api` | `video` | `user`), `rule_version`, `schema_version`. Populated even though the MVP is API-only.
 10. Emit deterministically: sorted keys, explicit array ordering, fixed float precision, UTF-8, LF. The same input must produce byte-identical output — a rebuild with no upstream change must produce an empty diff.
 
@@ -324,33 +364,40 @@ data/media/<year>/<team_id>.webp
 
 Kept out of the frozen archive on purpose (D8). The build **merges** it into the compact match rows; the page never reads it directly.
 
+**There is no approximate-time feature.** A link points at the VOD for that match's day and field, and at an exact second only when the owner has recorded one. Nothing is estimated.
+
 ```jsonc
-// pipeline/overlays/videos/<year>.json  — BUILD INPUT. hand-edited, mutable,
+// pipeline/overlays/videos/2025.json  — BUILD INPUT. hand-edited, mutable,
 // never published as an artifact, never fetched by a browser.
+// The filename carries the year, so the file maps match keys directly.
 {
-  "2025": {
-    "t2:214": { "t": 4213, "precision": "exact", "by": "owner" },
-    "t2:215": { "t": null, "precision": "vod",   "by": "owner" }
-  }
+  "t2:214": { "day": 1, "t": 4213 },   // exact deep link
+  "t2:215": { "day": 2, "t": null }    // the right VOD, no timestamp
 }
 ```
+
+`day` is the day index within the season, matching `seasons.json → streams.days`. `t` is seconds into the VOD. Both are set by the owner, by hand. This file is a **dataset**, and it is expected to be large and long-lived.
 
 ### Resolution algorithm (runs at build time)
 
 ```
 url(match):
-  day   = dayIndexOf(match.scheduled_time)          # 1..N, from seasons.json streams.days
-  field = match.field
-  stream = streams[day].fields[field] ?? streams[day].fields["main"]
-  if stream is null                    → no link, render nothing
-  entry = videos[year][stage:id]
-  if entry?.t != null                  → stream.url + "?t=" + entry.t   precision=exact
-  else                                 → stream.url                      precision=vod
+  entry  = videos[year][stage:id]
+  day    = entry?.day ?? null          # never derived, never guessed
+  field  = match.field
+  if day is null                        → no link. render nothing.
+  stream = streams[day]?.fields[field] ?? streams[day]?.fields["main"]
+  if stream is null                     → no link. render nothing.
+  if entry.t != null                    → stream.url + "?t=" + entry.t
+  else                                  → stream.url
 ```
 
-This covers the two required behaviours exactly: **no timestamp → the correct VOD; timestamp → that minute:second.** The link is precomputed into every compact match row, so the icon is just an `<a href>`. Timestamps are added by the owner directly in the JSON with no rebuild of the archive and no pipeline run.
+Two hard rules:
 
-> The merged `video` object always carries `precision`, so the UI can label an approximate link honestly ([discovery 07 §5.4](../discovery/07-user-content-and-moderation.md)) rather than implying a precision it does not have.
+1. **`day` is never inferred.** Not from `scheduled_time`, not from match ordering. Deriving it invents precision the data does not have — and in 2023 the field is empty on all 319 ranking matches anyway.
+2. **No day, no link.** A match we cannot place on a day simply has no video icon. Showing the wrong VOD is worse than showing nothing.
+
+The resolved link is precomputed into every compact match row, so the icon is just an `<a href>`. Adding days or timestamps is an edit to this one file plus a rebuild; the archive is never touched and the pipeline never runs.
 
 ---
 

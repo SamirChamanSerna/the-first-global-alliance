@@ -142,7 +142,7 @@ The TBA-style per-season team page.
 | Breakdown | The season's raw `details` vocabulary, rendered generically as a key/value table |
 | Components | The normalized subset (per-robot positioning, coopertition), **only where the model supports it** |
 | Alliances | Six participants with slot, station, card status, per-robot components where attributable |
-| Video | Deep link at the recorded timestamp, labelled with its `precision` |
+| Video | Deep link at the recorded timestamp when the owner has set one, otherwise the match's day/field VOD, otherwise nothing |
 | Context | Other matches on the same field that day |
 
 The breakdown renders whatever keys the season has — one template, any season, no per-year code ([discovery 01 §4](../discovery/01-data-sources.md)).

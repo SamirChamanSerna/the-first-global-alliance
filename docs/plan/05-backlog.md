@@ -205,14 +205,17 @@ Build `teams/<id>/index.json` (career snapshot + timeline + awards), `medals.jso
 **Labels:** `phase:pipeline` `area:data` `priority:p1` · **Estimate:** S · **Depends on:** F1.6
 
 **Body**
-Implement [02-data-contract.md §6](02-data-contract.md): a hand-editable overlay at **`pipeline/overlays/videos/<year>.json`** — a build input that is *never published* — merged at build time into every compact match row by the documented algorithm: no timestamp → the day's field VOD; timestamp → `?t=<seconds>`. Each resolved link carries a `precision` of `exact` or `vod`.
+Implement [02-data-contract.md §6](02-data-contract.md): a hand-editable overlay at **`pipeline/overlays/videos/<year>.json`** — a build input that is *never published* — merged at build time into every compact match row by the documented algorithm.
+
+Each entry is `{ day, t }`, both set by hand. `day` selects the day's VOD; `t` (optional) deep-links to the second. **There is no approximate-time feature and `day` is never inferred** — not from `scheduled_time`, not from match ordering.
 
 **Acceptance**
 - [ ] The overlay lives under `pipeline/`, not `data/`, and never appears in `dist/`
 - [ ] The overlay is never written into a frozen season file
 - [ ] Editing the overlay and rebuilding changes only the links
+- [ ] A match with no `day` renders no icon — never a guessed VOD
 - [ ] A match on a field with no stream renders no icon rather than a dead link
-- [ ] `precision` is rendered as a visible label, so an approximate link is honest about it
+- [ ] A link without `t` points at the correct VOD; with `t`, at that second
 
 ---
 

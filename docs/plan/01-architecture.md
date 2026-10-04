@@ -89,7 +89,28 @@ The page wants a **document**, not a query. `GET /data/live/2026.json` is one ca
 └─ docs/
 ```
 
-`data/` and `dist/` are generated; `pipeline/lookups/` and `pipeline/overlays/` are hand-edited and are the only things a human maintains year to year. Nothing mutable is ever published.
+### What goes in git
+
+> **Commit what a human wrote and what cannot be re-fetched. Do not commit what the pipeline derives.**
+
+| Tree | In git? | Why |
+|---|---|---|
+| `pipeline/raw/` | ✅ | Fetched from upstream, and upstream has already lost data once — 2022 kept its standings but not its matches. Irreproducible. |
+| `pipeline/lookups/` | ✅ | Hand-curated: the identity registry, season metadata. |
+| `pipeline/overlays/` | ✅ | Hand-written: the video dataset. |
+| `pipeline/normalized/` | ❌ | Derived from `raw/`, deterministically. |
+| `data/` | ❌ | Derived from `normalized/` + lookups. Deployed to Pages, but rebuilt in CI. |
+| `dist/` | ❌ | Derived. |
+
+`data/` is 1,506 files and 13 MB. Committing it would put more into git than the raw archive it came from — and all of it describes data the build inlines into HTML anyway, so nothing reads it at runtime.
+
+**The same mistake was made three times in this project** before it was written down: per-match raw details (1,098 files), per-match published data, and team-season pages. Each time the fix was the same, and each time it was discovered rather than anticipated. That is why the rule is stated explicitly here rather than left as a judgement call.
+
+This is safe only because the emit is **deterministic** — byte-identical output for identical input (issue F1.10). Without that guarantee, deleting the derived trees would lose information. With it, `npm run pipeline` reconstructs them exactly, and the raw archive plus the hand-written files are the only things that actually need preserving.
+
+The Pages build therefore runs `npm run pipeline` before `site/build.mjs`. It never runs `npm run fetch` — that is a deliberate, manual act, because it is the only step that talks to the outside world.
+
+Nothing mutable is ever published.
 
 ---
 
@@ -188,6 +209,16 @@ live/<origin>/data/v<N>/live/<active_year>.json      ← the only new artifact
 ```
 
 **`N` is global to the data generation, and both origins use it.** The live origin is a *mirror of the current version*, not a version of its own — so the artifacts above are simply **absent** from the archive's `/data/v<N>/` and **present** in the live origin's. When `freeze` folds the season in and bumps `N`, both origins move together.
+
+**The two origins serve the same artifact SHAPES, not necessarily the same trees.** The live origin may carry extra granularity that only it needs:
+
+```
+live/<origin>/data/v<N>/matches/<active_year>/<stage>/<id>.json   ← live origin only
+```
+
+Per-match files are emitted **only** by the live origin. The archive does not have them, and does not need them ([02 §2](02-data-contract.md)) — the reason they were dropped was git noise, and R2 is not git. It is also the right shape for the one page that needs it: a live match page hydrates from **2.4 KB** instead of dragging a 130 KB season file (which would not even carry the breakdown).
+
+Nothing about this breaks the contract, because the contract was never "both trees are identical" — it is **"a page is given a URL and uses it"**. Archive pages fetch nothing, so no missing path can hurt them.
 
 The server writes the first four by running the **same emit code** as the archive; it just writes to R2 instead of the repo, more often. `live/<year>.json` is the one genuinely new artifact — the small polling document described in [discovery 04 §4.4](../discovery/04-live-event-architecture.md).
 

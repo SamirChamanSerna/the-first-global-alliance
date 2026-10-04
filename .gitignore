@@ -1,6 +1,28 @@
 node_modules/
 
-# Build output
+# ─────────────────────────────────────────────────────────────────────────────
+# DERIVED — never committed. Rebuilt by `npm run pipeline`, deterministically.
+#
+# The rule: commit what a human wrote and what cannot be re-fetched; do not
+# commit what the pipeline derives.
+#
+#   pipeline/raw/      committed — fetched from upstream, and upstream has
+#                      already lost data once (2022's matches array is gone)
+#   pipeline/lookups/  committed — hand-curated
+#   pipeline/overlays/ committed — hand-written video dataset
+#   data/              IGNORED   — derived from the three above
+#   pipeline/normalized/ IGNORED — derived from raw
+#
+# Committing the derived trees put 1,506 files and 13 MB into git to describe
+# data the build inlines into HTML anyway. The same mistake was made three times
+# in this project (per-match raw details, per-match published data, team-season
+# pages) before it was written down here as a rule.
+#
+# The determinism guarantee is what makes this safe: the same inputs produce
+# byte-identical output, so nothing is lost that cannot be regenerated exactly.
+# ─────────────────────────────────────────────────────────────────────────────
+data/
+pipeline/normalized/
 dist/
 
 # OS noise
