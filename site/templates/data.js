@@ -76,3 +76,12 @@ export const S = d.S;
 export const A = d.A;
 export const AL = d.AL;
 export const AW = d.AW;
+
+/**
+ * Código de país → nombre del archivo de bandera. El repositorio real de banderas
+ * está indexado por alpha-2 (`mx.svg`, no `mex.svg`) y el equipo de refugiados usa
+ * el asset especial `10_hope`. Sin datos reales el nombre es el propio código, que
+ * es lo que genera el fixture: `/flags/mex.svg`.
+ */
+const flagNames = read('flags.json') ?? {};
+export const flagFile = (code) => flagNames[code] ?? code;

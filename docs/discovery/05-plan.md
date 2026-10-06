@@ -53,7 +53,7 @@ What S1 turned up, all now handled and documented in `06-join-keys.md` / `02-dat
 9. `data/raw/manual/seasons.csv` — city, venue, country, ISO, dates. **Highest value: unblocks every page header.**
 10. `data/raw/manual/teams.csv` — continent (required for the `/teams/` grouping), photo URL, social/contact.
 11. `data/raw/manual/videos.csv` — stream URL + timestamps.
-12. Mirror flags into the repo; photos stay hotlinked to the public FIRST URLs.
+12. ✅ Flags mirrored: `node scripts/fetch-flags.js` — the whole flag-icons set (MIT, 270 files) plus the codes it lacks copied from results.first.global (`10_hope` and the four regional assets). 275 files, **2.9 MB**. results.first.global alone was 47 MB / 45 MB per page, so it is the fallback, not the source. Photos stay hotlinked (item 10).
 
 **S3 — untrusted years (owner-supplied, parallel, no code after S1)**
 
@@ -91,7 +91,7 @@ What S1 turned up, all now handled and documented in `06-join-keys.md` / `02-dat
 | Match URL slug | `{year}_{stage}{id}` → `2025_q12` (the mock's scheme was already right) |
 | Team identity | ISO alpha-3 — **never `teamKey`**, reassigned every season (`06-join-keys.md`) |
 | Photos | Hotlink the public FIRST URLs, from an owner-maintained manual list; no URL ⇒ the UI placeholder |
-| Flags | Mirror into the repo (licence believed MIT) |
+| Flags | Mirrored into the repo: flag-icons (MIT) as the source, results.first.global only for what it lacks. Alpha-2 file names, mapped from the site's alpha-3 codes. |
 | Language | English primary, built so it can be translated (`01-hybrid-architecture.md`) |
 | 2020 / 2021 | Awards only, permanently |
 | Live latency | 60 s / 20 s polling + 30 s CDN cache ≈ ≤90 s worst case — accepted |

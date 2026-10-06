@@ -52,7 +52,7 @@ Everything outside the ✅ cells is treated as **nonexistent** until the owner s
 
 | Need | Source | How |
 |---|---|---|
-| Team flags (SVG) | `https://results.first.global/static/flags/4x3/{iso2}.svg` | download once, **mirror** into `site/flags/` (licence believed MIT). Special codes also exist: `10_hope`, `11_south-america`, `12_oceania`, `13_north-america`, `14_europe` |
+| Team flags (SVG) | **flag-icons** (`lipis/flag-icons`, MIT) for everything it covers; `https://results.first.global/static/flags/4x3/{alpha2}.svg` only for the codes it does not have | `node scripts/fetch-flags.js` mirrors into `site/flags/`. See the note below |
 | Team photo | `https://i0.wp.com/first.global/wp-content/uploads/…?w=900&quality=89&ssl=1` | **hotlink**; the owner supplies a manual list of URLs, one per team. No URL ⇒ the UI's placeholder |
 | Team social / contact | `https://first.global/{year}-nations/{country}-{year}/` | scraped once, stored in the overlay |
 | Season metadata | first.global archive pages, manual | city, venue, country, ISO, dates |
@@ -60,7 +60,20 @@ Everything outside the ✅ cells is treated as **nonexistent** until the owner s
 | Match video + timestamp | manual, owner-supplied | one multi-hour stream per session; a match link is a deep link with `&t=` |
 | 2017–2023 matches / rankings | manual, owner-supplied | follows the raw standard in `03-raw-data-standard.md` |
 
-**Flags are mirrored, photos are hotlinked.** Flags are tiny, static and licensed permissively (MIT) — mirroring them keeps a page from ever failing on a third party. Photos are large and belong to FIRST; they are **linked as-is from the public URLs**, and the owner maintains the list by hand. No mirroring, no copying — the low-risk option legally and the cheaper one operationally.
+**Flags: flag-icons first, results.first.global as the fallback.** Both sets are indexed by **alpha-2** (`mx.svg`), not alpha-3 — the site stores the mapping in `data/processed/flags.json` and `urls.flag()` resolves through it.
+
+results.first.global was the original choice, but measured it is unusable for this site: its flags are 1600×960 Inkscape exports with detailed coats of arms — **47 MB for the 207 team flags**, up to 1.3 MB for one file, and the `/teams/` page would pull **45 MB** (lazy loading does not save you from scrolling). Stripping metadata only recovers 2%; the weight is the artwork.
+
+| Source | Whole set | `/teams/` page | Median file |
+|---|---|---|---|
+| flag-icons (MIT) | 2.0 MB | 1.4 MB | 0.8 KB |
+| results.first.global | 47 MB | 45 MB | 9.7 KB |
+
+So: the **entire flag-icons 4x3 set** is mirrored (all 270, not only what today's seasons use, so 2026 has whatever it needs), and the handful of codes flag-icons lacks — the refugee team's `10_hope`, plus the four regional assets `11_south-america`, `12_oceania`, `13_north-america`, `14_europe` — are copied verbatim from results.first.global. Result: 275 files, 2.9 MB. `site/build.js` falls back to a grey placeholder for anything still missing, so no page ever shows a broken image.
+
+Flag sharing is not a legal question here: flag-icons is MIT and the results.first.global assets are served publicly with no robots restrictions (verified), but the provenance of the latter is an assumption, not a confirmed licence — worth confirming before any redistribution.
+
+**Photos are hotlinked, not mirrored.** They are large and belong to FIRST; the owner maintains the URL list by hand. No copying — the low-risk option legally and the cheaper one operationally.
 
 A team with no URL, or whose image later disappears, simply renders the **placeholder the UI already defines** (`.photo`). Photos are decorative and never load-bearing: the `width`/`height` + lazy-loading rules already keep a missing image from breaking the layout. That is the accepted trade-off, and it is why the overlay treats an absent `photo` as a normal state rather than an error.
 

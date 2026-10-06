@@ -16,14 +16,16 @@ data/
       seasons.csv  teams.csv  videos.csv
       {year}/{matches,rankings,alliances}.csv
       breakdown.{year}.json      # game-specific field map (no tabular form)
-  processed/                     # BUILD INPUT — generated, committed. site/templates/data.js reads this
+  processed/                     # ENTRADA DEL BUILD — generada, NO versionada (.gitignore). data.js lee esto
     seasons.json                 # [{y,name,city,country,iso,dates,mode}]
     teams.json                   # {CODE: {name, continent}}
     awards.json                  # [[name,desc,ty,tier], …]  award catalogue
     {year}/matches.json  rankings.json  alliances.json  awards.json
 ```
 
-`raw/api/*` is written by the fetcher and never opened by hand. `raw/manual/*` is the only thing a human edits, and it is **CSV** because that is what a spreadsheet emits. The build converts it into `processed/*.json`, which is what the templates actually read through `site/templates/data.js` — no CSV is parsed at runtime, and none is ever served. `processed/*` is generated; never edit it either, regenerate it.
+`raw/api/*` is written by the fetcher and never opened by hand. `raw/manual/*` is the only thing a human edits, and it is **CSV** because that is what a spreadsheet emits. The build converts it into `processed/*.json`, which is what the templates actually read through `site/templates/data.js` — no CSV is parsed at runtime, and none is ever served.
+
+`processed/*` is **derived and not committed** (`.gitignore`). `data/raw/` is the source of truth and is enough to rebuild it with no network. `scripts/normalize.js` wipes and rewrites the whole directory on every run, so there is nothing in it worth versioning — and editing it by hand is pointless.
 
 Empty templates: `node scripts/make-manual-templates.js` (never overwrites an existing file).
 

@@ -30,7 +30,10 @@ const pips=o=>Object.entries(o).map(([k,n])=>`${pip(k)} ×${n}`).join(' ');
 const av=a=>a.reduce((x,y)=>x+y,0)/a.length,sd=a=>{const m=av(a);return Math.sqrt(av(a.map(v=>(v-m)**2)))},pm=a=>`${av(a).toFixed(1)} <span class="muted">± ${sd(a).toFixed(1)}</span>`;
 const best=ms=>ms.length?ms.reduce((a,m)=>Math.max(m.rs,m.bs)>Math.max(a.rs,a.bs)?m:a):null;
 const hi=m=>m?`<div>${matchRow(m)}</div><div class="sec">${m.video?videoThumb(m):videoFallback(m)}</div>`:`<div class="muted">${t('noMatchData')}</div>`;
-const sc=ms=>ms.flatMap(m=>[m.rs,m.bs]),mg=ms=>ms.map(m=>Math.abs(m.rs-m.bs));
+const sc=ms=>ms.flatMap(m=>[m.rs,m.bs]);
+// "Average winning margin": un empate no tiene margen de victoria, así que no entra.
+// Contarlos como 0 hundía el promedio (2025: 7.0 con empates, 8.0 sin ellos).
+const mg=ms=>ms.filter(m=>m.rs!=null&&m.rs!==m.bs).map(m=>Math.abs(m.rs-m.bs));
 const rankCols=[[t('rankingPoints'),z=>z.rp],[t('tb1'),z=>z.avg],[t('tb2'),z=>z.w],[t('tb3'),z=>z.pts]]; // columnas dinámicas por temporada
 const rank=y=>dt([['#',1],[t('team')],...rankCols.map(c=>[c[0],1]),[t('wlt'),1]],S[y].map(z=>[z.rank,tl(z.code),...rankCols.map(c=>c[1](z)),`${z.w}–${z.l}–${z.t}`]),1);
 const mine=(c,y)=>(M[y]||[]).filter(m=>[...m.red,...m.blue].includes(c));
@@ -40,6 +43,12 @@ const yearsOf=c=>Y.filter(y=>(S[y]||[]).some(z=>z.code==c));
 // Nombre de la temporada. Sin metadatos cargados se usa el año, que sí se conoce:
 // nunca un encabezado vacío.
 const sName=y=>sn(y)?.name||String(y);
+// Equipos de una temporada concreta. En una página de temporada el total histórico
+// (codes.length) no significa nada: se usa el de esa edición.
+const teamsOf=y=>(y?(sn(y)?.teams||t('noData')):codes.length);
+// Temporadas en las que el equipo llegó a la fase de round robin (está en alguna
+// alianza). No es el número de partidos jugados.
+const rrSeasons=c=>Y.filter(z=>(AL[z]||[]).some(g=>g.includes(c))).length;
 const place=s=>[s.city,s.country].filter(Boolean).join(', ');
 const when=s=>[place(s),s.dates].filter(Boolean).join(' · ');
 const countryCell=s=>s.country?`${flag(s.iso)} ${s.country}`:t('noData');
@@ -51,20 +60,23 @@ const home=()=>hero()+`<div class="map">${t('mapPlaceholder')}</div>
 
 const ins=y=>{const aw=!!y&&onlyAwards(y),ms=y?M[y]:YC.flatMap(z=>M[z]),q=ms.filter(m=>m.stage=='ranking'),p=ms.filter(m=>m.stage!='ranking'),s=y&&sn(y);
   const kp=(l,a)=>a.length?box(l,av(a).toFixed(1),`± ${sd(a).toFixed(1)}`):box(l,t('noData'));
-  const medalTop=yy=>codes.map(c=>[c,yy?cntY(yy,c):cnt(c)]).filter(x=>tot(x[1])>0).sort((a,b)=>tot(b[1])-tot(a[1])).slice(0,10).map(([c,o],i)=>[i+1,tl(c),pips(o)]);
+  const medalTop=yy=>codes.map(c=>[c,yy?cntY(yy,c):cnt(c)]).filter(x=>tot(x[1])>0).sort((a,b)=>tot(b[1])-tot(a[1])).slice(0,10).map(([c,o],i)=>[i+1,tl(c),pips(o),tot(o)]);
   const top=y?(aw?medalTop(y):S[y].slice(0,10).map(z=>[z.rank,tl(z.code),z.rp])):medalTop();
   const ranked=y&&!aw; // una temporada de solo premios no tiene ranking que mostrar
   return bar(y?`${t('season')} ${y}`:t('overview'),dd(y||t('overview'),[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
   +`<p class="muted">${y?`${[sName(y),place(s)].filter(Boolean).join(' · ')} · `:''}<a href="${y?`https://first.global/archive/fgc-${y}/`:'https://first.global/about/'}">${t('officialSite')}</a></p>`
-  +boxes(aw?[box(t('teams'),codes.length),box(t('awards'),nAw([y]))]:[box(t('teams'),codes.length),box(t('matches'),ms.length),box(t('awards'),nAw(y?[y]:Y))],1)
+  +boxes(aw?[box(t('teams'),teamsOf(y)),box(t('awards'),nAw([y]))]:[box(t('teams'),teamsOf(y)),box(t('matches'),ms.length),box(t('awards'),nAw(y?[y]:Y))],1)
   +`<h3>${t('reveal')}</h3><div class="thumb">${t('thumbnail')}</div>`
   +`<h3>${t('awards')}</h3>${awardKey()}${awBlocks(y)}`
   +(aw?`<p class="note">${t('noCompetition')}</p>`
     :`<h3>${t('highestMatch')}</h3>${hi(best(q))}<h3>${t('qualMetrics')}</h3>${boxes([kp(t('avgMatch'),sc(q)),kp(t('avgMargin'),mg(q))])}`
-    +`<h3>${t('playoffs')}</h3>`+(y?`<div>${matchList(p)}</div>`:dt([[t('team')],[t('matches'),1]],codes.map(c=>[c,p.filter(m=>[...m.red,...m.blue].includes(c)).length]).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([c,n])=>[tl(c),n])))
+    +`<h3>${y?t('playoffs'):t('mostRoundRobin')}</h3>`+(y?`<div>${matchList(p)}</div>`:dt([[t('team')],[t('seasons'),1]],codes.map(c=>[c,rrSeasons(c)]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([c,n])=>[tl(c),n])))
     +`<h3>${t('highestPlayoff')}</h3>${hi(best(p))}${boxes([kp(t('avgMatch'),sc(p)),kp(t('avgMargin'),mg(p))])}`)
-  +`<h3>${ranked?t('topRank'):t('mostAwards')}</h3>`+dt([['#',1],[t('team')],[ranked?t('rankingPoints'):t('medals'),ranked?1:0]],top)
-  +(ranked?`<p><a href="${urls.rankings(y)}">${t('fullRanking')}</a></p>`:'')};
+  +`<h3>${ranked?t('topRank'):t('mostAwards')}</h3>`+dt(ranked?[['#',1],[t('team')],[t('rankingPoints'),1]]:[['#',1],[t('team')],[t('medals'),0],[t('total'),1]],top)
+  +(ranked?`<p><a href="${urls.rankings(y)}">${t('fullRanking')}</a></p>`:`<p><a href="${urls.awards()}">${t('fullAwards')}</a></p>`)};
+// Nota: la tabla muestra los 10 primeros de los 161 equipos con premios; el enlace
+// lleva a /awards/, que los lista todos. La lista completa de bloques de premio
+// (arriba) sí incluye a todos los ganadores de cada premio.
 
 const teams=()=>bar(t('teams'))+['Africa','Americas','Asia','Europe','Oceania'].map(k=>`<h3>${k}</h3>`+dt([[t('flagCol')],[t('iso')],[t('team')],[t('seasons'),1]],codes.filter(c=>T[c][1]==k).sort().map(c=>[flag(c),c,`<a href="${urls.team(c)}">${T[c][0]}</a>`,yearsOf(c).length]))).join('');
 

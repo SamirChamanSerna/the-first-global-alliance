@@ -169,6 +169,8 @@ function buildRankings(year, snapshot, matches) {
     for (const c of m.red) (scored[c] ??= []).push(m.rs);
     for (const c of m.blue) (scored[c] ??= []).push(m.bs);
   }
+  // La API devuelve los rankings en orden de teamKey (≈ alfabético). El sitio los
+  // muestra tal cual, así que se ordenan aquí por puesto.
   return (snapshot.rankings ?? []).map((r) => {
     const team = canon(r.team?.country);
     if (!team) return null; // hay filas sin equipo (p. ej. 2024, rank 181)
@@ -183,8 +185,17 @@ function buildRankings(year, snapshot, matches) {
       rp: r.rankingScore,
       avg: scores.length ? Number((pts / scores.length).toFixed(1)) : null,
     };
-  }).filter(Boolean);
+  }).filter(Boolean).sort((a, b) => a.rank - b.rank);
 }
+
+/** Equipos de una temporada: el total que muestra una página de temporada (el de la
+ *  historia completa no significa nada ahí). Se usa el número de equipos rankeados,
+ *  que es el campo oficial (2024: 180, 2025: 181).
+ *  Ojo: en 2025 JAM y CMR jugaron round robin y finales pero la API no les da fila de
+ *  ranking, así que el número de equipos que pisaron la cancha es 183. Si se prefiere
+ *  ese criterio, contar la unión de participantes de partidos y rankings. */
+const teamsIn = (matches, rankings) =>
+  rankings.length || new Set(matches.flatMap((m) => [...m.red, ...m.blue])).size;
 
 // ---------------------------------------------------------------- alianzas
 
@@ -209,6 +220,14 @@ const awardType = (a) => (/alliance/i.test(a.name) ? 'a' : a.gold || a.silver ||
 
 const TIER_SLOT = {gold: 'gold', silver: 'silver', bronze: 'bronze'};
 
+// La API escribe el mismo premio de formas distintas según el año. Sin unificar, el
+// overview los pinta como dos bloques y reparte a los ganadores entre ambos.
+const AWARD_ALIASES = {
+  'Al-Khwarizmi Award for Outstanding Supporter': 'Al Khwarizmi Award for Outstanding Supporter',
+  'Outstanding Mentor': 'Outstanding Mentor Award',
+};
+const awardName = (n) => AWARD_ALIASES[n] ?? n;
+
 /** El premio de alianza pone al capitán en el hueco de su tono (gold, silver o
  *  bronze, según el premio) y al resto de la alianza en `other[]` con esa `class`. */
 function tierOfAward(a, ty) {
@@ -231,7 +250,7 @@ function buildAwards(snapshot) {
         : ty === 'p'
           ? [code(a.gold), code(a.silver), code(a.bronze)]
           : [...(a.other ?? []).map(code), code(a.gold)];
-      return {name: a.name, desc: a.description ?? '', ty, tier: tierOfAward(a, ty), w: w.filter(Boolean)};
+      return {name: awardName(a.name), desc: a.description ?? '', ty, tier: tierOfAward(a, ty), w: w.filter(Boolean)};
     });
 }
 
@@ -261,9 +280,18 @@ for (const y of ALL_YEARS) {
 }
 
 // El roster manda: es el código que ve quien rellena teams.csv y el de las URLs.
-const teams = {};
+// Total de equipos por temporada, para las páginas de temporada.
+for (const s of seasons) {
+  const d = perYear[s.y];
+  s.teams = d ? teamsIn(d.matches, d.rankings) : 0;
+}
+
+const teams = {}, flags = {};
 for (const t of roster) {
   teams[t.country] = {name: displayNames[t.country] ?? t.name.replace(/^Team /, ''), continent: continentOf[t.country] ?? ''};
+  // El repositorio de banderas del proyecto está indexado por alpha-2 (`mx`), no por
+  // alpha-3 (`mex`). El equipo de refugiados no tiene país: su asset es `10_hope`.
+  flags[t.country] = t.countryCode;
 }
 
 // ---------------------------------------------------------------- validación
@@ -318,6 +346,7 @@ const write = (rel, data) => {
 fs.rmSync(OUT, {recursive: true, force: true});
 write('seasons.json', seasons);
 write('teams.json', teams);
+write('flags.json', flags);
 write('awards.json', buildCatalogue(perYear));
 for (const [y, d] of Object.entries(perYear)) {
   write(`${y}/matches.json`, d.matches);

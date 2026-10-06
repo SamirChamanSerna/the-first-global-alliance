@@ -13,7 +13,9 @@ deploy                     →  Cloudflare Pages                (or GitHub Pages
 
 Runs on a developer machine and in CI. No network needed at build time once `raw/` is committed — the fetch step is optional and only re-run when we want to refresh a season. This is the whole cost of the archive half: zero runtime, zero services.
 
-Done in S0: `site/build.js` reads `data/processed/` through `site/templates/data.js`, falling back to the `mock/mock.js` fixture when it is absent. The templates, blocks and pages did not change (agent instructions §7 Etapa 1 says exactly this), and `site/dist/` came out byte-identical.
+Done in S0: `site/build.js` reads `data/processed/` through `site/templates/data.js`. The templates, blocks and pages did not change (agent instructions §7 Etapa 1 says exactly this), and `site/dist/` came out byte-identical.
+
+Because `data/processed/` is not versioned, a build without it would fall back to the `mock/mock.js` fixture — so `build.js` now **stops with an error** in that case instead of quietly publishing mock data, unless `--fixture` is passed.
 
 ## B. Live worker (docker, 24/7 during the event)
 
@@ -46,7 +48,7 @@ The 60 s/20 s split the owner asked for. The worker decides by reading `schedule
 - Reject rows that fail the schema, or reference a team not in `/v1/teams`.
 - Keep the previous snapshot on any rejection and log loudly. The DB always holds a complete, valid state.
 
-**End of the event:** dump the final processed JSON into `data/processed/`, commit, rebuild statically, flip the season to `archived`, **stop the container**. That is the whole teardown — nothing to maintain until 2027.
+**End of the event:** freeze the final snapshot into `data/raw/` and commit **that** (`data/processed/` is derived and gitignored), rebuild statically, flip the season to `archived`, **stop the container**. That is the whole teardown — nothing to maintain until 2027.
 
 ## Storage
 

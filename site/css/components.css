@@ -113,7 +113,7 @@ footer a+a::before{content:"/";color:var(--muted);margin:0 8px}
 .seg button{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:3px 10px;cursor:pointer}
 .seg button:first-child{border-radius:var(--r-box) 0 0 var(--r-box)}
 .seg button:last-child{border-radius:0 var(--r-box) var(--r-box) 0;border-left:0}
-.logo{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2}
+.logo{width:22px;height:22px;fill:currentColor;stroke:none}
 .span-all{grid-column:1/-1}
 .tn-rl{background:var(--rl)}
 .tn-bw{background:var(--bw)}
@@ -142,7 +142,7 @@ h1{font-size:26px}
 .tn-rw{background:var(--rw)}.tn-bl{background:var(--bl)}.ev+.ev{margin-top:20px}
 
 /* --- v4: hero, premios --- */
-.hero{text-align:center;padding:48px 0 32px}.hero .logo{width:96px;height:96px;stroke-width:1.5}.hero h1{font-size:44px;margin:12px 0 6px}.hero p{font-size:18px;margin:0}
+.hero{text-align:center;padding:48px 0 32px}.hero .logo{width:96px;height:96px}.hero h1{font-size:44px;margin:12px 0 6px}.hero p{font-size:18px;margin:0}
 .t-gold{background:var(--gold)}.t-silver{background:var(--silver)}.t-bronze{background:var(--bronze)}.t-awarded{background:var(--tier)}
 .key{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 14px}.key span{padding:2px 10px;border-radius:var(--r-pill);font-size:13px}
 .aws{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.aw{border:1px solid var(--border);border-radius:var(--r-cell);overflow:hidden;text-align:center}

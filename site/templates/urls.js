@@ -2,6 +2,7 @@
 // Rutas: docs/web-style-guide/00-instrucciones-agentes.md §2
 // Slug de match ({year}_{stage}{id}): docs/discovery/06-join-keys.md
 import {brand} from '../brand/brand.js';
+import {flagFile} from './data.js';
 
 export const urls = {
   home:     ()    => '/',
@@ -14,7 +15,7 @@ export const urls = {
   team:     (c, y) => (y ? `/team/${c}/${y}/` : `/team/${c}/`),
   match:    (id)  => `/match/${id}/`,
   search:   ()    => '/search/',   // PENDIENTE: la página de resultados no está definida
-  flag:     (iso) => brand.flagPath(iso),
+  flag:     (code) => brand.flagPath(flagFile(code)),
   favicon:  ()    => brand.favicon,
   css:      ()    => '/site.css',  // archivo único que genera el build
 };

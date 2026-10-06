@@ -28,7 +28,7 @@ api.first.global ──poll 60s──► docker worker ──validate+normalize�
 
 Two write paths, deliberately:
 
-1. **Archived seasons** — processed JSON is committed to the repo. `node site/build-<x>.js` reads it and emits `dist/`. No network at build time, no runtime at all.
+1. **Archived seasons** — `data/raw/` is committed; `node scripts/normalize.js` derives `data/processed/` from it (offline) and `node site/build.js` emits `dist/`. Neither the processed JSON nor `dist/` is versioned. No network at build time, no runtime at all.
 2. **Live season** — the docker worker writes a snapshot to a DB/object store. Pages for the current season fetch that one file and re-render the affected regions.
 
 ## The live layer — decided: static shell + one JSON overlay
