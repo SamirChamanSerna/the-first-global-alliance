@@ -111,6 +111,7 @@ Previsualizar: `node site/build.js` y abrir `site/dist/index.html` (requiere Nod
 |---|---|
 | `seasons[]` | `{y, name, city, country, iso, dates}` (más reciente primero) |
 | `T[code]` | `[nombre, continente]` |
+| `PH[year][code]` | URL de la foto del equipo **en esa temporada** (hotlink externo, `http(s)`). Ausente = marcador del marco `.photo` |
 | `M[y][]` (partidos) | `{id, href, y, stage: ranking\|round_robin\|finals, label, field, time, red[], blue[], rs, bs, bd[4], video}`; `rs`/`bs` = `null` si no se ha jugado |
 | `S[y][]` (posiciones) | `{code, rank, w, l, t, pts, n, rp, avg}` |
 | `AL[y][]` (alianzas) | arreglo de alianzas; cada una, arreglo de códigos. La posición + 1 = número de alianza |

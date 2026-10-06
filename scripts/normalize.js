@@ -27,6 +27,11 @@ const AWARDS_YEARS = [2017, 2018, 2019, 2022, 2023];
 const ALL_YEARS = [...new Set([...FULL_YEARS, ...AWARDS_YEARS])].sort((a, b) => a - b);
 const STAGES = {t2: {stage: 'ranking', letter: 'q'}, t3: {stage: 'round_robin', letter: 'rr'}, t4: {stage: 'finals', letter: 'f'}};
 const STAGE_NAMES = ['ranking', 'round_robin', 'finals'];
+// Una URL escrita a mano acaba en un href/src, así que solo se acepta http(s):
+// un esquema javascript: o data: sería un vector. Se declara aquí arriba porque lo
+// usan tanto seasons.csv (reveal_video) como photos.csv, y una const usada antes de
+// su declaración rompería el script entero por TDZ.
+const HTTP_URL = /^https?:\/\//i;
 
 const die = (msg) => { throw new Error(msg); };
 
@@ -104,7 +109,7 @@ const seasons = seasonRows
     dates: r.dates,
     // Solo se acepta http(s): una URL con otro esquema (javascript:, data:) acabaría
     // en un href, y este campo lo rellena una persona a mano en un CSV.
-    reveal: /^https?:\/\//i.test((r.reveal_video ?? '').trim()) ? r.reveal_video.trim() : '',
+    reveal: HTTP_URL.test((r.reveal_video ?? '').trim()) ? r.reveal_video.trim() : '',
     mode: r.mode || 'archived',
   }))
   .sort((a, b) => b.y - a.y); // más reciente primero: es el orden que espera el sitio
@@ -346,6 +351,29 @@ for (const [y, d] of Object.entries(perYear)) {
   for (const a of d.awards) for (const c of a.w) check(codes.has(c), `${y}: premio "${a.name}" con ${c}, fuera del roster`);
 }
 
+// ---------------------------------------------------------------- fotos
+//
+// Una foto por equipo Y temporada: los integrantes cambian cada año, así que la
+// imagen es del equipo de ESA edición, no del equipo en general (spec §8 y §9).
+// Se falla en voz alta, no se descarta la fila como con reveal_video: aquí la fila
+// es una afirmación explícita de que esa URL es la foto, y descartarla en silencio
+// dejaría un marcador vacío sin que nadie se enterara.
+const photos = {};
+const photoYears = new Set(seasons.map((s) => s.y));
+const seenPhotos = new Set();
+for (const [i, r] of readCsv('manual/photos.csv').entries()) {
+  const n = i + 2; // +1 por la cabecera, +1 porque el índice empieza en 0
+  const y = Number(r.year), c = r.team_code, u = (r.photo_url ?? '').trim();
+  const dup = `${y}|${c}`;
+  const ok = Number.isInteger(y) && photoYears.has(y) && codes.has(c) && HTTP_URL.test(u) && !seenPhotos.has(dup);
+  check(Number.isInteger(y) && photoYears.has(y), `photos.csv (fila ${n}): año inválido "${r.year}"`);
+  check(codes.has(c), `photos.csv (fila ${n}): "${c || '(vacío)'}" fuera del roster`);
+  check(HTTP_URL.test(u), `photos.csv (fila ${n}): URL vacía o sin http(s) — "${r.photo_url ?? ''}"`);
+  check(!seenPhotos.has(dup), `photos.csv (fila ${n}): ${c} ${y} repetido`);
+  seenPhotos.add(dup);
+  if (ok) (photos[y] ??= {})[c] = u;
+}
+
 if (unresolvedAwardEntries) {
   console.warn(`aviso: ${unresolvedAwardEntries} destinatario(s) de premio sin país resoluble ` +
     '(p. ej. el premio al mentor se otorga a personas, no a equipos) — se omiten');
@@ -371,6 +399,7 @@ fs.rmSync(OUT, {recursive: true, force: true});
 write('seasons.json', seasons);
 write('teams.json', teams);
 write('flags.json', flags);
+write('photos.json', photos);
 write('awards.json', buildCatalogue(perYear));
 for (const [y, d] of Object.entries(perYear)) {
   write(`${y}/matches.json`, d.matches);
@@ -379,7 +408,7 @@ for (const [y, d] of Object.entries(perYear)) {
   write(`${y}/awards.json`, d.awards);
 }
 
-console.log(`data/processed/ — ${seasons.length} temporadas, ${codes.size} equipos`);
+console.log(`data/processed/ — ${seasons.length} temporadas, ${codes.size} equipos, ${seenPhotos.size} fotos`);
 for (const y of ALL_YEARS) {
   const d = perYear[y];
   console.log(`  ${y}: ${d.matches.length} partidos, ${d.rankings.length} rankings, ${d.alliances.length} alianzas, ${d.awards.length} premios`);

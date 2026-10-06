@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A static site that archives **FIRST Global Challenge** results (seasons, teams, awards, rankings, matches), modeled on The Blue Alliance. Deliberately KISS: no framework, no bundler, no dependencies, no remote fonts or images, works with JavaScript disabled. 11 screens, defined in `docs/discovery/00-…-Especificación-del-Proyecto.md` §2 and `docs/web-style-guide/00-instrucciones-agentes.md` §2.
+A static site that archives **FIRST Global Challenge** results (seasons, teams, awards, rankings, matches), modeled on The Blue Alliance. Deliberately KISS: no framework, no bundler, no dependencies, no remote fonts, works with JavaScript disabled. The only remote images are team photos, which are hotlinked from FIRST (never mirrored) and always degrade to the UI placeholder — see the data gotchas. 11 screens, defined in `docs/discovery/00-…-Especificación-del-Proyecto.md` §2 and `docs/web-style-guide/00-instrucciones-agentes.md` §2.
 
 ## Commands
 
@@ -43,7 +43,7 @@ data/raw/  ──normalize.js──►  data/processed/  ─┐
 ```
 
 - **`site/templates/data.js`** is the only module that reads data. It loads `data/processed/` when present and falls back to the `site/mock/mock.js` fixture otherwise, so the site always builds — with real data or with test data. `pages.js` imports from here, never from `mock.js`. Expected processed files are documented at the top of the module.
-- **`site/mock/mock.js`** is the fixture and the reference for the data contract: `seasons[]`, `T[code] → [name, continent]`, `M[y][]` (matches), `S[y][]` (standings), `AL[y][]` (alliances), `A[y][]` (awards), `AW[]` (award catalogue, as `[name, desc, ty, tier]` tuples). Real data must expose the **same shapes** — see `00-instrucciones-agentes.md` §4. Award types are `ty: 'a'` (alliance, one tier) / `'p'` (podium, gold-silver-bronze) / `'n'` (non-tiered). Alliance size is 3 in qualifiers, 4 in round robin/playoffs/finals — derive it from `red[]`/`blue[]` lengths, never hardcode it.
+- **`site/mock/mock.js`** is the fixture and the reference for the data contract: `seasons[]`, `T[code] → [name, continent]`, `PH[year][code] → url` (one photo per team **and season**, hotlinked externally), `M[y][]` (matches), `S[y][]` (standings), `AL[y][]` (alliances), `A[y][]` (awards), `AW[]` (award catalogue, as `[name, desc, ty, tier]` tuples). Real data must expose the **same shapes** — see `00-instrucciones-agentes.md` §4. Award types are `ty: 'a'` (alliance, one tier) / `'p'` (podium, gold-silver-bronze) / `'n'` (non-tiered). Alliance size is 3 in qualifiers, 4 in round robin/playoffs/finals — derive it from `red[]`/`blue[]` lengths, never hardcode it.
 - **`site/templates/urls.js`** is the only module that builds site URLs (`urls.team(code, year)`, `urls.match(id)`, …), plus `outPath(url)` to turn a URL into its output file path. Templates must not construct paths themselves. The one exception is `brand.nav[].href` in `brand.js`, which the spec allows as precomputed config.
 - **`site/templates/pages.js`** has one function per screen (`home`, `ins`, `teams`, `awards`, `rankings`, `matches`, `gameday`, `th`, `ts`, `mp`) and the exported `pages()` that assembles the full route list. It is dense, terse, and variable-heavy (`Y`, `L`, `sn`, `tl`, `cnt`, `won`) — read it slowly before editing.
 - **`site/templates/blocks.js`** holds the shared markup (`dt`, `matchRow`, `matchList`, `scoreboard`, `breakdown`, `awardBlock`, `box/boxes`, `dd`, `kvr`, `pip`, `hero`) plus `layout()`, which wraps a page in nav/footer and rewrites absolute internal `/links` to relative `index.html` paths so `dist/` opens straight from disk.
@@ -83,12 +83,13 @@ If two docs contradict each other, **stop and report it** — don't pick one.
 
 - **Country codes are messy.** `api.first.global` uses two alpha-3 spaces that disagree between sources *and between years* (`ATG`/`ANT`, `HPE`/`10`). The roster's code is canonical; `scripts/lib/codes.js` bridges via alpha-2. Never join on `teamKey` — it is reassigned every season. See `docs/discovery/06-join-keys.md`.
 - **Awards identify countries by name and alpha-2, never alpha-3**, and alliance awards put their captain in the slot matching their own tier (`silver` for the silver award), not always in `gold`.
+- **Team photos are per (team, year), never per team.** Members change every season, so `photos.csv` is keyed `(year, team_code)` and feeds `PH[year][code]`; there is no team-level photo. URLs are hotlinked from FIRST (never mirrored) and only `http(s)://` is accepted — a bad scheme fails the build rather than being dropped, because the row is an explicit claim that the URL is that team's photo. A missing row is the normal "no photo" state and renders the `.photo` placeholder.
 - **2020 and 2021 exist in neither the API nor any fetch** — awards included. Those seasons are hand-entered.
 
 ## Known gaps
 
-- `seasons.csv` and `teams.csv` are still empty of the fields only a human can supply (city, dates, continent, photos). Pages degrade to "No data" and `/teams/` renders five empty continents — not a bug, just missing input. See `docs/discovery/05-plan.md` S2.
+- What is still missing is input only a human can supply, not code: `teams.csv` has the social/contact columns empty for all 207 rows and `continent` empty for 3 teams (those 3 match none of the five groups on `/teams/`, so they are simply not listed there). `photos.csv` and `videos.csv` are empty templates, so every team page renders the photo placeholder and no match has a video. 2020/2021 (no competition) and 2026 (live) have no match or award records yet. Not bugs — just missing input. See `docs/discovery/05-plan.md` S2.
 
 ## Open decisions (don't silently resolve these)
 
-Search-results page, venue map, team photo carousel, real GameDay, breakdown row types, the "Honorable" medal symbol, and whether award counts mix honorable mentions with non-tiered awards. §8 and §9 of `00-instrucciones-agentes.md` list the full set; `docs/discovery/05-plan.md` tracks what is settled (English primary, Cloudflare KV, per-season breakdown map, photos hotlinked) and what is not.
+Search-results page, venue map, the **multi-photo** carousel (one photo per team and season already ships; several per season is deferred), real GameDay, breakdown row types, the "Honorable" medal symbol, and whether award counts mix honorable mentions with non-tiered awards. §8 and §9 of `00-instrucciones-agentes.md` list the full set; `docs/discovery/05-plan.md` tracks what is settled (English primary, Cloudflare KV, per-season breakdown map, photos hotlinked) and what is not.

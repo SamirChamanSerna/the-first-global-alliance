@@ -35,7 +35,8 @@ const HEADERS = {
   // bandera. `reveal_video` es la URL del video de revelación.
   seasons: 'year,name,city,country,iso,dates,reveal_video,mode',
   videos: 'match_id,video_url,start,end',
-  teams: 'team_code,name,continent,photo,website,instagram,twitter,facebook,contact',
+  teams: 'team_code,name,continent,website,instagram,twitter,facebook,contact',
+  photos: 'year,team_code,photo_url',
   matches: 'year,id,stage,label,scheduled_time,field,red_1,red_2,red_3,red_4,blue_1,blue_2,blue_3,blue_4,red_score,blue_score,video_url',
   rankings: 'year,team_code,rank,wins,losses,ties,played,ranking_score,highest_score',
   alliances: 'year,stage,alliance_number,captain,pick1,pick2,pick3',
@@ -53,9 +54,10 @@ const cell = (v) => {
 };
 
 /**
- * The team roster comes from the API, so the owner fills in continent/photo/social
+ * The team roster comes from the API, so the owner fills in continent/social
  * against a list that is guaranteed to use the canonical ISO alpha-3 codes.
  * `name` is a read-only reference column so a code is never mis-filled.
+ * Photos are NOT here: they are per (team, year) and live in photos.csv.
  */
 async function teamsCsv() {
   const res = await fetch(`${API}/v1/teams`);
@@ -64,14 +66,15 @@ async function teamsCsv() {
   const rows = teams
     .map((t) => ({ code: t.country, name: t.name }))
     .sort((a, b) => a.code.localeCompare(b.code))
-    // 7 empty columns: continent, photo, website, instagram, twitter, facebook, contact
-    .map((t) => [cell(t.code), cell(t.name), ...Array(7).fill('')].join(','));
+    // 6 empty columns: continent, website, instagram, twitter, facebook, contact
+    .map((t) => [cell(t.code), cell(t.name), ...Array(6).fill('')].join(','));
   return [HEADERS.teams, ...rows].join('\n') + '\n';
 }
 
 const templates = new Map([
   [path.join(DIR, 'seasons.csv'), seasonsCsv()],
   [path.join(DIR, 'videos.csv'), HEADERS.videos + '\n'],
+  [path.join(DIR, 'photos.csv'), HEADERS.photos + '\n'],
   [path.join(DIR, 'teams.csv'), await teamsCsv()],
 ]);
 

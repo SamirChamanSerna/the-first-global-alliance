@@ -1,8 +1,8 @@
 // PLANTILLAS de las 10 pantallas. Cada una = composición de bloques; sin HTML de estilo propio.
 import {brand,t} from '../brand/brand.js';
-import {hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
+import {e,hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
 import {urls,outPath} from './urls.js';
-import {seasons,T,codes,M,S,A,AL,AW} from './data.js';
+import {seasons,T,codes,M,S,A,AL,AW,PH} from './data.js';
 const Y=seasons.map(s=>s.y),L=Y[0],sn=y=>seasons.find(s=>s.y==y);
 // YC = temporadas con competencia. Las de solo premios (2020, 2021) no tienen partidos,
 // rankings ni alianzas: no generan páginas de temporada ni entran en las métricas de
@@ -95,6 +95,13 @@ const rankings=y=>bar(`${t('topRank')} ${y}`,sel(y,z=>urls.rankings(z)))+rank(y)
 const matches=y=>bar(`${t('matches')} ${y}`,sel(y,z=>urls.matches(z)))+`<div>${matchList(M[y])}</div>`;
 const gameday=()=>bar('GameDay')+`<div class="map">${t('gamedaySoon')}</div>`;
 
+// Foto del equipo EN ESA temporada: los integrantes cambian cada año, así que la
+// imagen es por (equipo, año) y no del equipo en general. La URL es un hotlink
+// externo (no se espeja en el repo) y solo se muestra, no se enlaza. Sin URL queda
+// el marcador de la maqueta, que es un estado explícito.
+const photo=(c,y)=>{const u=PH[y]?.[c],alt=`${T[c][0]} ${y} · ${t('photo')}`;
+  return `<div class="photo">${u?`<img src="${e(u)}" alt="${e(alt)}" loading="lazy" decoding="async">`:t('photo')}</div>`};
+
 const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);return z?{...z,y}:null}),P=R2.filter(Boolean),
   // Centinela Infinity, no 99: con 99 cualquier equipo peor que el puesto 99 se
   // quedaba con el valor inicial y mostraba «#99» como si fuera su mejor puesto.
@@ -102,15 +109,15 @@ const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);return z?{
   return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]}</h1></div>${ddY(t('seasons'),z=>urls.team(c,z),P.map(z=>z.y))}</div><div class="kv"><div><span>${t('iso')}:</span> ${c}</div></div>`
   +boxes([box(t('matches'),n),box(t('awards'),tot(cnt(c))),box(t('record'),n?`${W}–${Lo}–${Ti}`:t('noData'),n?`${(100*W/n).toFixed(1)}%`:''),box(t('bestRank'),P.length?`#${b.rank}`:t('noData'),P.length?`${b.y} · ${t('of')} ${teamsOf(b.y)}`:''),box(t('medals'),'',pips(cnt(c)))],1)
   +`<h3>${t('timeline')}</h3>`+Y.map((y,i)=>{const z=R2[i],s=sn(y);
-    if(!z)return `<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div><p class="note">${t('noCompetition')}</p><div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div><div class="photo">${t('photo')}</div></div></section>`;
+    if(!z)return `<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div><p class="note">${t('noCompetition')}</p><div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`;
     const ps=sc(mine(c,y));
     // Los KPIs de la temporada van en la columna IZQUIERDA, bajo Rank y Record, como
     // en @component:season-block del demo. La derecha queda para la foto.
-    return `<section class="ev"><div><h2><a href="${urls.team(c,y)}">${sName(y)}</a></h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}${kvr(t('highestScore'),ps.length?Math.max(...ps):t('noData'))}${kvr(t('avgScore'),z.avg)}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div><div class="photo">${t('photo')}</div></div></section>`}).join('')};
+    return `<section class="ev"><div><h2><a href="${urls.team(c,y)}">${sName(y)}</a></h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}${kvr(t('highestScore'),ps.length?Math.max(...ps):t('noData'))}${kvr(t('avgScore'),z.avg)}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`}).join('')};
 
 const ts=(c,y)=>{const z=S[y].find(x=>x.code==c),s=sn(y);
   return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]} · ${y}</h1></div>${ddY(y,k=>urls.team(c,k),yearsOf(c))}</div><p><a href="${urls.team(c)}">← ${t('back')}</a></p>`
-  +`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div><div class="photo">${t('photo')}</div></div></section>`
+  +`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`
   +`<h3>${t('matches')}</h3><div>${matchList(mine(c,y),c)}</div>`};
 
 // Página de un partido: a la izquierda la tabla estándar (alianzas y marcador, roja

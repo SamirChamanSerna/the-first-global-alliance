@@ -88,7 +88,17 @@ Every hand-entered file must carry these. Extra columns are allowed and ignored.
 
 **`awards.csv`** (only if ever needed manually) — `year` ✅, `award_slug` ✅, `name`, `description`, `tier` ✅ (`gold` \| `silver` \| `bronze` \| `awarded`), `team_code` ✅. One row per team per award.
 
-**`teams.csv`** — object keyed by `team_code`: `{ continent, photo, website, instagram, twitter, facebook, contact }`. `photo` is a public FIRST URL, hotlinked; a missing or empty value is a normal state and renders the UI placeholder.
+**`teams.csv`** — object keyed by `team_code`: `{ continent, website, instagram, twitter, facebook, contact }`. `continent` is required for the `/teams/` grouping and exists nowhere in the API.
+
+**`photos.csv`** — the team photo **per season** (members change every year, so there is no team-level photo).
+
+| Column | Key? | Format | Notes |
+|---|---|---|---|
+| `year` | ✅ | integer | must exist in `seasons.csv` |
+| `team_code` | ✅ | `team_code` | must exist in the roster |
+| `photo_url` | | public `http(s)://` URL | hotlinked, never mirrored; only `http(s)` is accepted |
+
+One row per `(year, team_code)`; a duplicate pair fails the build. An empty or non-`http(s)` URL fails the build rather than being skipped — unlike `reveal_video`, a row here is an explicit statement that this URL is the photo, so dropping it silently would leave a mute hole. A missing row is the normal "no photo" state and renders the UI placeholder.
 
 **`seasons.csv`** — `year,name,city,country,iso,dates,reveal_video,mode`. `name` is the season's **game** (not the event), `iso` is the host country's alpha-3 and is what resolves its flag, and `reveal_video` must be `http(s)://` — the normalizer drops anything else rather than letting it reach an `href`.
 

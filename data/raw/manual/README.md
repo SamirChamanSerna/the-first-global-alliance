@@ -17,7 +17,8 @@ It never overwrites an existing file, so re-running it is always safe.
 | File | Purpose |
 |---|---|
 | `seasons.csv` | One row per season: game name, host city/country/ISO, dates, reveal-video URL, and `mode` |
-| `teams.csv` | The roster, pre-filled from the API. Fill `continent`, `photo` and the social columns |
+| `teams.csv` | The roster, pre-filled from the API. Fill `continent` and the social columns |
+| `photos.csv` | One team photo per season: `year`, `team_code`, hotlinked `photo_url` |
 | `videos.csv` | Match video links: stream URL + start/end timestamps |
 | `{year}/matches.csv` | Matches for years the API does not serve (2017–2019, 2022, 2023) |
 | `{year}/rankings.csv` | Final rankings for those years |
@@ -56,6 +57,17 @@ match_id,video_url,start,end
 2025_q12,https://www.youtube.com/watch?v=XXXXXXXXXXX,3:42:10,4:05:00
 ```
 
+`photos.csv` — one photo per team **and season**:
+
+```
+year,team_code,photo_url
+2025,MEX,https://i0.wp.com/first.global/wp-content/uploads/2025/10/team-mexico.jpg?w=900&quality=89&ssl=1
+```
+
+- One row per `(year, team_code)`. Both keys must exist elsewhere: the year in `seasons.csv`, the code in `teams.csv` (the API roster). A row with an unknown year or code, a duplicate pair, or a URL that is not `http(s)://` **fails the build** — it is not skipped.
+- Write the URL exactly as it comes, with a raw `&` and no surrounding quotes (there is no comma in it).
+- A team with no photo for that season simply renders the UI placeholder. That is a normal state, not an error.
+
 `2023/matches.csv` — a played match and an unplayed one:
 
 ```
@@ -74,4 +86,4 @@ year,stage,alliance_number,captain,pick1,pick2,pick3
 
 Every file is validated (keys exist, no duplicate ids, controlled vocabularies, alliance sizes) and the build **fails loudly** on a bad row rather than rendering something wrong. The CSVs are then converted into the JSON the site consumes — nothing reads CSV at runtime, and no CSV is ever served.
 
-Team photos are **not** copied into the repo: `teams.csv` holds the public FIRST URL and the page links to it. A team with no URL renders the UI placeholder, which is a normal state, not an error.
+Team photos are **not** copied into the repo: `photos.csv` holds the public FIRST URL and the page hotlinks it. A photo belongs to **one season**, not to the team in general — the members change every year, so it is keyed by `(year, team_code)` and shows next to that season in the Team History timeline and on the Team Season page. A team with no URL renders the UI placeholder, which is a normal state, not an error. Because the URL is third-party, it can rot: if the image disappears later the browser shows a broken/alt state rather than the placeholder.

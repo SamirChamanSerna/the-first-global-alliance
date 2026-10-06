@@ -13,12 +13,13 @@ data/
     api/{year}.matches.json      # verbatim per-match responses with details
     manual/                      # hand-entered CSVs — the ONLY hand-written inputs
       README.md                  # operator's guide
-      seasons.csv  teams.csv  videos.csv
+      seasons.csv  teams.csv  photos.csv  videos.csv
       {year}/{matches,rankings,alliances}.csv
       breakdown.{year}.json      # game-specific field map (no tabular form)
   processed/                     # ENTRADA DEL BUILD — generada, NO versionada (.gitignore). data.js lee esto
     seasons.json                 # [{y,name,city,country,iso,dates,mode}]
     teams.json                   # {CODE: {name, continent}}
+    photos.json                  # {"2025": {CODE: url}}   one photo per team and season
     awards.json                  # [[name,desc,ty,tier], …]  award catalogue
     {year}/matches.json  rankings.json  alliances.json  awards.json
 ```
@@ -71,9 +72,13 @@ Two rules apply across all of them:
 
 `mode` ∈ `archived | live | awards-only`. This single field drives rendering (2020/2021 are `awards-only`).
 
-**`teams.csv`** — `team_code,name,continent,photo,website,instagram,twitter,facebook,contact`
+**`teams.csv`** — `team_code,name,continent,website,instagram,twitter,facebook,contact`
 
-Pre-filled with the API roster (`node scripts/make-manual-templates.js`), so only the last seven columns are typed. `name` is a read-only reference so a code is never mis-filled. `continent` is required for the `/teams/` grouping and exists nowhere in the API. `photo` is the **public FIRST URL, hotlinked** — not mirrored into the repo; empty means no photo, and the page renders its placeholder.
+Pre-filled with the API roster (`node scripts/make-manual-templates.js`), so only the last six columns are typed. `name` is a read-only reference so a code is never mis-filled. `continent` is required for the `/teams/` grouping and exists nowhere in the API.
+
+**`photos.csv`** — `year,team_code,photo_url`
+
+One row per `(team_code, year)`: the team photo of **that edition**, not of the team in general (members change every year). `photo_url` is the **public FIRST URL, hotlinked** — not mirrored into the repo; empty means no photo, and the page renders its placeholder. Missing row ⇒ placeholder; a malformed row (unknown year or code, duplicate pair, non-`http(s)` URL) fails the build.
 
 **`videos.csv`** — `match_id,video_url,start,end`
 
@@ -89,6 +94,7 @@ The templates expect the shapes in `00-instrucciones-agentes.md` §4. The normal
 |---|---|---|
 | `seasons[]` | `seasons.csv` | manual |
 | `T[code] → [name, continent]` | `/v1/teams` + `teams.csv` | name auto, continent manual |
+| `PH[y][code] → url` | `photos.csv` | manual, one per team and season |
 | `M[y][]` | `/v1?year=` matches + participants, or `manual/matches.csv` | auto for 2024/2025 |
 | `S[y][]` | `/v1?year=` rankings, or `manual/rankings.csv` | auto for 2024/2025 |
 | `AL[y][]` | `alliances_round_robin` + `alliances_finals` | auto for 2024/2025 |
@@ -111,5 +117,6 @@ driven by `data/raw/manual/breakdown.{year}.json`, which maps API field names to
 - Schema check every every `raw/manual/*.csv` and the breakdown map before use — a typo in a hand-typed team code must break the build, not render a blank cell.
 - Reject any team code not present in `/v1/teams`.
 - Reject a match whose teams are not all in the same season's roster.
+- Reject a `photos.csv` row whose `year` is not in `seasons.csv`, whose `team_code` is not in `/v1/teams`, whose URL is not `http(s)://`, or that repeats a `(year, team_code)` pair.
 - Reject a processed file whose `season`/`schemaVersion` header does not match the requested build.
 - Missing data is absent from the input, never represented as `0` or `""`. The templates turn absence into the explicit empty states the spec requires.

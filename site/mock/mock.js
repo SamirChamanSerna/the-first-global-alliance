@@ -1,6 +1,11 @@
 // DATOS FICTICIOS. Reemplazar por el pipeline real.
 export const T={MEX:['Mexico','Americas'],USA:['United States','Americas'],BRA:['Brazil','Americas'],FRA:['France','Europe'],GER:['Germany','Europe'],ITA:['Italy','Europe'],NGA:['Nigeria','Africa'],EGY:['Egypt','Africa'],JPN:['Japan','Asia'],AUS:['Australia','Oceania'],KEN:['Kenya','Africa'],CAN:['Canada','Americas']};
 export const codes=Object.keys(T);
+// Fotos: una por equipo Y temporada, con la misma forma que data/processed/photos.json
+// ("{año: {CÓDIGO: url}}"). En el fixture la URL es un SVG en línea para que el marco
+// se vea de verdad sin depender de una imagen remota ni dejar un <img> roto; los datos
+// reales solo admiten http(s) (lo valida scripts/normalize.js).
+export const PH={2025:{MEX:'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%203%22%3E%3Crect%20width=%224%22%20height=%223%22%20fill=%22%23d8d8d8%22/%3E%3Crect%20y=%221.8%22%20width=%224%22%20height=%221.2%22%20fill=%22%238a8a8a%22/%3E%3C/svg%3E'}};
 export const seasons=[{y:2025,city:'Panama City',iso:'PAN',country:'Panama',dates:'Oct 29 – Nov 1, 2025'},{y:2024,city:'Athens',iso:'GRC',country:'Greece',dates:'Sep 25–28, 2024'},{y:2023,city:'Singapore',iso:'SGP',country:'Singapore',dates:'Oct 10–13, 2023'},{y:2022,city:'Geneva',iso:'CHE',country:'Switzerland',dates:'Oct 13–16, 2022'}].map(s=>({...s,name:`Mock Challenge ${s.y}`}));
 let seed=11;const rnd=n=>(seed=seed*48271%2147483647)%n;
 const shuffle=a=>a.map(x=>[rnd(1e6),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);

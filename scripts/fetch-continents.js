@@ -7,8 +7,9 @@
 // lukes/ISO-3166-Countries-with-Regional-Codes (cuyas `region` son exactamente
 // Africa / Americas / Asia / Europe / Oceania).
 //
-// Solo escribe esa columna: el resto de teams.csv (fotos, redes, contacto) es
-// entrada manual y se preserva tal cual.
+// Solo escribe esa columna: el resto de teams.csv (redes, contacto) es
+// entrada manual y se preserva tal cual. Las fotos NO están aquí: viven en
+// photos.csv, una por equipo y temporada.
 
 import fs from 'node:fs';
 import path from 'node:path';

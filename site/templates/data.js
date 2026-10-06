@@ -31,6 +31,7 @@ const read = (file) => {
  * Archivos esperados:
  *   seasons.json            [{y, name, city, country, iso, dates, mode}]
  *   teams.json              {CODE: {name, continent}}
+ *   photos.json             {"2025": {CODE: url}}   una foto por equipo y temporada
  *   awards.json             [[name, desc, ty, tier], …]   catálogo de premios
  *   {year}/matches.json     [{id, stage, label, …, red[], blue[], rs, bs, breakdown[]}]
  *   {year}/rankings.json    [{code, rank, w, l, t, pts, n, rp, avg}]
@@ -59,7 +60,10 @@ function load() {
   const T = {};
   for (const [code, v] of Object.entries(teams)) T[code] = [v.name, v.continent];
 
-  return {seasons, T, codes: Object.keys(T), M, S, A, AL, AW: read('awards.json') ?? []};
+  // Las fotos son opcionales: un processed/ sin photos.json sigue sirviendo y las
+  // páginas caen a su marcador. Hacerlas obligatorias mandaría al fixture cualquier
+  // data/processed/ generado antes de que existiera este archivo.
+  return {seasons, T, codes: Object.keys(T), M, S, A, AL, AW: read('awards.json') ?? [], PH: read('photos.json') ?? {}};
 }
 
 const real = load();
@@ -76,6 +80,7 @@ export const S = d.S;
 export const A = d.A;
 export const AL = d.AL;
 export const AW = d.AW;
+export const PH = d.PH ?? {};
 
 /**
  * Código de país → nombre del archivo de bandera. El repositorio real de banderas

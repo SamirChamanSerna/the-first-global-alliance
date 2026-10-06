@@ -51,9 +51,10 @@ What S1 turned up, all now handled and documented in `06-join-keys.md` / `02-dat
 **S2 — hand-entered data (fill incrementally, pages degrade gracefully)**
 
 9. `data/raw/manual/seasons.csv` — city, venue, country, ISO, dates. **Highest value: unblocks every page header.**
-10. `data/raw/manual/teams.csv` — continent (required for the `/teams/` grouping), photo URL, social/contact.
-11. `data/raw/manual/videos.csv` — stream URL + timestamps.
-12. ✅ Flags mirrored: `node scripts/fetch-flags.js` — the whole flag-icons set (MIT, 270 files) plus the codes it lacks copied from results.first.global (`10_hope` and the four regional assets). 275 files, **2.9 MB**. results.first.global alone was 47 MB / 45 MB per page, so it is the fallback, not the source. Photos stay hotlinked (item 10).
+10. `data/raw/manual/teams.csv` — continent (required for the `/teams/` grouping), social/contact.
+11. `data/raw/manual/photos.csv` — the team photo of each season, `year` + `team_code` + hotlinked URL (one per team and season; gaps are fine).
+12. `data/raw/manual/videos.csv` — stream URL + timestamps.
+13. ✅ Flags mirrored: `node scripts/fetch-flags.js` — the whole flag-icons set (MIT, 270 files) plus the codes it lacks copied from results.first.global (`10_hope` and the four regional assets). 275 files, **2.9 MB**. results.first.global alone was 47 MB / 45 MB per page, so it is the fallback, not the source. Photos stay hotlinked (item 11).
 
 **S3 — untrusted years (owner-supplied, parallel, no code after S1)**
 
@@ -106,7 +107,7 @@ What S1 turned up, all now handled and documented in `06-join-keys.md` / `02-dat
 
 **Owner-supplied inputs** (nothing blocks S0 on these)
 
-- Team photo URLs — manual list, keyed by ISO alpha-3; gaps are fine.
+- Team photo URLs — manual list, keyed by `(year, team_code)`; gaps are fine.
 - Season metadata, team continents, social/contact links.
 - Match video URLs + timestamps.
 - 2017–2023 matches / rankings, per `06-join-keys.md`.
@@ -120,6 +121,6 @@ What S1 turned up, all now handled and documented in `06-join-keys.md` / `02-dat
 
 ## Out of scope for now
 
-GameDay, the team photo carousel, real video thumbnails, search across match history — all still listed as pending in the agent instructions §8, and none of them block S0–S1.
+GameDay, the multi-photo carousel (one photo per team and season already ships; several per season is deferred), real video thumbnails, search across match history — all still listed as pending in the agent instructions §8, and none of them block S0–S1.
 
 The **venue map on the Home page is dropped**, not deferred: purely decorative and out of current scope. The map placeholder element remains in the markup only for GameDay, which is itself a placeholder page.
