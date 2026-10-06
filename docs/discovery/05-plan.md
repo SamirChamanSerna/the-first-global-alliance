@@ -120,4 +120,6 @@ What S1 turned up, all now handled and documented in `06-join-keys.md` / `02-dat
 
 ## Out of scope for now
 
-GameDay, the venue map, the team photo carousel, real video thumbnails, search across match history — all still listed as pending in the agent instructions §8, and none of them block S0–S1.
+GameDay, the team photo carousel, real video thumbnails, search across match history — all still listed as pending in the agent instructions §8, and none of them block S0–S1.
+
+The **venue map on the Home page is dropped**, not deferred: purely decorative and out of current scope. The map placeholder element remains in the markup only for GameDay, which is itself a placeholder page.

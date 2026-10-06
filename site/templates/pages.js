@@ -54,8 +54,9 @@ const when=s=>[place(s),s.dates].filter(Boolean).join(' · ');
 const countryCell=s=>s.country?`${flag(s.iso)} ${s.country}`:t('noData');
 
 const nAw=ys=>ys.reduce((n,z)=>n+A[z].reduce((m,a)=>m+a.w.length,0),0);
-const home=()=>hero()+`<div class="map">${t('mapPlaceholder')}</div>
-<h3>${t('venues')}</h3>${dt([[t('year')],[t('venue')],[t('country')],[t('dates')]],seasons.map(s=>[`<a href="${urls.insights(s.y)}">${s.y}</a>`,s.city||t('noData'),countryCell(s),s.dates||t('noData')]))}
+// Sin mapa de sedes: es puramente estético y queda fuera del alcance actual
+// (ver docs/discovery/05-plan.md). La Home es hero → lista de sedes → KPIs.
+const home=()=>hero()+`<h3>${t('venues')}</h3>${dt([[t('year')],[t('venue')],[t('country')],[t('dates')]],seasons.map(s=>[`<a href="${urls.insights(s.y)}">${s.y}</a>`,s.city||t('noData'),countryCell(s),s.dates||t('noData')]))}
 <h3>${t('overview')}</h3>${boxes([box(t('matches'),Y.reduce((n,y)=>n+(M[y]||[]).length,0)),box(t('awards'),nAw(Y)),box(t('teams'),codes.length)],1)}`;
 
 const ins=y=>{const aw=!!y&&onlyAwards(y),ms=y?M[y]:YC.flatMap(z=>M[z]),q=ms.filter(m=>m.stage=='ranking'),p=ms.filter(m=>m.stage!='ranking'),s=y&&sn(y);

@@ -61,7 +61,7 @@ export const brand = {
     generatedOn: "Generated on",
     season: "Season", seasons: "Seasons", overview: "Overview", matches: "Matches", team: "Team", total: "Total", year: "Year",
     venues: "Host venues", venue: "Venue", country: "Country", dates: "Dates", flagCol: "Flag", wlt: "W-L-T", avgScore: "Avg score",
-    mapPlaceholder: "Map placeholder · pins at host countries", highestMatch: "Highest scoring match", avgMatch: "Average match score",
+    highestMatch: "Highest scoring match", avgMatch: "Average match score",
     avgMargin: "Average winning margin", playoffs: "Playoffs / Round Robin", topRank: "Top ranking", mostAwards: "Most awards",
     mostPlayoff: "Most playoff appearances", highestPlayoff: "Highest scoring playoff match", gamedaySoon: "GameDay · coming soon",
     officialSite: "Official site", reveal: "Game reveal video", thumbnail: "thumbnail 16:9", photo: "Team photo",

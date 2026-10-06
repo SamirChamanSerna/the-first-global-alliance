@@ -41,7 +41,7 @@ URLs en minúsculas salvo `{team_code}` (ISO Alpha-3 en mayúsculas, p. ej. `MEX
 
 | Ruta | Plantilla (`pages.js`) | Contenido |
 |---|---|---|
-| `/` | `home` | Hero centrado (logo, nombre, eslogan) → mapa de sedes → lista de sedes (año, sede, país, fechas; enlaza a `/insights/{season}/`) → KPIs globales |
+| `/` | `home` | Hero centrado (logo, nombre, eslogan) → lista de sedes (año, sede, país, fechas; enlaza a `/insights/{season}/`) → KPIs globales. **Sin mapa de sedes**: descartado por estar fuera de alcance |
 | `/insights/` | `ins()` | Overview histórico |
 | `/insights/{season}/` | `ins(y)` | Insights de una temporada |
 | `/teams/` | `teams` | Directorio por 5 continentes (África, América, Asia, Europa, Oceanía) |
@@ -176,7 +176,9 @@ Si necesitas un componente que no está en el demo ni en `blocks.js`:
 1. **No lo construyas.** Escribe `docs/web-style-guide/05-componentes-pendientes.md` con: nombre, para qué página, boceto ASCII, tokens que usaría y datos que necesita.
 2. Espera aprobación.
 
-Pendientes conocidos: página de resultados de búsqueda, mapa de sedes, carrusel de fotos, GameDay, tipos de fila del desglose, símbolo de "Honorable".
+Pendientes conocidos: página de resultados de búsqueda, carrusel de fotos, GameDay, tipos de fila del desglose, símbolo de "Honorable".
+
+**Descartado:** el mapa de sedes de la Home. Es puramente estético y queda fuera del alcance actual; se retiró de la pantalla y no se construye.
 
 ## 9. Checklist de entrega (cada etapa)
 
