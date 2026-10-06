@@ -9,9 +9,14 @@ A static site that archives **FIRST Global Challenge** results (seasons, teams, 
 ## Commands
 
 ```bash
-node site/build.js                      # regenerate site/dist/ (requires Node 20+)
+node scripts/fetch-archive.js [years…]  # download raw API responses → data/raw/api/
+node scripts/normalize.js               # data/raw/ → data/processed/ (validates, fails loudly)
+node site/build.js                      # data/processed/ → site/dist/ (requires Node 20+)
+
 node scripts/make-manual-templates.js   # create empty CSV templates for hand-entered data
 ```
+
+Data pipeline: `fetch` → `normalize` → `build`. `build` alone works without the first two when `data/processed/` is already committed.
 
 The build prints which data source it used (`processed` or `fixture`). Then open `site/dist/index.html`. There is no test suite, linter, or package manager — `site/package.json` exists only to declare `"type": "module"`.
 
@@ -32,9 +37,9 @@ grep -rn 'The FIRST Global Alliance' site --include=*.js | grep -v brand.js
 A tiny template engine, evaluated at build time; everything is string concatenation. Data flows one way:
 
 ```
-data/processed/*.json ─┐
-                       ├→ templates/data.js → templates/pages.js → templates/blocks.js → dist/*.html
-mock/mock.js (fixture) ┘    (source select)    (one fn per screen)    (shared markup)
+data/raw/  ──normalize.js──►  data/processed/  ─┐
+  (api + manual CSVs)                            ├→ templates/data.js → pages.js → blocks.js → dist/*.html
+                          mock/mock.js (fixture) ┘     (source select)
 ```
 
 - **`site/templates/data.js`** is the only module that reads data. It loads `data/processed/` when present and falls back to the `site/mock/mock.js` fixture otherwise, so the site always builds — with real data or with test data. `pages.js` imports from here, never from `mock.js`. Expected processed files are documented at the top of the module.
@@ -73,14 +78,15 @@ If two docs contradict each other, **stop and report it** — don't pick one.
 - Doc precedence: markup/CSS appearance → `demo-team-match.html` and `site/`; design rules → `02-guia-de-estilos.md`; routes and screen content → the functional spec; value shape → the data contract.
 - `docs/discovery/01-hybrid-architecture.md` … `06-join-keys.md` plan the move from mock data to real data: static archive for past seasons, a DB-backed live layer for the current one, the raw-data standard, the pipeline, the staged plan, and the join-key standard for hand-entered data. `06` is authoritative for identifiers — in particular **`teamKey` is reassigned every season and is never a join key**; teams are identified by ISO alpha-3. Read them before changing how data reaches the templates.
 
-## Known gaps in the generator
+## Data gotchas
 
-`pages.js` was written against the fixture, which always has a full season. Real data does not, and two things break:
+- **Country codes are messy.** `api.first.global` uses two alpha-3 spaces that disagree between sources *and between years* (`ATG`/`ANT`, `HPE`/`10`). The roster's code is canonical; `scripts/lib/codes.js` bridges via alpha-2. Never join on `teamKey` — it is reassigned every season. See `docs/discovery/06-join-keys.md`.
+- **Awards identify countries by name and alpha-2, never alpha-3**, and alliance awards put their captain in the slot matching their own tier (`silver` for the silver award), not always in `gold`.
+- **2020 and 2021 exist in neither the API nor any fetch** — awards included. Those seasons are hand-entered.
 
-- **`mode` is ignored.** Nothing reads `seasons[].mode`, so an `awards-only` season (2020, 2021) still generates `/rankings/{y}/`, `/matches/{y}/` and `/team/{code}/{y}/` — pages with no data behind them.
-- **`best()` crashes on an empty array.** Any season with no playoff match (`best(p)` in `ins`) or no matches at all throws `Reduce of empty array with no initial value`. The spec anticipates exactly this ("prueba con datos parciales"), so it needs the explicit empty states, not a guard that hides it.
+## Known gaps
 
-Both are S1 work; see `docs/discovery/05-plan.md`.
+- `seasons.csv` and `teams.csv` are still empty of the fields only a human can supply (city, dates, continent, photos). Pages degrade to "No data" and `/teams/` renders five empty continents — not a bug, just missing input. See `docs/discovery/05-plan.md` S2.
 
 ## Open decisions (don't silently resolve these)
 

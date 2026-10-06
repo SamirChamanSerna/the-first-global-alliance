@@ -28,7 +28,21 @@ Measured against the live API, comparing the 168 countries present in both seaso
 
 `team_code` is the API's `country` field. It is the key in URLs, in `teams.csv`, in every manual CSV, and in every cross-file join.
 
-**One documented exception:** the refugee team appears in `/v1/teams` as `country: "10"`, name *Team Hope (Refugees)* — not an ISO code. Its flag is the special `10_hope` asset, not a country's. Treat `10` as a valid `team_code` everywhere (it is what the API and the flag helper use); it is the only non-alpha-3 entry in the roster.
+### The API has two code spaces — the roster wins
+
+Verified against the live data: `country` (alpha-3) is **not** consistent between `/v1/teams` and the match/ranking payloads, and not even between years.
+
+| Country | matches / rankings | roster |
+|---|---|---|
+| Antigua and Barbuda | `ATG` in 2023–2024, **`ANT` in 2025** | `ANT` |
+| Refugee team | `HPE` | `10` (the flag asset is `10_hope`) |
+
+The alpha-2 code is the only field that always agrees (`ag`, `10`), so it is the bridge. **The roster code is canonical** — it is what the person filling `teams.csv` sees and what the site puts in URLs. `scripts/lib/codes.js` builds the alias map; everything from the competition is translated to the roster's space before it reaches a template.
+
+Two consequences, both accepted and deliberate:
+
+- `ANT` is a withdrawn ISO code and `10` is not an ISO code at all. They stay until the roster itself is corrected upstream — fixing it here would desynchronise the site from the file the owner fills in by hand.
+- `brand.flagPath` maps `10` → the special `10_hope` asset, because there is no country flag for the refugee team.
 
 ### Match id derivation
 
@@ -77,6 +91,17 @@ Every hand-entered file must carry these. Extra columns are allowed and ignored.
 **`teams.csv`** — object keyed by `team_code`: `{ continent, photo, website, instagram, twitter, facebook, contact }`. `photo` is a public FIRST URL, hotlinked; a missing or empty value is a normal state and renders the UI placeholder.
 
 **`seasons.csv`** — array of `{ y, name, city, country, iso, dates, mode }`.
+
+## Awards: how the API shape maps to the site shape
+
+An API award is `{name, description, gold, silver, bronze, other[], sortOrder}` where each slot is `{country, countryCode}` and each `other[]` entry also carries `class`. Four things are not obvious:
+
+1. **`ty` is not in the data — it is inferred.** `a` (alliance) when the name contains "Alliance", `p` (podium) when a `gold`/`silver`/`bronze` slot exists, `n` otherwise.
+2. **An alliance award puts its captain in the slot matching its own tier**, not always in `gold`: *Winning Alliance – Gold* fills `gold`, *Finalist – Silver* fills `silver`, *Finalist – Bronze* fills `bronze`. The rest of the alliance is in `other[]` with the same `class`. So the team list is `[tier slot, ...other]` — that is what makes four teams.
+3. **`class` is the tier**, and it is the only place the tier appears for `other[]` entries.
+4. **Some awards go to people, not teams** — the mentor award lists `recipientName` with no country. The site's model has no place for them, so they are dropped and counted in a warning at build time.
+
+Also: the API gives country **names** and alpha-2 codes in awards, never alpha-3. Resolution goes alpha-2 → numeric code → name, and anything unresolved fails the build.
 
 ## Controlled vocabularies
 

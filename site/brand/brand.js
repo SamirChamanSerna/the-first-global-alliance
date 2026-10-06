@@ -7,7 +7,9 @@
 export const brand = {
   name: "The FIRST Global Alliance",
   tagline: "A simple way to explore FIRST Global Challenge results.",
-  flagPath: (iso) => `/flags/${iso.toLowerCase()}.svg`,   // SUPUESTO: nombre en minúsculas; cambiar aquí si no
+  // Bandera en minúsculas. HPE (equipo de refugiados) no tiene país: usa el asset
+  // especial 10_hope. Ver docs/discovery/06-join-keys.md.
+  flagPath: (iso) => `/flags/${({'10': '10_hope'}[iso] ?? iso).toLowerCase()}.svg`,
   lang: "en",                          // PENDIENTE: idioma de la interfaz (en / es)
   themeColor: "#3f51b5",               // debe coincidir con --brand (el <meta> no puede leer CSS)
   favicon: "/brand/favicon.svg",
@@ -62,6 +64,7 @@ export const brand = {
     bestRank: "Best rank", timeline: "Timeline", history: "History", water: "Water Conserved", parking: "Parking points", final: "Final score",
     alliances: "Alliances", back: "Team history", fullRanking: "Full ranking", tb1: "TB1 · Avg score", tb2: "TB2 · Wins", tb3: "TB3 · Points",
     field: "Field", key: "Key", tierGold: "Gold / 1st", tierSilver: "Silver / 2nd", tierBronze: "Bronze / 3rd", tierNone: "Non-tiered", noPlayoff: "Did not play playoffs", noAwards: "No awards", qualMetrics: "Qualification matches", players: "Teams", mockNote: "Mock data",
+    noCompetition: "No competition was held this season",
   },
 };
 

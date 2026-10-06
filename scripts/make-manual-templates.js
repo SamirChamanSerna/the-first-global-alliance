@@ -38,8 +38,10 @@ const HEADERS = {
   alliances: 'year,stage,alliance_number,captain,pick1,pick2,pick3',
 };
 
+// Una celda vacía por columna, para que `mode` caiga en su sitio y no desplace el resto.
+const row = (cells) => cells.map(cell).join(',');
 const seasonsCsv = () =>
-  [HEADERS.seasons, ...SEASONS.map(([y, mode]) => `${y},,,,,${mode}`)].join('\n') + '\n';
+  [HEADERS.seasons, ...SEASONS.map(([y, mode]) => row([y, '', '', '', '', '', mode]))].join('\n') + '\n';
 
 /** RFC 4180: quote a cell when it holds a comma, a quote or a newline. */
 const cell = (v) => {

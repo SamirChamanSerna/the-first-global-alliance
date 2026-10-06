@@ -25,16 +25,32 @@ Rule for everything below: **the UI and the markup are already correct.** We add
 - **`mode` is never read.** An `awards-only` season still generates `/rankings/{y}/`, `/matches/{y}/` and `/team/{code}/{y}/` with no data behind them.
 - **`best()` throws on an empty array** (`Reduce of empty array with no initial value`), so any season without a playoff match — or without matches at all — crashes the build. The spec anticipates the partial-data case; it needs the explicit empty states, not a guard that hides it.
 
-**S1 — real archived seasons (2024, 2025)**
+**S1 — real archived seasons — DONE (2024, 2025; awards 2017–2023)**
 
-5. `scripts/fetch-archive.js` + `scripts/normalize.js` per `03-raw-data-standard.md` and `06-join-keys.md`, with the validation pass.
-6. **Make the generator consume `mode`**: an `awards-only` season must not emit rankings, matches or team-season pages, and a season with no playoff matches must render empty states instead of crashing (`best()`, carried over from S0).
-7. Expand `seasons` to 2017–2026, including the two awards-only seasons.
-8. Replace `bd[4]` with the generic `breakdown[]` + `data/raw/manual/breakdown.{year}.json` (see `03-raw-data-standard.md` — the only contract change the real data forces).
+5. ✅ `scripts/fetch-archive.js` + `scripts/normalize.js` + `scripts/lib/codes.js`. `site/build.js` now emits **1359 pages from `data/processed/`**; the fixture output is unchanged (183 files, zero content differences).
 
-**S2 — hand-entered overlays (fill incrementally, pages degrade gracefully)**
+What S1 turned up, all now handled and documented in `06-join-keys.md` / `02-data-sources.md`:
 
-9. `data/raw/manual/seasons.csv` — city, venue, country, ISO, dates.
+- The API uses **two country-code spaces** that disagree between sources *and between years* (`ATG`/`ANT`, `HPE`/`10`). The roster is canonical; alpha-2 is the bridge.
+- **2020 and 2021 have nothing in the API**, awards included — they must be hand-entered.
+- `field` and `played` only appear with `excludeMatchDetails=true`.
+- Alliance awards put their captain in the slot matching their own tier.
+- Mentor awards go to people, not countries; they are dropped with a warning.
+
+6. ✅ The generator consumes `mode`: an `awards-only` season emits no rankings, matches or team-season pages, and a season with no playoff matches renders an explicit empty state instead of crashing (`best()` returns null, `hi()` shows "No match data").
+7. ✅ `seasons` covers 2017–2026, with 2020/2021 as `awards-only`.
+8. ✅ `bd[4]` replaced by the generic `breakdown[]` fed by `data/raw/manual/breakdown.{year}.json`. With no map written yet, the match page shows only the totals row — nothing is invented.
+
+**S1 still open**
+
+- **Team names, cities and dates are blank** for every season until `seasons.csv` is filled. The pages degrade cleanly (year instead of name, "No data" instead of a blank cell) but look thin.
+- **`/teams/` renders five empty continents** because `continent` is empty for all 207 teams.
+- The 2020/2021 insights pages show an empty awards block: the API has nothing for those years.
+- `data/processed/2026/` does not exist yet, so 2026 renders empty rankings/matches pages until S4.
+
+**S2 — hand-entered data (fill incrementally, pages degrade gracefully)**
+
+9. `data/raw/manual/seasons.csv` — city, venue, country, ISO, dates. **Highest value: unblocks every page header.**
 10. `data/raw/manual/teams.csv` — continent (required for the `/teams/` grouping), photo URL, social/contact.
 11. `data/raw/manual/videos.csv` — stream URL + timestamps.
 12. Mirror flags into the repo; photos stay hotlinked to the public FIRST URLs.

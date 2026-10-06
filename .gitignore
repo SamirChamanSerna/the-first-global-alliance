@@ -1,7 +1,11 @@
 # El sitio usa muy pocas cosas, así que esta lista es corta a propósito.
-# Se commitean a propósito, no añadir aquí:
-#   data/        los datos crudos y procesados SON parte del repositorio
-#   site/dist/   la salida del build, para poder previsualizar y publicar sin compilar
+# Se commitea a propósito, no añadir aquí:
+#   data/   los datos crudos y procesados SON parte del repositorio
+
+# --- Salida del build ---
+# Con datos reales son cientos o miles de archivos generados. Se reconstruye con
+# `node site/build.js`, así que no se versiona.
+site/dist/
 
 # --- Sistema operativo ---
 .DS_Store

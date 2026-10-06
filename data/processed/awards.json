@@ -1,0 +1,209 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-10-06T04:50:35.393Z",
+ "generator": "scripts/normalize.js",
+ "data": [
+  [
+   "FIRST Global Winning Alliance Award - Gold",
+   "Awarded to the four teams in the winning alliance in the final match.",
+   "a",
+   "gold"
+  ],
+  [
+   "FIRST Global Finalist Alliance - Silver",
+   ".",
+   "a",
+   "silver"
+  ],
+  [
+   "FIRST Global Finalist Alliance - Bronze",
+   ".",
+   "a",
+   "bronze"
+  ],
+  [
+   "FIRST Global Innovator Award, in honor of Fred Smith",
+   "Awarded to teams who developed their own innovative solutions to address food sustainability as part of the New Technology Experience: Eco Equilibrium",
+   "p"
+  ],
+  [
+   "Zhang Heng Award for Engineering Design",
+   "Awarded to teams whose robot exhibits excellent engineering and displays elegance and effectiveness during the Challenge.",
+   "p"
+  ],
+  [
+   "Ustad Ahmad Lahori Award for Innovation in Engineering",
+   "Awarded to teams that demonstrate creativity and innovation in building their robot to complete an aspect of the Challenge.",
+   "p"
+  ],
+  [
+   "Dr. Mae Jemison Award for International Unity",
+   "Awarded to teams that emulate the best qualities of FIRST Global by breaking down barriers, demonstrating Gracious Professionalism, and building bridges with fellow teams.",
+   "p"
+  ],
+  [
+   "Judges Award",
+   "During the course of the competition, the judging panel may decide a team’s unique efforts, performance or dynamics merit recognition.",
+   "p"
+  ],
+  [
+   "Francisco José de Caldas Award for Sustainable Excellence",
+   "Awarded to an individual who helped contribute to strong and sustainable FIRST Global programs.",
+   "n"
+  ],
+  [
+   "Outstanding Mentor Award",
+   "Awarded to mentors who went above and beyond the call of duty for their team.",
+   "n"
+  ],
+  [
+   "Albert Einstein Award for FIRST Global International Excellence",
+   "Awarded to teams whose robots performed the best during the FIRST Global Challenge and exemplified all tenets of the FIRST Global community.",
+   "p"
+  ],
+  [
+   "FIRST Global Grand Challenge Award",
+   "Awarded to teams that accrue the most cumulative points over the course of the competition.",
+   "p"
+  ],
+  [
+   "New Technology Experience Research Posters",
+   "Recognizes the teams who created outstanding research posters for their New Technology Experience project.",
+   "n"
+  ],
+  [
+   "Katherine Johnson Award for Engineering Documentation",
+   "Awarded to teams that demonstrate the journey they took in building their robot.",
+   "p"
+  ],
+  [
+   "Jackie Bezos Award for International Enthusiasm",
+   "Awarded to teams who support each other and other teams throughout the Challenge.",
+   "p"
+  ],
+  [
+   "Rajaâ Cherkaoui El Moursli Award for Courageous Achievement",
+   "Awarded to teams that exhibit a “can-do” attitude throughout the Challenge, even under difficult circumstances, or when things do not go as planned.",
+   "p"
+  ],
+  [
+   "Skills Challenge",
+   "Awarded to the top-scoring teams in the Skills Challenge, which consists of a solo performance by a robot as it plays the Eco Equilibrium robotics game.",
+   "p"
+  ],
+  [
+   "Video Storytelling Award",
+   "Recognizes teams that impactfully told their story through their team profile video.",
+   "n"
+  ],
+  [
+   "Social Media Challenge Award",
+   "Awarded to teams that have participated in a majority of the online Social Media Challenges hosted throughout the season.",
+   "n"
+  ],
+  [
+   "FIRST Global Innovator Award",
+   "Awarded to teams who developed their own innovative solutions to address food sustainability as part of the New Technology Experience: Feeding the Future.",
+   "p"
+  ],
+  [
+   "Sofia Kovalevskaya Award for International Journey",
+   "Awarded to teams that documented and shared their FIRST Global experience with the rest of the FIRST Global community.",
+   "p"
+  ],
+  [
+   "Al-Khwarizmi Award for Outstanding Supporter",
+   "Awarded to institutions, sponsors, or governments that assisted\na FIRST Global team.",
+   "p"
+  ],
+  [
+   "Clara Barton Award for Helping Hands",
+   "Awarded to teams who help other teams in a time of need. These teams were nominated by other FIRST Global teams.",
+   "p"
+  ],
+  [
+   "International Enthusiasm Award",
+   "Awarded to teams who support each other and other teams throughout the Challenge.",
+   "p"
+  ],
+  [
+   "Judges Award - Technical",
+   "During the course of the competition, the judging panel may decide a team’s unique efforts, performance or dynamics merit recognition.",
+   "n"
+  ],
+  [
+   "Judges Award - Non-Technical",
+   "During the course of the competition, the judging panel may decide a team’s unique efforts, performance or dynamics merit recognition.",
+   "n"
+  ],
+  [
+   "Global Explorer Award",
+   "Given to teams that creatively captured their Odyssey to the event in Athens.",
+   "n"
+  ],
+  [
+   "FIRST Global Winning Alliance Award",
+   "Awarded to the four teams in the winning alliance in the final match.",
+   "a",
+   "gold"
+  ],
+  [
+   "FIRST Global Finalist Alliance - Runner Up",
+   ".",
+   "a",
+   "silver"
+  ],
+  [
+   "FIRST Global Finalist Alliance - Second Runner Up",
+   ".",
+   "a",
+   "bronze"
+  ],
+  [
+   "Temasek Women in STEM Award",
+   "Awarded to young women on FIRST Global teams who connect other young women with STEM opportunities.",
+   "p"
+  ],
+  [
+   "XPRIZE Innovator Award",
+   "Awarded to teams who developed their own innovative solutions to combat climate change as part of the New Technology Experience: Carbon Countermeasures.",
+   "p"
+  ],
+  [
+   "FIRST Global Finalist Alliances Award",
+   "Awarded to the four-team alliance who placed second in the final match and the winning alliance in the third-place match",
+   "a",
+   "silver"
+  ],
+  [
+   "FIRST Global Challenge Award",
+   "Awarded to teams that earn the most ranking points\n(based on win-lose-tie record)",
+   "p"
+  ],
+  [
+   "Mansa Musa Award for Fundraising",
+   "Awarded to teams who demonstrated to FIRST Global that they made a good-faith effort to fundraise",
+   "n"
+  ],
+  [
+   "Walt Disney Award for Imagination and Creativity",
+   "Awarded to teams that show creative approaches to solving problems. This award was inspired by Walter Elias Disney who believed it was “kind of fun to do the impossible”",
+   "p"
+  ],
+  [
+   "Outstanding Mentor",
+   "Awarded to mentors who went above and beyond the call of duty for their team",
+   "n"
+  ],
+  [
+   "Safety Award",
+   ".",
+   "n"
+  ],
+  [
+   "Al Khwarizmi Award for Outstanding Supporter",
+   "Awarded to an institution, sponsor, or government that has added a positive dimension to the FIRST Global Challenge.",
+   "p"
+  ]
+ ]
+}

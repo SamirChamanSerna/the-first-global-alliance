@@ -15,7 +15,9 @@ const DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..
 
 const read = (file) => {
   try {
-    return JSON.parse(fs.readFileSync(path.join(DIR, file), 'utf8'));
+    const j = JSON.parse(fs.readFileSync(path.join(DIR, file), 'utf8'));
+    // Los archivos procesados llevan cabecera: {schemaVersion, generatedAt, generator, data}.
+    return j && !Array.isArray(j) && 'data' in j ? j.data : j;
   } catch {
     return null;
   }
@@ -44,14 +46,15 @@ function load() {
 
   const M = {}, S = {}, A = {}, AL = {};
   for (const s of seasons) {
-    const matches = read(`${s.y}/matches.json`) ?? [];
-    // Una temporada sin partidos solo es válida si es de premios (2020, 2021).
-    if (!matches.length && s.mode !== 'awards-only') return null;
-    M[s.y] = matches;
+    M[s.y] = read(`${s.y}/matches.json`) ?? [];
     S[s.y] = read(`${s.y}/rankings.json`) ?? [];
     AL[s.y] = read(`${s.y}/alliances.json`) ?? [];
     A[s.y] = read(`${s.y}/awards.json`) ?? [];
   }
+  // Sin ningún partido en ninguna temporada los datos procesados no sirven: es
+  // preferible construir el sitio de prueba que publicar un archivo a medias.
+  // (Una temporada suelta sin partidos sí es normal: 2020-2021 o un año sin empezar.)
+  if (!seasons.some((s) => M[s.y].length)) return null;
 
   const T = {};
   for (const [code, v] of Object.entries(teams)) T[code] = [v.name, v.continent];

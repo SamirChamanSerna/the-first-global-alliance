@@ -25,6 +25,12 @@ Top level: `matches[]`, `rankings[]`, `round_robin[]`, `finals[]`, `alliances_ro
 - **award**: `{name, description, gold:{country,countryCode}, silver, bronze, other:[{country,countryCode,class}], eventKey, sortOrder}`. Tiered awards fill `gold/silver/bronze` with **one** country each; alliance awards put the winning alliance in `gold` plus the rest in `other[]` with `class:"gold"`. `class` is the tier for every `other` entry.
 - **not present anywhere**: season metadata (city, venue, dates), team continent, photos, social links, video URLs.
 
+**2020 and 2021 do not exist in the API at all** — zero matches, zero rankings, zero awards. The owner's instruction is to keep those seasons' awards, so they have to be entered by hand; there is no source to fetch them from. Everything else in this section is confirmed against live responses.
+
+**The API has two code spaces.** Match and ranking rows use one alpha-3 (`ATG`), `/v1/teams` uses another (`ANT`), and they disagree with each other between years too; the refugee team is `HPE` in matches and `10` in the roster. The alpha-2 field is the only consistent bridge. See `06-join-keys.md` for the rule and `scripts/lib/codes.js` for the implementation.
+
+**Round trip worth knowing:** `field` and `played` are only present when the request includes `excludeMatchDetails=true`. Without it the snapshot has neither — counterintuitive, verified.
+
 **`teamKey` is not stable across seasons** — measured, 161 of the 168 countries present in both 2024 and 2025 carry a different `teamKey`. It joins rows *within* one payload and nothing else. The stable identity is the ISO alpha-3 `country` field; see `06-join-keys.md`.
 
 Field sets also drift between seasons: the 2024 ranking rows carry a game-specific `foodSecuredPoints` where 2025 carries `protectionPoints`, and 2024 contains one ranking row with no `team` object at all (a 181st entry with no country). Normalization must tolerate both — read fields defensively, never assume a fixed set.

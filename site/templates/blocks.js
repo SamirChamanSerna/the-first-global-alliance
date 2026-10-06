@@ -2,7 +2,8 @@
 import {brand,t} from '../brand/brand.js';
 import {urls} from './urls.js';
 export const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-export const flag=i=>`<img class="fl" src="${urls.flag(i)}" alt="" width="16" height="11" loading="lazy">`;
+// Sin ISO no hay imagen: marco gris (.fl.none), nunca un <img> roto.
+export const flag=i=>i?`<img class="fl" src="${urls.flag(i)}" alt="" width="16" height="11" loading="lazy">`:`<span class="fl none"></span>`;
 export const teamCell=(c,me)=>`<a class="t${me?' me':''}" href="${urls.team(c)}">${flag(c)}${c}</a>`;
 export const teamLink=(c,n)=>`<a href="${urls.team(c)}">${flag(c)} ${e(n)}</a>`;
 export const pip=k=>{const m=brand.medals[k];return `<span class="pip">${m.emoji?m.emoji+' ':''}${m.label}</span>`};
@@ -18,14 +19,19 @@ export const awardBlock=(name,desc,cells)=>`<div class="aw"><b>${e(name)}</b><i>
 const tone=(a,b)=>a==null||a==b?'neu':a>b?'win':'lose';
 const sc=(s,k)=>k=='win'?`<b class="w">${s}</b>`:s;
 export const matchRow=(m,me)=>{const p=m.rs!=null,r=p?tone(m.rs,m.bs):'neu',b=p?tone(m.bs,m.rs):'neu',cells=a=>a.map(c=>teamCell(c,c==me)).join('');
-  return `<div class="m"><span class="c-pl">${m.video?`<a class="pl" href="${m.href}" aria-label="${t('watch')}"></a>`:''}</span><a class="lb" href="${m.href}">${m.label}${p?'':`<small>~${m.time} · ${m.field}</small>`}</a><div class="ra ${r}">${cells(m.red)}</div><div class="ba ${b}">${cells(m.blue)}</div><span class="rs ${r}">${p?'–':sc(m.rs,r)}</span><span class="bs ${b}">${p?'–':sc(m.bs,b)}</span></div>`};
+  return `<div class="m"><span class="c-pl">${m.video?`<a class="pl" href="${urls.match(m.id)}" aria-label="${t('watch')}"></a>`:''}</span><a class="lb" href="${urls.match(m.id)}">${m.label}${p?'':`<small>~${m.time} · ${m.field}</small>`}</a><div class="ra ${r}">${cells(m.red)}</div><div class="ba ${b}">${cells(m.blue)}</div><span class="rs ${r}">${p?'–':sc(m.rs,r)}</span><span class="bs ${b}">${p?'–':sc(m.bs,b)}</span></div>`};
 const ST=[['finals','stageFinals'],['round_robin','stageRoundRobin'],['ranking','stageRanking']]; // última fase primero
 export const matchList=(ms,me)=>ST.map(([k,l])=>{const a=ms.filter(m=>m.stage==k);return a.length?`<div class="stg"><i></i><b>${t(l)}</b><i></i></div>`+a.map(m=>matchRow(m,me)).join(''):''}).join('');
 export const scoreboard=m=>{const r=tone(m.rs,m.bs),b=tone(m.bs,m.rs);return `<div class="sb"><div class="hd2">${t('teams')}</div><div class="hd2">${t('score')}</div><div class="ra ${r}">${m.red.map(c=>teamCell(c)).join('')}</div><span class="rs ${r}">${sc(m.rs,r)}</span><div class="ba ${b}">${m.blue.map(c=>teamCell(c)).join('')}</div><span class="bs ${b}">${sc(m.bs,b)}</span></div>`};
 const bdr=(tot,l,a,b)=>`<tr><td class="${tot?'rw':'rl'}">${a}</td><td class="lb${tot?' tot':''}"><span class="ar">${a>b?'←':''}</span><span>${l}</span><span class="ar">${b>a?'→':''}</span></td><td class="${tot?'bw':'bl'}">${b}</td></tr>`;
-export const breakdown=m=>`<table class="bd"><tbody>${bdr(0,t('water'),m.bd[0],m.bd[2])}${bdr(0,t('parking'),m.bd[1],m.bd[3])}${bdr(1,t('final'),m.rs,m.bs)}</tbody></table>`;
-export const videoThumb=m=>`<div><div class="thumb">${t('thumbnail')}</div><div class="cap"><a href="${m.href}">${m.label}</a><small>${m.y} · ${m.field}</small></div></div>`;
-export const videoFallback=m=>{const r=m.rs>m.bs;return `<div class="vb"><small class="when">${m.label}</small><div class="sc"><div class="tn-r${r?'w':'l'}"><b>${m.rs}</b><small>${m.red.join(' · ')}</small></div><div class="tn-b${r?'l':'w'}"><b>${m.bs}</b><small>${m.blue.join(' · ')}</small></div></div><a class="go" href="${m.href}">${t('watch')}</a></div>`};
+// Filas del desglose, que es específico de cada juego:
+//   datos reales → m.breakdown = [{label, red, blue}]  (mapa por temporada, ver docs/discovery/03)
+//   fixture      → m.bd = [redWater, redParking, blueWater, blueParking]  (forma de la maqueta)
+// Sin filas de detalle solo queda la fila de total.
+const bdRows=m=>m.breakdown??[[t('water'),m.bd?.[0],m.bd?.[2]],[t('parking'),m.bd?.[1],m.bd?.[3]]];
+export const breakdown=m=>`<table class="bd"><tbody>${bdRows(m).map(([l,a,b])=>bdr(0,l,a,b)).join('')}${bdr(1,t('final'),m.rs,m.bs)}</tbody></table>`;
+export const videoThumb=m=>`<div><div class="thumb">${t('thumbnail')}</div><div class="cap"><a href="${urls.match(m.id)}">${m.label}</a><small>${m.y} · ${m.field}</small></div></div>`;
+export const videoFallback=m=>{const r=m.rs>m.bs;return `<div class="vb"><small class="when">${m.label}</small><div class="sc"><div class="tn-r${r?'w':'l'}"><b>${m.rs}</b><small>${m.red.join(' · ')}</small></div><div class="tn-b${r?'l':'w'}"><b>${m.bs}</b><small>${m.blue.join(' · ')}</small></div></div><a class="go" href="${urls.match(m.id)}">${t('watch')}</a></div>`};
 const SORT=`document.querySelectorAll('table.dt.s th').forEach((h,i)=>h.onclick=()=>{const b=h.closest('table').tBodies[0],d=h.dataset.d=h.dataset.d=='1'?-1:1;[...b.rows].sort((x,y)=>{const a=x.cells[i].textContent.trim(),c=y.cells[i].textContent.trim(),n=parseFloat(a)-parseFloat(c);return d*(isNaN(n)?a.localeCompare(c):n)}).forEach(r=>b.append(r))});document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{document.documentElement.dataset.theme=b.dataset.t;try{localStorage.setItem('th',b.dataset.t)}catch(e){}})`;
 // Página completa. Enlaces internos absolutos → se convierten a relativos (+index.html) para abrir sin servidor.
 export const layout=({title,path,active,body,latest,sx=[]})=>{
