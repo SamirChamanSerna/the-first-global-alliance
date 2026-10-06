@@ -88,17 +88,21 @@ const matches=y=>bar(`${t('matches')} ${y}`,sel(y,z=>urls.matches(z)))+`<div>${m
 const gameday=()=>bar('GameDay')+`<div class="map">${t('gamedaySoon')}</div>`;
 
 const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);return z?{...z,y}:null}),P=R2.filter(Boolean),
-  b=P.reduce((a,z)=>z.rank<a.rank?{rank:z.rank,y:z.y}:a,{rank:99,y:''}),W=P.reduce((a,z)=>a+z.w,0),Lo=P.reduce((a,z)=>a+z.l,0),Ti=P.reduce((a,z)=>a+z.t,0),n=W+Lo+Ti;
+  // Centinela Infinity, no 99: con 99 cualquier equipo peor que el puesto 99 se
+  // quedaba con el valor inicial y mostraba «#99» como si fuera su mejor puesto.
+  b=P.reduce((a,z)=>z.rank<a.rank?{rank:z.rank,y:z.y}:a,{rank:Infinity,y:''}),W=P.reduce((a,z)=>a+z.w,0),Lo=P.reduce((a,z)=>a+z.l,0),Ti=P.reduce((a,z)=>a+z.t,0),n=W+Lo+Ti;
   return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]}</h1></div>${ddY(t('seasons'),z=>urls.team(c,z),P.map(z=>z.y))}</div><div class="kv"><div><span>${t('iso')}:</span> ${c}</div></div>`
-  +boxes([box(t('matches'),n),box(t('awards'),tot(cnt(c))),box(t('record'),n?`${W}–${Lo}–${Ti}`:t('noData'),n?`${(100*W/n).toFixed(1)}%`:''),box(t('bestRank'),P.length?`#${b.rank}`:t('noData'),P.length?`${b.y} · ${t('of')} ${codes.length}`:''),box(t('medals'),'',pips(cnt(c)))],1)
+  +boxes([box(t('matches'),n),box(t('awards'),tot(cnt(c))),box(t('record'),n?`${W}–${Lo}–${Ti}`:t('noData'),n?`${(100*W/n).toFixed(1)}%`:''),box(t('bestRank'),P.length?`#${b.rank}`:t('noData'),P.length?`${b.y} · ${t('of')} ${teamsOf(b.y)}`:''),box(t('medals'),'',pips(cnt(c)))],1)
   +`<h3>${t('timeline')}</h3>`+Y.map((y,i)=>{const z=R2[i],s=sn(y);
-    if(!z)return `<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div><p class="note">${t('noCompetition')}</p></div><div><div class="photo">${t('photo')}</div><div class="lbl">${t('awards')}</div>${awList(y,c)}</div></section>`;
+    if(!z)return `<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div><p class="note">${t('noCompetition')}</p><div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div><div class="photo">${t('photo')}</div></div></section>`;
     const ps=sc(mine(c,y));
-    return `<section class="ev"><div><h2><a href="${urls.team(c,y)}">${sName(y)}</a></h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${codes.length}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}</div><div><div class="photo">${t('photo')}</div>${kvr(t('highestScore'),ps.length?Math.max(...ps):t('noData'))}${kvr(t('avgScore'),z.avg)}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div></section>`}).join('')};
+    // Los KPIs de la temporada van en la columna IZQUIERDA, bajo Rank y Record, como
+    // en @component:season-block del demo. La derecha queda para la foto.
+    return `<section class="ev"><div><h2><a href="${urls.team(c,y)}">${sName(y)}</a></h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}${kvr(t('highestScore'),ps.length?Math.max(...ps):t('noData'))}${kvr(t('avgScore'),z.avg)}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div><div class="photo">${t('photo')}</div></div></section>`}).join('')};
 
 const ts=(c,y)=>{const z=S[y].find(x=>x.code==c),s=sn(y);
   return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]} · ${y}</h1></div>${ddY(y,k=>urls.team(c,k),yearsOf(c))}</div><p><a href="${urls.team(c)}">← ${t('back')}</a></p>`
-  +`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${codes.length}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div><div class="photo">${t('photo')}</div></div></section>`
+  +`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div><div class="photo">${t('photo')}</div></div></section>`
   +`<h3>${t('matches')}</h3><div>${matchList(mine(c,y),c)}</div>`};
 
 const mp=m=>`<div class="bar"><h1>${m.label} · ${sName(m.y)}</h1></div><p class="when">${m.field} · ${m.time}</p><section class="ev"><div class="mh span-all"><div>${scoreboard(m)}<div class="sec">${breakdown(m)}</div></div><div class="vids">${videoThumb(m)}${videoFallback(m)}</div></div></section><h3>${t('players')}</h3><p>${[...m.red,...m.blue].map(tl).join(' · ')}</p>`;

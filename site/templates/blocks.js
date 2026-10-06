@@ -16,7 +16,11 @@ export const dt=(head,rows,sort)=>`<div class="scroll"><table class="dt${sort?' 
 export const awardKey=()=>`<div class="key"><b>${t('key')}</b><span class="t-gold">${t('tierGold')}</span><span class="t-silver">${t('tierSilver')}</span><span class="t-bronze">${t('tierBronze')}</span><span class="t-awarded">${t('tierNone')}</span></div>`;
 // cells: [[html, gold|silver|bronze|awarded]…]  — módulo reutilizable para Insights (temporada y overview)
 export const awardBlock=(name,desc,cells)=>`<div class="aw"><b>${e(name)}</b><i>${e(desc)}</i><div class="aw-r">${cells.map(([h,k])=>`<span class="t-${k}">${h}</span>`).join('')}</div></div>`;
-const tone=(a,b)=>a==null||a==b?'neu':a>b?'win':'lose';
+// Empate y "sin jugar" NO son lo mismo:
+//   sin jugar → 'neu', gris neutro (el marcador va como «–»)
+//   empate    → 'lose' en ambos lados, que es el tono tenue: cada alianza conserva
+//               su rojo/azul sin que ninguna quede resaltada como ganadora.
+const tone=(a,b)=>a==null||b==null?'neu':a===b?'lose':a>b?'win':'lose';
 const sc=(s,k)=>k=='win'?`<b class="w">${s}</b>`:s;
 export const matchRow=(m,me)=>{const p=m.rs!=null,r=p?tone(m.rs,m.bs):'neu',b=p?tone(m.bs,m.rs):'neu',cells=a=>a.map(c=>teamCell(c,c==me)).join('');
   return `<div class="m"><span class="c-pl">${m.video?`<a class="pl" href="${urls.match(m.id)}" aria-label="${t('watch')}"></a>`:''}</span><a class="lb" href="${urls.match(m.id)}">${m.label}${p?'':`<small>~${m.time} · ${m.field}</small>`}</a><div class="ra ${r}">${cells(m.red)}</div><div class="ba ${b}">${cells(m.blue)}</div><span class="rs ${r}">${p?sc(m.rs,r):'–'}</span><span class="bs ${b}">${p?sc(m.bs,b):'–'}</span></div>`};
