@@ -26,6 +26,10 @@
 
 **Thirteen templates.** That is the entire frontend. A new season adds zero templates; a new season only adds data.
 
+**Built today:** every row above except `/calculator/<year>/` and the standings page (neither has a template yet), plus `/insights/<year>/` for seasons with `data_coverage: full` only. Where a route does not exist, nothing links to it: `seasonPayload.links` omits it, a season with no data gets no `href` in the seasons index, and `npm run check:links` fails the build if a dead link ever reappears.
+
+The navbar is `Seasons · Teams · Insights · Medals · Search` — every item resolves to a page, which is why Insights and Search were built in the same pass as the rest of the redesign.
+
 ### 1.1 URL conventions
 
 - All lowercase, trailing slash, plural collections (`/teams/af/2025/`).

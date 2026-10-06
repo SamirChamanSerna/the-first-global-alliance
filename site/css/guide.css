@@ -1,0 +1,64 @@
+/* =====================================================================
+   GUÍA — lo que docs/web-style-guide/02-guia-de-estilos.md define y el demo
+   no implementa. NO es estilo inventado: cada regla cita la sección de la guía
+   de la que sale. Se concatena DESPUÉS de tokens.css y components.css.
+   Formato de color: light-dark(CLARO, OSCURO). Solo var(--…), nunca hex suelto.
+   ===================================================================== */
+
+/* El filtro de la lista de matches y el de /search/ (§3.13, "filtrable en
+   cliente") solo estrechan lo que ya está en el HTML, ocultando filas con el
+   atributo `hidden`. Sin esto, un `display:grid` de autor gana al `[hidden]` del
+   navegador y las filas seguirían visibles. */
+[hidden]{display:none!important}
+
+/* §3.14 Gráficas — dos series fijas. La guía las marca como "medir": estos
+   valores son una propuesta PENDIENTE DE VALIDACIÓN HUMANA, y se cambian aquí. */
+:root{
+  --chart-a:light-dark(#2a3eb1,#4c9aff);   /* todos los matches */
+  --chart-b:light-dark(#2e7d32,#66bb6a);   /* playoffs */
+}
+
+/* §3.13 Tabla de datos — sin rejilla, encabezado en --surface2, números a la
+   derecha y tabulares, fila clave-valor cuando no hay encabezado. */
+.dt{width:100%;border-collapse:collapse;font-size:13.5px}
+.dt caption{text-align:left;color:var(--muted);font-size:12px;padding-bottom:6px}
+.dt th,.dt td{padding:5px 8px;text-align:left;vertical-align:top}
+.dt thead th{background:var(--surface2);font-weight:700;font-size:13px}
+.dt td.r,.dt th.r{text-align:right;font-variant-numeric:tabular-nums}
+.dt tbody tr+tr td{border-top:1px solid var(--border)}
+/* Tablas anchas: scroll dentro del contenedor, nunca en <body> (§3.13, §4). */
+.dtwrap{overflow-x:auto}
+
+/* §3.14 Gráficas — SVG inline sin librería, sin animación de entrada. */
+.ch{width:100%;height:auto;display:block}
+.ch .grid{stroke:var(--border);stroke-width:1}
+.ch .axis{fill:var(--muted);font-size:11px}
+.ch .line-a{stroke:var(--chart-a);stroke-width:2;fill:none}
+.ch .line-b{stroke:var(--chart-b);stroke-width:2;fill:none}
+.ch .bar-a{fill:var(--chart-a)}
+.ch .bar-b{fill:var(--chart-b)}
+.ch .dot-a{fill:var(--chart-a)}
+.ch .dot-b{fill:var(--chart-b)}
+/* Las series se distinguen también por forma, no solo por color (§3.14). */
+.ch .sq{stroke-width:2}
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;color:var(--muted);font-size:12px;margin:6px 0}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:5px}
+.legend .a{background:var(--chart-a)}
+.legend .b{background:var(--chart-b);border-radius:50%}
+
+/* §3.5 La etiqueta de la caja de estadística va en mayúsculas pequeñas. El demo
+   lo consigue escribiendo «RANK» en el marcado; aquí la etiqueta sale de
+   brand.js, así que la mayúscula la pone el CSS y no un literal. */
+.box small:first-child{text-transform:uppercase;letter-spacing:.04em;font-size:12px}
+
+/* §3.1 El campo de búsqueda de la barra, fuera de la barra (página /search/).
+   El borde y el fondo son los de `select` en components.css: sobre el fondo de
+   página, el campo sin borde de la barra sería invisible. */
+.q{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:var(--r-box);padding:8px 10px;width:100%}
+.qwrap{display:flex;gap:10px;align-items:center;margin:14px 0}
+
+/* §3.3 Carrusel — puntos de paginación: activo marcado, resto tenues.
+   En móvil van centrados bajo el marco (§F.3). */
+.dots{display:flex;gap:6px;justify-content:center;margin-top:8px}
+.dots i{width:8px;height:8px;border-radius:var(--r-pill);background:var(--surface2)}
+.dots i.on{background:var(--muted)}

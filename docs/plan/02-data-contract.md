@@ -145,9 +145,12 @@ Source of truth is the hand-curated `pipeline/lookups/team-identity.json`; `data
   "score_formula": "…human-readable formula, rendered on the season page…",
   "streams": { "days": [ { "day": 1, "date": "2025-10-29",
                            "fields": { "1": {"url": "…", "kind": "youtube"},
-                                       "main": {"url": "…", "kind": "youtube"} } } ] }
+                                       "main": {"url": "…", "kind": "youtube"} } } ] },
+  "videos": { "playlist_url": "…", "streams_url": "…" }   // hand-written, optional
 }
 ```
+
+`videos` carries the season's stream and/or playlist link. It is owner-written and preserved by `build-seasons.mjs`, exactly like `streams`. The UI shows it in the first stage bar of the match table, where the reference puts "Watch all videos": FGC has one playlist per season, not one per stage, so a per-stage link would be wrong. Both keys are optional and an empty `videos` emits no link at all.
 
 `data_coverage` is what the UI reads to decide which sections exist. It is set once per season by the owner and is the reason the same template can serve 2019 (awards only) and 2025 (everything) without branching on the year.
 
@@ -284,9 +287,19 @@ For a season with `data_coverage: "awards_only"`, `standings_top` is `[]` and th
     "raw": { "barriersInRedMitigator": 2, "coopertition": 10, "…": 0 }
   },
   "derived": null,                          // ⓗ ratings contributions, later
-  "video": { "url": "https://youtu.be/…?t=4213", "t": 4213 }
+  "video": { "url": "https://youtu.be/…?t=4213", "t": 4213 },
+
+  "breakdown": {                            // built by emit/breakdown.mjs
+    "rows":    [ { "kind": "robots" | "detail" | "total", "label": "Barriers in mitigator",
+                   "red": 0, "blue": 2, "lead": "blue" } ],
+    "singles": [ { "label": "Biodiversity distributed", "value": 44 } ]
+  }
 }
 ```
+
+`breakdown` is derived, not stored: `details` is a flat, season-specific object, and the emit step pairs the keys that name a side (`…InRedMitigator` with `…InBlueMitigator`) into three-column rows, leaving the rest as key/value rows. It knows no season's vocabulary — adding a season adds no code. `lead` is computed by comparing the two values and drives the arrow; it is never the only signal, because both values are always on screen.
+
+Keys the adapter's component model already presents are skipped (`declaredKeys`), or the same parking values would appear twice — once per robot with its team, once as three generic rows.
 
 The raw `details` vocabulary is season-specific ([discovery 01 §4](../discovery/01-data-sources.md)) and is rendered **only** on that season's match pages, never charted across years. `components` is the normalized subset that does generalize — per-robot positioning and coopertition — and it lives in `pipeline/adapters/<model>.mjs`.
 
@@ -310,7 +323,13 @@ The raw `details` vocabulary is season-specific ([discovery 01 §4](../discovery
               "by_year": { "2019": {"gold":1}, "2024": {"silver":1} } } ] }
 ```
 
-`insights/<year>.json` holds the aggregate distributions the Insights pages plot (score distribution, rank movement, award counts by region, per-season comparison). Shape is defined when that page is built (issue F3.3) — it is the one artifact deliberately left unspecified until the visualisation exists.
+`insights/index.json` is the all-time view: `counts`, `entity_types[]` (awards and participation per entity type — the registry carries no region field, and deriving one from the ISO code would be inventing data), `seasons_distribution[]`, `most_awarded[]`.
+
+`insights/<year>.json` is one season, written only where `data_coverage` is `full`: `score_distribution[]` and `margin_distribution[]` (each bucket carries `all` and `playoffs`, so the two series share an axis), `rank_movement`, `award_distribution[]`, `alliance_roles[]`, `most_improved[]`.
+
+Scores are charted **within a season only**. The scoring system changes every year, so a 2023 score and a 2025 score are not the same measurement.
+
+`search-index.json` is the whole team registry flattened for a client-side filter: `team_id`, names, `entity_type`, ISO codes, `seasons`, `first_season`, `href`, and `key` — every name and alias lowercased with diacritics stripped, folded at build time so the browser does one `includes()`.
 
 ---
 

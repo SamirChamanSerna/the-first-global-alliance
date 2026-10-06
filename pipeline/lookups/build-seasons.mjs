@@ -230,6 +230,10 @@ async function main() {
       synopsis: prior.synopsis ?? null,
       score_formula: prior.score_formula ?? null,
       streams: prior.streams ?? null,
+      // Hand-written: the season's stream and/or playlist links. Preserved like
+      // every other owner-written field — regenerating this file must never
+      // discard one.
+      videos: prior.videos ?? null,
       facts_confidence: facts.confidence ?? null,
       counts: {
         rankings: (bundle.rankings ?? []).length,

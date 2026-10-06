@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "Hand-maintained season metadata. There is no event-metadata endpoint upstream. Regenerate with build-seasons.mjs — owner-written fields (synopsis, score_formula, stream URLs) survive.",
+  "note": "Hand-maintained season metadata. There is no event-metadata endpoint upstream. Regenerate with build-seasons.mjs — owner-written fields (synopsis, score_formula, stream URLs, video playlist links) survive.",
   "seasons": [
     {
       "year": 2017,
@@ -25,7 +25,8 @@
         "awards": 10,
         "round_robin": 0,
         "finals": 0
-      }
+      },
+      "videos": null
     },
     {
       "year": 2018,
@@ -50,7 +51,8 @@
         "awards": 21,
         "round_robin": 0,
         "finals": 0
-      }
+      },
+      "videos": null
     },
     {
       "year": 2019,
@@ -75,7 +77,8 @@
         "awards": 18,
         "round_robin": 0,
         "finals": 0
-      }
+      },
+      "videos": null
     },
     {
       "year": 2020,
@@ -100,7 +103,8 @@
         "awards": 0,
         "round_robin": 0,
         "finals": 0
-      }
+      },
+      "videos": null
     },
     {
       "year": 2021,
@@ -125,7 +129,8 @@
         "awards": 0,
         "round_robin": 0,
         "finals": 0
-      }
+      },
+      "videos": null
     },
     {
       "year": 2022,
@@ -150,7 +155,8 @@
         "awards": 19,
         "round_robin": 32,
         "finals": 12
-      }
+      },
+      "videos": null
     },
     {
       "year": 2023,
@@ -175,7 +181,8 @@
         "awards": 21,
         "round_robin": 32,
         "finals": 12
-      }
+      },
+      "videos": null
     },
     {
       "year": 2024,
@@ -200,7 +207,8 @@
         "awards": 23,
         "round_robin": 32,
         "finals": 12
-      }
+      },
+      "videos": null
     },
     {
       "year": 2025,
@@ -225,7 +233,8 @@
         "awards": 19,
         "round_robin": 33,
         "finals": 12
-      }
+      },
+      "videos": null
     },
     {
       "year": 2026,
@@ -250,7 +259,8 @@
         "awards": 0,
         "round_robin": 0,
         "finals": 0
-      }
+      },
+      "videos": null
     }
   ]
 }

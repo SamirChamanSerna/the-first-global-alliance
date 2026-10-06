@@ -125,7 +125,7 @@ export function buildTeamHistory(team, perYear, awardTally) {
 }
 
 export function buildTeamSeason(team, yearData) {
-  const { year, meta, standing, awards, alliance, matches, videoOpts, media } = yearData;
+  const { year, meta, standing, awards, alliance, allianceMembers, matches, videoOpts, media, denominator } = yearData;
   if (!standing && !awards.length && !matches.length && !alliance) return null;
 
   const record = recordForYear(standing);
@@ -134,8 +134,22 @@ export function buildTeamSeason(team, yearData) {
     team_id: team.team_id,
     year,
     team,
+    season: {
+      year,
+      host_city: meta.host_city,
+      host_country: meta.host_country,
+      game_name: meta.game_name,
+      start_date: meta.start_date,
+      end_date: meta.end_date,
+      ranking_stat_name: meta.ranking_stat_name,
+      // Hand-written stream/playlist links, so the match table can offer them.
+      videos: meta.videos ?? null,
+    },
     media: media ?? null,
     coverage: meta.data_coverage,
+    // The denominator every rank must be read against. Null when the season
+    // publishes no standings, so the template says "of —" rather than "of 0".
+    denominator: denominator ?? null,
     standing: standing
       ? {
           rank: standing.rank,
@@ -149,7 +163,19 @@ export function buildTeamSeason(team, yearData) {
           win_rate: record ? winRate(record) : null,
         }
       : null,
-    alliance: alliance ?? null,
+    // The team's own alliance, with the other members resolved to ids so the
+    // page can list the whole alliance rather than only this team's slot.
+    alliance: alliance
+      ? {
+          ...alliance,
+          members: (allianceMembers ?? []).map((m) => ({
+            team_id: m.team_id,
+            role: m.role,
+            is_captain: m.is_captain,
+            is_team: m.team_id === team.team_id,
+          })),
+        }
+      : null,
     awards: awards.map((a) => ({ name: a.name, class: a.class, sort_order: a.sort_order })),
     // Compact rows in THIS team's context: the same match is red for one team and
     // blue for the other, so `is_team_red` can only be resolved here.

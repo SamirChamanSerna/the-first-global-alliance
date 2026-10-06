@@ -1,0 +1,44 @@
+/* =====================================================================
+   MASTER VISUAL — única fuente de colores, tipografía y formas del sitio.
+   Cambiar la marca = editar este archivo + site/brand/brand.js + favicon.svg.
+   Formato de color: light-dark(CLARO, OSCURO).
+   Valores ≈ = estimados de capturas; confirmar con DevTools (guía §0).
+   ===================================================================== */
+html{color-scheme:light dark}
+html[data-theme=light]{color-scheme:light}
+html[data-theme=dark]{color-scheme:dark}
+:root{
+  /* Marca */
+  --brand:#3f51b5;                      /* barra de navegación; borde del aviso de cobertura */
+  --brand-on:#fff;                      /* texto sobre --brand */
+  --brand-line:rgba(255,255,255,.25);   /* divisores dentro del menú móvil */
+
+  /* Neutros */
+  --bg:light-dark(#fff,#1c1c1e);        /* fondo de página (dark confirmado) */
+  --surface:light-dark(#f1f1f1,#2c2c2e);/* cajas de estadística, chips, tarjetas */
+  --surface2:light-dark(#e5e5e5,#3a3a3c);/* encabezado de etapa, filas total */
+  --text:light-dark(#212121,#fff);
+  --muted:light-dark(#6b6b6b,#9a9aa0);
+  --border:light-dark(#ddd,#38383a);
+  --link:light-dark(#2a3eb1,#4c9aff);
+
+  /* Alianzas: w = saturado (ganadora / fila total), l = tenue (perdedora / fila detalle) */
+  --rw:light-dark(#f6a79b,#b23a35);     /* red win   */
+  --rl:light-dark(#ffd9d4,#5a2420);     /* red lose  */
+  --bw:light-dark(#a8c8f7,#3354b8);     /* blue win  */
+  --bl:light-dark(#d3e2fb,#1f2d5c);     /* blue lose */
+
+  /* Miniaturas de video */
+  --overlay:rgba(0,0,0,.65);            /* círculo del botón play */
+  --overlay-on:#fff;                    /* triángulo y texto sobre la miniatura */
+  --thumb-bg:#4a4a4a;                   /* marcador de posición sin imagen */
+
+  /* Tipografía: pila del sistema (no se cargan fuentes web) */
+  --font:system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+  /* Formas */
+  --r-box:8px;                          /* cajas, marcos, selectores */
+  --r-cell:6px;                         /* filas del marcador, encabezados de tabla */
+  --r-pill:999px;                       /* chips y medallas */
+  /* PENDIENTE: colores de medalla (oro/plata/bronce/honorable) no definidos */
+}

@@ -32,6 +32,35 @@ User submissions and moderation. Computed ratings like OPR/EPA. Robot photo gall
 
 ---
 
+## Running it locally
+
+Requires **Node ≥ 22**. There are no dependencies to install — `npm install` is not needed.
+
+```bash
+npm run pipeline   # raw → normalized → data/v1/   (reads only what is already in pipeline/raw/)
+npm run build      # data + templates → dist/
+npm run serve      # serve dist/ at http://localhost:8080/
+```
+
+`npm run build` does **not** run the pipeline, so a build from a clean checkout needs both commands. `npm run pipeline && npm run build` is the full rebuild.
+
+Options:
+
+```bash
+npm run serve -- --port 3000   # different port
+npm run serve -- --open        # open the browser when it starts
+npm run build -- --only teams  # rebuild one route family
+npm run build -- --limit 20    # build a sample, for a quick look
+```
+
+**Do not open `dist/index.html` directly from the filesystem.** The built site uses absolute paths (`/assets/app.css`, `/teams/af/`), exactly as it does in production, so from `file://` it loads no CSS, no flags and no navigation and looks broken when it is not. Serve it over HTTP with `npm run serve`.
+
+The networked steps — `npm run fetch` and `npm run fetch:details` — are only needed to refresh the archive from `api.first.global`. They are not part of a normal local build, and everything they download is committed under `pipeline/raw/`.
+
+Run `npm run check` before committing: it verifies data quality, style-guide sync, byte-determinism and internal links.
+
+---
+
 ## Documentation
 
 ```
