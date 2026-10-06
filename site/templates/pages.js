@@ -105,7 +105,10 @@ const ts=(c,y)=>{const z=S[y].find(x=>x.code==c),s=sn(y);
   +`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),`${z.w}–${z.l}–${z.t}`)])}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div><div class="photo">${t('photo')}</div></div></section>`
   +`<h3>${t('matches')}</h3><div>${matchList(mine(c,y),c)}</div>`};
 
-const mp=m=>`<div class="bar"><h1>${m.label} · ${sName(m.y)}</h1></div><p class="when">${m.field} · ${m.time}</p><section class="ev"><div class="mh span-all"><div>${scoreboard(m)}<div class="sec">${breakdown(m)}</div></div><div class="vids">${videoThumb(m)}${videoFallback(m)}</div></div></section><h3>${t('players')}</h3><p>${[...m.red,...m.blue].map(tl).join(' · ')}</p>`;
+// Página de un partido: a la izquierda la tabla estándar (alianzas y marcador, roja
+// arriba y azul abajo) y debajo el desglose; a la derecha solo la miniatura del video.
+// La lista de equipos del pie se quitó: repetía la tabla.
+const mp=m=>`<div class="bar"><h1>${m.label} · ${sName(m.y)}</h1></div><p class="when">${m.field} · ${m.time}</p><section class="ev"><div class="mh span-all"><div>${scoreboard(m)}<div class="sec">${breakdown(m)}</div></div><div class="vids">${videoThumb(m)}</div></div></section>`;
 
 export const pages=()=>{const P=[{path:'',title:brand.name,body:home()},{path:outPath(urls.insights()),title:t('overview'),active:'insights',body:ins()},{path:outPath(urls.teams()),title:t('teams'),active:'teams',body:teams()},{path:outPath(urls.awards()),title:t('awards'),active:'awards',body:awards()},{path:outPath(urls.gameday()),title:'GameDay',active:'gameday',body:gameday()}];
   Y.forEach(y=>{P.push({path:outPath(urls.insights(y)),title:`${t('season')} ${y}`,active:'insights',body:ins(y)});

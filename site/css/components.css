@@ -57,13 +57,13 @@ select{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(
 .eod{background:var(--surface2);text-align:center;font-size:12px;color:var(--muted)}
 .m{display:grid;grid-template-columns:34px 80px 1fr 1fr 52px 52px;grid-template-areas:"pl lb ra ba rs bs";font-size:13.5px}
 .m>*{display:flex;align-items:center;justify-content:center;border-top:1px solid var(--bg);padding:5px 4px;min-height:28px}
-.c-pl{grid-area:pl}
+.m .c-pl{grid-area:pl}
 .lb{grid-area:lb;flex-direction:column;color:var(--text)}
 .lb small{color:var(--muted);font-size:11px;font-weight:400}
-.ra{grid-area:ra}
-.ba{grid-area:ba}
-.rs{grid-area:rs}
-.bs{grid-area:bs}
+.m .ra{grid-area:ra}
+.m .ba{grid-area:ba}
+.m .rs{grid-area:rs}
+.m .bs{grid-area:bs}
 .ra,.ba{display:grid!important;grid-auto-flow:column;grid-auto-columns:1fr;padding:0!important}
 .ra>*,.ba>*{padding:5px 2px}
 .t{display:inline-flex;align-items:center;justify-content:center;gap:4px;color:inherit}
