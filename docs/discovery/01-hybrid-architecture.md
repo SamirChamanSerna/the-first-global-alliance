@@ -11,7 +11,7 @@ One site, two modes, near-zero maintenance cost:
 | **Archived** | 2017–2025 | 100% static HTML, generated at build | none |
 | **Live** | current (2026) | same static HTML + one small JSON overlay | DB read, only during the event |
 
-The existing generator (`site/build-mock.js` → `site/templates/*`) stays. Only the data source changes.
+The existing generator (`site/build.js` → `site/templates/*`) stays. Only the data source changes.
 
 ## Data flow
 

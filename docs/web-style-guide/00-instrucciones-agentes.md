@@ -90,14 +90,19 @@ Banderas: `brand.flagPath(iso)` → `/flags/{iso}.svg`, **en minúsculas (supues
 
 ```
 docs/web-style-guide/   00 (este) · 01 · 02 · demo-team-match.html
+docs/discovery/         01–06: arquitectura, fuentes, datos raw, pipeline, plan, claves
 site/brand/             tokens.css · brand.js · favicon.svg        ← MAESTROS
 site/css/components.css estilos de todos los bloques (solo var(--…))
+site/templates/urls.js    único módulo que arma rutas del sitio
+site/templates/data.js    única fuente de datos (data/processed/ o el fixture)
 site/templates/blocks.js  bloques compartidos (markup del demo)
 site/templates/pages.js   una función por pantalla (compone bloques)
-site/mock/mock.js         datos ficticios (se reemplaza por los reales)
-site/build-mock.js        genera site/dist/ para previsualizar
+site/mock/mock.js         datos ficticios (fixture; se reemplaza por los reales)
+site/build.js             genera site/dist/ para previsualizar
+scripts/                  utilidades de datos (plantillas manuales, fetch, normalize)
+data/raw/manual/          datos a mano (CSV) · data/processed/ = entrada del build
 ```
-Previsualizar: `node site/build-mock.js` y abrir `site/dist/index.html` (requiere Node 20+; `site/package.json` ya declara módulos ES). El CSS final es **un solo archivo** (`site.css` = `tokens.css` + `components.css`).
+Previsualizar: `node site/build.js` y abrir `site/dist/index.html` (requiere Node 20+; `site/package.json` ya declara módulos ES). El CSS final es **un solo archivo** (`site.css` = `tokens.css` + `components.css`).
 
 ### Forma de los datos que consumen las plantillas
 `pages.js` importa de `mock.js` estas estructuras. La capa de datos real debe exponerlas **con la misma forma** (mapeando desde `02-data-contract.md`):
@@ -112,7 +117,7 @@ Previsualizar: `node site/build-mock.js` y abrir `site/dist/index.html` (requier
 | `A[y][]` (premios) | `{name, desc, ty: 'a'\|'p'\|'n', tier, w[]}`: `a` alianza (un tono para todos), `p` podio (oro-plata-bronce), `n` sin lugar |
 
 **Tamaño de alianza:** 3 equipos por alianza en **clasificatorias** y 4 en **round robin, playoffs y finales**. Las celdas salen del largo de `red[]` y `blue[]`; no fijes el número.
-Pendiente de refactor (Etapa 1): hoy `blocks.js` arma algunas URL (`/team/…`). Debe haber **un solo módulo de URL** (`site/templates/urls.js`) o campos `href` precalculados en los datos; los templates no construyen URL por su cuenta.
+Hecho (Etapa 1): **`site/templates/urls.js` es el único módulo que arma rutas**; los templates no construyen URL por su cuenta. `brand.nav[].href` se conserva como configuración precalculada, que es la otra opción que admitía esta regla.
 
 ## 5. Cómo copiar del demo
 
@@ -160,7 +165,7 @@ El demo marca cada componente con `<!-- @component:NOMBRE -->` … `<!-- @end:NO
 
 ## 7. Etapas de trabajo (para en cada punto de control)
 
-1. **Etapa 0, verificación.** Ejecuta `node site/build-mock.js` y abre `site/dist/`. Comprueba light, dark, 1280 px y 390 px. Reporta cualquier defecto antes de seguir.
+1. **Etapa 0, verificación.** Ejecuta `node site/build.js` y abre `site/dist/`. Comprueba light, dark, 1280 px y 390 px. Reporta cualquier defecto antes de seguir.
 2. **Etapa 1, datos y URL.** Escribe el adaptador de datos reales con las formas de §4 y centraliza las URL en un módulo. **No** cambies los bloques.
 3. **Etapa 2, páginas con datos reales.** Genera las 11 pantallas de §2. Prueba con una temporada completa, una con datos parciales y un equipo sin playoffs.
 4. **Etapa 3, pendientes** (solo con aprobación): resultados de búsqueda, mapa de sedes real, carrusel de fotos del equipo, GameDay, miniaturas y videos reales.
@@ -176,7 +181,7 @@ Pendientes conocidos: página de resultados de búsqueda, mapa de sedes, carruse
 ## 9. Checklist de entrega (cada etapa)
 
 ```
-node site/build-mock.js                                              # sin errores
+node site/build.js                                                   # sin errores
 grep -nE '#[0-9a-fA-F]{3,8}\b|rgba?\(' site/css/components.css       # vacío
 grep -rn 'style=' site/templates                                     # vacío
 grep -rn 'The FIRST Global Alliance' site --include=*.js | grep -v brand.js   # vacío

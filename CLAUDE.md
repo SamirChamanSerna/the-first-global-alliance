@@ -9,12 +9,15 @@ A static site that archives **FIRST Global Challenge** results (seasons, teams, 
 ## Commands
 
 ```bash
-node site/build-mock.js          # regenerate site/dist/ (requires Node 20+)
+node site/build.js                      # regenerate site/dist/ (requires Node 20+)
+node scripts/make-manual-templates.js   # create empty CSV templates for hand-entered data
 ```
 
-Then open `site/dist/index.html`. There is no test suite, linter, or package manager — `site/package.json` exists only to declare `"type": "module"`.
+The build prints which data source it used (`processed` or `fixture`). Then open `site/dist/index.html`. There is no test suite, linter, or package manager — `site/package.json` exists only to declare `"type": "module"`.
 
-**The build is currently broken on Windows.** `site/build-mock.js` derives its output path from `new URL('./dist/', import.meta.url).pathname`, which yields `/C:/Users/...`; `fs.mkdirSync` then resolves that against the current drive and fails with `ENOENT: mkdir 'C:\C:\Users\...'`. Fixing it means using `fileURLToPath` — do that if you touch the build. `site/dist/` is committed precisely because it can't always be regenerated; it is **generated output**, wiped and rewritten by the build, so never hand-edit it. Edit `site/templates/`, `site/brand/`, or `site/css/` instead.
+`site/dist/` is committed on purpose so the site can be previewed and published without building, but it is **generated output** — wiped and rewritten on every build, never hand-edit it. Edit `site/templates/`, `site/brand/`, or `site/css/` instead. Both `site/dist/` and `data/` are deliberately tracked; `.gitignore` says so at the top.
+
+**Path handling on Windows:** always use `fileURLToPath(new URL(…, import.meta.url))`, never `URL.pathname` — `pathname` yields `/C:/…` and `fs.mkdirSync` then fails with `ENOENT: mkdir 'C:\C:\…'`. This bug broke the build once; it is fixed in `site/build.js`.
 
 Verification greps (from the delivery checklist, §9 of the agent instructions) — all three should return empty:
 
@@ -29,11 +32,14 @@ grep -rn 'The FIRST Global Alliance' site --include=*.js | grep -v brand.js
 A tiny template engine, evaluated at build time; everything is string concatenation. Data flows one way:
 
 ```
-mock/mock.js  →  templates/pages.js  →  templates/blocks.js  →  dist/*.html
-  (data)           (one fn per screen)     (shared markup)
+data/processed/*.json ─┐
+                       ├→ templates/data.js → templates/pages.js → templates/blocks.js → dist/*.html
+mock/mock.js (fixture) ┘    (source select)    (one fn per screen)    (shared markup)
 ```
 
-- **`site/mock/mock.js`** exports the data contract: `seasons[]`, `T[code] → [name, continent]`, `M[y][]` (matches), `S[y][]` (standings), `AL[y][]` (alliances), `A[y][]` (awards). A real data layer must expose the **same shapes** — see the table in `00-instrucciones-agentes.md` §4. Award types are `ty: 'a'` (alliance, one tier) / `'p'` (podium, gold-silver-bronze) / `'n'` (non-tiered). Alliance size is 3 in qualifiers, 4 in round robin/playoffs/finals — derive it from `red[]`/`blue[]` lengths, never hardcode it.
+- **`site/templates/data.js`** is the only module that reads data. It loads `data/processed/` when present and falls back to the `site/mock/mock.js` fixture otherwise, so the site always builds — with real data or with test data. `pages.js` imports from here, never from `mock.js`. Expected processed files are documented at the top of the module.
+- **`site/mock/mock.js`** is the fixture and the reference for the data contract: `seasons[]`, `T[code] → [name, continent]`, `M[y][]` (matches), `S[y][]` (standings), `AL[y][]` (alliances), `A[y][]` (awards), `AW[]` (award catalogue, as `[name, desc, ty, tier]` tuples). Real data must expose the **same shapes** — see `00-instrucciones-agentes.md` §4. Award types are `ty: 'a'` (alliance, one tier) / `'p'` (podium, gold-silver-bronze) / `'n'` (non-tiered). Alliance size is 3 in qualifiers, 4 in round robin/playoffs/finals — derive it from `red[]`/`blue[]` lengths, never hardcode it.
+- **`site/templates/urls.js`** is the only module that builds site URLs (`urls.team(code, year)`, `urls.match(id)`, …), plus `outPath(url)` to turn a URL into its output file path. Templates must not construct paths themselves. The one exception is `brand.nav[].href` in `brand.js`, which the spec allows as precomputed config.
 - **`site/templates/pages.js`** has one function per screen (`home`, `ins`, `teams`, `awards`, `rankings`, `matches`, `gameday`, `th`, `ts`, `mp`) and the exported `pages()` that assembles the full route list. It is dense, terse, and variable-heavy (`Y`, `L`, `sn`, `tl`, `cnt`, `won`) — read it slowly before editing.
 - **`site/templates/blocks.js`** holds the shared markup (`dt`, `matchRow`, `matchList`, `scoreboard`, `breakdown`, `awardBlock`, `box/boxes`, `dd`, `kvr`, `pip`, `hero`) plus `layout()`, which wraps a page in nav/footer and rewrites absolute internal `/links` to relative `index.html` paths so `dist/` opens straight from disk.
 - **`site/brand/brand.js`** is the identity master: name, tagline, logo SVG, nav, footer, flag path, medals, and **every UI string** under `labels`. `t(key)` throws at build time on a missing key — that's intentional, it keeps stray literals out.
@@ -60,13 +66,22 @@ If two docs contradict each other, **stop and report it** — don't pick one.
 
 ## Conventions and gotchas
 
-- **Code comments, docs, and commit messages are in Spanish; UI strings are in English** (via `brand.labels`). Keep that split. `brand.lang` is an undecided item.
-- `href` values in `mock.js` (`/match/2025_q12/`) are absolute site paths; `layout()` relativizes them at the end of the build. Some URLs are still assembled inside `blocks.js` — the spec flags this as a pending refactor into a single `site/templates/urls.js` module, so templates should not build URLs on their own.
+- **Code comments, docs, and commit messages are in Spanish; UI strings are in English** (via `brand.labels`). Keep that split. English is primary but every label must stay translatable: whole phrases with placeholders, never a string glued together from fragments (see `docs/discovery/01-hybrid-architecture.md`).
+- Site URLs are absolute while rendering (`/team/MEX/`); `layout()` rewrites them to relative `index.html` paths at the end, so `dist/` opens straight from disk. Build them through `urls.js` — never inline a path in a template.
 - Flags come from `brand.flagPath(iso)` → `/flags/{iso}.svg` in lowercase, and are SVG placeholders generated by the build (flag emoji don't render on Windows). Real flag art is supplied by the project team.
 - `docs/web-style-guide/03-pages.md` is **obsolete** for routes and templates; only three of its principles survive (declare partial coverage, no empty states for missing data, work without JS).
 - Doc precedence: markup/CSS appearance → `demo-team-match.html` and `site/`; design rules → `02-guia-de-estilos.md`; routes and screen content → the functional spec; value shape → the data contract.
 - `docs/discovery/01-hybrid-architecture.md` … `06-join-keys.md` plan the move from mock data to real data: static archive for past seasons, a DB-backed live layer for the current one, the raw-data standard, the pipeline, the staged plan, and the join-key standard for hand-entered data. `06` is authoritative for identifiers — in particular **`teamKey` is reassigned every season and is never a join key**; teams are identified by ISO alpha-3. Read them before changing how data reaches the templates.
 
+## Known gaps in the generator
+
+`pages.js` was written against the fixture, which always has a full season. Real data does not, and two things break:
+
+- **`mode` is ignored.** Nothing reads `seasons[].mode`, so an `awards-only` season (2020, 2021) still generates `/rankings/{y}/`, `/matches/{y}/` and `/team/{code}/{y}/` — pages with no data behind them.
+- **`best()` crashes on an empty array.** Any season with no playoff match (`best(p)` in `ins`) or no matches at all throws `Reduce of empty array with no initial value`. The spec anticipates exactly this ("prueba con datos parciales"), so it needs the explicit empty states, not a guard that hides it.
+
+Both are S1 work; see `docs/discovery/05-plan.md`.
+
 ## Open decisions (don't silently resolve these)
 
-Interface language (en/es), search-results page, venue map, team photo carousel, real GameDay, breakdown row types, the "Honorable" medal symbol, and whether award counts mix honorable mentions with non-tiered awards. §8 and §9 of `00-instrucciones-agentes.md` list the full set.
+Search-results page, venue map, team photo carousel, real GameDay, breakdown row types, the "Honorable" medal symbol, and whether award counts mix honorable mentions with non-tiered awards. §8 and §9 of `00-instrucciones-agentes.md` list the full set; `docs/discovery/05-plan.md` tracks what is settled (English primary, Cloudflare KV, per-season breakdown map, photos hotlinked) and what is not.

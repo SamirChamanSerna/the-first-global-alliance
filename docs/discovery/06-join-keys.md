@@ -26,7 +26,7 @@ Measured against the live API, comparing the 168 countries present in both seaso
 | **Alliance** | `alliance_number` | integer 1..N | `3` |
 | **Award** | `award_slug` | kebab-case of the official name | `zhang-heng-award-for-engineering-design` |
 
-`team_code` is the API's `country` field. It is the key in URLs, in `overlays/teams.json`, in every manual CSV, and in every cross-file join.
+`team_code` is the API's `country` field. It is the key in URLs, in `teams.csv`, in every manual CSV, and in every cross-file join.
 
 **One documented exception:** the refugee team appears in `/v1/teams` as `country: "10"`, name *Team Hope (Refugees)* — not an ISO code. Its flag is the special `10_hope` asset, not a country's. Treat `10` as a valid `team_code` everywhere (it is what the API and the flag helper use); it is the only non-alpha-3 entry in the roster.
 
@@ -74,9 +74,9 @@ Every hand-entered file must carry these. Extra columns are allowed and ignored.
 
 **`awards.csv`** (only if ever needed manually) — `year` ✅, `award_slug` ✅, `name`, `description`, `tier` ✅ (`gold` \| `silver` \| `bronze` \| `awarded`), `team_code` ✅. One row per team per award.
 
-**`overlays/teams.json`** — object keyed by `team_code`: `{ continent, photo, website, instagram, twitter, facebook, contact }`. `photo` is a public FIRST URL, hotlinked; a missing or empty value is a normal state and renders the UI placeholder.
+**`teams.csv`** — object keyed by `team_code`: `{ continent, photo, website, instagram, twitter, facebook, contact }`. `photo` is a public FIRST URL, hotlinked; a missing or empty value is a normal state and renders the UI placeholder.
 
-**`overlays/seasons.json`** — array of `{ y, name, city, country, iso, dates, mode }`.
+**`seasons.csv`** — array of `{ y, name, city, country, iso, dates, mode }`.
 
 ## Controlled vocabularies
 

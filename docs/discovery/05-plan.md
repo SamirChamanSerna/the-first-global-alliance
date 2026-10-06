@@ -13,41 +13,47 @@ Rule for everything below: **the UI and the markup are already correct.** We add
 
 ## Stages
 
-**S0 — data layer, no visual change (the critical path)**
+**S0 — data layer, no visual change — DONE**
 
-1. Fix `site/build-mock.js`: it computes its output dir from `new URL(...).pathname`, which yields `/C:/…` on Windows and fails with `ENOENT: mkdir 'C:\C:\…'`. Use `fileURLToPath`. The build is currently broken on this machine.
-2. `site/templates/urls.js` — one module owning every URL (already required by the agent instructions §4). Removes the hand-built `/team/…` links inside `blocks.js`.
-3. `site/templates/data.js` — reads `data/processed/` instead of `mock/mock.js`, exposing the same shapes. `mock/mock.js` stays as the build fixture.
-4. Rename `build-mock.js` → `build.js`. All 11 screens must render identically from the fixture before anything real is plugged in.
+1. ✅ Windows path bug fixed: `fileURLToPath` instead of `URL.pathname`, which yielded `/C:/…` and failed with `ENOENT: mkdir 'C:\C:\…'`.
+2. ✅ `site/templates/urls.js` owns every site URL. `brand.nav[].href` stays in `brand.js` — the spec allows precomputed hrefs as config.
+3. ✅ `site/templates/data.js` reads `data/processed/` and falls back to the `mock.js` fixture. Verified end to end against synthetic processed data (`datos: processed`, real content rendered, links resolved).
+4. ✅ `build-mock.js` → `build.js`. `site/dist/` is **byte-identical** after the refactor: 165 pages, 16 placeholder flags.
+
+**Found while doing S0** — both pre-existing, neither caused by the refactor, both S1 work:
+
+- **`mode` is never read.** An `awards-only` season still generates `/rankings/{y}/`, `/matches/{y}/` and `/team/{code}/{y}/` with no data behind them.
+- **`best()` throws on an empty array** (`Reduce of empty array with no initial value`), so any season without a playoff match — or without matches at all — crashes the build. The spec anticipates the partial-data case; it needs the explicit empty states, not a guard that hides it.
 
 **S1 — real archived seasons (2024, 2025)**
 
 5. `scripts/fetch-archive.js` + `scripts/normalize.js` per `03-raw-data-standard.md` and `06-join-keys.md`, with the validation pass.
-6. Expand `seasons` to 2017–2026; `mode: awards-only` for 2020/2021 (their pages must render with the existing empty states — no matches, no rankings, no team timeline).
-7. Replace `bd[4]` with the generic `breakdown[]` + `overlays/breakdown.{year}.json` (see `03-raw-data-standard.md` — this is the only contract change the real data forces).
+6. **Make the generator consume `mode`**: an `awards-only` season must not emit rankings, matches or team-season pages, and a season with no playoff matches must render empty states instead of crashing (`best()`, carried over from S0).
+7. Expand `seasons` to 2017–2026, including the two awards-only seasons.
+8. Replace `bd[4]` with the generic `breakdown[]` + `data/raw/manual/breakdown.{year}.json` (see `03-raw-data-standard.md` — the only contract change the real data forces).
 
-**S2 — overlays (fill incrementally, pages degrade gracefully)**
+**S2 — hand-entered overlays (fill incrementally, pages degrade gracefully)**
 
-8. `overlays/seasons.json` (city, venue, country, ISO, dates — manual).
-9. `overlays/teams.json`: continent (required for `/teams/`), photo URL, social/contact.
-10. `overlays/videos.json`: stream URL + timestamps.
-11. Mirror flags into the repo; photos stay hotlinked to the public FIRST URLs.
+9. `data/raw/manual/seasons.csv` — city, venue, country, ISO, dates.
+10. `data/raw/manual/teams.csv` — continent (required for the `/teams/` grouping), photo URL, social/contact.
+11. `data/raw/manual/videos.csv` — stream URL + timestamps.
+12. Mirror flags into the repo; photos stay hotlinked to the public FIRST URLs.
 
 **S3 — untrusted years (owner-supplied, parallel, no code after S1)**
 
-12. CSV templates per `03-raw-data-standard.md`, filled for 2017–2023, validated at build.
+13. `data/raw/manual/{year}/` filled for 2017–2019 and 2022–2023, validated at build. Templates already exist (`node scripts/make-manual-templates.js`).
 
 **S4 — live season**
 
-13. Docker worker (poll, validate, normalize, publish) — `04-pipeline.md`.
-14. Cloudflare KV + Pages Function `/api/live.json`, `max-age=30`.
-15. Live overlay script: re-render only `data-live` regions using the existing `blocks.js` functions; the pre-rendered HTML is the fallback.
+14. Docker worker (poll, validate, normalize, publish) — `04-pipeline.md`.
+15. Cloudflare KV + Pages Function `/api/live.json`, `max-age=30`.
+16. Live overlay script: re-render only `data-live` regions using the existing `blocks.js` functions; the pre-rendered HTML is the fallback.
 
 **S5 — interface and launch**
 
-16. Official logo (below).
-17. Search (below).
-18. Deploy to Cloudflare Pages; set `brand.lang` to `en` and fill the empty brand fields (`coverageDisclaimer`, `license`, `tagline`).
+17. Official logo (below).
+18. Search (below).
+19. Deploy to Cloudflare Pages; confirm `brand.lang` and fill the empty brand fields (`coverageDisclaimer`, `license`, `tagline`).
 19. Post-2026: flip to `archived`, stop the container.
 
 ## The two UI changes
@@ -74,7 +80,7 @@ Rule for everything below: **the UI and the markup are already correct.** We add
 | 2020 / 2021 | Awards only, permanently |
 | Live latency | 60 s / 20 s polling + 30 s CDN cache ≈ ≤90 s worst case — accepted |
 | DB | Cloudflare KV, one `live:snapshot` key behind a Pages Function |
-| Breakdown | Per-season field map in `overlays/breakdown.{year}.json`, replacing the fixed `bd[4]` |
+| Breakdown | Per-season field map in `data/raw/manual/breakdown.{year}.json`, replacing the fixed `bd[4]` |
 
 **Still open**
 
@@ -91,7 +97,7 @@ Rule for everything below: **the UI and the markup are already correct.** We add
 
 ## Risks
 
-- **Breakdown is game-specific.** Without `overlays/breakdown.{year}.json` the match page has no rows to draw. Budget time for it per season.
+- **Breakdown is game-specific.** Without `data/raw/manual/breakdown.{year}.json` the match page has no rows to draw. Budget time for it per season.
 - **Free-tier build limits.** Cloudflare Pages caps builds at 500/month; never rebuild per minute. The live JSON overlay exists precisely to avoid this.
 - **Hand-entered data.** Team codes are the join key across four sources; a single typo breaks a page silently. Validation must fail the build.
 - **API trust.** Only 2024/2025 matches and 2017–2025 awards are trusted today. Everything else stays absent until supplied, and the pages already know how to show that.

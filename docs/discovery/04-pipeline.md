@@ -13,7 +13,7 @@ deploy                     →  Cloudflare Pages                (or GitHub Pages
 
 Runs on a developer machine and in CI. No network needed at build time once `raw/` is committed — the fetch step is optional and only re-run when we want to refresh a season. This is the whole cost of the archive half: zero runtime, zero services.
 
-The existing `site/build-mock.js` becomes `site/build.js` reading `data/processed/` instead of `mock/mock.js`. The templates, blocks and pages do not change (agent instructions §7 Etapa 1 says exactly this).
+Done in S0: `site/build.js` reads `data/processed/` through `site/templates/data.js`, falling back to the `mock/mock.js` fixture when it is absent. The templates, blocks and pages did not change (agent instructions §7 Etapa 1 says exactly this), and `site/dist/` came out byte-identical.
 
 ## B. Live worker (docker, 24/7 during the event)
 

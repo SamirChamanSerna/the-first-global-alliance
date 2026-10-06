@@ -1,0 +1,75 @@
+// ÚNICA fuente de datos de las plantillas.
+//
+// Lee data/processed/ — los datos reales, generados por scripts/normalize.js.
+// Si no existe, cae al fixture site/mock/mock.js y el build produce el sitio de
+// prueba. Es a propósito: el sitio se puede construir y revisar sin datos reales.
+//
+// Forma de los datos (idéntica en ambos casos): docs/discovery/03-raw-data-standard.md
+// Claves y convenciones: docs/discovery/06-join-keys.md
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import * as fixture from '../mock/mock.js';
+
+const DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'data', 'processed');
+
+const read = (file) => {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(DIR, file), 'utf8'));
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Arma las estructuras que consume pages.js desde data/processed/.
+ * Devuelve null si los datos reales no están completos: es preferible construir
+ * el sitio de prueba que publicar un archivo a medias.
+ *
+ * Archivos esperados:
+ *   seasons.json            [{y, name, city, country, iso, dates, mode}]
+ *   teams.json              {CODE: {name, continent}}
+ *   awards.json             [[name, desc, ty, tier], …]   catálogo de premios
+ *   {year}/matches.json     [{id, stage, label, …, red[], blue[], rs, bs, breakdown[]}]
+ *   {year}/rankings.json    [{code, rank, w, l, t, pts, n, rp, avg}]
+ *   {year}/alliances.json   [[CODE, …], …]
+ *   {year}/awards.json      [{name, desc, ty, tier, w[]}]
+ */
+function load() {
+  const seasons = read('seasons.json');
+  if (!Array.isArray(seasons) || !seasons.length) return null;
+
+  const teams = read('teams.json');
+  if (!teams) return null;
+
+  const M = {}, S = {}, A = {}, AL = {};
+  for (const s of seasons) {
+    const matches = read(`${s.y}/matches.json`) ?? [];
+    // Una temporada sin partidos solo es válida si es de premios (2020, 2021).
+    if (!matches.length && s.mode !== 'awards-only') return null;
+    M[s.y] = matches;
+    S[s.y] = read(`${s.y}/rankings.json`) ?? [];
+    AL[s.y] = read(`${s.y}/alliances.json`) ?? [];
+    A[s.y] = read(`${s.y}/awards.json`) ?? [];
+  }
+
+  const T = {};
+  for (const [code, v] of Object.entries(teams)) T[code] = [v.name, v.continent];
+
+  return {seasons, T, codes: Object.keys(T), M, S, A, AL, AW: read('awards.json') ?? []};
+}
+
+const real = load();
+
+/** 'processed' = datos reales · 'fixture' = datos de prueba. El build lo imprime. */
+export const source = real ? 'processed' : 'fixture';
+
+const d = real ?? fixture;
+export const seasons = d.seasons;
+export const T = d.T;
+export const codes = d.codes;
+export const M = d.M;
+export const S = d.S;
+export const A = d.A;
+export const AL = d.AL;
+export const AW = d.AW;

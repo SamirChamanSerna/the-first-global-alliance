@@ -1,9 +1,10 @@
 // BLOQUES COMPARTIDOS. Markup copiado del demo (docs/web-style-guide/demo-team-match.html).
 import {brand,t} from '../brand/brand.js';
+import {urls} from './urls.js';
 export const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-export const flag=i=>`<img class="fl" src="${brand.flagPath(i)}" alt="" width="16" height="11" loading="lazy">`;
-export const teamCell=(c,me)=>`<a class="t${me?' me':''}" href="/team/${c}/">${flag(c)}${c}</a>`;
-export const teamLink=(c,n)=>`<a href="/team/${c}/">${flag(c)} ${e(n)}</a>`;
+export const flag=i=>`<img class="fl" src="${urls.flag(i)}" alt="" width="16" height="11" loading="lazy">`;
+export const teamCell=(c,me)=>`<a class="t${me?' me':''}" href="${urls.team(c)}">${flag(c)}${c}</a>`;
+export const teamLink=(c,n)=>`<a href="${urls.team(c)}">${flag(c)} ${e(n)}</a>`;
 export const pip=k=>{const m=brand.medals[k];return `<span class="pip">${m.emoji?m.emoji+' ':''}${m.label}</span>`};
 export const box=(l,v,s)=>`<div class="box"><small>${l}</small><b>${v}</b>${s?`<small>${s}</small>`:''}</div>`;
 export const boxes=(a,c3)=>`<div class="boxes${c3?' c3':''}">${a.join('')}</div>`;
@@ -29,8 +30,8 @@ const SORT=`document.querySelectorAll('table.dt.s th').forEach((h,i)=>h.onclick=
 // Página completa. Enlaces internos absolutos → se convierten a relativos (+index.html) para abrir sin servidor.
 export const layout=({title,path,active,body,latest,sx=[]})=>{
   const nv=brand.nav.map(n=>`<a href="${n.href.replace('{season}',latest)}"${n.key==active?' aria-current="page"':''}>${n.label}</a>`).join('');
-  const h=`<!doctype html><html lang="${brand.lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="${brand.themeColor}"><title>${e(title)} · ${brand.name}</title><link rel="icon" href="/brand/favicon.svg"><link rel="stylesheet" href="/site.css"><script>try{var s=localStorage.getItem("th");if(s)document.documentElement.dataset.theme=s}catch(e){}</script></head><body>
-<header class="nav"><a class="brand" href="/">${brand.logoSvg}<span>${brand.name}</span></a><nav class="links">${nv}</nav><form action="/search/"><input type="search" name="q" list="sx" placeholder="${t('search')}" aria-label="${t('search')}"><datalist id="sx">${sx.map(o=>`<option value="${e(o)}">`).join('')}</datalist></form><details class="menu"><summary>${t('menu')}</summary><div>${nv}</div></details></header>
+  const h=`<!doctype html><html lang="${brand.lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="${brand.themeColor}"><title>${e(title)} · ${brand.name}</title><link rel="icon" href="${urls.favicon()}"><link rel="stylesheet" href="${urls.css()}"><script>try{var s=localStorage.getItem("th");if(s)document.documentElement.dataset.theme=s}catch(e){}</script></head><body>
+<header class="nav"><a class="brand" href="${urls.home()}">${brand.logoSvg}<span>${brand.name}</span></a><nav class="links">${nv}</nav><form action="${urls.search()}"><input type="search" name="q" list="sx" placeholder="${t('search')}" aria-label="${t('search')}"><datalist id="sx">${sx.map(o=>`<option value="${e(o)}">`).join('')}</datalist></form><details class="menu"><summary>${t('menu')}</summary><div>${nv}</div></details></header>
 <div class="wrap one"><main>${body}</main></div>
 <footer><div class="row"><span>${brand.footerLinks.map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}</span><span class="seg"><button data-t="light">${t('light')}</button><button data-t="dark">${t('dark')}</button></span></div><p>${brand.attribution} ${t('mockNote')}.</p></footer>
 <script>${SORT}</script></body></html>`;

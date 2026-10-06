@@ -15,21 +15,22 @@ data/
       README.md                  # operator's guide
       seasons.csv  teams.csv  videos.csv
       {year}/{matches,rankings,alliances}.csv
-  overlays/                      # generated from raw/manual + the API, committed
-    seasons.json  teams.json  videos.json
-    breakdown.{year}.json        # game-specific field map (no CSV form yet)
-  processed/{year}/              # build input, generated, committed
-    matches.json  rankings.json  alliances.json  awards.json
+      breakdown.{year}.json      # game-specific field map (no tabular form)
+  processed/                     # BUILD INPUT — generated, committed. site/templates/data.js reads this
+    seasons.json                 # [{y,name,city,country,iso,dates,mode}]
+    teams.json                   # {CODE: {name, continent}}
+    awards.json                  # [[name,desc,ty,tier], …]  award catalogue
+    {year}/matches.json  rankings.json  alliances.json  awards.json
 ```
 
-`raw/api/*` is written by the fetcher and never opened by hand. `raw/manual/*` is the only thing a human edits, and it is **CSV** because that is what a spreadsheet emits. The build converts it into `overlays/*.json`, which is what the templates actually read — no CSV is parsed at runtime, and none is ever served. `processed/*` is written by the normalizer; never edit it either, regenerate it.
+`raw/api/*` is written by the fetcher and never opened by hand. `raw/manual/*` is the only thing a human edits, and it is **CSV** because that is what a spreadsheet emits. The build converts it into `processed/*.json`, which is what the templates actually read through `site/templates/data.js` — no CSV is parsed at runtime, and none is ever served. `processed/*` is generated; never edit it either, regenerate it.
 
 Empty templates: `node scripts/make-manual-templates.js` (never overwrites an existing file).
 
 ## Formats
 
 - **CSV** for anything tabular that gets hand-filled (2017–2023 matches, rankings). A spreadsheet is the right tool, and the build converts CSV → JSON with a script — no CSV parsing at runtime, no dependency.
-- **JSON** for overlays and everything the API produced.
+- **JSON** for everything the API produced, and for the rare hand-edited file with no tabular form (the breakdown map).
 - Every processed file carries a header so a stale file is detectable:
 
 ```json
@@ -62,31 +63,19 @@ Two rules apply across all of them:
 - Alliance size is read from the number of filled team columns (3 in ranking, 4 in round robin and finals) — never fixed at 3.
 - A blank score means the match was not played. That is a state, not a zero.
 
-**`overlays/seasons.json`**
-
-```json
-[{ "y": 2025, "name": "...", "city": "...", "country": "...", "iso": "PAN",
-   "dates": "...", "mode": "archived" }]
-```
+**`seasons.csv`** — `year,name,city,country,iso,dates,mode`
 
 `mode` ∈ `archived | live | awards-only`. This single field drives rendering (2020/2021 are `awards-only`).
 
-**`overlays/teams.json`** — keyed by ISO alpha-3:
+**`teams.csv`** — `team_code,name,continent,photo,website,instagram,twitter,facebook,contact`
 
-```json
-{ "MEX": { "continent": "Americas", "photo": "https://i0.wp.com/first.global/wp-content/uploads/…",
-           "website": "", "instagram": "", "twitter": "", "facebook": "", "contact": "" } }
-```
+Pre-filled with the API roster (`node scripts/make-manual-templates.js`), so only the last seven columns are typed. `name` is a read-only reference so a code is never mis-filled. `continent` is required for the `/teams/` grouping and exists nowhere in the API. `photo` is the **public FIRST URL, hotlinked** — not mirrored into the repo; empty means no photo, and the page renders its placeholder.
 
-`continent` is required for the `/teams/` grouping and exists nowhere in the API. `photo` is the **public FIRST URL, hotlinked** — not mirrored into the repo; empty means no photo, and the page renders its placeholder.
+**`videos.csv`** — `match_id,video_url,start,end`
 
-**`overlays/videos.json`** — keyed by match slug:
+A match link is the stream URL plus a timestamp. Store `start`/`end` as `H:MM:SS` and convert to `t=` seconds at build time.
 
-```json
-{ "2025_t4_1": { "url": "https://www.youtube.com/watch?v=…", "start": "3:42:10", "end": "4:05:00" } }
-```
-
-A match link is the stream URL plus a timestamp. Store `start`/`end` as strings and convert to `t=` seconds at build time.
+**`breakdown.{year}.json`** — the one hand-edited file with no tabular form; it maps game-specific API field names to display rows.
 
 ## Mapping raw → the site's data contract
 
@@ -94,8 +83,8 @@ The templates expect the shapes in `00-instrucciones-agentes.md` §4. The normal
 
 | Site shape | Built from | Status |
 |---|---|---|
-| `seasons[]` | `overlays/seasons.json` | manual |
-| `T[code] → [name, continent]` | `/v1/teams` + `overlays/teams.json` | name auto, continent manual |
+| `seasons[]` | `seasons.csv` | manual |
+| `T[code] → [name, continent]` | `/v1/teams` + `teams.csv` | name auto, continent manual |
 | `M[y][]` | `/v1?year=` matches + participants, or `manual/matches.csv` | auto for 2024/2025 |
 | `S[y][]` | `/v1?year=` rankings, or `manual/rankings.csv` | auto for 2024/2025 |
 | `AL[y][]` | `alliances_round_robin` + `alliances_finals` | auto for 2024/2025 |
@@ -111,11 +100,11 @@ Replace `bd[4]` with:
 "breakdown": [ { "label": "Biodiversity units (red)", "red": 9, "blue": 3, "kind": "detail" } ]
 ```
 
-driven by `overlays/breakdown.{year}.json`, which maps API field names to a row label, a side and a `kind`. Without that map there is no row to draw — this is open decision #10 in the style guide, and the raw standard resolves it in favour of an explicit per-season map rather than a fixed four-slot array.
+driven by `data/raw/manual/breakdown.{year}.json`, which maps API field names to a row label, a side and a `kind`. Without that map there is no row to draw — this is open decision #10 in the style guide, and the raw standard resolves it in favour of an explicit per-season map rather than a fixed four-slot array.
 
 ## Validation (fail loud, at build time)
 
-- Schema check every `manual/*.csv` and `overlays/*.json` before use — a typo in a hand-typed team code must break the build, not render a blank cell.
+- Schema check every every `raw/manual/*.csv` and the breakdown map before use — a typo in a hand-typed team code must break the build, not render a blank cell.
 - Reject any team code not present in `/v1/teams`.
 - Reject a match whose teams are not all in the same season's roster.
 - Reject a processed file whose `season`/`schemaVersion` header does not match the requested build.
