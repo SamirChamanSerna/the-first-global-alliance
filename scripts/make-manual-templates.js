@@ -30,7 +30,10 @@ const SEASONS = [
 ];
 
 const HEADERS = {
-  seasons: 'year,name,city,country,iso,dates,mode',
+  // `name` es el nombre del JUEGO de esa temporada (p. ej. "Eco Equilibrium"), no el
+  // del evento. `iso` es el alpha-3 del país anfitrión, que es lo que resuelve la
+  // bandera. `reveal_video` es la URL del video de revelación.
+  seasons: 'year,name,city,country,iso,dates,reveal_video,mode',
   videos: 'match_id,video_url,start,end',
   teams: 'team_code,name,continent,photo,website,instagram,twitter,facebook,contact',
   matches: 'year,id,stage,label,scheduled_time,field,red_1,red_2,red_3,red_4,blue_1,blue_2,blue_3,blue_4,red_score,blue_score,video_url',
@@ -41,7 +44,7 @@ const HEADERS = {
 // Una celda vacía por columna, para que `mode` caiga en su sitio y no desplace el resto.
 const row = (cells) => cells.map(cell).join(',');
 const seasonsCsv = () =>
-  [HEADERS.seasons, ...SEASONS.map(([y, mode]) => row([y, '', '', '', '', '', mode]))].join('\n') + '\n';
+  [HEADERS.seasons, ...SEASONS.map(([y, mode]) => row([y, '', '', '', '', '', '', mode]))].join('\n') + '\n';
 
 /** RFC 4180: quote a cell when it holds a comma, a quote or a newline. */
 const cell = (v) => {

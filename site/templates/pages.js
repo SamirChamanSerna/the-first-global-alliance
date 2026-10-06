@@ -1,6 +1,6 @@
 // PLANTILLAS de las 10 pantallas. Cada una = composición de bloques; sin HTML de estilo propio.
 import {brand,t} from '../brand/brand.js';
-import {hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback} from './blocks.js';
+import {hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
 import {urls,outPath} from './urls.js';
 import {seasons,T,codes,M,S,A,AL,AW} from './data.js';
 const Y=seasons.map(s=>s.y),L=Y[0],sn=y=>seasons.find(s=>s.y==y);
@@ -52,6 +52,13 @@ const rrSeasons=c=>Y.filter(z=>(AL[z]||[]).some(g=>g.includes(c))).length;
 const place=s=>[s.city,s.country].filter(Boolean).join(', ');
 const when=s=>[place(s),s.dates].filter(Boolean).join(' · ');
 const countryCell=s=>s.country?`${flag(s.iso)} ${s.country}`:t('noData');
+// Video de revelación del juego. En una temporada es el suyo; en el overview, el de
+// la temporada más reciente que lo tenga cargado. Sin URL se deja el marcador de la
+// maqueta (el dato se rellena en data/raw/manual/seasons.csv, columna reveal_video).
+const revealBlock=y=>{const s=y?sn(y):seasons.find(x=>x.reveal);
+  return `<h3>${t('reveal')}</h3>`+(s?.reveal
+    ?videoCard(s.reveal,`${t('season')} ${s.y}`,sName(s.y))
+    :`<div class="thumb">${t('thumbnail')}</div>`)};
 
 const nAw=ys=>ys.reduce((n,z)=>n+A[z].reduce((m,a)=>m+a.w.length,0),0);
 // Sin mapa de sedes: es puramente estético y queda fuera del alcance actual
@@ -67,7 +74,7 @@ const ins=y=>{const aw=!!y&&onlyAwards(y),ms=y?M[y]:YC.flatMap(z=>M[z]),q=ms.fil
   return bar(y?`${t('season')} ${y}`:t('overview'),dd(y||t('overview'),[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
   +`<p class="muted">${y?`${[sName(y),place(s)].filter(Boolean).join(' · ')} · `:''}<a href="${y?`https://first.global/archive/fgc-${y}/`:'https://first.global/about/'}">${t('officialSite')}</a></p>`
   +boxes(aw?[box(t('teams'),teamsOf(y)),box(t('awards'),nAw([y]))]:[box(t('teams'),teamsOf(y)),box(t('matches'),ms.length),box(t('awards'),nAw(y?[y]:Y))],1)
-  +`<h3>${t('reveal')}</h3><div class="thumb">${t('thumbnail')}</div>`
+  +revealBlock(y)
   +`<h3>${t('awards')}</h3>${awardKey()}${awBlocks(y)}`
   +(aw?`<p class="note">${t('noCompetition')}</p>`
     :`<h3>${t('highestMatch')}</h3>${hi(best(q))}<h3>${t('qualMetrics')}</h3>${boxes([kp(t('avgMatch'),sc(q)),kp(t('avgMargin'),mg(q))])}`

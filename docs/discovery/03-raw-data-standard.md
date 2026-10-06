@@ -65,7 +65,9 @@ Two rules apply across all of them:
 - Alliance size is read from the number of filled team columns (3 in ranking, 4 in round robin and finals) — never fixed at 3.
 - A blank score means the match was not played. That is a state, not a zero.
 
-**`seasons.csv`** — `year,name,city,country,iso,dates,mode`
+**`seasons.csv`** — `year,name,city,country,iso,dates,reveal_video,mode`
+
+`name` is the game of that season ("Eco Equilibrium"), `iso` the host country's alpha-3 (it resolves the flag), and `reveal_video` the game-reveal URL (http/https only; anything else is dropped before it can reach an `href`).
 
 `mode` ∈ `archived | live | awards-only`. This single field drives rendering (2020/2021 are `awards-only`).
 

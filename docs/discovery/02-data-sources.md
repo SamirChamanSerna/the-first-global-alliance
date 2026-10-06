@@ -55,7 +55,7 @@ Everything outside the ✅ cells is treated as **nonexistent** until the owner s
 | Team flags (SVG) | **flag-icons** (`lipis/flag-icons`, MIT) for everything it covers; `https://results.first.global/static/flags/4x3/{alpha2}.svg` only for the codes it does not have | `node scripts/fetch-flags.js` mirrors into `site/flags/`. See the note below |
 | Team photo | `https://i0.wp.com/first.global/wp-content/uploads/…?w=900&quality=89&ssl=1` | **hotlink**; the owner supplies a manual list of URLs, one per team. No URL ⇒ the UI's placeholder |
 | Team social / contact | `https://first.global/{year}-nations/{country}-{year}/` | scraped once, stored in the overlay |
-| Season metadata | first.global archive pages, manual | city, venue, country, ISO, dates |
+| Season metadata | `https://first.global/archive/fgc-{year}/` — filled by hand into `seasons.csv` | host city/country/ISO, dates and the **game name** (2017 H2O Flow, 2018 Energy Impact, 2019 Ocean Opportunities, 2022 Carbon Capture, 2023 Hydrogen Horizons, 2024 Feeding the Future, 2025 Eco Equilibrium). 2026 is Incheon, Republic of Korea, 7–10 Oct, game not announced yet. 2020 and 2021 were **virtual** — no venue, so their rows stay blank |
 | Team continent | manual | needed for the `/teams/` grouping; the API has no continent |
 | Match video + timestamp | manual, owner-supplied | one multi-hour stream per session; a match link is a deep link with `&t=` |
 | 2017–2023 matches / rankings | manual, owner-supplied | follows the raw standard in `03-raw-data-standard.md` |

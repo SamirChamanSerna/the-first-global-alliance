@@ -95,7 +95,18 @@ const seasonRows = readCsv('manual/seasons.csv');
 if (!seasonRows.length) die('data/raw/manual/seasons.csv está vacío');
 
 const seasons = seasonRows
-  .map((r) => ({y: Number(r.year), name: r.name, city: r.city, country: r.country, iso: r.iso, dates: r.dates, mode: r.mode || 'archived'}))
+  .map((r) => ({
+    y: Number(r.year),
+    name: r.name,        // nombre del juego de esa temporada
+    city: r.city,
+    country: r.country,
+    iso: r.iso,          // alpha-3 del país anfitrión: resuelve la bandera
+    dates: r.dates,
+    // Solo se acepta http(s): una URL con otro esquema (javascript:, data:) acabaría
+    // en un href, y este campo lo rellena una persona a mano en un CSV.
+    reveal: /^https?:\/\//i.test((r.reveal_video ?? '').trim()) ? r.reveal_video.trim() : '',
+    mode: r.mode || 'archived',
+  }))
   .sort((a, b) => b.y - a.y); // más reciente primero: es el orden que espera el sitio
 for (const s of seasons) {
   if (!Number.isInteger(s.y)) die(`seasons.csv: año inválido "${s.y}"`);
@@ -292,6 +303,19 @@ for (const t of roster) {
   // El repositorio de banderas del proyecto está indexado por alpha-2 (`mx`), no por
   // alpha-3 (`mex`). El equipo de refugiados no tiene país: su asset es `10_hope`.
   flags[t.country] = t.countryCode;
+}
+
+// Los países anfitriones no siempre fieldan equipo, así que pueden faltar del roster
+// (EAU, Suiza y Grecia no están) y su bandera no resolvería. Se completan desde el
+// listado ISO, que sí trae el alpha-2 de todos los países. El archivo lo deja
+// scripts/fetch-continents.js; sin él esas banderas saldrían grises, no rotas.
+const isoList = readJson('api/iso-regions.json');
+if (isoList) {
+  const byAlpha3 = Object.fromEntries(isoList.map((c) => [String(c['alpha-3']).toUpperCase(), String(c['alpha-2']).toLowerCase()]));
+  for (const s of seasons) {
+    const k = (s.iso || '').toUpperCase();
+    if (k && !flags[k] && byAlpha3[k]) flags[k] = byAlpha3[k];
+  }
 }
 
 // ---------------------------------------------------------------- validación

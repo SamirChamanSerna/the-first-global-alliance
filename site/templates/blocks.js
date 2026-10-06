@@ -35,6 +35,9 @@ const bdr=(tot,l,a,b)=>`<tr><td class="${tot?'rw':'rl'}">${a}</td><td class="lb$
 const bdRows=m=>m.breakdown??[[t('water'),m.bd?.[0],m.bd?.[2]],[t('parking'),m.bd?.[1],m.bd?.[3]]];
 export const breakdown=m=>`<table class="bd"><tbody>${bdRows(m).map(([l,a,b])=>bdr(0,l,a,b)).join('')}${bdr(1,t('final'),m.rs,m.bs)}</tbody></table>`;
 export const videoThumb=m=>`<div><div class="thumb">${t('thumbnail')}</div><div class="cap"><a href="${urls.match(m.id)}">${m.label}</a><small>${m.y} · ${m.field}</small></div></div>`;
+// Misma forma que video-thumb del demo, pero con un enlace externo y sin depender de
+// un partido. Se usa para el video de revelación de la temporada.
+export const videoCard=(href,label,sub)=>`<div><div class="thumb">${t('thumbnail')}</div><div class="cap"><a href="${e(href)}" rel="noopener">${e(label)}</a><small>${e(sub)}</small></div></div>`;
 export const videoFallback=m=>{const r=m.rs>m.bs;return `<div class="vb"><small class="when">${m.label}</small><div class="sc"><div class="tn-r${r?'w':'l'}"><b>${m.rs}</b><small>${m.red.join(' · ')}</small></div><div class="tn-b${r?'l':'w'}"><b>${m.bs}</b><small>${m.blue.join(' · ')}</small></div></div><a class="go" href="${urls.match(m.id)}">${t('watch')}</a></div>`};
 const SORT=`document.querySelectorAll('table.dt.s th').forEach((h,i)=>h.onclick=()=>{const b=h.closest('table').tBodies[0],d=h.dataset.d=h.dataset.d=='1'?-1:1;[...b.rows].sort((x,y)=>{const a=x.cells[i].textContent.trim(),c=y.cells[i].textContent.trim(),n=parseFloat(a)-parseFloat(c);return d*(isNaN(n)?a.localeCompare(c):n)}).forEach(r=>b.append(r))});document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{document.documentElement.dataset.theme=b.dataset.t;try{localStorage.setItem('th',b.dataset.t)}catch(e){}})`;
 // Página completa. Enlaces internos absolutos → se convierten a relativos (+index.html) para abrir sin servidor.

@@ -90,7 +90,7 @@ Every hand-entered file must carry these. Extra columns are allowed and ignored.
 
 **`teams.csv`** — object keyed by `team_code`: `{ continent, photo, website, instagram, twitter, facebook, contact }`. `photo` is a public FIRST URL, hotlinked; a missing or empty value is a normal state and renders the UI placeholder.
 
-**`seasons.csv`** — array of `{ y, name, city, country, iso, dates, mode }`.
+**`seasons.csv`** — `year,name,city,country,iso,dates,reveal_video,mode`. `name` is the season's **game** (not the event), `iso` is the host country's alpha-3 and is what resolves its flag, and `reveal_video` must be `http(s)://` — the normalizer drops anything else rather than letting it reach an `href`.
 
 ## Awards: how the API shape maps to the site shape
 
