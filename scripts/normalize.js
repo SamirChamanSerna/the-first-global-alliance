@@ -77,7 +77,14 @@ const roster = readJson('api/teams.json') ?? die('Falta data/raw/api/teams.json 
 // traduce lo que aparece en la competición al código del roster, que es la única
 // clave del sitio. Ver scripts/lib/codes.js.
 const alias = buildAliases(roster, readSnapshots(path.join(RAW, 'api')));
-const canon = (c) => (c ? alias[c] ?? c : c);
+// `alias` solo conoce los códigos que aparecen en los snapshots de la competición, así
+// que un CSV escrito a mano con el alpha-3 ISO vigente (SAU, TWN, BHR, WSM, NPL…)
+// quedaría fuera. El listado ISO cierra ese hueco con el MISMO puente de
+// 06-join-keys.md — alpha-3 → alpha-2 → roster —, no con una tabla nueva.
+const isoList = readJson('api/iso-regions.json');
+const a3toA2 = Object.fromEntries((isoList ?? []).map((c) => [String(c['alpha-3']).toUpperCase(), String(c['alpha-2']).toLowerCase()]));
+const rosterByA2 = Object.fromEntries(roster.map((t) => [String(t.countryCode).toLowerCase().split('_')[0], t.country]));
+const canon = (c) => (c ? alias[c] ?? rosterByA2[a3toA2[c]] ?? c : c);
 
 // Los premios identifican países por nombre y por alpha-2 (nunca por alpha-3).
 // Los códigos especiales del roster llevan sufijo ("10_hope"); los de la competición no.
@@ -177,31 +184,82 @@ function breakdownOf(year, m) {
 }
 
 // ---------------------------------------------------------------- rankings
+//
+// El CSV manda para TODAS las temporadas, incluidas 2024-2025: la API no devuelve
+// todos los criterios de desempate y además cambian cada año. Las columnas que siguen
+// a `rank` son las de esa competición, en su orden, y sus etiquetas legibles viven en
+// data/raw/manual/rankings.labels.json (mismo criterio que breakdown.{year}.json).
+//
+// Wins/Losses/Ties no son una columna más: alimentan la columna fija W-L-T. Solo 2019
+// los trae en el CSV; en 2024-2025 se derivan de los partidos, como ya se hacía con
+// `avg`. Donde no hay ni columnas ni partidos quedan ausentes, y la columna no se
+// pinta: la regla 6 pide declarar el hueco, no rellenarlo con un 0.
 
-function buildRankings(year, snapshot, matches) {
+/** Filas de ranking de la API. Ya NO son la fuente de los números: se conservan solo
+ *  por su efecto sobre `displayNames`, porque traen el nombre largo del país
+ *  ("Team United States of America") que el roster no tiene. */
+function apiRankings(snapshot, matches) {
   const scored = {};
   for (const m of matches) {
     if (m.stage !== 'ranking' || m.rs === null) continue;
     for (const c of m.red) (scored[c] ??= []).push(m.rs);
     for (const c of m.blue) (scored[c] ??= []).push(m.bs);
   }
-  // La API devuelve los rankings en orden de teamKey (≈ alfabético). El sitio los
-  // muestra tal cual, así que se ordenan aquí por puesto.
   return (snapshot.rankings ?? []).map((r) => {
     const team = canon(r.team?.country);
     if (!team) return null; // hay filas sin equipo (p. ej. 2024, rank 181)
     rememberName(team, r.team.name);
-    // `pts` y `avg` no vienen en la API: se derivan de los marcadores de los partidos.
     const scores = scored[team] ?? [];
     const pts = scores.reduce((a, b) => a + b, 0);
-    return {
-      code: team, rank: r.rank,
-      w: r.wins, l: r.losses, t: r.ties, n: r.played,
-      pts,
-      rp: r.rankingScore,
-      avg: scores.length ? Number((pts / scores.length).toFixed(1)) : null,
-    };
-  }).filter(Boolean).sort((a, b) => a.rank - b.rank);
+    return {code: team, rank: r.rank, avg: scores.length ? Number((pts / scores.length).toFixed(1)) : null};
+  }).filter(Boolean);
+}
+
+/** W-L-T y puntuación media derivados de los partidos de clasificación, por equipo.
+ *  Un empate no entra en el promedio (ver `mg` en pages.js): cuenta en W-L-T, no en avg. */
+function matchStats(matches) {
+  const st = {};
+  for (const m of matches) {
+    if (m.stage !== 'ranking' || m.rs === null) continue;
+    for (const [own_side, own, other] of [[m.red, m.rs, m.bs], [m.blue, m.bs, m.rs]]) {
+      for (const c of own_side) {
+        const z = (st[c] ??= {w: 0, l: 0, t: 0, n: 0, pts: 0, scores: []});
+        z.n++; z.pts += own; z.scores.push(own);
+        if (own > other) z.w++; else if (own < other) z.l++; else z.t++;
+      }
+    }
+  }
+  for (const z of Object.values(st)) z.avg = z.scores.length ? Number((z.pts / z.scores.length).toFixed(1)) : null;
+  return st;
+}
+
+/** Wins/Losses/Ties del CSV no se pintan como columna: son la columna fija W-L-T. */
+const WLT_COL = {Wins: 'w', Losses: 'l', Ties: 't'};
+
+/** S[y][] desde manual/{year}/rankings.csv. `stats` (2024-2025) rellena W-L-T y avg. */
+function rankingsFromCsv(year, stats) {
+  return readCsv(`manual/${year}/rankings.csv`).map((r, i) => {
+    const n = i + 2;
+    const code = canon(r.team_code), rank = Number(r.rank);
+    check(codes.has(code), `rankings.csv ${year} (fila ${n}): "${r.team_code}" fuera del roster${code !== r.team_code ? ` (resuelto a "${code}")` : ''}`);
+    check(Number.isInteger(rank), `rankings.csv ${year} (fila ${n}): puesto inválido "${r.rank}"`);
+    const row = {code, rank, cols: []};
+    for (const [col, v] of Object.entries(r)) {
+      if (col === 'year' || col === 'team_code' || col === 'rank') continue;
+      const num = Number(v);
+      check(v !== '' && Number.isFinite(num), `rankings.csv ${year} (fila ${n}): "${col}" no es un número ("${v}")`);
+      if (WLT_COL[col]) { row[WLT_COL[col]] = num; continue; }
+      const label = RANK_LABELS[col];
+      check(!!label, `rankings.csv ${year}: la columna "${col}" no tiene etiqueta — añádela a data/raw/manual/rankings.labels.json`);
+      row.cols.push([label ?? col, num]);
+    }
+    const s = stats[code];
+    if (s) {
+      row.w ??= s.w; row.l ??= s.l; row.t ??= s.t; row.n ??= s.n; row.avg = s.avg;
+    }
+    if (row.w !== undefined && row.n === undefined) row.n = row.w + row.l + row.t;
+    return row;
+  }).sort((a, b) => a.rank - b.rank);
 }
 
 /** Equipos de una temporada: el total que muestra una página de temporada (el de la
@@ -289,17 +347,13 @@ for (const y of ALL_YEARS) {
   const matches = full ? buildMatches(y, snapshot) : [];
   perYear[y] = {
     matches,
-    rankings: full ? buildRankings(y, snapshot, matches) : [],
+    rankings: [], // se rellena en la sección de validación, cuando ya existen `codes`/`check`
     alliances: full ? buildAlliances(snapshot) : [],
     awards: buildAwards(snapshot),
   };
-}
-
-// El roster manda: es el código que ve quien rellena teams.csv y el de las URLs.
-// Total de equipos por temporada, para las páginas de temporada.
-for (const s of seasons) {
-  const d = perYear[s.y];
-  s.teams = d ? teamsIn(d.matches, d.rankings) : 0;
+  // De la API solo se conservan los nombres largos de país (efecto sobre displayNames);
+  // los números de ranking salen del CSV. Ver `apiRankings`.
+  if (full) apiRankings(snapshot, matches);
 }
 
 const teams = {}, flags = {};
@@ -310,11 +364,23 @@ for (const t of roster) {
   flags[t.country] = t.countryCode;
 }
 
+// El roster de la API son selecciones nacionales; teams.csv puede añadir equipos que
+// la API no lista. Hoy son los seis continentales de 2017-2018, que la competición
+// codifica 11..16 — el mismo número que el asset de bandera (`14_europe` y compañía).
+// Sin esto no tendrían página, bandera ni enlace desde la tabla de rankings.
+const EXTRA_FLAG = {'11': '11_south-america', '12': '12_oceania', '13': '13_north-america', '14': '14_europe', '15': '15_asia', '16': '16_africa'};
+for (const r of readCsv('manual/teams.csv')) {
+  const c = r.team_code;
+  if (!c || teams[c]) continue;
+  teams[c] = {name: r.name, continent: r.continent ?? ''};
+  // 15_asia y 16_africa todavía no existen: el build dibuja su marcador gris.
+  flags[c] = EXTRA_FLAG[c] ?? c;
+}
+
 // Los países anfitriones no siempre fieldan equipo, así que pueden faltar del roster
 // (EAU, Suiza y Grecia no están) y su bandera no resolvería. Se completan desde el
-// listado ISO, que sí trae el alpha-2 de todos los países. El archivo lo deja
-// scripts/fetch-continents.js; sin él esas banderas saldrían grises, no rotas.
-const isoList = readJson('api/iso-regions.json');
+// listado ISO, que sí trae el alpha-2 de todos los países. `isoList` se lee arriba,
+// junto al puente de códigos.
 if (isoList) {
   const byAlpha3 = Object.fromEntries(isoList.map((c) => [String(c['alpha-3']).toUpperCase(), String(c['alpha-2']).toLowerCase()]));
   for (const s of seasons) {
@@ -328,6 +394,39 @@ if (isoList) {
 const codes = new Set(Object.keys(teams));
 const problems = [];
 const check = (ok, msg) => { if (!ok) problems.push(msg); };
+
+// Rankings: el CSV es la fuente para todas las temporadas (2024-2025 incluidas), y sus
+// criterios de desempate cambian cada año. Se construyen aquí porque `rankingsFromCsv`
+// valida contra `codes` y usa `check`.
+const RANK_LABELS = readJson('manual/rankings.labels.json') ?? {};
+const statsByYear = {};
+for (const [y, d] of Object.entries(perYear)) {
+  const year = Number(y);
+  const stats = matchStats(d.matches);
+  statsByYear[year] = stats;
+  d.rankings = rankingsFromCsv(year, stats);
+
+  const seen = new Set(), ranks = new Set();
+  let colCount = null;
+  for (const r of d.rankings) {
+    check(!seen.has(r.code), `${year}: ranking duplicado de ${r.code}`);
+    seen.add(r.code);
+    check(!ranks.has(r.rank), `${year}: puesto ${r.rank} repetido`);
+    ranks.add(r.rank);
+    colCount ??= r.cols.length;
+    check(r.cols.length === colCount, `${year}: ${r.code} trae ${r.cols.length} columnas y el resto ${colCount}`);
+  }
+  const n = d.rankings.length;
+  if (n) for (let i = 1; i <= n; i++) check(ranks.has(i), `${year}: falta el puesto ${i} (${n} filas)`);
+}
+
+// El roster manda: es el código que ve quien rellena teams.csv y el de las URLs.
+// Total de equipos por temporada, para las páginas de temporada. Se calcula DESPUÉS de
+// los rankings: hasta que el CSV no entra, 2017-2023 contaban 0 equipos.
+for (const s of seasons) {
+  const d = perYear[s.y];
+  s.teams = d ? teamsIn(d.matches, d.rankings) : 0;
+}
 
 for (const [y, d] of Object.entries(perYear)) {
   const ids = new Set();
@@ -363,13 +462,13 @@ const photoYears = new Set(seasons.map((s) => s.y));
 const seenPhotos = new Set();
 for (const [i, r] of readCsv('manual/photos.csv').entries()) {
   const n = i + 2; // +1 por la cabecera, +1 porque el índice empieza en 0
-  const y = Number(r.year), c = r.team_code, u = (r.photo_url ?? '').trim();
+  const y = Number(r.year), raw = r.team_code, c = canon(raw), u = (r.photo_url ?? '').trim();
   const dup = `${y}|${c}`;
   const ok = Number.isInteger(y) && photoYears.has(y) && codes.has(c) && HTTP_URL.test(u) && !seenPhotos.has(dup);
   check(Number.isInteger(y) && photoYears.has(y), `photos.csv (fila ${n}): año inválido "${r.year}"`);
-  check(codes.has(c), `photos.csv (fila ${n}): "${c || '(vacío)'}" fuera del roster`);
+  check(codes.has(c), `photos.csv (fila ${n}): "${raw || '(vacío)'}" fuera del roster${c !== raw ? ` (resuelto a "${c}")` : ''}`);
   check(HTTP_URL.test(u), `photos.csv (fila ${n}): URL vacía o sin http(s) — "${r.photo_url ?? ''}"`);
-  check(!seenPhotos.has(dup), `photos.csv (fila ${n}): ${c} ${y} repetido`);
+  check(!seenPhotos.has(dup), `photos.csv (fila ${n}): ${c} ${y} repetido — hay dos filas para el mismo equipo y año`);
   seenPhotos.add(dup);
   if (ok) (photos[y] ??= {})[c] = u;
 }

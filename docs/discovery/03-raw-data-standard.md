@@ -96,7 +96,7 @@ The templates expect the shapes in `00-instrucciones-agentes.md` §4. The normal
 | `T[code] → [name, continent]` | `/v1/teams` + `teams.csv` | name auto, continent manual |
 | `PH[y][code] → url` | `photos.csv` | manual, one per team and season |
 | `M[y][]` | `/v1?year=` matches + participants, or `manual/matches.csv` | auto for 2024/2025 |
-| `S[y][]` | `/v1?year=` rankings, or `manual/rankings.csv` | auto for 2024/2025 |
+| `S[y][]` | `manual/{year}/rankings.csv` for **every** season | manual (the API lacks tie-breaker criteria, and they change yearly). Per-season `cols` + labels from `rankings.labels.json` |
 | `AL[y][]` | `alliances_round_robin` + `alliances_finals` | auto for 2024/2025 |
 | `A[y][]` | `awards[]`: `gold/silver/bronze` + `other[].class` → `ty`/`tier`/`w[]` | auto 2017–2025 |
 
@@ -118,5 +118,6 @@ driven by `data/raw/manual/breakdown.{year}.json`, which maps API field names to
 - Reject any team code not present in `/v1/teams`.
 - Reject a match whose teams are not all in the same season's roster.
 - Reject a `photos.csv` row whose `year` is not in `seasons.csv`, whose `team_code` is not in `/v1/teams`, whose URL is not `http(s)://`, or that repeats a `(year, team_code)` pair.
+- Reject a `rankings.csv` with a repeated team or rank, a gap in the rank sequence 1..N, rows carrying a different number of criteria columns, a non-numeric criterion, or a criterion whose label is missing from `rankings.labels.json`.
 - Reject a processed file whose `season`/`schemaVersion` header does not match the requested build.
 - Missing data is absent from the input, never represented as `0` or `""`. The templates turn absence into the explicit empty states the spec requires.

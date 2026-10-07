@@ -34,7 +34,10 @@ const read = (file) => {
  *   photos.json             {"2025": {CODE: url}}   una foto por equipo y temporada
  *   awards.json             [[name, desc, ty, tier], …]   catálogo de premios
  *   {year}/matches.json     [{id, stage, label, …, red[], blue[], rs, bs, breakdown[]}]
- *   {year}/rankings.json    [{code, rank, w, l, t, pts, n, rp, avg}]
+ *   {year}/rankings.json    [{code, rank, cols: [[etiqueta, valor]…], w?, l?, t?, n?, avg?}]
+ *                           `cols` son los criterios de desempate DE ESA temporada, en su
+ *                           orden, con la etiqueta que fija rankings.labels.json. `w/l/t`
+ *                           (y `n`, `avg`) solo existen si esa temporada trae récord.
  *   {year}/alliances.json   [[CODE, …], …]
  *   {year}/awards.json      [{name, desc, ty, tier, w[]}]
  */

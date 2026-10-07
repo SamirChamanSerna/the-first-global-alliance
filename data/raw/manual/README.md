@@ -21,14 +21,15 @@ It never overwrites an existing file, so re-running it is always safe.
 | `photos.csv` | One team photo per season: `year`, `team_code`, hotlinked `photo_url` |
 | `videos.csv` | Match video links: stream URL + start/end timestamps |
 | `{year}/matches.csv` | Matches for years the API does not serve (2017–2019, 2022, 2023) |
-| `{year}/rankings.csv` | Final rankings for those years |
+| `{year}/rankings.csv` | Final ranking of **every** season, 2024-2025 included. Fixed columns `year,team_code,rank`, then that season's tie-breaker criteria |
+| `rankings.labels.json` | Readable label for each ranking criterion (`Total_Hydrogen_Oxygen_Points` → `Total hydrogen/oxygen points`) |
 | `{year}/alliances.csv` | Playoff alliances for those years |
 
 Years without a folder are not missing — 2020 and 2021 had no physical competition (awards only, `mode=awards-only`), 2024 and 2025 come from the API, and 2026 is live.
 
 ## Rules that are easy to get wrong
 
-- **`team_code` is ISO alpha-3, uppercase** (`MEX`). Never the numeric `teamKey` — it is reassigned every season. Use the codes as they appear in `teams.csv`, which is generated from the API. The one exception is `10`, the refugee team.
+- **`team_code` is the roster's code** as it appears in `teams.csv` (`MEX`, `ZAM`, `GER`). The standard ISO alpha-3 (`ZMB`, `DEU`) is also accepted for country codes — the build bridges both through alpha-2. Never the numeric `teamKey`, which is reassigned every season. The exceptions are the special teams, which must use their canonical code: `10` (refugees, though `HOPE` also resolves) and `11`–`16` (the 2017-2018 continental teams).
 - **A blank cell means "no data".** Never write `0`, `-`, `N/A` or `?` to stand in for something we do not have. The site renders an explicit empty state; a fake zero shows up as a real result.
 - **A blank score means the match was not played.** That is a state, not a 0–0.
 - **Alliance size comes from the columns you fill**, not from a fixed number: 3 teams in `ranking`, 4 in `round_robin` and `finals`.

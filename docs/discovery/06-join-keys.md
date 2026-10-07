@@ -82,7 +82,24 @@ Every hand-entered file must carry these. Extra columns are allowed and ignored.
 | `red_score` `blue_score` | | integer | **empty = not played**, never `0` |
 | `video_url` `video_start` `video_end` | | text / `H:MM:SS` | |
 
-**`rankings.csv`** — `year` ✅, `team_code` ✅, `rank`, `wins`, `losses`, `ties`, `played`, `ranking_score`, `highest_score`.
+**`rankings.csv`** — the final ranking of **every** season, including 2024-2025 (the API does not return all the tie-breaker criteria, and they differ year to year, so the CSV always wins).
+
+| Column | Key? | Format | Notes |
+|---|---|---|---|
+| `year` | ✅ | integer | must exist in `seasons.csv` |
+| `team_code` | ✅ | `team_code` | must exist in the roster (ISO alpha-3 is accepted — see below) |
+| `rank` | | integer | 1..N, contiguous, one row per team |
+| *criteria* | | number | **every column after `rank`** is a tie-breaker of that season, in its own order — `Cumulative_Points`, `Ranking_Score`, `Protection_Points`… The set differs every year; there is no fixed list |
+
+Two things are not obvious:
+
+- **`Wins`/`Losses`/`Ties` are not criteria.** If the file carries them, they fill the fixed W-L-T column rather than being printed as data columns. Only 2019 has them in its CSV; for 2024-2025 they are derived from the qualification matches.
+- **Every criteria column needs a readable label** in `data/raw/manual/rankings.labels.json` (header → label, e.g. `Total_Hydrogen_Oxygen_Points` → `Total hydrogen/oxygen points`). A missing label fails the build rather than printing a raw header.
+
+**Codes:** the roster's alpha-3 and the standard ISO alpha-3 disagree for ~88 countries (`ZAM`/`ZMB`, `GER`/`DEU`, `SUI`/`CHE`, `KSA`/`SAU`, `TPE`/`TWN`…). Either spelling is accepted in a manual CSV: the normalizer bridges alpha-3 → alpha-2 → roster through `data/raw/api/iso-regions.json`, which is the same alpha-2 bridge described above. Two cases the bridge cannot decide on its own and that must be spelled the canonical way:
+
+- the continental teams of 2017-2018, which the competition codes `11`–`16` (see `teams.csv`);
+- the refugee team, whose canonical code is `10` (`HOPE` also resolves to it).
 
 **`alliances.csv`** — `year` ✅, `stage` ✅ (`round_robin` \| `finals`), `alliance_number` ✅, `captain` ✅, `pick1` ✅, `pick2` ✅, `pick3` ✅ (all `team_code`).
 

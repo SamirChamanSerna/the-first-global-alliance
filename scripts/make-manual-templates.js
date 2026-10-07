@@ -38,7 +38,11 @@ const HEADERS = {
   teams: 'team_code,name,continent,website,instagram,twitter,facebook,contact',
   photos: 'year,team_code,photo_url',
   matches: 'year,id,stage,label,scheduled_time,field,red_1,red_2,red_3,red_4,blue_1,blue_2,blue_3,blue_4,red_score,blue_score,video_url',
-  rankings: 'year,team_code,rank,wins,losses,ties,played,ranking_score,highest_score',
+  // El ranking de cada temporada puntúa cosas distintas (2017 no es como 2025), así que
+  // la plantilla solo fija las tres columnas clave: los criterios de desempate se añaden
+  // a mano después de `rank`, en el orden de esa competición, y su etiqueta legible va a
+  // rankings.labels.json. El normalizador falla si falta alguna etiqueta.
+  rankings: 'year,team_code,rank',
   alliances: 'year,stage,alliance_number,captain,pick1,pick2,pick3',
 };
 

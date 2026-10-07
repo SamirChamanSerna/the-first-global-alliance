@@ -19,7 +19,9 @@ const o=fileURLToPath(new URL('./dist/',import.meta.url)),r=f=>fs.readFileSync(n
 fs.rmSync(o,{recursive:true,force:true});
 const w=(f,d)=>{fs.mkdirSync(o+f.replace(/[^/]*$/,''),{recursive:true});fs.writeFileSync(o+f,d)};
 const iso=new Set();let n=0;
-for(const p of pages()){const h=layout(p);for(const m of h.matchAll(/flags\/(\w+)\.svg/g))iso.add(m[1]);w(p.path+'index.html',h);n++}
+// `[\w-]+`, no `\w+`: los assets regionales llevan guion (`14_europe`, `11_south-america`).
+// Con `\w+` no se detectaban, así que no se copiaban a dist/ y salían como <img> roto.
+for(const p of pages()){const h=layout(p);for(const m of h.matchAll(/flags\/([\w-]+)\.svg/g))iso.add(m[1]);w(p.path+'index.html',h);n++}
 w('site.css',r('./brand/tokens.css')+'\n'+r('./css/components.css'));w('brand/favicon.svg',r('./brand/favicon.svg'));
 // Banderas: se copian las reales de site/flags/ (espejadas del repositorio del
 // proyecto con scripts/fetch-flags.js). Solo se genera un marcador para las que

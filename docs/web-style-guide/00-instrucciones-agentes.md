@@ -113,7 +113,7 @@ Previsualizar: `node site/build.js` y abrir `site/dist/index.html` (requiere Nod
 | `T[code]` | `[nombre, continente]` |
 | `PH[year][code]` | URL de la foto del equipo **en esa temporada** (hotlink externo, `http(s)`). Ausente = marcador del marco `.photo` |
 | `M[y][]` (partidos) | `{id, href, y, stage: ranking\|round_robin\|finals, label, field, time, red[], blue[], rs, bs, bd[4], video}`; `rs`/`bs` = `null` si no se ha jugado |
-| `S[y][]` (posiciones) | `{code, rank, w, l, t, pts, n, rp, avg}` |
+| `S[y][]` (posiciones) | `{code, rank, cols: [[etiqueta, valor]…]}` y, **solo si esa temporada trae récord**, `w, l, t, n, avg`. `cols` son los criterios de desempate de ESA temporada, en su orden: cambian cada año y su etiqueta la fija `data/raw/manual/rankings.labels.json` |
 | `AL[y][]` (alianzas) | arreglo de alianzas; cada una, arreglo de códigos. La posición + 1 = número de alianza |
 | `A[y][]` (premios) | `{name, desc, ty: 'a'\|'p'\|'n', tier, w[]}`: `a` alianza (un tono para todos), `p` podio (oro-plata-bronce), `n` sin lugar |
 
