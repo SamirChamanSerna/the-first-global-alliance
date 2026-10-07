@@ -1,0 +1,221 @@
+{
+"schemaVersion": 1,
+"generatedAt": "2026-10-06T00:00:00.000Z",
+"generator": "scripts/normalize.js",
+"data": [
+{
+"name": "FIRST Global Discover and Recover Award",
+"desc": "Overall Winning Alliances of the Solutions Challenge",
+"ty": "a",
+"tier": "",
+"w": [
+"USA",
+"ZWE",
+"PHL",
+"TUN",
+"CAN",
+"GRC"
+]
+},
+{
+"name": "FIRST Global Grand Challenge Award - Economy",
+"desc": "Winning alliances in each Category of the Solutions Challenge",
+"ty": "a",
+"tier": "",
+"w": [
+"CHL",
+"IND",
+"SYC",
+"URY"
+]
+},
+{
+"name": "FIRST Global Grand Challenge Award - Education",
+"desc": "Winning alliances in each Category of the Solutions Challenge",
+"ty": "a",
+"tier": "",
+"w": [
+"PHL",
+"TUN",
+"BRA",
+"ZAF",
+"POL",
+"YEM"
+]
+},
+{
+"name": "FIRST Global Grand Challenge Award - Environment",
+"desc": "Winning alliances in each Category of the Solutions Challenge",
+"ty": "a",
+"tier": "",
+"w": [
+"USA",
+"ZWE",
+"IRN",
+"SGP",
+"NGA",
+"PSE"
+]
+},
+{
+"name": "FIRST Global Grand Challenge Award - Health",
+"desc": "Winning alliances in each Category of the Solutions Challenge",
+"ty": "a",
+"tier": "",
+"w": [
+"CAN",
+"GRC",
+"BLR",
+"GHA",
+"AUS",
+"HRV"
+]
+},
+{
+"name": "FIRST Global Challenge Award - Economy",
+"desc": "Winning Teams for Phase 1 of the Solutions Challenge",
+"ty": "p",
+"tier": "",
+"w": [
+"IND",
+"URY",
+"CHL"
+]
+},
+{
+"name": "FIRST Global Challenge Award - Education",
+"desc": "Winning Teams for Phase 1 of the Solutions Challenge",
+"ty": "p",
+"tier": "",
+"w": [
+"BRA",
+"LVA",
+"KHM"
+]
+},
+{
+"name": "FIRST Global Challenge Award - Environment",
+"desc": "Winning Teams for Phase 1 of the Solutions Challenge",
+"ty": "p",
+"tier": "",
+"w": [
+"TTO",
+"USA",
+"KOR"
+]
+},
+{
+"name": "FIRST Global Challenge Award - Health",
+"desc": "Winning Teams for Phase 1 of the Solutions Challenge",
+"ty": "p",
+"tier": "",
+"w": [
+"ROU",
+"GRC",
+"GMB"
+]
+},
+{
+"name": "Rajaâ Cherkaoui El Moursli Award for Courageous Achievement",
+"desc": "Awarded to teams that exhibit a "can-do" attitude throughout the Challenge, even under difficult circumstances, or when things do not go as planned.",
+"ty": "n",
+"tier": "",
+"w": [
+"BRA",
+"SDN",
+"ZWE"
+]
+},
+{
+"name": "Francisco José de Caldas Award for Sustainable Excellence",
+"desc": "Awarded to individuals who helped to create strong and sustainable FIRST Global programs",
+"ty": "n",
+"tier": "",
+"w": []
+},
+{
+"name": "Outstanding Mentor Award",
+"desc": "Awarded to mentors who were committed to their team and inspired them to keep going, despite any challenges.",
+"ty": "n",
+"tier": "",
+"w": [
+"BRA",
+"CHL",
+"IND",
+"IRQ",
+"ROU",
+"SDN",
+"TUN",
+"ZAF"
+]
+},
+{
+"name": "Judges Award",
+"desc": "",
+"ty": "n",
+"tier": "",
+"w": [
+"AFG",
+"GUY"
+]
+},
+{
+"name": "Prizes",
+"desc": "",
+"ty": "n",
+"tier": "",
+"w": [
+"AGO",
+"ARG",
+"BGD",
+"BOL",
+"BIH",
+"CPV",
+"KHM",
+"DJI",
+"SLV",
+"ETH",
+"GAB",
+"GEO",
+"GHA",
+"GUM",
+"GTM",
+"GNB",
+"GUY",
+"HND",
+"IND",
+"IRL",
+"JAM",
+"JPN",
+"KAZ",
+"XKX",
+"LBY",
+"MDG",
+"MYS",
+"MDA",
+"MNG",
+"MOZ",
+"NLD",
+"NIC",
+"PSE",
+"QAT",
+"ROU",
+"SAU",
+"SRB",
+"SYC",
+"SVK",
+"SVN",
+"ZAF",
+"ESP",
+"SDN",
+"CHE",
+"TTO",
+"TKM",
+"USA",
+"VEN",
+"VNM",
+"YEM"
+]
+}
+]
+}
