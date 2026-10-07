@@ -9,24 +9,29 @@ A static site that archives **FIRST Global Challenge** results (seasons, teams, 
 ## Commands
 
 ```bash
-node scripts/fetch-archive.js [years…]  # download raw API responses → data/raw/api/
-node scripts/normalize.js               # data/raw/ → data/processed/ (validates, fails loudly)
-node site/build.js                      # data/processed/ → site/dist/ (requires Node 20+)
+npm run dev                    # local server with live reload on http://localhost:3000
+npm run normalize              # data/raw/ → data/processed/ (validates, fails loudly)
+npm run build                  # data/processed/ → site/dist/ (requires Node 20+)
+npm run build:fixture          # build site using test fixtures explicitly
+npm run check                  # runs design token, inline styles, and brand string checks
 
+node scripts/fetch-archive.js [years…]  # download raw API responses → data/raw/api/
 node scripts/make-manual-templates.js   # create empty CSV templates for hand-entered data
 ```
 
-Data pipeline: `fetch` → `normalize` → `build`. Only `data/raw/` (the source) and `site/flags/` (mirrored assets) are versioned — `data/processed/` and `site/dist/` are generated and gitignored, so **`normalize` must run before `build`** after a fresh clone or on a deploy. `build` refuses to run when raw data exists but processed does not, rather than silently publishing the fixture; pass `--fixture` to build the mock site on purpose.
+Data pipeline: `fetch` → `normalize` → `build`. Only `data/raw/` (the source) and `site/flags/` (mirrored assets) are versioned — `data/processed/` and `site/dist/` are generated and gitignored, so **`normalize` must run before `build`** after a fresh clone or on a deploy. `build` refuses to run when raw data exists but processed does not, rather than silently publishing the fixture; pass `--fixture` (or `npm run build:fixture`) to build the mock site on purpose.
 
-The build prints which data source it used (`processed` or `fixture`). Then open `site/dist/index.html`. There is no test suite, linter, or package manager — `site/package.json` exists only to declare `"type": "module"`.
+The build prints which data source it used (`processed` or `fixture`). Then open `site/dist/index.html`. `package.json` at root defines `"type": "module"` and developer scripts.
 
-`site/dist/` is committed on purpose so the site can be previewed and published without building, but it is **generated output** — wiped and rewritten on every build, never hand-edit it. Edit `site/templates/`, `site/brand/`, or `site/css/` instead. Both `site/dist/` and `data/` are deliberately tracked; `.gitignore` says so at the top.
+`site/dist/` is **generated output** — wiped and rewritten on every build, never hand-edit it. Edit `site/templates/`, `site/brand/`, or `site/css/` instead.
 
 **Path handling on Windows:** always use `fileURLToPath(new URL(…, import.meta.url))`, never `URL.pathname` — `pathname` yields `/C:/…` and `fs.mkdirSync` then fails with `ENOENT: mkdir 'C:\C:\…'`. This bug broke the build once; it is fixed in `site/build.js`.
 
-Verification greps (from the delivery checklist, §9 of the agent instructions) — all three should return empty:
+Verification checks (from the delivery checklist, §9 of the agent instructions) — automated via `npm run check`:
 
 ```bash
+npm run check
+# Or manually:
 grep -nE '#[0-9a-fA-F]{3,8}\b|rgba?\(' site/css/components.css       # no literal colors outside tokens.css
 grep -rn 'style=' site/templates                                     # no inline styles
 grep -rn 'The FIRST Global Alliance' site --include=*.js | grep -v brand.js

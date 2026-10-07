@@ -1,176 +1,621 @@
-// PLANTILLAS de las 10 pantallas. Cada una = composición de bloques; sin HTML de estilo propio.
-import {brand,t} from '../brand/brand.js';
-import {e,hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
-import {urls,outPath} from './urls.js';
-import {seasons,T,codes,M,S,A,AL,AW,PH} from './data.js';
-const Y=seasons.map(s=>s.y),L=Y[0],sn=y=>seasons.find(s=>s.y==y);
-// YC = temporadas con competencia. Las de solo premios (2020, 2021) no tienen partidos,
-// rankings ni alianzas: no generan páginas de temporada ni entran en las métricas de
-// partidos. Sus premios sí se conservan (cnt, awBlocks, /awards/). Ver docs/discovery/05.
-const YC=seasons.filter(s=>s.mode!=='awards-only').map(s=>s.y);
-const onlyAwards=y=>sn(y)?.mode=='awards-only';
-const bar=(h,x='')=>`<div class="bar"><h1>${h}</h1>${x}</div>`;
-// Selector de temporada sobre una lista concreta (no todas las temporadas son del equipo).
-const ddY=(cur,fn,ys,ov)=>dd(cur,[...(ov?[ov]:[]),...ys.map(y=>[fn(y),y])]);
-const sel=(cur,fn,ov)=>ddY(cur,fn,Y,ov);
-const tl=c=>teamLink(c,`${c} ${T[c][0]}`);
-const tierOf=(a,i)=>a.ty=='a'?a.tier:a.ty=='p'?['gold','silver','bronze'][i]:'awarded';
-const won=(y,c)=>A[y].flatMap(a=>a.w.map((k,i)=>k==c?{n:a.name,tr:tierOf(a,i)}:null).filter(Boolean));
-const cntY=(y,c)=>{const o={gold:0,silver:0,bronze:0,honorable:0};won(y,c).forEach(x=>o[x.tr=='awarded'?'honorable':x.tr]++);return o};
-const cnt=c=>{const o={gold:0,silver:0,bronze:0,honorable:0};Y.forEach(y=>{const z=cntY(y,c);Object.keys(o).forEach(k=>o[k]+=z[k])});return o};
-const awList=(y,c)=>won(y,c).map(x=>kvr(x.n,pip(x.tr))).join('')||`<div class="muted">${t('noAwards')}</div>`;
-// Alianza de playoffs. Si el equipo no llegó, NO se imprime nada: la gran mayoría de los
-// equipos no pasa a playoffs, así que un «Did not play playoffs» repetido en cada bloque
-// de cada temporada es ruido, no información. Es una excepción deliberada a la regla 6
-// (decidida por el dueño): el hueco no se declara, simplemente no aparece.
-const al=(y,c)=>{const i=(AL[y]||[]).findIndex(g=>g.includes(c));
-  return i<0?'':kvr(`${t('alliance')} ${i+1}`,AL[y][i].map(k=>`<a href="${urls.team(k)}">${k}</a>`).join(' '))};
-const R={gold:0,silver:1,bronze:2,honorable:3,awarded:4},nm=c=>teamLink(c,T[c][0]);
-const cells=a=>a.ty=='a'?[[a.w.map(nm).join(', '),a.tier]]:a.w.map((c,i)=>[nm(c),tierOf(a,i)]);
-// Un premio del catálogo puede no existir en todos los años (el catálogo es la unión),
-// por eso la búsqueda por año puede no encontrar nada.
-const ovCells=name=>{const m={};Y.forEach(y=>{const a=A[y].find(x=>x.name==name);if(!a)return;a.w.forEach((c,i)=>{const k=tierOf(a,i),z=m[c]||(m[c]={n:0,k});z.n++;if(R[k]<R[z.k])z.k=k})});return Object.entries(m).sort((a,b)=>R[a[1].k]-R[b[1].k]||b[1].n-a[1].n).map(([c,z])=>[nm(c)+(z.n>1?` ×${z.n}`:''),z.k])};
-const awBlocks=y=>`<div class="aws">${(y?A[y]:AW.map(([name,desc])=>({name,desc}))).map(a=>awardBlock(a.name,a.desc,y?cells(a):ovCells(a.name))).join('')}</div>`;
-const pips=o=>Object.entries(o).map(([k,n])=>`${pip(k)} ×${n}`).join(' ');
-const av=a=>a.reduce((x,y)=>x+y,0)/a.length,sd=a=>{const m=av(a);return Math.sqrt(av(a.map(v=>(v-m)**2)))},pm=a=>`${av(a).toFixed(1)} <span class="muted">± ${sd(a).toFixed(1)}</span>`;
-const best=ms=>ms.length?ms.reduce((a,m)=>Math.max(m.rs,m.bs)>Math.max(a.rs,a.bs)?m:a):null;
-const hi=m=>m?`<div>${matchRow(m)}</div><div class="sec">${m.video?videoThumb(m):videoFallback(m)}</div>`:`<div class="muted">${t('noMatchData')}</div>`;
-const sc=ms=>ms.flatMap(m=>[m.rs,m.bs]);
-// "Average winning margin": un empate no tiene margen de victoria, así que no entra.
-// Contarlos como 0 hundía el promedio (2025: 7.0 con empates, 8.0 sin ellos).
-const mg=ms=>ms.filter(m=>m.rs!=null&&m.rs!==m.bs).map(m=>Math.abs(m.rs-m.bs));
-// Las columnas de desempate cambian cada temporada y vienen de los datos (S[y][].cols),
-// no de una constante: cada año la competición puntúa cosas distintas. La etiqueta la
-// pone data/raw/manual/rankings.labels.json al normalizar, así que aquí no hay texto.
-const seasonCols=y=>(S[y][0]?.cols??[]).map(([label],i)=>[label,z=>z.cols[i][1]]);
-// La columna W-L-T solo se pinta si esa temporada trae récord (2019 desde el CSV; 2024
-// y 2025 derivados de los partidos). Si no, se omite en vez de llenarla de «No data». Y
-// dentro de una temporada que sí lo trae, un equipo sin partidos de clasificación —CMR o
-// JAM en 2025, que solo jugaron playoffs— muestra «No data», nunca «undefined–…».
-const hasWlt=y=>(S[y]||[]).some(z=>z.w!==undefined);
-const rank=y=>{const C=seasonCols(y),W=hasWlt(y),head=[['#',1],[t('team')],...C.map(c=>[c[0],1])];
-  if(W)head.push([t('wlt'),1]);
-  return dt(head,S[y].map(z=>{const row=[z.rank,tl(z.code),...C.map(c=>c[1](z))];if(W)row.push(z.w!==undefined?`${z.w}–${z.l}–${z.t}`:t('noData'));return row}),1)};
-const mine=(c,y)=>(M[y]||[]).filter(m=>[...m.red,...m.blue].includes(c));
-const yearsOf=c=>Y.filter(y=>(S[y]||[]).some(z=>z.code==c));
-// Lugar y fecha del evento. Se omiten los campos vacíos: una temporada sin metadatos
-// cargados no debe imprimir huecos ni comas sueltas.
-// Nombre de la temporada. Sin metadatos cargados se usa el año, que sí se conoce:
-// nunca un encabezado vacío.
-const sName=y=>sn(y)?.name||String(y);
-// Equipos de una temporada concreta. En una página de temporada el total histórico
-// (codes.length) no significa nada: se usa el de esa edición.
-const teamsOf=y=>(y?(sn(y)?.teams||t('noData')):codes.length);
-// Temporadas en las que el equipo llegó a la fase de round robin (está en alguna
-// alianza). No es el número de partidos jugados.
-const rrSeasons=c=>Y.filter(z=>(AL[z]||[]).some(g=>g.includes(c))).length;
-const place=s=>[s.city,s.country].filter(Boolean).join(', ');
-const when=s=>[place(s),s.dates].filter(Boolean).join(' · ');
-const countryCell=s=>s.country?`${flag(s.iso)} ${s.country}`:t('noData');
-// Video de revelación del juego. En una temporada es el suyo; en el overview, el de
-// la temporada más reciente que lo tenga cargado. Sin URL se deja el marcador de la
-// maqueta (el dato se rellena en data/raw/manual/seasons.csv, columna reveal_video).
-const revealBlock=y=>{const s=y?sn(y):seasons.find(x=>x.reveal);
-  return `<h3>${t('reveal')}</h3>`+(s?.reveal
-    ?videoCard(s.reveal,`${t('season')} ${s.y}`,sName(s.y))
-    :`<div class="thumb">${t('thumbnail')}</div>`)};
+// PLANTILLAS de las 11 pantallas del sitio.
+// Cada pantalla es una composición de bloques HTML reutilizables (blocks.js),
+// garantizando consistencia de diseño y cero HTML con estilos inline.
 
-const nAw=ys=>ys.reduce((n,z)=>n+A[z].reduce((m,a)=>m+a.w.length,0),0);
-// Sin mapa de sedes: es puramente estético y queda fuera del alcance actual
-// (ver docs/discovery/05-plan.md). La Home es hero → lista de sedes → KPIs.
-const home=()=>hero()+`<h3>${t('venues')}</h3>${dt([[t('year')],[t('venue')],[t('country')],[t('dates')]],seasons.map(s=>[`<a href="${urls.insights(s.y)}">${s.y}</a>`,s.city||t('noData'),countryCell(s),s.dates||t('noData')]))}
-<h3>${t('overview')}</h3>${boxes([box(t('matches'),Y.reduce((n,y)=>n+(M[y]||[]).length,0)),box(t('awards'),nAw(Y)),box(t('teams'),codes.length)],1)}`;
+import { brand, t } from '../brand/brand.js';
+import {
+  hero,
+  flag,
+  teamLink,
+  pip,
+  box,
+  boxes,
+  kvr,
+  dd,
+  dt,
+  matchList,
+  matchRow,
+  awardBlock,
+  awardKey,
+  scoreboard,
+  breakdown,
+  videoThumb,
+  videoFallback,
+  videoCard
+} from './blocks.js';
+import { urls, outPath } from './urls.js';
+import { seasons, T, codes, M, S, A, AL, AW } from './data.js';
 
-const ins=y=>{const aw=!!y&&onlyAwards(y),ms=y?M[y]:YC.flatMap(z=>M[z]),q=ms.filter(m=>m.stage=='ranking'),p=ms.filter(m=>m.stage!='ranking'),s=y&&sn(y);
-  const kp=(l,a)=>a.length?box(l,av(a).toFixed(1),`± ${sd(a).toFixed(1)}`):box(l,t('noData'));
-  const medalTop=yy=>codes.map(c=>[c,yy?cntY(yy,c):cnt(c)]).filter(x=>tot(x[1])>0).sort((a,b)=>tot(b[1])-tot(a[1])).slice(0,10).map(([c,o],i)=>[i+1,tl(c),pips(o),tot(o)]);
-  // Una temporada sin filas de premio no es una temporada con cero premios: 2020 y 2021
-  // se llaman `awards-only` porque precisamente se jugaron por sus premios, y en 2017-2023
-  // hay partidos que no están cargados. Un `0` en estas cajas afirmaría algo falso, así que
-  // el hueco se declara. (Regla 6.)
-  const cntBox=(l,n)=>box(l,n?n:t('noData'));
-  // El primer criterio de la temporada es su puntuación principal; sin datos, «No data».
-  const topVal=z=>z.cols?.[0]?.[1]??t('noData');
-  const top=y?(aw?medalTop(y):S[y].slice(0,10).map(z=>[z.rank,tl(z.code),topVal(z)])):medalTop();
-  const ranked=y&&!aw; // una temporada de solo premios no tiene ranking que mostrar
-  return bar(y?`${t('season')} ${y}`:t('overview'),dd(y||t('overview'),[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
-  +`<p class="muted">${y?`${[sName(y),place(s)].filter(Boolean).join(' · ')} · `:''}<a href="${y?`https://first.global/archive/fgc-${y}/`:'https://first.global/about/'}">${t('officialSite')}</a></p>`
-  +boxes(aw?[box(t('teams'),teamsOf(y)),cntBox(t('awards'),nAw([y]))]:[box(t('teams'),teamsOf(y)),cntBox(t('matches'),ms.length),cntBox(t('awards'),nAw(y?[y]:Y))],1)
-  +revealBlock(y)
-  +`<h3>${t('awards')}</h3>${awardKey()}${awBlocks(y)}`
-  +(aw?`<p class="note">${t('noCompetition')}</p>`
-    :`<h3>${t('highestMatch')}</h3>${hi(best(q))}<h3>${t('qualMetrics')}</h3>${boxes([kp(t('avgMatch'),sc(q)),kp(t('avgMargin'),mg(q))])}`
-    +`<h3>${y?t('playoffs'):t('mostRoundRobin')}</h3>`+(y?`<div>${matchList(p)}</div>`:dt([[t('team')],[t('seasons'),1]],codes.map(c=>[c,rrSeasons(c)]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([c,n])=>[tl(c),n])))
-    +`<h3>${t('highestPlayoff')}</h3>${hi(best(p))}${boxes([kp(t('avgMatch'),sc(p)),kp(t('avgMargin'),mg(p))])}`)
-  +`<h3>${ranked?t('topRank'):t('mostAwards')}</h3>`+(top.length?dt(ranked?[['#',1],[t('team')],[S[y][0]?.cols?.[0]?.[0]??t('rankingPoints'),1]]:[['#',1],[t('team')],[t('medals'),0],[t('total'),1]],top):`<p class="note">${t('noData')}</p>`)
-  +(ranked?`<p><a href="${urls.rankings(y)}">${t('fullRanking')}</a></p>`:`<p><a href="${urls.awards()}">${t('fullAwards')}</a></p>`)};
-// Nota: la tabla muestra los 10 primeros de los 161 equipos con premios; el enlace
-// lleva a /awards/, que los lista todos. La lista completa de bloques de premio
-// (arriba) sí incluye a todos los ganadores de cada premio.
+// Lista de años de todas las temporadas y año más reciente
+const allYears = seasons.map((s) => s.y);
+const latestYear = allYears[0];
+const getSeason = (year) => seasons.find((s) => s.y == year);
 
-const teams=()=>bar(t('teams'))+['Africa','Americas','Asia','Europe','Oceania'].map(k=>`<h3>${k}</h3>`+dt([[t('flagCol')],[t('iso')],[t('team')],[t('seasons'),1]],codes.filter(c=>T[c][1]==k).sort().map(c=>[flag(c),c,`<a href="${urls.team(c)}">${T[c][0]}</a>`,yearsOf(c).length]))).join('');
+// Temporadas con competencia física. Las de solo premios (2020, 2021) no tienen partidos,
+// rankings ni alianzas: no generan páginas de temporada ni entran en las métricas de partidos.
+// Sus premios sí se conservan (conteos, catálogo de premios, /awards/). Ver docs/discovery/05.
+const competitionYears = seasons.filter((s) => s.mode !== 'awards-only').map((s) => s.y);
+const isAwardsOnlySeason = (year) => getSeason(year)?.mode === 'awards-only';
 
-const awards=()=>bar(t('awards'))+dt([[t('team')],...['gold','silver','bronze','honorable'].map(k=>[brand.medals[k].label,1]),[t('total'),1]],codes.map(c=>[c,cnt(c)]).sort((a,b)=>tot(b[1])-tot(a[1])).map(([c,o])=>[tl(c),o.gold,o.silver,o.bronze,o.honorable,tot(o)]),1);
-const tot=o=>Object.values(o).reduce((x,y)=>x+y,0);
+// Barra de título de sección con título y controles auxiliares opcionales
+const headerBar = (heading, extraControls = '') =>
+  `<div class="bar"><h1>${heading}</h1>${extraControls}</div>`;
 
-// 2020 y 2021 son temporadas `awards-only`: existieron y repartieron premios, pero sin
-// competencia presencial (COVID-19), así que no hay ranking ni partidos que mostrar. Sus
-// páginas se generan igual, con el aviso explícito, en vez de dejar un enlace muerto en
-// el selector de temporada — que era lo que pasaba antes.
-const noComp=()=>`<p class="note">${t('noCompetition')}</p>`;
-// Y una temporada que existe pero todavía no tiene datos (2026, viva) declara su hueco
-// en vez de pintar una tabla sin filas o un div vacío.
-const rankings=y=>bar(`${t('topRank')} ${y}`,sel(y,z=>urls.rankings(z)))
-  +(onlyAwards(y)?noComp():S[y].length?rank(y):`<p class="note">${t('noData')}</p>`);
-const matches=y=>bar(`${t('matches')} ${y}`,sel(y,z=>urls.matches(z)))
-  +(onlyAwards(y)?noComp():M[y].length?`<div>${matchList(M[y])}</div>`:`<p class="note">${t('noMatchData')}</p>`);
-const gameday=()=>bar('GameDay')+`<div class="map">${t('gamedaySoon')}</div>`;
+// Selector de temporadas con menú desplegable sobre una lista concreta de años
+const seasonDropdown = (currentLabel, urlGenerator, yearsList, overviewOption) =>
+  dd(currentLabel, [
+    ...(overviewOption ? [overviewOption] : []),
+    ...yearsList.map((y) => [urlGenerator(y), y])
+  ]);
 
-// Foto del equipo EN ESA temporada: los integrantes cambian cada año, así que la
-// imagen es por (equipo, año) y no del equipo en general. La URL es un hotlink
-// externo (no se espeja en el repo) y solo se muestra, no se enlaza. Sin URL queda
-// el marcador de la maqueta, que es un estado explícito.
-const photo=(c,y)=>{const u=PH[y]?.[c],alt=`${T[c][0]} ${y} · ${t('photo')}`;
-  return `<div class="photo">${u?`<img src="${e(u)}" alt="${e(alt)}" loading="lazy" decoding="async">`:t('photo')}</div>`};
+const allSeasonsDropdown = (currentLabel, urlGenerator, overviewOption) =>
+  seasonDropdown(currentLabel, urlGenerator, allYears, overviewOption);
 
-const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);return z?{...z,y}:null}),P=R2.filter(Boolean),
+// Enlace de equipo con código ISO y nombre oficial
+const teamLinkWithCode = (code) => teamLink(code, `${code} ${T[code][0]}`);
+const teamNameLink = (code) => teamLink(code, T[code][0]);
+
+// Determina el nivel de un premio: alianza ('a'), podio ('p') o no posicionado ('awarded')
+const getAwardTier = (award, winnerIndex) => {
+  if (award.ty === 'a') return award.tier;
+  if (award.ty === 'p') return ['gold', 'silver', 'bronze'][winnerIndex];
+  return 'awarded';
+};
+
+// Obtiene los premios ganados por un equipo en una temporada específica
+const getTeamAwardsForYear = (year, teamCode) =>
+  A[year].flatMap((award) =>
+    award.w.map((winnerCode, idx) =>
+      winnerCode === teamCode ? { name: award.name, tier: getAwardTier(award, idx) } : null
+    ).filter(Boolean)
+  );
+
+// Cuenta las medallas ganadas por un equipo en una temporada específica
+const countMedalsForYear = (year, teamCode) => {
+  const medalCounts = { gold: 0, silver: 0, bronze: 0, honorable: 0 };
+  const teamAwards = getTeamAwardsForYear(year, teamCode);
+  teamAwards.forEach((item) => {
+    const key = item.tier === 'awarded' ? 'honorable' : item.tier;
+    medalCounts[key]++;
+  });
+  return medalCounts;
+};
+
+// Cuenta el total histórico de medallas ganadas por un equipo
+const countTotalMedals = (teamCode) => {
+  const totalCounts = { gold: 0, silver: 0, bronze: 0, honorable: 0 };
+  allYears.forEach((year) => {
+    const yearCounts = countMedalsForYear(year, teamCode);
+    Object.keys(totalCounts).forEach((key) => {
+      totalCounts[key] += yearCounts[key];
+    });
+  });
+  return totalCounts;
+};
+
+const totalMedalsCount = (countsObj) =>
+  Object.values(countsObj).reduce((acc, curr) => acc + curr, 0);
+
+// Lista de premios formateada para la vista de equipo
+const renderAwardsList = (year, teamCode) => {
+  const awards = getTeamAwardsForYear(year, teamCode);
+  return (
+    awards.map((award) => kvr(award.name, pip(award.tier))).join('') ||
+    `<div class="muted">${t('noAwards')}</div>`
+  );
+};
+
+// Muestra la alianza a la que perteneció el equipo en los playoffs de una temporada
+const renderAllianceInfo = (year, teamCode) => {
+  const alliances = AL[year] || [];
+  const allianceIndex = alliances.findIndex((group) => group.includes(teamCode));
+  if (allianceIndex < 0) {
+    return kvr(t('alliance'), t('noPlayoff'));
+  }
+  const memberLinks = alliances[allianceIndex]
+    .map((code) => `<a href="${urls.team(code)}">${code}</a>`)
+    .join(' ');
+  return kvr(`${t('alliance')} ${allianceIndex + 1}`, memberLinks);
+};
+
+const TIER_ORDER = { gold: 0, silver: 1, bronze: 2, honorable: 3, awarded: 4 };
+
+// Celdas de ganadores de un premio para la página de una temporada
+const buildSeasonAwardCells = (award) => {
+  if (award.ty === 'a') {
+    return [[award.w.map(teamNameLink).join(', '), award.tier]];
+  }
+  return award.w.map((code, idx) => [teamNameLink(code), getAwardTier(award, idx)]);
+};
+
+// Celdas de ganadores de un premio para la página histórica (Overview)
+const buildOverviewAwardCells = (awardName) => {
+  const winnersMap = {};
+  allYears.forEach((year) => {
+    const award = A[year].find((item) => item.name === awardName);
+    if (!award) return;
+    award.w.forEach((code, idx) => {
+      const tier = getAwardTier(award, idx);
+      const entry = winnersMap[code] || (winnersMap[code] = { count: 0, bestTier: tier });
+      entry.count++;
+      if (TIER_ORDER[tier] < TIER_ORDER[entry.bestTier]) {
+        entry.bestTier = tier;
+      }
+    });
+  });
+
+  return Object.entries(winnersMap)
+    .sort((a, b) => TIER_ORDER[a[1].bestTier] - TIER_ORDER[b[1].bestTier] || b[1].count - a[1].count)
+    .map(([code, entry]) => [
+      teamNameLink(code) + (entry.count > 1 ? ` ×${entry.count}` : ''),
+      entry.bestTier
+    ]);
+};
+
+// Renderiza el bloque contenedor de premios
+const renderAwardBlocks = (year) => {
+  const awardsData = year ? A[year] : AW.map(([name, desc]) => ({ name, desc }));
+  const renderedBlocks = awardsData.map((award) =>
+    awardBlock(
+      award.name,
+      award.desc,
+      year ? buildSeasonAwardCells(award) : buildOverviewAwardCells(award.name)
+    )
+  );
+  return `<div class="aws">${renderedBlocks.join('')}</div>`;
+};
+
+const renderPipsSummary = (countsObj) =>
+  Object.entries(countsObj)
+    .map(([tierKey, count]) => `${pip(tierKey)} ×${count}`)
+    .join(' ');
+
+// Métricas estadísticas: promedio y desviación estándar
+const average = (numbers) => numbers.reduce((sum, n) => sum + n, 0) / numbers.length;
+const stdDev = (numbers) => {
+  const mean = average(numbers);
+  return Math.sqrt(average(numbers.map((v) => (v - mean) ** 2)));
+};
+
+// Identifica el partido con la mayor puntuación de una lista
+const getHighestScoringMatch = (matchesList) => {
+  if (!matchesList.length) return null;
+  return matchesList.reduce((bestMatch, currentMatch) =>
+    Math.max(currentMatch.rs, currentMatch.bs) > Math.max(bestMatch.rs, bestMatch.bs)
+      ? currentMatch
+      : bestMatch
+  );
+};
+
+// Fila destacada de partido y miniatura de video
+const renderHighlightMatch = (match) =>
+  match
+    ? `<div>${matchRow(match)}</div><div class="sec">${
+        match.video ? videoThumb(match) : videoFallback(match)
+      }</div>`
+    : `<div class="muted">${t('noMatchData')}</div>`;
+
+// Extrae todos los marcadores individuales (rojo y azul) de una lista de partidos
+const extractScores = (matchesList) => matchesList.flatMap((m) => [m.rs, m.bs]);
+
+// Margen de victoria promedio (excluye empates porque no tienen margen ganador)
+const extractWinningMargins = (matchesList) =>
+  matchesList
+    .filter((m) => m.rs != null && m.rs !== m.bs)
+    .map((m) => Math.abs(m.rs - m.bs));
+
+// Columnas de tabla de clasificación
+const rankColumns = [
+  [t('rankingPoints'), (row) => row.rp],
+  [t('tb1'), (row) => row.avg],
+  [t('tb2'), (row) => row.w],
+  [t('tb3'), (row) => row.pts]
+];
+
+const renderRankingsTable = (year) =>
+  dt(
+    [['#', 1], [t('team')], ...rankColumns.map((col) => [col[0], 1]), [t('wlt'), 1]],
+    S[year].map((row) => [
+      row.rank,
+      teamLinkWithCode(row.code),
+      ...rankColumns.map((col) => col[1](row)),
+      `${row.w}–${row.l}–${row.t}`
+    ]),
+    1
+  );
+
+// Filtra partidos en los que participó un equipo concreto en un año determinado
+const getTeamMatches = (teamCode, year) =>
+  (M[year] || []).filter((m) => [...m.red, ...m.blue].includes(teamCode));
+
+const getTeamActiveYears = (teamCode) =>
+  allYears.filter((year) => (S[year] || []).some((row) => row.code === teamCode));
+
+const getSeasonDisplayName = (year) => getSeason(year)?.name || String(year);
+const getTeamCount = (year) => (year ? getSeason(year)?.teams || t('noData') : codes.length);
+
+const countRoundRobinSeasons = (teamCode) =>
+  allYears.filter((year) => (AL[year] || []).some((alliance) => alliance.includes(teamCode))).length;
+
+const formatLocation = (season) => [season.city, season.country].filter(Boolean).join(', ');
+const formatDateAndLocation = (season) =>
+  [formatLocation(season), season.dates].filter(Boolean).join(' · ');
+const renderCountryCell = (season) =>
+  season.country ? `${flag(season.iso)} ${season.country}` : t('noData');
+
+// Video de revelación del juego de la temporada
+const renderRevealBlock = (year) => {
+  const season = year ? getSeason(year) : seasons.find((item) => item.reveal);
+  return (
+    `<h3>${t('reveal')}</h3>` +
+    (season?.reveal
+      ? videoCard(season.reveal, `${t('season')} ${season.y}`, getSeasonDisplayName(season.y))
+      : `<div class="thumb">${t('thumbnail')}</div>`)
+  );
+};
+
+const countTotalAwardsGiven = (yearsList) =>
+  yearsList.reduce(
+    (total, year) => total + A[year].reduce((count, award) => count + award.w.length, 0),
+    0
+  );
+
+// =========================================================================
+// Pantallas principales (11 rutas del sitio web)
+// =========================================================================
+
+// 1. Home
+const homePage = () =>
+  hero() +
+  `<h3>${t('venues')}</h3>${dt(
+    [[t('year')], [t('venue')], [t('country')], [t('dates')]],
+    seasons.map((s) => [
+      `<a href="${urls.insights(s.y)}">${s.y}</a>`,
+      s.city || t('noData'),
+      renderCountryCell(s),
+      s.dates || t('noData')
+    ])
+  )}` +
+  `<h3>${t('overview')}</h3>${boxes(
+    [
+      box(t('matches'), allYears.reduce((total, y) => total + (M[y] || []).length, 0)),
+      box(t('awards'), countTotalAwardsGiven(allYears)),
+      box(t('teams'), codes.length)
+    ],
+    1
+  )}`;
+
+// 2. Insights (Estadísticas generales o por temporada)
+const insightsPage = (year) => {
+  const isAwardsOnly = !!year && isAwardsOnlySeason(year);
+  const matchesList = year ? M[year] : competitionYears.flatMap((y) => M[y]);
+  const qualificationMatches = matchesList.filter((m) => m.stage === 'ranking');
+  const playoffMatches = matchesList.filter((m) => m.stage !== 'ranking');
+  const currentSeason = year && getSeason(year);
+
+  const kpiBox = (label, dataArray) =>
+    dataArray.length
+      ? box(label, average(dataArray).toFixed(1), `± ${stdDev(dataArray).toFixed(1)}`)
+      : box(label, t('noData'));
+
+  const topMedalWinners = (targetYear) =>
+    codes
+      .map((code) => [code, targetYear ? countMedalsForYear(targetYear, code) : countTotalMedals(code)])
+      .filter((entry) => totalMedalsCount(entry[1]) > 0)
+      .sort((a, b) => totalMedalsCount(b[1]) - totalMedalsCount(a[1]))
+      .slice(0, 10)
+      .map(([code, counts], idx) => [
+        idx + 1,
+        teamLinkWithCode(code),
+        renderPipsSummary(counts),
+        totalMedalsCount(counts)
+      ]);
+
+  const topRankings = year
+    ? isAwardsOnly
+      ? topMedalWinners(year)
+      : S[year].slice(0, 10).map((row) => [row.rank, teamLinkWithCode(row.code), row.rp])
+    : topMedalWinners();
+
+  const isRankedSeason = year && !isAwardsOnly;
+
+  return (
+    headerBar(
+      year ? `${t('season')} ${year}` : t('overview'),
+      dd(year || t('overview'), [
+        [urls.insights(), t('overview')],
+        ...allYears.map((y) => [urls.insights(y), y])
+      ])
+    ) +
+    `<p class="muted">${
+      year
+        ? `${[getSeasonDisplayName(year), formatLocation(currentSeason)].filter(Boolean).join(' · ')} · `
+        : ''
+    }<a href="${year ? `https://first.global/archive/fgc-${year}/` : 'https://first.global/about/'}">${t(
+      'officialSite'
+    )}</a></p>` +
+    boxes(
+      isAwardsOnly
+        ? [box(t('teams'), getTeamCount(year)), box(t('awards'), countTotalAwardsGiven([year]))]
+        : [
+            box(t('teams'), getTeamCount(year)),
+            box(t('matches'), matchesList.length),
+            box(t('awards'), countTotalAwardsGiven(year ? [year] : allYears))
+          ],
+      1
+    ) +
+    renderRevealBlock(year) +
+    `<h3>${t('awards')}</h3>${awardKey()}${renderAwardBlocks(year)}` +
+    (isAwardsOnly
+      ? `<p class="note">${t('noCompetition')}</p>`
+      : `<h3>${t('highestMatch')}</h3>${renderHighlightMatch(
+          getHighestScoringMatch(qualificationMatches)
+        )}<h3>${t('qualMetrics')}</h3>${boxes([
+          kpiBox(t('avgMatch'), extractScores(qualificationMatches)),
+          kpiBox(t('avgMargin'), extractWinningMargins(qualificationMatches))
+        ])}` +
+        `<h3>${year ? t('playoffs') : t('mostRoundRobin')}</h3>` +
+        (year
+          ? `<div>${matchList(playoffMatches)}</div>`
+          : dt(
+              [[t('team')], [t('seasons'), 1]],
+              codes
+                .map((code) => [code, countRoundRobinSeasons(code)])
+                .filter((x) => x[1] > 0)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10)
+                .map(([code, count]) => [teamLinkWithCode(code), count])
+            )) +
+        `<h3>${t('highestPlayoff')}</h3>${renderHighlightMatch(
+          getHighestScoringMatch(playoffMatches)
+        )}${boxes([
+          kpiBox(t('avgMatch'), extractScores(playoffMatches)),
+          kpiBox(t('avgMargin'), extractWinningMargins(playoffMatches))
+        ])}`) +
+    `<h3>${isRankedSeason ? t('topRank') : t('mostAwards')}</h3>` +
+    dt(
+      isRankedSeason
+        ? [['#', 1], [t('team')], [t('rankingPoints'), 1]]
+        : [['#', 1], [t('team')], [t('medals'), 0], [t('total'), 1]],
+      topRankings
+    ) +
+    (isRankedSeason
+      ? `<p><a href="${urls.rankings(year)}">${t('fullRanking')}</a></p>`
+      : `<p><a href="${urls.awards()}">${t('fullAwards')}</a></p>`)
+  );
+};
+
+// 3. Teams (Directorio de equipos por continente)
+const teamsPage = () =>
+  headerBar(t('teams')) +
+  ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
+    .map(
+      (continent) =>
+        `<h3>${continent}</h3>` +
+        dt(
+          [[t('flagCol')], [t('iso')], [t('team')], [t('seasons'), 1]],
+          codes
+            .filter((c) => T[c][1] === continent)
+            .sort()
+            .map((c) => [flag(c), c, `<a href="${urls.team(c)}">${T[c][0]}</a>`, getTeamActiveYears(c).length])
+        )
+    )
+    .join('');
+
+// 4. Awards (Medallero histórico global)
+const awardsPage = () =>
+  headerBar(t('awards')) +
+  dt(
+    [
+      [t('team')],
+      ...['gold', 'silver', 'bronze', 'honorable'].map((tier) => [brand.medals[tier].label, 1]),
+      [t('total'), 1]
+    ],
+    codes
+      .map((code) => [code, countTotalMedals(code)])
+      .sort((a, b) => totalMedalsCount(b[1]) - totalMedalsCount(a[1]))
+      .map(([code, medals]) => [
+        teamLinkWithCode(code),
+        medals.gold,
+        medals.silver,
+        medals.bronze,
+        medals.honorable,
+        totalMedalsCount(medals)
+      ]),
+    1
+  );
+
+// 5. Rankings por temporada
+const rankingsPage = (year) =>
+  headerBar(`${t('topRank')} ${year}`, allSeasonsDropdown(year, (y) => urls.rankings(y))) +
+  renderRankingsTable(year);
+
+// 6. Matches por temporada
+const matchesPage = (year) =>
+  headerBar(`${t('matches')} ${year}`, allSeasonsDropdown(year, (y) => urls.matches(y))) +
+  `<div>${matchList(M[year])}</div>`;
+
+// 7. GameDay
+const gamedayPage = () => headerBar('GameDay') + `<div class="map">${t('gamedaySoon')}</div>`;
+
+// 8. Team History (Historial completo de un equipo a lo largo de los años)
+const teamHistoryPage = (teamCode) => {
+  const seasonRankings = allYears.map((year) => {
+    const ranking = (S[year] || []).find((row) => row.code === teamCode);
+    return ranking ? { ...ranking, year } : null;
+  });
+  const participatedRankings = seasonRankings.filter(Boolean);
+
   // Centinela Infinity, no 99: con 99 cualquier equipo peor que el puesto 99 se
   // quedaba con el valor inicial y mostraba «#99» como si fuera su mejor puesto.
-  b=P.reduce((a,z)=>z.rank<a.rank?{rank:z.rank,y:z.y}:a,{rank:Infinity,y:''}),
-  // Un récord de carrera solo se puede sumar si TODAS las temporadas rankeadas del
-  // equipo traen W-L-T (hoy: 2019 desde el CSV, 2024-2025 derivados de los partidos).
-  // Sumar solo las que lo traen daría un total falso, así que si falta alguna temporada
-  // se declara «No data» en vez de un número que parece completo y no lo es.
-  rec=P.filter(z=>z.w!==undefined),full=rec.length>0&&rec.length===P.length,
-  W=rec.reduce((a,z)=>a+z.w,0),Lo=rec.reduce((a,z)=>a+z.l,0),Ti=rec.reduce((a,z)=>a+z.t,0),n=W+Lo+Ti;
-  return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]}</h1></div>${ddY(t('seasons'),z=>urls.team(c,z),P.map(z=>z.y))}</div><div class="kv"><div><span>${t('iso')}:</span> ${c}</div></div>`
-  +boxes([box(t('matches'),full?n:t('noData')),box(t('awards'),tot(cnt(c))),box(t('record'),full?`${W}–${Lo}–${Ti}`:t('noData'),full?`${(100*W/n).toFixed(1)}%`:''),box(t('bestRank'),P.length?`#${b.rank}`:t('noData'),P.length?`${b.y} · ${t('of')} ${teamsOf(b.y)}`:''),box(t('medals'),'',pips(cnt(c)))],1)
-  +`<h3>${t('timeline')}</h3>`+Y.map((y,i)=>{const z=R2[i],s=sn(y);
-    // Sin fila de ranking hay dos casos muy distintos:
-    //  · la temporada NO se jugó (2020-2021, awards-only) → el aviso es cierto, se muestra;
-    //  · la temporada SÍ se jugó y el equipo no fue → no hay bloque. Antes decía «no hubo
-    //    competencia», que era falso: la competencia existió, el equipo simplemente no estaba.
-    if(!z)return onlyAwards(y)?`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div><p class="note">${t('noCompetition')}</p><div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`:'';
-    const ps=sc(mine(c,y));
-    // Los KPIs de la temporada van en la columna IZQUIERDA, bajo Rank y Record, como
-    // en @component:season-block del demo. La derecha queda para la foto.
-    return `<section class="ev"><div><h2><a href="${urls.team(c,y)}">${sName(y)}</a></h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),z.w!==undefined?`${z.w}–${z.l}–${z.t}`:t('noData'))])}${kvr(t('highestScore'),ps.length?Math.max(...ps):t('noData'))}${kvr(t('avgScore'),z.avg??t('noData'))}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`}).join('')};
+  const bestRank = participatedRankings.reduce(
+    (best, current) => (current.rank < best.rank ? { rank: current.rank, year: current.year } : best),
+    { rank: Infinity, year: '' }
+  );
+  const totalWins = participatedRankings.reduce((sum, r) => sum + r.w, 0);
+  const totalLosses = participatedRankings.reduce((sum, r) => sum + r.l, 0);
+  const totalTies = participatedRankings.reduce((sum, r) => sum + r.t, 0);
+  const totalMatchesCount = totalWins + totalLosses + totalTies;
 
-const ts=(c,y)=>{const z=S[y].find(x=>x.code==c),s=sn(y);
-  return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]} · ${y}</h1></div>${ddY(y,k=>urls.team(c,k),yearsOf(c))}</div><p><a href="${urls.team(c)}">← ${t('back')}</a></p>`
-  +`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),z.w!==undefined?`${z.w}–${z.l}–${z.t}`:t('noData'))])}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`
-  +`<h3>${t('matches')}</h3><div>${matchList(mine(c,y),c)}</div>`};
+  return (
+    `<div class="bar"><div class="title">${flag(teamCode)}<h1>${T[teamCode][0]}</h1></div>${seasonDropdown(
+      t('seasons'),
+      (y) => urls.team(teamCode, y),
+      participatedRankings.map((r) => r.year)
+    )}</div><div class="kv"><div><span>${t('iso')}:</span> ${teamCode}</div></div>` +
+    boxes(
+      [
+        box(t('matches'), totalMatchesCount),
+        box(t('awards'), totalMedalsCount(countTotalMedals(teamCode))),
+        box(
+          t('record'),
+          totalMatchesCount ? `${totalWins}–${totalLosses}–${totalTies}` : t('noData'),
+          totalMatchesCount ? `${((100 * totalWins) / totalMatchesCount).toFixed(1)}%` : ''
+        ),
+        box(
+          t('bestRank'),
+          participatedRankings.length ? `#${bestRank.rank}` : t('noData'),
+          participatedRankings.length ? `${bestRank.year} · ${t('of')} ${getTeamCount(bestRank.year)}` : ''
+        ),
+        box(t('medals'), '', renderPipsSummary(countTotalMedals(teamCode)))
+      ],
+      1
+    ) +
+    `<h3>${t('timeline')}</h3>` +
+    allYears
+      .map((year, idx) => {
+        const ranking = seasonRankings[idx];
+        const season = getSeason(year);
+        if (!ranking) {
+          return `<section class="ev"><div><h2>${getSeasonDisplayName(year)}</h2><div class="when">${formatDateAndLocation(
+            season
+          )}</div><p class="note">${t('noCompetition')}</p><div class="lbl">${t(
+            'awards'
+          )}</div>${renderAwardsList(year, teamCode)}</div><div><div class="photo">${t(
+            'photo'
+          )}</div></div></section>`;
+        }
+        const matchScores = extractScores(getTeamMatches(teamCode, year));
+        // Los KPIs de la temporada van en la columna IZQUIERDA, bajo Rank y Record, como
+        // en @component:season-block del demo. La derecha queda para la foto.
+        return `<section class="ev"><div><h2><a href="${urls.team(
+          teamCode,
+          year
+        )}">${getSeasonDisplayName(year)}</a></h2><div class="when">${formatDateAndLocation(
+          season
+        )}</div>${boxes([
+          box(t('rank'), ranking.rank, `${t('of')} ${getTeamCount(year)}`),
+          box(t('record'), `${ranking.w}–${ranking.l}–${ranking.t}`)
+        ])}${kvr(
+          t('highestScore'),
+          matchScores.length ? Math.max(...matchScores) : t('noData')
+        )}${kvr(t('avgScore'), ranking.avg)}${renderAllianceInfo(
+          year,
+          teamCode
+        )}<div class="lbl">${t('awards')}</div>${renderAwardsList(
+          year,
+          teamCode
+        )}</div><div><div class="photo">${t('photo')}</div></div></section>`;
+      })
+      .join('')
+  );
+};
 
-// Página de un partido: a la izquierda la tabla estándar (alianzas y marcador, roja
-// arriba y azul abajo) y debajo el desglose; a la derecha solo la miniatura del video.
-// La lista de equipos del pie se quitó: repetía la tabla.
-const mp=m=>`<div class="bar"><h1>${m.label} · ${sName(m.y)}</h1></div><p class="when">${m.field} · ${m.time}</p><section class="ev"><div class="mh span-all"><div>${scoreboard(m)}<div class="sec">${breakdown(m)}</div></div><div class="vids">${videoThumb(m)}</div></div></section>`;
+// 9. Team Season (Desempeño de un equipo en un año concreto)
+const teamSeasonPage = (teamCode, year) => {
+  const ranking = S[year].find((x) => x.code === teamCode);
+  const season = getSeason(year);
 
-export const pages=()=>{const P=[{path:'',title:brand.name,body:home()},{path:outPath(urls.insights()),title:t('overview'),active:'insights',body:ins()},{path:outPath(urls.teams()),title:t('teams'),active:'teams',body:teams()},{path:outPath(urls.awards()),title:t('awards'),active:'awards',body:awards()},{path:outPath(urls.gameday()),title:'GameDay',active:'gameday',body:gameday()}];
-  Y.forEach(y=>{P.push({path:outPath(urls.insights(y)),title:`${t('season')} ${y}`,active:'insights',body:ins(y)},
-    // Las temporadas sin competencia (2020-2021) también tienen páginas de ranking y de
-    // partidos: muestran el aviso, no una tabla vacía. Sus partidos son 0, así que el
-    // map de abajo no añade ninguna página de partido.
-    {path:outPath(urls.rankings(y)),title:`${t('topRank')} ${y}`,active:'rankings',body:rankings(y)},{path:outPath(urls.matches(y)),title:`${t('matches')} ${y}`,active:'matches',body:matches(y)},...M[y].map(m=>({path:outPath(urls.match(m.id)),title:`${m.label} ${y}`,active:'matches',body:mp(m)})))});
-  codes.forEach(c=>P.push({path:outPath(urls.team(c)),title:T[c][0],active:'teams',body:th(c)},...yearsOf(c).map(y=>({path:outPath(urls.team(c,y)),title:`${T[c][0]} ${y}`,active:'teams',body:ts(c,y)}))));
-  const sx=[...codes.map(c=>T[c][0]),...Y.map(String)];return P.map(p=>({latest:L,sx,...p}))};
+  return (
+    `<div class="bar"><div class="title">${flag(teamCode)}<h1>${T[teamCode][0]} · ${year}</h1></div>${seasonDropdown(
+      year,
+      (y) => urls.team(teamCode, y),
+      getTeamActiveYears(teamCode)
+    )}</div><p><a href="${urls.team(teamCode)}">← ${t('back')}</a></p>` +
+    `<section class="ev"><div><h2>${getSeasonDisplayName(year)}</h2><div class="when">${formatDateAndLocation(
+      season
+    )}</div>${boxes([
+      box(t('rank'), ranking.rank, `${t('of')} ${getTeamCount(year)}`),
+      box(t('record'), `${ranking.w}–${ranking.l}–${ranking.t}`)
+    ])}${renderAllianceInfo(year, teamCode)}<div class="lbl">${t('awards')}</div>${renderAwardsList(
+      year,
+      teamCode
+    )}</div><div><div class="photo">${t('photo')}</div></div></section>` +
+    `<h3>${t('matches')}</h3><div>${matchList(getTeamMatches(teamCode, year), teamCode)}</div>`
+  );
+};
+
+// 10. Match Page (Detalle de un partido específico con marcador y desglose)
+const matchPage = (match) =>
+  `<div class="bar"><h1>${match.label} · ${getSeasonDisplayName(match.y)}</h1></div><p class="when">${
+    match.field
+  } · ${match.time}</p><section class="ev"><div class="mh span-all"><div>${scoreboard(
+    match
+  )}<div class="sec">${breakdown(match)}</div></div><div class="vids">${videoThumb(
+    match
+  )}</div></div></section>`;
+
+// =========================================================================
+// Ensamblador de todas las rutas del sitio
+// =========================================================================
+export const pages = () => {
+  const pageList = [
+    { path: '', title: brand.name, body: homePage() },
+    { path: outPath(urls.insights()), title: t('overview'), active: 'insights', body: insightsPage() },
+    { path: outPath(urls.teams()), title: t('teams'), active: 'teams', body: teamsPage() },
+    { path: outPath(urls.awards()), title: t('awards'), active: 'awards', body: awardsPage() },
+    { path: outPath(urls.gameday()), title: 'GameDay', active: 'gameday', body: gamedayPage() }
+  ];
+
+  allYears.forEach((year) => {
+    pageList.push({
+      path: outPath(urls.insights(year)),
+      title: `${t('season')} ${year}`,
+      active: 'insights',
+      body: insightsPage(year)
+    });
+
+    if (isAwardsOnlySeason(year)) return; // sin competencia: ni rankings, ni matches, ni páginas de partido
+
+    pageList.push(
+      {
+        path: outPath(urls.rankings(year)),
+        title: `${t('topRank')} ${year}`,
+        active: 'rankings',
+        body: rankingsPage(year)
+      },
+      {
+        path: outPath(urls.matches(year)),
+        title: `${t('matches')} ${year}`,
+        active: 'matches',
+        body: matchesPage(year)
+      },
+      ...M[year].map((match) => ({
+        path: outPath(urls.match(match.id)),
+        title: `${match.label} ${year}`,
+        active: 'matches',
+        body: matchPage(match)
+      }))
+    );
+  });
+
+  codes.forEach((teamCode) => {
+    pageList.push(
+      {
+        path: outPath(urls.team(teamCode)),
+        title: T[teamCode][0],
+        active: 'teams',
+        body: teamHistoryPage(teamCode)
+      },
+      ...getTeamActiveYears(teamCode).map((year) => ({
+        path: outPath(urls.team(teamCode, year)),
+        title: `${T[teamCode][0]} ${year}`,
+        active: 'teams',
+        body: teamSeasonPage(teamCode, year)
+      }))
+    );
+  });
+
+  const searchIndex = [...codes.map((c) => T[c][0]), ...allYears.map(String)];
+  return pageList.map((page) => ({ latest: latestYear, sx: searchIndex, ...page }));
+};
