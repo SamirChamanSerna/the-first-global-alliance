@@ -319,13 +319,34 @@ function tierOfAward(a, ty) {
 
 let unresolvedAwardEntries = 0;
 
+// Un premio puede ir a una persona o a una institución, no a un equipo. La API adjunta a
+// cada destinatario su país —el del mentor, el de la entidad— y `resolveTeam` lo convierte
+// en esa selección, que acaba con una medalla que no ganó: Túnez sumaba cuatro por el
+// premio al mentor y una por el de patrocinadores. Se descartan por evidencia del dato
+// crudo, no por una lista de nombres escrita a mano:
+//   · la entrada nombra al destinatario (`recipientName`) → es una persona o entidad;
+//   · la descripción del premio dice a quién va («Awarded to an individual / mentors /
+//     institutions, sponsors, or governments»). Hace falta además del `recipientName`
+//     porque en 2018 y 2022 la API no nombró a nadie y dio solo el país.
+// Los premios de equipo se declaran como tales («Awarded to teams…») y no entran aquí.
+const NO_TEAM_DESC = /awarded to (?:an? )?(?:individual|mentors?|institutions?|sponsors?|governments?|young women)/i;
+const isTeamAward = (a) => !NO_TEAM_DESC.test(a.description ?? '');
+const isTeamEntry = (o) => !!o && !o.recipientName;
+const nonTeamAwards = [];
+
 function buildAwards(snapshot) {
   return (snapshot.awards ?? [])
     .slice()
     .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    .filter((a) => { if (isTeamAward(a)) return true; nonTeamAwards.push(a.name); return false; })
     .map((a) => {
       const ty = awardType(a);
-      const code = (o) => { const c = resolveTeam(o); if (o && !c) unresolvedAwardEntries++; return c; };
+      const code = (o) => {
+        if (!isTeamEntry(o)) return null; // persona o entidad: no es un equipo
+        const c = resolveTeam(o);
+        if (!c) unresolvedAwardEntries++;
+        return c;
+      };
       const w = ty === 'a'
         ? [code(a[TIER_SLOT[tierOfAward(a, ty)]]), ...(a.other ?? []).map(code)]
         : ty === 'p'
@@ -484,8 +505,15 @@ for (const [i, r] of readCsv('manual/photos.csv').entries()) {
 }
 
 if (unresolvedAwardEntries) {
-  console.warn(`aviso: ${unresolvedAwardEntries} destinatario(s) de premio sin país resoluble ` +
-    '(p. ej. el premio al mentor se otorga a personas, no a equipos) — se omiten');
+  console.warn(`aviso: ${unresolvedAwardEntries} destinatario(s) de premio sin país resoluble — se omiten`);
+}
+
+// Se lista lo descartado para que la regla sea auditable: si la API añade un premio a
+// personas sin que su descripción lo diga, se verá aquí en vez de colarse como medalla.
+if (nonTeamAwards.length) {
+  const names = [...new Set(nonTeamAwards)];
+  console.log(`premios no dirigidos a equipos (personas o instituciones), omitidos: ` +
+    `${names.length} — ${names.join(' · ')}`);
 }
 
 if (problems.length) {

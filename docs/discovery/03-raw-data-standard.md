@@ -100,6 +100,8 @@ The templates expect the shapes in `00-instrucciones-agentes.md` §4. The normal
 | `AL[y][]` | `alliances_round_robin` + `alliances_finals` | auto for 2024/2025 |
 | `A[y][]` | `awards[]`: `gold/silver/bronze` + `other[].class` → `ty`/`tier`/`w[]` | auto 2017–2025 |
 
+**Not every award goes to a team.** The API attaches a country to *every* recipient, including the ones that are people (the Outstanding Mentor Award) or institutions (the Al Khwarizmi Award for Outstanding Supporter), so resolving them by country would credit a national team with a medal it did not win. The normalizer drops those awards, detected from the raw data itself — an entry carrying `recipientName` is not a team, and an award whose own description says it goes to an individual, mentors, institutions, sponsors or governments is not a team award either (the second check covers 2018 and 2022, where the API named nobody and gave only a country). Team awards declare themselves as such: *"Awarded to teams…"*. What gets dropped is printed on every run.
+
 ### One contract change is unavoidable
 
 The mock's match carries `bd[4]` = `[redWater, redParking, blueWater, blueParking]` — hardcoded to the 2024-ish game. The real `details{}` object is game-specific (`barriersInRedMitigator`, `biodiversityUnits*`, `biodiversityDistributionFactor`, …) and differs every season.
