@@ -171,7 +171,7 @@ Click en el video: enlace externo a la URL (con la marca de tiempo si existe), `
 Final 1 · Daly Division          título: peso normal; subtítulo: gris pequeño
 ```
 Toda la miniatura es el enlace. Foco visible con `outline`. Hover: subrayar el título, nada más. Sin degradado sobre la imagen.
-Origen de la miniatura: ⚠️ decisión abierta. Formato habitual de YouTube `https://i.ytimg.com/vi/<id>/mqdefault.jpg` (320×180; verificar). Opciones: enlazarla directamente (simple, pero cada visita hace una petición a un tercero) o descargarla y servirla desde tu sitio en el build.
+Origen de la miniatura: **decidido — se enlaza directamente desde el CDN de YouTube**, `https://i.ytimg.com/vi/<id>/mqdefault.jpg`. Verificado: 320×180, `image/jpeg`, 10–15 KB, muy por debajo del tope de §3.15, y es una URL determinista que no necesita API ni clave. Es la misma decisión que las fotos de equipo (hotlink, no espejo), con el mismo compromiso asumido: cada visita hace una petición a un tercero y una miniatura borrada se ve como imagen rota. Para pasar a servirla desde el build habría que descargarla en un script y añadir 10 archivos al repo.
 
 **Variante B — sin miniatura (marcador desglosado)**
 ```

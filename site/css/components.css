@@ -98,11 +98,19 @@ table.bd{width:100%;border-collapse:collapse;margin-top:14px}
 .bd td.lb span:nth-child(2){display:inline-block;text-align:center}
 .tall{padding:12px 4px!important}
 .vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-content:start}
-.thumb{aspect-ratio:16/9;background:var(--thumb-bg);border-radius:var(--r-box);position:relative;display:grid;place-items:end start;color:var(--overlay-on);font-size:12px;padding:8px}
+/* La miniatura ES el enlace (§3.16), así que es un <a> con la caja de .thumb: se le quita
+   el subrayado del navegador (el color ya lo fija .thumb con --overlay-on). */
+.thumb{aspect-ratio:16/9;background:var(--thumb-bg);border-radius:var(--r-box);position:relative;display:grid;place-items:end start;color:var(--overlay-on);font-size:12px;padding:8px;text-decoration:none}
 .thumb::after{content:"";position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:var(--overlay)}
 .thumb::before{content:"";position:absolute;left:50%;top:50%;margin:-9px 0 0 -6px;border:9px solid transparent;border-left:15px solid var(--overlay-on);border-right:0;z-index:1}
+/* La miniatura va detrás del botón de play, que dibujan los dos ::before/::after de arriba
+   (el ::before lleva z-index:1; el ::after va después en el orden de pintado). */
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--r-box)}
 .cap small{display:block;color:var(--muted)}
-.cap a:hover{text-decoration:underline}
+/* Hover: subrayar el título, nada más (§3.16). El enlace es la miniatura, así que el
+   subrayado se dispara desde ella — son hermanos dentro de la tarjeta — y apunta solo al
+   título: subrayar también la línea gris del pie quedaba mal. */
+.thumb:hover + .cap > span{text-decoration:underline}
 .vb{aspect-ratio:16/9;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-box);padding:10px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:6px}
 .vb .sc{display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:center}
 .vb .sc div{border-radius:var(--r-cell);padding:4px}

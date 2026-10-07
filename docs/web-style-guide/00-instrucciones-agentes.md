@@ -169,7 +169,7 @@ El demo marca cada componente con `<!-- @component:NOMBRE -->` … `<!-- @end:NO
 1. **Etapa 0, verificación.** Ejecuta `node site/build.js` y abre `site/dist/`. Comprueba light, dark, 1280 px y 390 px. Reporta cualquier defecto antes de seguir.
 2. **Etapa 1, datos y URL.** Escribe el adaptador de datos reales con las formas de §4 y centraliza las URL en un módulo. **No** cambies los bloques.
 3. **Etapa 2, páginas con datos reales.** Genera las 11 pantallas de §2. Prueba con una temporada completa, una con datos parciales y un equipo sin playoffs.
-4. **Etapa 3, pendientes** (solo con aprobación): resultados de búsqueda, mapa de sedes real, carrusel de fotos del equipo, GameDay, miniaturas y videos reales.
+4. **Etapa 3, pendientes** (solo con aprobación): resultados de búsqueda, mapa de sedes real, carrusel de fotos del equipo, GameDay, videos de partido (la miniatura del vídeo de revelación de cada temporada ya es real, con la URL del CDN de YouTube).
 
 ## 8. Componentes nuevos o dudas
 
