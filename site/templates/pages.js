@@ -19,7 +19,12 @@ const won=(y,c)=>A[y].flatMap(a=>a.w.map((k,i)=>k==c?{n:a.name,tr:tierOf(a,i)}:n
 const cntY=(y,c)=>{const o={gold:0,silver:0,bronze:0,honorable:0};won(y,c).forEach(x=>o[x.tr=='awarded'?'honorable':x.tr]++);return o};
 const cnt=c=>{const o={gold:0,silver:0,bronze:0,honorable:0};Y.forEach(y=>{const z=cntY(y,c);Object.keys(o).forEach(k=>o[k]+=z[k])});return o};
 const awList=(y,c)=>won(y,c).map(x=>kvr(x.n,pip(x.tr))).join('')||`<div class="muted">${t('noAwards')}</div>`;
-const al=(y,c)=>{const i=(AL[y]||[]).findIndex(g=>g.includes(c));return i<0?kvr(t('alliance'),t('noPlayoff')):kvr(`${t('alliance')} ${i+1}`,AL[y][i].map(k=>`<a href="${urls.team(k)}">${k}</a>`).join(' '))};
+// Alianza de playoffs. Si el equipo no llegó, NO se imprime nada: la gran mayoría de los
+// equipos no pasa a playoffs, así que un «Did not play playoffs» repetido en cada bloque
+// de cada temporada es ruido, no información. Es una excepción deliberada a la regla 6
+// (decidida por el dueño): el hueco no se declara, simplemente no aparece.
+const al=(y,c)=>{const i=(AL[y]||[]).findIndex(g=>g.includes(c));
+  return i<0?'':kvr(`${t('alliance')} ${i+1}`,AL[y][i].map(k=>`<a href="${urls.team(k)}">${k}</a>`).join(' '))};
 const R={gold:0,silver:1,bronze:2,honorable:3,awarded:4},nm=c=>teamLink(c,T[c][0]);
 const cells=a=>a.ty=='a'?[[a.w.map(nm).join(', '),a.tier]]:a.w.map((c,i)=>[nm(c),tierOf(a,i)]);
 // Un premio del catálogo puede no existir en todos los años (el catálogo es la unión),
@@ -79,20 +84,25 @@ const home=()=>hero()+`<h3>${t('venues')}</h3>${dt([[t('year')],[t('venue')],[t(
 const ins=y=>{const aw=!!y&&onlyAwards(y),ms=y?M[y]:YC.flatMap(z=>M[z]),q=ms.filter(m=>m.stage=='ranking'),p=ms.filter(m=>m.stage!='ranking'),s=y&&sn(y);
   const kp=(l,a)=>a.length?box(l,av(a).toFixed(1),`± ${sd(a).toFixed(1)}`):box(l,t('noData'));
   const medalTop=yy=>codes.map(c=>[c,yy?cntY(yy,c):cnt(c)]).filter(x=>tot(x[1])>0).sort((a,b)=>tot(b[1])-tot(a[1])).slice(0,10).map(([c,o],i)=>[i+1,tl(c),pips(o),tot(o)]);
+  // Una temporada sin filas de premio no es una temporada con cero premios: 2020 y 2021
+  // se llaman `awards-only` porque precisamente se jugaron por sus premios, y en 2017-2023
+  // hay partidos que no están cargados. Un `0` en estas cajas afirmaría algo falso, así que
+  // el hueco se declara. (Regla 6.)
+  const cntBox=(l,n)=>box(l,n?n:t('noData'));
   // El primer criterio de la temporada es su puntuación principal; sin datos, «No data».
   const topVal=z=>z.cols?.[0]?.[1]??t('noData');
   const top=y?(aw?medalTop(y):S[y].slice(0,10).map(z=>[z.rank,tl(z.code),topVal(z)])):medalTop();
   const ranked=y&&!aw; // una temporada de solo premios no tiene ranking que mostrar
   return bar(y?`${t('season')} ${y}`:t('overview'),dd(y||t('overview'),[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
   +`<p class="muted">${y?`${[sName(y),place(s)].filter(Boolean).join(' · ')} · `:''}<a href="${y?`https://first.global/archive/fgc-${y}/`:'https://first.global/about/'}">${t('officialSite')}</a></p>`
-  +boxes(aw?[box(t('teams'),teamsOf(y)),box(t('awards'),nAw([y]))]:[box(t('teams'),teamsOf(y)),box(t('matches'),ms.length),box(t('awards'),nAw(y?[y]:Y))],1)
+  +boxes(aw?[box(t('teams'),teamsOf(y)),cntBox(t('awards'),nAw([y]))]:[box(t('teams'),teamsOf(y)),cntBox(t('matches'),ms.length),cntBox(t('awards'),nAw(y?[y]:Y))],1)
   +revealBlock(y)
   +`<h3>${t('awards')}</h3>${awardKey()}${awBlocks(y)}`
   +(aw?`<p class="note">${t('noCompetition')}</p>`
     :`<h3>${t('highestMatch')}</h3>${hi(best(q))}<h3>${t('qualMetrics')}</h3>${boxes([kp(t('avgMatch'),sc(q)),kp(t('avgMargin'),mg(q))])}`
     +`<h3>${y?t('playoffs'):t('mostRoundRobin')}</h3>`+(y?`<div>${matchList(p)}</div>`:dt([[t('team')],[t('seasons'),1]],codes.map(c=>[c,rrSeasons(c)]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([c,n])=>[tl(c),n])))
     +`<h3>${t('highestPlayoff')}</h3>${hi(best(p))}${boxes([kp(t('avgMatch'),sc(p)),kp(t('avgMargin'),mg(p))])}`)
-  +`<h3>${ranked?t('topRank'):t('mostAwards')}</h3>`+dt(ranked?[['#',1],[t('team')],[S[y][0]?.cols?.[0]?.[0]??t('rankingPoints'),1]]:[['#',1],[t('team')],[t('medals'),0],[t('total'),1]],top)
+  +`<h3>${ranked?t('topRank'):t('mostAwards')}</h3>`+(top.length?dt(ranked?[['#',1],[t('team')],[S[y][0]?.cols?.[0]?.[0]??t('rankingPoints'),1]]:[['#',1],[t('team')],[t('medals'),0],[t('total'),1]],top):`<p class="note">${t('noData')}</p>`)
   +(ranked?`<p><a href="${urls.rankings(y)}">${t('fullRanking')}</a></p>`:`<p><a href="${urls.awards()}">${t('fullAwards')}</a></p>`)};
 // Nota: la tabla muestra los 10 primeros de los 161 equipos con premios; el enlace
 // lleva a /awards/, que los lista todos. La lista completa de bloques de premio
@@ -136,7 +146,11 @@ const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);return z?{
   return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]}</h1></div>${ddY(t('seasons'),z=>urls.team(c,z),P.map(z=>z.y))}</div><div class="kv"><div><span>${t('iso')}:</span> ${c}</div></div>`
   +boxes([box(t('matches'),full?n:t('noData')),box(t('awards'),tot(cnt(c))),box(t('record'),full?`${W}–${Lo}–${Ti}`:t('noData'),full?`${(100*W/n).toFixed(1)}%`:''),box(t('bestRank'),P.length?`#${b.rank}`:t('noData'),P.length?`${b.y} · ${t('of')} ${teamsOf(b.y)}`:''),box(t('medals'),'',pips(cnt(c)))],1)
   +`<h3>${t('timeline')}</h3>`+Y.map((y,i)=>{const z=R2[i],s=sn(y);
-    if(!z)return `<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div><p class="note">${t('noCompetition')}</p><div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`;
+    // Sin fila de ranking hay dos casos muy distintos:
+    //  · la temporada NO se jugó (2020-2021, awards-only) → el aviso es cierto, se muestra;
+    //  · la temporada SÍ se jugó y el equipo no fue → no hay bloque. Antes decía «no hubo
+    //    competencia», que era falso: la competencia existió, el equipo simplemente no estaba.
+    if(!z)return onlyAwards(y)?`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div><p class="note">${t('noCompetition')}</p><div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`:'';
     const ps=sc(mine(c,y));
     // Los KPIs de la temporada van en la columna IZQUIERDA, bajo Rank y Record, como
     // en @component:season-block del demo. La derecha queda para la foto.

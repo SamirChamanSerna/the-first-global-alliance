@@ -33,7 +33,7 @@ const HEADERS = {
   // `name` es el nombre del JUEGO de esa temporada (p. ej. "Eco Equilibrium"), no el
   // del evento. `iso` es el alpha-3 del país anfitrión, que es lo que resuelve la
   // bandera. `reveal_video` es la URL del video de revelación.
-  seasons: 'year,name,city,country,iso,dates,reveal_video,mode',
+  seasons: 'year,name,city,country,iso,dates,reveal_video,mode,teams',
   videos: 'match_id,video_url,start,end',
   teams: 'team_code,name,continent,website,instagram,twitter,facebook,contact',
   photos: 'year,team_code,photo_url',
@@ -48,8 +48,10 @@ const HEADERS = {
 
 // Una celda vacía por columna, para que `mode` caiga en su sitio y no desplace el resto.
 const row = (cells) => cells.map(cell).join(',');
+// `teams` se deja vacío: normalmente el número de equipos se deriva de los rankeados.
+// Solo se rellena en las temporadas donde no hay ni rankings ni partidos (2020-2021).
 const seasonsCsv = () =>
-  [HEADERS.seasons, ...SEASONS.map(([y, mode]) => row([y, '', '', '', '', '', '', mode]))].join('\n') + '\n';
+  [HEADERS.seasons, ...SEASONS.map(([y, mode]) => row([y, '', '', '', '', '', '', mode, '']))].join('\n') + '\n';
 
 /** RFC 4180: quote a cell when it holds a comma, a quote or a newline. */
 const cell = (v) => {

@@ -117,7 +117,7 @@ Two things are not obvious:
 
 One row per `(year, team_code)`; a duplicate pair fails the build. An empty or non-`http(s)` URL fails the build rather than being skipped — unlike `reveal_video`, a row here is an explicit statement that this URL is the photo, so dropping it silently would leave a mute hole. A missing row is the normal "no photo" state and renders the UI placeholder.
 
-**`seasons.csv`** — `year,name,city,country,iso,dates,reveal_video,mode`. `name` is the season's **game** (not the event), `iso` is the host country's alpha-3 and is what resolves its flag, and `reveal_video` must be `http(s)://` — the normalizer drops anything else rather than letting it reach an `href`.
+**`seasons.csv`** — `year,name,city,country,iso,dates,reveal_video,mode,teams`. `name` is the season's **game** (not the event), `iso` is the host country's alpha-3 and is what resolves its flag, and `reveal_video` must be `http(s)://` — the normalizer drops anything else rather than letting it reach an `href`. `teams` is the number of participating teams and stays **empty** in the normal case: it is derived from the ranked teams. Fill it only for a season where that cannot be derived because there were no rankings or matches — today just 2020 (175) and 2021 (177), which were held virtually.
 
 ## Awards: how the API shape maps to the site shape
 

@@ -61,7 +61,7 @@ Changing the brand means editing exactly three files: `brand.js`, `tokens.css` (
 3. No `style=` attributes. No literal colors/flows/radii outside `tokens.css`. No literal brand or UI text in templates — use `t("key")` and `brand.*`.
 4. **Light and dark differ only in color**; desktop and mobile differ only in layout.
 5. **No JS required.** JS (sortable `dt` tables, theme toggle) only enhances; initial order must be correct in the HTML.
-6. **Missing data is an explicit state** ("No data", "Did not play playoffs", "No awards") — never `0`, never `0–0`, never a blank.
+6. **Missing data is an explicit state** ("No data", "No awards") — never `0`, never `0–0`, never a blank. **One deliberate exception:** a team that did not reach the playoffs shows no alliance row at all (no "Did not play playoffs") — most teams never reach them, so it would be noise on every season block.
 7. **Don't invent data or field names.** The style guide calls this `SIN EVIDENCIA`: if a value isn't evidenced, say so and ask.
 8. Winning alliance gets the saturated tone, losing the faint one — in `matchRow` and `scoreboard` the tone follows *who won*, in `breakdown` it marks *total vs detail* rows.
 9. A specific match is always rendered with the standard `matchRow`; never as prose or an ad-hoc table. In Insights, the video card goes **below** the row.

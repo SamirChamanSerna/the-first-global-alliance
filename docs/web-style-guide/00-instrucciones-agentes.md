@@ -160,7 +160,7 @@ El demo marca cada componente con `<!-- @component:NOMBRE -->` … `<!-- @end:NO
 - Overview: todos los equipos que han ganado ese premio, con `×N` si repiten y el color de su **mejor** lugar.
 - **Equipo/temporada:** el premio se muestra **con su lugar** (`kvr` + `pip`); jamás solo la medalla ni solo un conteo. Los conteos solo en `/awards/` y en los KPIs de Team Overview.
 
-**Alianza en páginas de equipo:** "Alliance N" + compañeros enlazados (N = posición + 1 en `AL`); si no llegó: "Did not play playoffs".
+**Alianza en páginas de equipo:** "Alliance N" + compañeros enlazados (N = posición + 1 en `AL`). Si el equipo no llegó a playoffs **no se imprime nada**: la mayoría de los equipos no pasa, así que repetirlo en cada temporada es ruido. Excepción deliberada a la regla 6, decidida por el dueño — no reintroducir un "Did not play playoffs".
 
 **Medallas:** emoji + texto juntos (`brand.medals`). "Honorable" y "Awarded" no tienen emoji; van solo con texto.
 

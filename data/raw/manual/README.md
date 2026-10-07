@@ -42,14 +42,15 @@ Years without a folder are not missing — 2020 and 2021 had no physical competi
 `seasons.csv` — one row per season. Everything here shows up directly on the site: fill it and rebuild, nothing else to touch.
 
 ```
-year,name,city,country,iso,dates,reveal_video,mode
-2025,Eco Equilibrium,Panama City,Panama,PAN,"Oct 29 – Nov 1, 2025",https://www.youtube.com/watch?v=VIDEOID,archived
+year,name,city,country,iso,dates,reveal_video,mode,teams
+2025,Eco Equilibrium,Panama City,Panama,PAN,"Oct 29 – Nov 1, 2025",https://www.youtube.com/watch?v=VIDEOID,archived,
 ```
 
 - `name` is the **game** of that season ("Eco Equilibrium"), not the event — it is what the season heading and match pages show. `year` is already filled; leave `mode` as it is.
 - `iso` is the host country's **alpha-3** (`PAN`). It is what resolves the flag next to the country name, so a wrong code means a grey box, not a wrong flag.
 - Quote any value containing a comma — dates usually do (`"Oct 29 – Nov 1, 2025"`).
 - `reveal_video` is the game-reveal URL. It must start with `http://` or `https://`; anything else is ignored rather than rendered. The season page shows that season's video, and the Insights overview shows the most recent season that has one. Leave it blank and the page keeps its placeholder box.
+- `teams` is the number of participating teams, and it stays **empty** in the normal case — it is derived from that season's ranked teams. Fill it **only** when there is nothing to derive it from: 2020 and 2021 were held virtually, with no rankings or matches, so they carry `175` and `177`. Leave the cell empty, never `0`.
 
 `videos.csv` — one match per row, timestamps into a multi-hour stream:
 

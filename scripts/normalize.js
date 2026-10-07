@@ -118,11 +118,18 @@ const seasons = seasonRows
     // en un href, y este campo lo rellena una persona a mano en un CSV.
     reveal: HTTP_URL.test((r.reveal_video ?? '').trim()) ? r.reveal_video.trim() : '',
     mode: r.mode || 'archived',
+    // Nº de equipos participantes cuando NO se puede derivar de los datos: en 2020 y
+    // 2021 no hay partidos ni rankings (competición virtual) y el dato solo lo tiene una
+    // persona. Vacío = se deriva de los equipos rankeados, que es el caso normal.
+    teamsRaw: (r.teams ?? '').trim(),
   }))
   .sort((a, b) => b.y - a.y); // más reciente primero: es el orden que espera el sitio
 for (const s of seasons) {
   if (!Number.isInteger(s.y)) die(`seasons.csv: año inválido "${s.y}"`);
   if (!['archived', 'live', 'awards-only'].includes(s.mode)) die(`seasons.csv: mode inválido "${s.mode}" (fila ${s.y})`);
+  if (s.teamsRaw !== '' && !/^\d+$/.test(s.teamsRaw)) {
+    die(`seasons.csv: teams inválido en ${s.y} ("${s.teamsRaw}") — deja la celda vacía o escribe un entero`);
+  }
 }
 
 const continentOf = Object.fromEntries(readCsv('manual/teams.csv').map((r) => [r.team_code, r.continent]));
@@ -422,10 +429,13 @@ for (const [y, d] of Object.entries(perYear)) {
 
 // El roster manda: es el código que ve quien rellena teams.csv y el de las URLs.
 // Total de equipos por temporada, para las páginas de temporada. Se calcula DESPUÉS de
-// los rankings: hasta que el CSV no entra, 2017-2023 contaban 0 equipos.
+// los rankings: hasta que el CSV no entra, 2017-2023 contaban 0 equipos. En 2020-2021
+// no hay ni rankings ni partidos (competición virtual), así que el número lo aporta
+// seasons.csv a mano; sin él, esas dos temporadas se quedan en «No data».
 for (const s of seasons) {
   const d = perYear[s.y];
-  s.teams = d ? teamsIn(d.matches, d.rankings) : 0;
+  s.teams = s.teamsRaw !== '' ? Number(s.teamsRaw) : d ? teamsIn(d.matches, d.rankings) : 0;
+  delete s.teamsRaw;
 }
 
 for (const [y, d] of Object.entries(perYear)) {
