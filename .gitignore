@@ -1,0 +1,44 @@
+# El sitio usa muy pocas cosas, así que esta lista es corta a propósito.
+# Se commitea a propósito, no añadir aquí:
+#   data/raw/     los datos de origen (respuestas crudas de la API + CSV a mano).
+#                 Son la fuente de verdad y bastan para reconstruir todo sin red.
+#   site/flags/   las banderas espejadas: son de terceros, no las escribimos nosotros.
+
+# --- Salida generada ---
+# Ninguna de las dos se edita a mano; se reconstruyen con:
+#   node scripts/normalize.js   →  data/processed/
+#   node site/build.js          →  site/dist/
+# data/processed/ es la entrada del build, no una fuente: se deriva de data/raw/.
+data/processed/
+site/dist/
+
+# --- Sistema operativo ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editores ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Dependencias ---
+node_modules/
+
+# --- Entorno y secretos ---
+# El worker live usa un token de la API y credenciales de Cloudflare: nunca al repo.
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# --- Herramientas ---
+.wrangler/
+.cache/
+
+# --- Logs y temporales ---
+*.log
+npm-debug.log*
+tmp/
+*.tmp

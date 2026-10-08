@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Demo · Página de equipo y match</title>
+<script>try{var s=localStorage.getItem("th");if(s)document.documentElement.dataset.theme=s}catch(e){}</script>
+<style>
+/* DEMO = site/brand/tokens.css + site/css/components.css, inlinados sin cambios. */
+/* =====================================================================
+   MASTER VISUAL — única fuente de colores, tipografía y formas del sitio.
+   Cambiar la marca = editar este archivo + site/brand/brand.js + favicon.svg.
+   Formato de color: light-dark(CLARO, OSCURO).
+   Valores ≈ = estimados de capturas; confirmar con DevTools (guía §0).
+   ===================================================================== */
+html{color-scheme:light dark}
+html[data-theme=light]{color-scheme:light}
+html[data-theme=dark]{color-scheme:dark}
+:root{
+  /* Marca */
+  --brand:#3f51b5;                      /* barra de navegación; borde del aviso de cobertura */
+  --brand-on:#fff;                      /* texto sobre --brand */
+  --brand-line:rgba(255,255,255,.25);   /* divisores dentro del menú móvil */
+
+  /* Neutros */
+  --bg:light-dark(#fff,#1c1c1e);        /* fondo de página (dark confirmado) */
+  --surface:light-dark(#f1f1f1,#2c2c2e);/* cajas de estadística, chips, tarjetas */
+  --surface2:light-dark(#e5e5e5,#3a3a3c);/* encabezado de etapa, filas total */
+  --text:light-dark(#212121,#fff);
+  --muted:light-dark(#6b6b6b,#9a9aa0);
+  --border:light-dark(#ddd,#38383a);
+  --link:light-dark(#2a3eb1,#4c9aff);
+
+  /* Alianzas: w = saturado (ganadora / fila total), l = tenue (perdedora / fila detalle) */
+  --rw:light-dark(#f6a79b,#b23a35);     /* red win   */
+  --rl:light-dark(#ffd9d4,#5a2420);     /* red lose  */
+  --bw:light-dark(#a8c8f7,#3354b8);     /* blue win  */
+  --bl:light-dark(#d3e2fb,#1f2d5c);     /* blue lose */
+
+  /* Miniaturas de video */
+  --overlay:rgba(0,0,0,.65);            /* círculo del botón play */
+  --overlay-on:#fff;                    /* triángulo y texto sobre la miniatura */
+  --thumb-bg:#4a4a4a;                   /* marcador de posición sin imagen */
+
+  /* Tipografía: pila del sistema (no se cargan fuentes web) */
+  --font:system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+  /* Formas */
+  --r-box:8px;                          /* cajas, marcos, selectores */
+  --r-cell:6px;                         /* filas del marcador, encabezados de tabla */
+  --r-pill:999px;                       /* chips y medallas */
+  /* Premios por lugar (≈ tomados de la imagen de referencia de premios) */
+  --gold:light-dark(#fff2cc,#5a4a14);--silver:light-dark(#eeeeee,#3a3a3c);--bronze:light-dark(#fce5cd,#5a3a1c);--tier:light-dark(#c9daf8,#1f3157);
+}
+/* =====================================================================
+   COMPONENTES — estilo de todos los bloques. Extraído del demo, no reescribir.
+   REGLA: aquí NO hay colores literales ni tipografías literales: solo var(--…).
+   Para añadir un color, primero se añade el token en brand/tokens.css.
+   ===================================================================== */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 var(--font)}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--link);outline-offset:1px}
+h1{font-size:30px;line-height:1.15;margin:0;font-weight:500}
+h2{font-size:24px;margin:0 0 8px;font-weight:500}
+h3{font-size:16px;margin:20px 0 8px}
+.nav{background:var(--brand);color:var(--brand-on);display:flex;align-items:center;gap:20px;padding:0 16px;min-height:46px}
+.nav a,.nav summary{color:var(--brand-on)}
+.nav .brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:18px}
+.nav .links{display:flex;gap:18px;flex:1}
+.nav input{border:0;border-radius:var(--r-box);padding:6px 10px;font:inherit;width:200px;background:var(--bg);color:var(--text)}
+.menu{display:none;margin-left:auto}
+.menu summary{cursor:pointer;list-style:none;padding:12px 4px}
+.menu div{position:absolute;left:0;right:0;background:var(--brand);padding:4px 16px 12px;border-radius:0 0 24px 24px}
+.menu a{display:block;padding:12px 0;font-size:18px;border-top:1px solid var(--brand-line)}
+.subbar{display:none;justify-content:space-between;align-items:center;padding:8px 16px;border-bottom:1px solid var(--border)}
+.subbar details a{display:block;padding:6px 0;color:var(--muted)}
+.subbar summary{cursor:pointer;font-weight:700}
+select{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:var(--r-box);padding:8px 10px;width:100%}
+.wrap{display:grid;grid-template-columns:190px minmax(0,1fr);gap:28px;max-width:1140px;margin:0 auto;padding:20px 16px}
+.side{position:sticky;top:12px;align-self:start}
+.side a{display:block;padding:5px 0;color:var(--muted)}
+.side a.on{color:var(--text);font-weight:700}
+.side select{margin-bottom:14px}
+.hd{display:grid;grid-template-columns:1fr 300px;gap:24px}
+.title{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.title .fl{width:42px;height:28px}
+.kv div{margin:3px 0}
+.kv span{color:var(--muted)}
+.photo{aspect-ratio:4/3;border:2px solid var(--border);border-radius:var(--r-box);display:grid;place-items:center;color:var(--muted);text-align:center;padding:8px;position:relative;overflow:hidden}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.sum{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;margin:20px 0}
+.cov{background:var(--surface);border-left:3px solid var(--brand);padding:8px 12px;margin-bottom:20px;color:var(--muted)}
+.pip{display:inline-block;background:var(--surface);border-radius:var(--r-pill);padding:1px 9px;font-weight:700;font-size:13px;white-space:nowrap}
+.fl{display:inline-block;width:16px;height:11px;border:1px solid var(--border);flex:none}
+.fl.none{background:var(--surface2)}
+.ev{display:grid;grid-template-columns:1fr 2fr;gap:32px;border-top:1px solid var(--border);padding-top:20px}
+.when,.lbl{color:var(--muted)}
+.lbl{font-size:12px;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 6px}
+.boxes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.box{background:var(--surface);border-radius:var(--r-box);padding:10px;text-align:center}
+.box small{color:var(--muted);display:block}
+.box b{font-size:24px;display:block;line-height:1.2}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.chip{display:inline-block;background:var(--surface);border-radius:var(--r-pill);padding:1px 10px;font-weight:700;font-size:13px;color:var(--text)}
+.kvr{display:flex;justify-content:space-between;padding:2px 0}
+.kvr.tot{border-top:1px solid var(--border);margin-top:4px;padding-top:4px;font-weight:700}
+.stg{display:grid;grid-template-columns:1fr auto 1fr;background:var(--surface2);padding:5px 10px;border-radius:var(--r-cell) var(--r-cell) 0 0;margin-top:10px;font-size:13px}
+.stg:first-child{margin-top:0}
+.stg a{justify-self:end;color:var(--muted)}
+.eod{background:var(--surface2);text-align:center;font-size:12px;color:var(--muted)}
+.m{display:grid;grid-template-columns:34px 80px 1fr 1fr 52px 52px;grid-template-areas:"pl lb ra ba rs bs";font-size:13.5px}
+.m>*{display:flex;align-items:center;justify-content:center;border-top:1px solid var(--bg);padding:5px 4px;min-height:28px}
+.c-pl{grid-area:pl}
+.lb{grid-area:lb;flex-direction:column;color:var(--text)}
+.lb small{color:var(--muted);font-size:11px;font-weight:400}
+.ra{grid-area:ra}
+.ba{grid-area:ba}
+.rs{grid-area:rs}
+.bs{grid-area:bs}
+.ra,.ba{display:grid!important;grid-auto-flow:column;grid-auto-columns:1fr;padding:0!important}
+.ra>*,.ba>*{padding:5px 2px}
+.t{display:inline-flex;align-items:center;justify-content:center;gap:4px;color:inherit}
+.t.me,.w{font-weight:700;text-decoration:underline}
+.win.ra,.win.rs{background:var(--rw)}
+.lose.ra,.lose.rs{background:var(--rl)}
+.win.ba,.win.bs{background:var(--bw)}
+.lose.ba,.lose.bs{background:var(--bl)}
+.neu{background:var(--surface)}
+.pl{width:18px;height:18px;border:1.5px solid var(--link);border-radius:50%;position:relative}
+.pl::before{content:"";position:absolute;left:5px;top:3px;border:4px solid transparent;border-left:7px solid var(--link);border-right:0}
+.mh{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:28px;align-items:start}
+.sb{display:grid;grid-template-columns:1fr 56px;gap:6px;text-align:center}
+.sb .ra,.sb .ba{border-radius:var(--r-cell)}
+.sb .rs,.sb .bs{border-radius:var(--r-cell);min-height:28px;display:flex;align-items:center;justify-content:center}
+.sb .hd2{font-weight:700;margin:12px 0 4px}
+table.bd{width:100%;border-collapse:collapse;margin-top:14px}
+.bd td{text-align:center;padding:8px 4px;border-top:1px solid var(--bg)}
+.bd td:nth-child(odd){width:27%}
+.bd .rw{background:var(--rw)}
+.bd .rl{background:var(--rl)}
+.bd .bw{background:var(--bw)}
+.bd .bl{background:var(--bl)}
+.bd .lb{display:flex;justify-content:space-between;align-items:center;gap:6px;border:0;flex-direction:row;padding:8px}
+.bd td.lb.tot{background:var(--surface2);font-weight:700}
+.bd tr td.lb{display:table-cell;}
+.bd .ar{display:inline-block;width:18px}
+.bd td.lb span:nth-child(2){display:inline-block;text-align:center}
+.tall{padding:12px 4px!important}
+.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-content:start}
+.thumb{aspect-ratio:16/9;background:var(--thumb-bg);border-radius:var(--r-box);position:relative;display:grid;place-items:end start;color:var(--overlay-on);font-size:12px;padding:8px;text-decoration:none}
+.thumb::after{content:"";position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:var(--overlay)}
+.thumb::before{content:"";position:absolute;left:50%;top:50%;margin:-9px 0 0 -6px;border:9px solid transparent;border-left:15px solid var(--overlay-on);border-right:0;z-index:1}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--r-box)}
+.cap small{display:block;color:var(--muted)}
+.thumb:hover + .cap > span{text-decoration:underline}
+.vb{aspect-ratio:16/9;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-box);padding:10px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:6px}
+.vb .sc{display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:center}
+.vb .sc div{border-radius:var(--r-cell);padding:4px}
+.vb .sc b{font-size:24px;display:block;line-height:1.2}
+.vb .sc small{font-size:11px}
+.vb .go{align-self:flex-end;display:inline-flex;gap:6px;align-items:center}
+.vb .go::before{content:"";border:5px solid transparent;border-left:8px solid var(--link);border-right:0}
+.note{color:var(--muted);font-size:12px;margin:8px 0}
+footer{max-width:1140px;margin:20px auto 0;padding:16px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+footer .row{flex-wrap:wrap}
+footer a+a::before{content:"/";color:var(--muted);margin:0 8px}
+.seg button{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:3px 10px;cursor:pointer}
+.seg button:first-child{border-radius:var(--r-box) 0 0 var(--r-box)}
+.seg button:last-child{border-radius:0 var(--r-box) var(--r-box) 0;border-left:0}
+.logo{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2}
+.span-all{grid-column:1/-1}
+.tn-rl{background:var(--rl)}
+.tn-bw{background:var(--bw)}
+.sprite{position:absolute;width:0;height:0}
+@media(max-width:900px){
+
+.nav .links,.nav input,.side{display:none}
+.menu{display:block}
+.subbar{display:flex}
+.subbar select{width:auto}
+.wrap{grid-template-columns:1fr;padding:14px 12px}
+.hd,.ev,.mh{grid-template-columns:1fr}
+h1{font-size:26px}
+.m{grid-template-columns:30px 64px 1fr 46px;grid-template-areas:"pl lb ra rs" "pl lb ba bs"}
+.m .c-pl,.m .lb{grid-row:span 2}
+.bd td:nth-child(odd){width:24%}
+}
+
+/* --- páginas (v3) --- */
+.fl{object-fit:cover}.wrap.one{grid-template-columns:1fr}.sec{margin-top:24px}.muted{color:var(--muted)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}.nav form{margin:0}.nav a[aria-current]{text-decoration:underline}
+.boxes.c3{grid-template-columns:repeat(3,1fr)}.map{aspect-ratio:2/1;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-box);display:grid;place-items:center;color:var(--muted)}
+.dd{position:relative}.dd summary{border:1px solid var(--border);border-radius:var(--r-box);padding:6px 12px;cursor:pointer;list-style:none;width:max-content}.dd summary::after{content:" ▾"}
+.dd div{position:absolute;right:0;z-index:2;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-box);padding:4px 0;max-height:260px;overflow:auto;min-width:150px}.dd a{display:block;padding:5px 12px;color:var(--text)}.dd a:hover{background:var(--surface)}
+.scroll{overflow-x:auto}.dt{width:100%;border-collapse:collapse}.dt th{background:var(--surface2);text-align:left;padding:6px 8px;font-size:13px}.dt td{padding:6px 8px;border-top:1px solid var(--border)}.dt .n{text-align:right;font-variant-numeric:tabular-nums}.dt.s th{cursor:pointer}
+.tn-rw{background:var(--rw)}.tn-bl{background:var(--bl)}.ev+.ev{margin-top:20px}
+
+/* --- v4: hero, premios --- */
+.hero{text-align:center;padding:48px 0 32px}.hero .logo{width:96px;height:96px;stroke-width:1.5}.hero h1{font-size:44px;margin:12px 0 6px}.hero p{font-size:18px;margin:0}
+.t-gold{background:var(--gold)}.t-silver{background:var(--silver)}.t-bronze{background:var(--bronze)}.t-awarded{background:var(--tier)}
+.key{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 14px}.key span{padding:2px 10px;border-radius:var(--r-pill);font-size:13px}
+.aws{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.aw{border:1px solid var(--border);border-radius:var(--r-cell);overflow:hidden;text-align:center}
+.aw b{display:block;padding:8px 10px 2px}.aw i{display:block;padding:0 12px 8px;color:var(--muted);font-size:13px}.aw-r{display:flex;flex-wrap:wrap;border-top:1px solid var(--border)}
+.aw-r span{flex:1 1 30%;padding:6px 8px;border-left:1px solid var(--border)}.aw-r span:first-child{border-left:0}
+@media(max-width:900px){.aws{grid-template-columns:1fr}.hero h1{font-size:32px}.hero{padding:28px 0 20px}}
+</style></head><body>
+<svg class="sprite" aria-hidden="true"><defs>
+<symbol id="f-MEX" viewBox="0 0 3 2"><rect width="1" height="2" fill="#006847"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce1126"/></symbol>
+<symbol id="f-FRA" viewBox="0 0 3 2"><rect width="1" height="2" fill="#0055a4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ef4135"/></symbol>
+<symbol id="f-ITA" viewBox="0 0 3 2"><rect width="1" height="2" fill="#008c45"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#cd212a"/></symbol>
+<symbol id="f-NGA" viewBox="0 0 3 2"><rect width="1" height="2" fill="#008751"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#008751"/></symbol>
+<symbol id="f-GER" viewBox="0 0 3 2"><rect width="3" height=".67" fill="#000"/><rect y=".67" width="3" height=".67" fill="#d00"/><rect y="1.34" width="3" height=".66" fill="#ffce00"/></symbol>
+</defs></svg>
+<!-- @component:nav -->
+<header class="nav"><a class="brand" href="#"><svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h7M9 12h5"/></svg><span>FGC Archive</span></a>
+<nav class="links"><a href="#">Seasons</a><a href="#">Teams</a><a href="#">Insights</a><a href="#">Medals</a></nav>
+<input type="search" placeholder="Search teams…" aria-label="Search teams">
+<details class="menu"><summary>Menu</summary><div><a href="#">Seasons</a><a href="#">Teams</a><a href="#">Insights</a><a href="#">Medals</a></div></details></header>
+<!-- @end:nav -->
+<!-- @component:section-bar -->
+<div class="subbar"><details><summary>≡ Team Info</summary><a href="#info">Team Info</a><a href="#s2025">Season 2025</a><a href="#match">Match</a></details>
+<select aria-label="Season"><option>2025</option><option>2024</option></select></div>
+<!-- @end:section-bar -->
+<div class="wrap">
+<!-- @component:side-menu -->
+<aside class="side"><select aria-label="Season"><option>2025</option><option>2024</option></select>
+<a class="on" href="#info">Team Info</a><a href="#s2025">Season 2025</a><a href="#match">Match</a></aside>
+<!-- @end:side-menu -->
+<main>
+<section id="info">
+<!-- @component:team-header -->
+<div class="hd"><div>
+<div class="title"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-MEX"/></svg><h1>Mexico</h1></div>
+<div class="kv"><div><span>Entity type:</span> Country</div><div><span>First season:</span> 2017 · <span>Seasons active:</span> 8</div>
+<div><span>ISO:</span> MX / MEX</div><div><span>Medals:</span> <span class="pip">🥇 Gold ×1</span> <span class="pip">🥈 Silver ×2</span> <span class="pip">🥉 Bronze ×0</span></div></div></div>
+<div class="photo">Team photo<br>4:3 frame, image contained</div></div>
+<!-- @end:team-header -->
+<!-- @component:summary -->
+<p class="sum">Mexico went <b>5–7–0</b> (41.7%) in 2025 ranking matches and ranked <b>#12</b> of <b>190</b> teams. Medal count covers 2017–2025.</p>
+<!-- @end:summary -->
+<!-- @component:coverage -->
+<div class="cov"><b>Demo data.</b> This is where the coverage notice goes when numbers are partial, e.g. “Match data is not available for this season”.</div>
+<!-- @end:coverage -->
+</section>
+<!-- @component:season-block -->
+<section id="s2025" class="ev"><div>
+<h2><a href="#">Season 2025 · Eco Equilibrium</a></h2>
+<div class="when">Oct 29–Nov 1, 2025 · Panama City, Panama</div>
+<div class="boxes"><div class="box"><small>RANK</small><b>12</b><small>of 190</small></div><div class="box"><small>RECORD</small><b>5–7–0</b><small>41.7%</small></div></div>
+<div class="row"><span class="lbl">Alliance 3</span><span><a class="chip" href="#">MEX</a> <a class="chip" href="#">GER</a> <a class="chip" href="#">ITA</a></span></div>
+<div class="lbl">Awards</div>
+<div class="kvr"><span>Season medal</span><span class="pip">🥈 Silver</span></div><div class="kvr"><span>Honorable mention</span><span class="pip">Honorable</span></div>
+<div class="lbl">Ranking points</div>
+<div class="kvr"><span>Ranking score</span><span>3.20</span></div><div class="kvr tot"><span>Highest score</span><span>95</span></div></div>
+<!-- @component:match-table -->
+<div><div class="stg"><i></i><b>Ranking</b><a href="#">Watch all videos</a></div><div class="m"><span class="c-pl"><a class="pl" href="#" aria-label="Video"></a></span><a class="lb" href="#">Match 3</a><div class="ra win"><a class="t me" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-MEX"/></svg>MEX</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-GER"/></svg>GER</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-FRA"/></svg>FRA</a></div><div class="ba lose"><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-ITA"/></svg>ITA</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-NGA"/></svg>NGA</a><a class="t" href="#"><i class="fl none"></i>XXX</a></div><span class="rs win"><b class="w">88</b></span><span class="bs lose">74</span></div><div class="m"><span class="c-pl"><a class="pl" href="#" aria-label="Video"></a></span><a class="lb" href="#">Match 9</a><div class="ra lose"><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-NGA"/></svg>NGA</a><a class="t" href="#"><i class="fl none"></i>XXX</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-ITA"/></svg>ITA</a></div><div class="ba win"><a class="t me" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-MEX"/></svg>MEX</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-FRA"/></svg>FRA</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-GER"/></svg>GER</a></div><span class="rs lose">61</span><span class="bs win"><b class="w">70</b></span></div><div class="eod">End of Day</div><div class="m"><span class="c-pl"><a class="pl" href="#" aria-label="Video"></a></span><a class="lb" href="#">Match 15</a><div class="ra lose"><a class="t me" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-MEX"/></svg>MEX</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-ITA"/></svg>ITA</a><a class="t" href="#"><i class="fl none"></i>XXX</a></div><div class="ba win"><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-GER"/></svg>GER</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-NGA"/></svg>NGA</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-FRA"/></svg>FRA</a></div><span class="rs lose">52</span><span class="bs win"><b class="w">66</b></span></div><div class="m"><span class="c-pl"></span><a class="lb" href="#">Match 22<small>~11:15 · Field 3</small></a><div class="ra neu"><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-FRA"/></svg>FRA</a><a class="t me" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-MEX"/></svg>MEX</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-NGA"/></svg>NGA</a></div><div class="ba neu"><a class="t" href="#"><i class="fl none"></i>XXX</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-GER"/></svg>GER</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-ITA"/></svg>ITA</a></div><span class="rs neu">–</span><span class="bs neu">–</span></div><div class="stg"><i></i><b>Finals</b><i></i></div><div class="m"><span class="c-pl"><a class="pl" href="#" aria-label="Video"></a></span><a class="lb" href="#">Final 1</a><div class="ra win"><a class="t me" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-MEX"/></svg>MEX</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-GER"/></svg>GER</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-ITA"/></svg>ITA</a><a class="t" href="#"><i class="fl none"></i>XXX</a></div><div class="ba lose"><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-FRA"/></svg>FRA</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-NGA"/></svg>NGA</a><a class="t" href="#"><i class="fl none"></i>XXX</a><a class="t" href="#"><i class="fl none"></i>XXX</a></div><span class="rs win"><b class="w">95</b></span><span class="bs lose">90</span></div></div>
+<!-- @end:match-table -->
+</section>
+<!-- @end:season-block -->
+<!-- @component:match-page -->
+<section id="match" class="ev"><div class="mh span-all">
+<div><h2><a href="#">Match 15 · Season 2025</a></h2><div class="when">Field 3 · 10:40 (venue) · 09:40 (your time)</div>
+<!-- @component:scoreboard -->
+<div class="sb"><div class="hd2">Teams</div><div class="hd2">Score</div>
+<div class="ra lose"><a class="t me" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-MEX"/></svg>MEX</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-ITA"/></svg>ITA</a><a class="t" href="#"><i class="fl none"></i>XXX</a></div><span class="rs lose">52</span>
+<div class="ba win"><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-GER"/></svg>GER</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-NGA"/></svg>NGA</a><a class="t" href="#"><svg class="fl" viewBox="0 0 3 2" aria-hidden="true"><use href="#f-FRA"/></svg>FRA</a></div><span class="bs win"><b class="w">66</b></span></div>
+<!-- @end:scoreboard -->
+<!-- @component:breakdown -->
+<table class="bd"><tbody><tr><td class="rl">40</td><td class="lb"><span class="ar"></span><span>Water Conserved</span><span class="ar">→</span></td><td class="bl">55</td></tr><tr><td class="rl">12</td><td class="lb"><span class="ar">←</span><span>Parking points</span><span class="ar"></span></td><td class="bl">11</td></tr><tr><td class="rw">52</td><td class="lb tot"><span class="ar"></span><span>Subtotal</span><span class="ar">→</span></td><td class="bw">66</td></tr><tr><td class="rl tall"><a class="chip" href="#">MEX</a><br>None (+0)</td><td class="lb"><span class="ar"></span><span>Robot 1 parking</span><span class="ar"></span></td><td class="bl tall"><a class="chip" href="#">GER</a><br>None (+0)</td></tr><tr><td class="rl">✓</td><td class="lb"><span class="ar"></span><span>Balance bonus</span><span class="ar"></span></td><td class="bl">✕</td></tr><tr><td class="rw">52</td><td class="lb tot"><span class="ar"></span><span>Final score</span><span class="ar">→</span></td><td class="bw">66</td></tr></tbody></table>
+<!-- @end:breakdown -->
+<p class="note">Arrow points to the higher side. Strong tone = total row, soft tone = detail row.</p></div>
+<div class="vids">
+<!-- @component:video-thumb -->
+<div><div class="thumb">thumbnail 16:9</div><div class="cap"><a href="#">Match 15</a><small>Season 2025 · Field 3</small></div></div>
+<!-- @end:video-thumb -->
+<!-- @component:video-fallback -->
+<div class="vb"><small class="when">Match 15 · no thumbnail</small><div class="sc"><div class="tn-rl"><b>52</b><small>MEX · ITA · XXX</small></div><div class="tn-bw"><b><span class="w">66</span></b><small>GER · NGA · FRA</small></div></div><a class="go" href="#">Watch</a></div>
+<!-- @end:video-fallback -->
+</div></div></section>
+<!-- @end:match-page -->
+<section id="v4"><h2>Componentes añadidos (v4)</h2><h3>hero (solo Home)</h3><!-- @component:hero -->
+<div class="hero"><svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h7M9 12h5"/></svg><h1>The FIRST Global Alliance</h1><p class="muted">A simple way to explore FIRST Global Challenge results.</p></div>
+<!-- @end:hero -->
+<h3>award-block + award-key</h3><!-- @component:award-block -->
+<div class="key"><b>Key</b><span class="t-gold">Gold / 1st</span><span class="t-silver">Silver / 2nd</span><span class="t-bronze">Bronze / 3rd</span><span class="t-awarded">Non-tiered</span></div><div class="aws"><div class="aw"><b>FIRST Global Winning Alliance Award - Gold</b><i>Awarded to the teams in the winning alliance in the final match.</i><div class="aw-r"><span class="t-gold"><a href="#/MEX/"><img class="fl" src="../../site/dist/flags/mex.svg" alt="" width="16" height="11" loading="lazy"> Mexico</a>, <a href="#/GER/"><img class="fl" src="../../site/dist/flags/ger.svg" alt="" width="16" height="11" loading="lazy"> Germany</a>, <a href="#/ITA/"><img class="fl" src="../../site/dist/flags/ita.svg" alt="" width="16" height="11" loading="lazy"> Italy</a></span></div></div><div class="aw"><b>Albert Einstein Award for FIRST Global International Excellence</b><i>Awarded to teams whose robots performed the best.</i><div class="aw-r"><span class="t-gold"><a href="#/FRA/"><img class="fl" src="../../site/dist/flags/fra.svg" alt="" width="16" height="11" loading="lazy"> France</a></span><span class="t-silver"><a href="#/NGA/"><img class="fl" src="../../site/dist/flags/nga.svg" alt="" width="16" height="11" loading="lazy"> Nigeria</a></span><span class="t-bronze"><a href="#/JPN/"><img class="fl" src="../../site/dist/flags/jpn.svg" alt="" width="16" height="11" loading="lazy"> Japan</a></span></div></div><div class="aw"><b>New Technology Experience Research Posters</b><i>Recognizes the teams who created outstanding research posters.</i><div class="aw-r"><span class="t-awarded"><a href="#/BRA/"><img class="fl" src="../../site/dist/flags/bra.svg" alt="" width="16" height="11" loading="lazy"> Brazil</a></span><span class="t-awarded"><a href="#/EGY/"><img class="fl" src="../../site/dist/flags/egy.svg" alt="" width="16" height="11" loading="lazy"> Egypt</a></span><span class="t-awarded"><a href="#/AUS/"><img class="fl" src="../../site/dist/flags/aus.svg" alt="" width="16" height="11" loading="lazy"> Australia</a></span></div></div></div>
+<!-- @end:award-block -->
+<h3>kpi-boxes (promedio ± desviación; filas de 3)</h3><!-- @component:kpi-boxes -->
+<div class="boxes"><div class="box"><small>Average match score</small><b>56.2</b><small>± 13.8</small></div><div class="box"><small>Average winning margin</small><b>13.1</b><small>± 11.3</small></div></div><div class="boxes c3"><div class="box"><small>Matches</small><b>120</b></div><div class="box"><small>Awards</small><b>36</b></div><div class="box"><small>Teams</small><b>10</b></div></div>
+<!-- @end:kpi-boxes -->
+<h3>kv rows: premio + lugar, alianza</h3><!-- @component:award-rows -->
+<div class="kvr"><span>Winning Alliance Award - Gold</span><span><span class="pip">🥇 Gold</span></span></div><div class="kvr"><span>Research Posters</span><span><span class="pip">Awarded</span></span></div><div class="kvr"><span>Alliance 2</span><span><a href="#/MEX/">MEX</a> <a href="#/GER/">GER</a> <a href="#/ITA/">ITA</a></span></div>
+<!-- @end:award-rows -->
+<h3>season-dropdown</h3><!-- @component:dropdown -->
+<details class="dd"><summary>2025</summary><div><a href="#insights/2025/">2025</a><a href="#insights/2024/">2024</a></div></details>
+<!-- @end:dropdown -->
+<h3>data-table (ordenable)</h3><!-- @component:data-table -->
+<div class="scroll"><table class="dt s"><thead><tr><th class="n">#</th><th>Team</th><th class="n">Points</th></tr></thead><tbody><tr><td class="n">1</td><td><a href="#/MEX/"><img class="fl" src="../../site/dist/flags/mex.svg" alt="" width="16" height="11" loading="lazy"> Mexico</a></td><td class="n">120</td></tr><tr><td class="n">2</td><td><a href="#/GER/"><img class="fl" src="../../site/dist/flags/ger.svg" alt="" width="16" height="11" loading="lazy"> Germany</a></td><td class="n">112</td></tr></tbody></table></div>
+<!-- @end:data-table -->
+</section>
+
+</main></div>
+<!-- @component:footer -->
+<footer><div class="row"><span><a href="#">About</a><a href="#">Add data</a><a href="#">Data sources</a><a href="#">Privacy</a></span>
+<span class="seg"><button data-t="light">Light</button><button data-t="dark">Dark</button></span></div>
+<p>Data provided by FIRST Global. Generated on Oct 3, 2026. Demo with sample data and simplified flags.</p></footer>
+<!-- @end:footer -->
+<script>document.querySelectorAll("[data-t]").forEach(function(b){b.onclick=function(){document.documentElement.dataset.theme=b.dataset.t;try{localStorage.setItem("th",b.dataset.t)}catch(e){}}})</script>
+</body></html>
