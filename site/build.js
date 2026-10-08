@@ -23,6 +23,13 @@ const iso=new Set();let n=0;
 // Con `\w+` no se detectaban, así que no se copiaban a dist/ y salían como <img> roto.
 for(const p of pages()){const h=layout(p);for(const m of h.matchAll(/flags\/([\w-]+)\.svg/g))iso.add(m[1]);w(p.path+'index.html',h);n++}
 w('site.css',r('./brand/tokens.css')+'\n'+r('./css/components.css'));w('brand/favicon.svg',r('./brand/favicon.svg'));w('live.js',r('./brand/live.js'));
+// _headers lo lee Cloudflare Pages del raíz de la salida. El HTML y las banderas pueden
+// cachearse, pero `live.js` y `site.css` son justo los dos archivos que cambian cada vez
+// que tocamos el overlay o los estilos: bajo una ruta fija Pages los servía con 4 h de
+// caché (max-age=14400), así que quien ya hubiera entrado seguía con la versión vieja
+// hasta cuatro horas. Con max-age=0 se revalidan siempre —Pages contesta 304 si no han
+// cambiado, así que no cuesta ancho de banda— y un cambio se ve al instante.
+w('_headers','/live.js\n  Cache-Control: public, max-age=0, must-revalidate\n\n/site.css\n  Cache-Control: public, max-age=0, must-revalidate\n');
 const liveJsonPath=fileURLToPath(new URL('./../data/processed/live.json',import.meta.url));
 if(fs.existsSync(liveJsonPath))w('live.json',fs.readFileSync(liveJsonPath,'utf8'));
 // Banderas: se copian las reales de site/flags/ (espejadas del repositorio del
