@@ -21,6 +21,11 @@ h3{font-size:16px;margin:20px 0 8px}
 .menu summary{cursor:pointer;list-style:none;padding:12px 4px;user-select:none}
 .menu div{position:absolute;top:100%;left:0;right:0;z-index:100;background:var(--brand);padding:4px 16px 12px;border-radius:0 0 24px 24px;border-bottom:2px solid var(--brand-line)}
 .menu a{display:block;padding:12px 0;font-size:18px;border-top:1px solid var(--brand-line)}
+/* El buscador del menú (solo móvil: en escritorio .menu está oculto y el campo va en la
+   cabecera). Ocupa el ancho del desplegable; .nav input le fija 200px, así que esta regla
+   va después para poder ganarle. */
+.menu form{padding:12px 0 0}
+.menu input{width:100%}
 .subbar{display:none;justify-content:space-between;align-items:center;padding:8px 16px;border-bottom:1px solid var(--border)}
 .subbar details a{display:block;padding:6px 0;color:var(--muted)}
 .subbar summary{cursor:pointer;font-weight:700}
@@ -137,12 +142,12 @@ footer a+a::before{content:"/";color:var(--muted);margin:0 8px}
 #match-filter{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:var(--r-box);padding:6px 12px;font-size:14px;width:220px;max-width:100%}
 @media(max-width:900px){
 
-.nav .links,.nav input,.side{display:none}
+.nav .links,.nav>form input,.side{display:none}
 .nav .brand span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:calc(100vw - 120px)}
 .menu{display:block}
 .subbar{display:flex}
 .subbar select{width:auto}
-.wrap{grid-template-columns:1fr;padding:14px 12px}
+.wrap{grid-template-columns:minmax(0,1fr);padding:14px 12px}
 .hd,.ev,.mh{grid-template-columns:1fr}
 h1{font-size:26px}
 .m{grid-template-columns:30px 90px 1fr 46px;grid-template-areas:"pl lb ra rs" "pl lb ba bs"}
@@ -153,7 +158,7 @@ h1{font-size:26px}
 }
 
 /* --- páginas (v3) --- */
-.fl{object-fit:cover}.wrap.one{grid-template-columns:1fr}.sec{margin-top:24px}.muted{color:var(--muted)}
+.fl{object-fit:cover}.wrap.one{grid-template-columns:minmax(0,1fr)}.sec{margin-top:24px}.muted{color:var(--muted)}
 .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}.nav form{margin:0}.nav a[aria-current]{text-decoration:underline}
 .boxes.c3{grid-template-columns:repeat(3,1fr)}.map{aspect-ratio:2/1;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-box);display:grid;place-items:center;color:var(--muted)}
 .dd{position:relative}.dd summary{border:1px solid var(--border);border-radius:var(--r-box);padding:6px 12px;cursor:pointer;list-style:none;width:max-content}.dd summary::after{content:" ▾"}
