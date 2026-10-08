@@ -23,7 +23,10 @@ export const awardBlock=(name,desc,cells)=>`<div class="aw"><b>${e(name)}</b><i>
 //   empate    → 'lose' en ambos lados, que es el tono tenue: cada alianza conserva
 //               su rojo/azul sin que ninguna quede resaltada como ganadora.
 const tone=(a,b)=>a==null||b==null?'neu':a===b?'lose':a>b?'win':'lose';
-const sc=(s,k)=>k=='win'?`<b class="w">${s}</b>`:s;
+// Un partido sin jugar no vale 0: es el hueco, y se pinta «–», igual que en matchRow.
+// `tone` ya devuelve 'neu' cuando falta alguno de los dos marcadores.
+const dash=v=>v==null?'–':v;
+const sc=(s,k)=>dash(k=='win'?`<b class="w">${s}</b>`:s);
 export const matchRow=(m,me)=>{const p=m.rs!=null,r=p?tone(m.rs,m.bs):'neu',b=p?tone(m.bs,m.rs):'neu',cells=a=>a.map(c=>teamCell(c,c==me)).join('');
   const tm=m.scheduledTime?`~${m.time} KST · ${m.field}`:`~${m.time} · ${m.field}`;
   const allTeams=[...m.red,...m.blue].map(c=>`${c} ${T[c]?.[0]||''}`).join(' ');
@@ -32,13 +35,15 @@ export const matchRow=(m,me)=>{const p=m.rs!=null,r=p?tone(m.rs,m.bs):'neu',b=p?
 const ST=[['finals','stageFinals'],['round_robin','stageRoundRobin'],['ranking','stageRanking']]; // última fase primero
 export const matchList=(ms,me)=>ST.map(([k,l])=>{const a=ms.filter(m=>m.stage==k);return a.length?`<div class="stg"><i></i><b>${t(l)}</b><i></i></div>`+a.map(m=>matchRow(m,me)).join(''):''}).join('');
 export const scoreboard=m=>{const r=tone(m.rs,m.bs),b=tone(m.bs,m.rs);return `<div class="sb" data-match="${m.id}"><div class="hd2">${t('teams')}</div><div class="hd2">${t('score')}</div><div class="ra ${r}">${m.red.map(c=>teamCell(c)).join('')}</div><span class="rs ${r}">${sc(m.rs,r)}</span><div class="ba ${b}">${m.blue.map(c=>teamCell(c)).join('')}</div><span class="bs ${b}">${sc(m.bs,b)}</span></div>`};
-const bdr=(tot,l,a,b)=>`<tr><td class="${tot?'rw':'rl'}">${a}</td><td class="lb${tot?' tot':''}"><span class="ar">${a>b?'←':''}</span><span>${l}</span><span class="ar">${b>a?'→':''}</span></td><td class="${tot?'bw':'bl'}">${b}</td></tr>`;
+const bdr=(tot,l,a,b)=>`<tr><td class="${tot?'rw':'rl'}">${dash(a)}</td><td class="lb${tot?' tot':''}"><span class="ar">${a>b?'←':''}</span><span>${l}</span><span class="ar">${b>a?'→':''}</span></td><td class="${tot?'bw':'bl'}">${dash(b)}</td></tr>`;
 // Filas del desglose, que es específico de cada juego:
 //   datos reales → m.breakdown = [{label, red, blue}]  (mapa por temporada, ver docs/discovery/03)
 //   fixture      → m.bd = [redWater, redParking, blueWater, blueParking]  (forma de la maqueta)
 // Sin filas de detalle solo queda la fila de total.
 const bdRows=m=>m.breakdown??[[t('water'),m.bd?.[0],m.bd?.[2]],[t('parking'),m.bd?.[1],m.bd?.[3]]];
-export const breakdown=m=>`<table class="bd"><tbody>${bdRows(m).map(([l,a,b])=>bdr(0,l,a,b)).join('')}${bdr(1,t('final'),m.rs,m.bs)}</tbody></table>`;
+// `data-match` para que el overlay en vivo la encuentre: la fila de total lleva las mismas
+// cifras que el marcador, y sin el atributo se quedaba con el «–» del build para siempre.
+export const breakdown=m=>`<table class="bd" data-match="${m.id}"><tbody>${bdRows(m).map(([l,a,b])=>bdr(0,l,a,b)).join('')}${bdr(1,t('final'),m.rs,m.bs)}</tbody></table>`;
 export const videoThumb=m=>`<div><a class="thumb" href="${urls.match(m.id)}" aria-label="${e(m.label)}">${t('thumbnail')}</a><div class="cap"><span>${e(m.label)}</span><small>${e(m.y)} · ${e(m.field)}</small></div></div>`;
 // Miniatura de un vídeo de YouTube. `mqdefault.jpg` son 320×180, justo la medida que fija
 // 02-guia-de-estilos.md §3.15 para las miniaturas (≤ 40 KB), y es una URL determinista del
@@ -60,7 +65,7 @@ export const layout=({title,path,active,body,latest,sx=[]})=>{
   const h=`<!doctype html><html lang="${brand.lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="${brand.themeColor}"><title>${e(title)} · ${brand.name}</title><link rel="icon" href="${urls.favicon()}"><link rel="stylesheet" href="${urls.css()}"><script>try{var s=localStorage.getItem("th");if(s)document.documentElement.dataset.theme=s}catch(e){}</script></head><body>
 <header class="nav"><a class="brand" href="${urls.home()}">${brand.logoSvg}<span>${brand.name}</span></a><nav class="links">${nv}</nav><form action="${urls.search()}"><input type="search" name="q" list="sx" placeholder="${t('search')}" aria-label="${t('search')}"><datalist id="sx">${sx.map(o=>`<option value="${e(o)}">`).join('')}</datalist></form><details class="menu"><summary>${t('menu')}</summary><div>${nv}</div></details></header>
 <div class="wrap one"><main>${body}</main></div>
-<footer><div class="row"><span>${brand.footerLinks.map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}</span><span class="seg"><button data-t="light">${t('light')}</button><button data-t="dark">${t('dark')}</button></span></div><p>${brand.attribution} ${t('mockNote')}.</p></footer>
+<footer><div class="row"><span>${brand.footerLinks.map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}</span><span class="seg"><button data-t="light">${t('light')}</button><button data-t="dark">${t('dark')}</button></span></div><p>${brand.attribution}</p></footer>
 <script>${SORT}</script><script src="/live.js" defer></script></body></html>`;
   const pre='../'.repeat(path.split('/').filter(Boolean).length)||'./';
   return h.replace(/(href|src|action)="\/([^"]*)"/g,(m,a,p)=>`${a}="${pre}${p===''||p.endsWith('/')?p+'index.html':p}"`);

@@ -67,7 +67,7 @@ export const brand = {
     officialSite: "Official site", reveal: "Game reveal video", thumbnail: "thumbnail 16:9", photo: "Team photo",
     bestRank: "Best rank", timeline: "Timeline", history: "History", water: "Water Conserved", parking: "Parking points", final: "Final score",
     alliances: "Alliances", back: "Team history", fullRanking: "Full ranking",
-    field: "Field", key: "Key", tierGold: "Gold / 1st", tierSilver: "Silver / 2nd", tierBronze: "Bronze / 3rd", tierNone: "Non-tiered", noAwards: "No awards", qualMetrics: "Qualification matches", players: "Teams", mockNote: "Mock data",
+    field: "Field", key: "Key", tierGold: "Gold / 1st", tierSilver: "Silver / 2nd", tierBronze: "Bronze / 3rd", tierNone: "Non-tiered", noAwards: "No awards", qualMetrics: "Qualification matches", players: "Teams",
     noCompetition: "No physical competition was held this season (COVID-19 pandemic)",
     mostRoundRobin: "Teams with most Round Robin appearances",
     fullAwards: "Full awards table",
