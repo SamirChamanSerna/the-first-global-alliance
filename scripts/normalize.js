@@ -22,7 +22,7 @@ const RAW = path.join(ROOT, 'data', 'raw');
 const OUT = path.join(ROOT, 'data', 'processed');
 
 const SCHEMA_VERSION = 1;
-const FULL_YEARS = [2024, 2025];
+const FULL_YEARS = [2024, 2025, 2026];
 const AWARDS_YEARS = [2017, 2018, 2019, 2022, 2023];
 const ALL_YEARS = [...new Set([...FULL_YEARS, ...AWARDS_YEARS])].sort((a, b) => a - b);
 const STAGES = {t2: {stage: 'ranking', letter: 'q'}, t3: {stage: 'round_robin', letter: 'rr'}, t4: {stage: 'finals', letter: 'f'}};
@@ -170,6 +170,7 @@ function buildMatches(year, snapshot) {
       label: m.name,
       field: m.field === undefined ? '' : `Field ${m.field}`,
       time: timeOf(m.scheduledTime),
+      scheduledTime: m.scheduledTime ?? null,
       red, blue,
       rs: played ? m.redScore : null,
       bs: played ? m.blueScore : null,

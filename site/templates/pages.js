@@ -3,6 +3,7 @@ import {brand,t} from '../brand/brand.js';
 import {e,hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
 import {urls,outPath} from './urls.js';
 import {seasons,T,codes,M,S,A,AL,AW,PH} from './data.js';
+import {STREAMS_2026} from '../brand/streams.js';
 const Y=seasons.map(s=>s.y),L=Y[0],sn=y=>seasons.find(s=>s.y==y);
 // YC = temporadas con competencia. Las de solo premios (2020, 2021) no tienen partidos,
 // rankings ni alianzas: no generan páginas de temporada ni entran en las métricas de
@@ -52,7 +53,7 @@ const rank=y=>{const C=seasonCols(y),W=hasWlt(y),head=[['#',1],[t('team')],...C.
   if(W)head.push([t('wlt'),1]);
   return dt(head,S[y].map(z=>{const row=[z.rank,tl(z.code),...C.map(c=>c[1](z))];if(W)row.push(z.w!==undefined?`${z.w}–${z.l}–${z.t}`:t('noData'));return row}),1)};
 const mine=(c,y)=>(M[y]||[]).filter(m=>[...m.red,...m.blue].includes(c));
-const yearsOf=c=>Y.filter(y=>(S[y]||[]).some(z=>z.code==c));
+const yearsOf=c=>Y.filter(y=>(S[y]||[]).some(z=>z.code==c)||mine(c,y).length>0);
 // Lugar y fecha del evento. Se omiten los campos vacíos: una temporada sin metadatos
 // cargados no debe imprimir huecos ni comas sueltas.
 // Nombre de la temporada. Sin metadatos cargados se usa el año, que sí se conoce:
@@ -81,29 +82,70 @@ const nAw=ys=>ys.reduce((n,z)=>n+A[z].reduce((m,a)=>m+a.w.length,0),0);
 const home=()=>hero()+`<h3>${t('venues')}</h3>${dt([[t('year')],[t('venue')],[t('country')],[t('dates')]],seasons.map(s=>[`<a href="${urls.insights(s.y)}">${s.y}</a>`,s.city||t('noData'),countryCell(s),s.dates||t('noData')]))}
 <h3>${t('overview')}</h3>${boxes([box(t('matches'),Y.reduce((n,y)=>n+(M[y]||[]).length,0)),box(t('awards'),nAw(Y)),box(t('teams'),codes.length)],1)}`;
 
-const ins=y=>{const aw=!!y&&onlyAwards(y),ms=y?M[y]:YC.flatMap(z=>M[z]),q=ms.filter(m=>m.stage=='ranking'),p=ms.filter(m=>m.stage!='ranking'),s=y&&sn(y);
+const insOverview=()=>{
+  const allAwardsList=[];
+  const winningCodes=new Set();
+  Y.forEach(yr=>{
+    (A[yr]||[]).forEach(a=>{
+      if(a.ty==='a'){
+        a.w.forEach(c=>{allAwardsList.push({code:c,year:yr,award:a.name,tier:a.tier});winningCodes.add(c)});
+      }else{
+        a.w.forEach((c,idx)=>{allAwardsList.push({code:c,year:yr,award:a.name,tier:tierOf(a,idx)});winningCodes.add(c)});
+      }
+    });
+  });
+  allAwardsList.sort((a,b)=>b.year-a.year||(T[a.code]?.[0]||a.code).localeCompare(T[b.code]?.[0]||b.code));
+
+  return bar(t('overview'),dd(t('overview'),[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
+  +`<p class="muted">${t('allAwards')}</p>`
+  +boxes([box(t('awards'),nAw(Y)),box(t('winningTeams'),winningCodes.size),box(t('seasons'),Y.length)],1)
+  +`<h3>${t('allAwards')}</h3>`
+  +dt([[t('team')],[t('year'),1],[t('awards')],[t('medals'),0]],allAwardsList.map(item=>[tl(item.code),`<a href="${urls.insights(item.year)}">${item.year}</a>`,item.award,pip(item.tier)]),1)
+  +`<h3>${t('awards')}</h3>${awardKey()}${awBlocks()}`;
+};
+
+const insLive=y=>{
+  const s=sn(y);
+  const ms=(M[y]||[]).filter(m=>m.red&&m.red.length>0&&m.blue&&m.blue.length>0);
+  const completed=ms.filter(m=>m.rs!==null);
+  const upcoming=ms.filter(m=>m.rs===null);
+  const fields=[...new Set(upcoming.map(m=>m.field))].filter(Boolean).sort().slice(0,5);
+  const onDeck=fields.map(f=>upcoming.find(m=>m.field===f)).filter(Boolean);
+  const dayBtns=STREAMS_2026.general.map(d=>`<a class="stream-btn" href="${urls.gameday()}?stream=${d.key}">${d.label}</a>`).join('');
+
+  return bar(`${t('season')} ${y}`,dd(y,[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
+  +`<p class="muted">${[sName(y),place(s)].filter(Boolean).join(' · ')} · <a href="https://first.global/archive/fgc-${y}/">${t('officialSite')}</a> · ${t('koreaTime')}</p>`
+  +boxes([box(t('matches'),ms.length),box(t('completed'),completed.length),box(t('upcoming'),upcoming.length),box(t('teams'),teamsOf(y))],1)
+  +`<div class="stream-bar"><span>${t('mainBroadcast')}:</span>${dayBtns}<a class="stream-btn" href="${STREAMS_2026.playlist}" target="_blank" rel="noopener">▶ ${t('playlist')} ↗</a><a class="stream-btn on" href="${urls.gameday()}">⚡ ${t('gamedayTitle')}</a></div>`
+  +revealBlock(y)
+  +`<div class="bar"><h3>${t('liveTracker')}</h3><input type="search" id="match-filter" placeholder="${t('search')}" aria-label="${t('search')}"></div>`
+  +(onDeck.length?`<h3>${t('onDeck')}</h3><div class="on-deck-matches" id="on-deck-container">${onDeck.map(m=>matchRow(m)).join('')}</div>`:'')
+  +(completed.length?`<h3>${t('completed')}</h3><div>${completed.slice().reverse().map(m=>matchRow(m)).join('')}</div>`:'')
+  +`<h3>${t('upcoming')}</h3><div id="live-match-list">${upcoming.map(m=>matchRow(m)).join('')}</div>`;
+};
+
+const insArchived=y=>{
+  const aw=onlyAwards(y),ms=M[y]||[],q=ms.filter(m=>m.stage=='ranking'),p=ms.filter(m=>m.stage!='ranking'),s=sn(y);
   const kp=(l,a)=>a.length?box(l,av(a).toFixed(1),`± ${sd(a).toFixed(1)}`):box(l,t('noData'));
-  const medalTop=yy=>codes.map(c=>[c,yy?cntY(yy,c):cnt(c)]).filter(x=>tot(x[1])>0).sort((a,b)=>tot(b[1])-tot(a[1])).slice(0,10).map(([c,o],i)=>[i+1,tl(c),pips(o),tot(o)]);
-  // Una temporada sin filas de premio no es una temporada con cero premios: 2020 y 2021
-  // se llaman `awards-only` porque precisamente se jugaron por sus premios, y en 2017-2023
-  // hay partidos que no están cargados. Un `0` en estas cajas afirmaría algo falso, así que
-  // el hueco se declara. (Regla 6.)
+  const medalTop=yy=>codes.map(c=>[c,cntY(yy,c)]).filter(x=>tot(x[1])>0).sort((a,b)=>tot(b[1])-tot(a[1])).slice(0,10).map(([c,o],i)=>[i+1,tl(c),pips(o),tot(o)]);
   const cntBox=(l,n)=>box(l,n?n:t('noData'));
-  // El primer criterio de la temporada es su puntuación principal; sin datos, «No data».
   const topVal=z=>z.cols?.[0]?.[1]??t('noData');
-  const top=y?(aw?medalTop(y):S[y].slice(0,10).map(z=>[z.rank,tl(z.code),topVal(z)])):medalTop();
-  const ranked=y&&!aw; // una temporada de solo premios no tiene ranking que mostrar
-  return bar(y?`${t('season')} ${y}`:t('overview'),dd(y||t('overview'),[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
-  +`<p class="muted">${y?`${[sName(y),place(s)].filter(Boolean).join(' · ')} · `:''}<a href="${y?`https://first.global/archive/fgc-${y}/`:'https://first.global/about/'}">${t('officialSite')}</a></p>`
-  +boxes(aw?[box(t('teams'),teamsOf(y)),cntBox(t('awards'),nAw([y]))]:[box(t('teams'),teamsOf(y)),cntBox(t('matches'),ms.length),cntBox(t('awards'),nAw(y?[y]:Y))],1)
+  const top=aw?medalTop(y):S[y].slice(0,10).map(z=>[z.rank,tl(z.code),topVal(z)]);
+  const ranked=!aw;
+  return bar(`${t('season')} ${y}`,dd(y,[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
+  +`<p class="muted">${[sName(y),place(s)].filter(Boolean).join(' · ')} · <a href="https://first.global/archive/fgc-${y}/">${t('officialSite')}</a></p>`
+  +boxes(aw?[box(t('teams'),teamsOf(y)),cntBox(t('awards'),nAw([y]))]:[box(t('teams'),teamsOf(y)),cntBox(t('matches'),ms.length),cntBox(t('awards'),nAw([y]))],1)
   +revealBlock(y)
   +`<h3>${t('awards')}</h3>${awardKey()}${awBlocks(y)}`
   +(aw?`<p class="note">${t('noCompetition')}</p>`
     :`<h3>${t('highestMatch')}</h3>${hi(best(q))}<h3>${t('qualMetrics')}</h3>${boxes([kp(t('avgMatch'),sc(q)),kp(t('avgMargin'),mg(q))])}`
-    +`<h3>${y?t('playoffs'):t('mostRoundRobin')}</h3>`+(y?`<div>${matchList(p)}</div>`:dt([[t('team')],[t('seasons'),1]],codes.map(c=>[c,rrSeasons(c)]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([c,n])=>[tl(c),n])))
+    +`<h3>${t('playoffs')}</h3><div>${matchList(p)}</div>`
     +`<h3>${t('highestPlayoff')}</h3>${hi(best(p))}${boxes([kp(t('avgMatch'),sc(p)),kp(t('avgMargin'),mg(p))])}`)
   +`<h3>${ranked?t('topRank'):t('mostAwards')}</h3>`+(top.length?dt(ranked?[['#',1],[t('team')],[S[y][0]?.cols?.[0]?.[0]??t('rankingPoints'),1]]:[['#',1],[t('team')],[t('medals'),0],[t('total'),1]],top):`<p class="note">${t('noData')}</p>`)
-  +(ranked?`<p><a href="${urls.rankings(y)}">${t('fullRanking')}</a></p>`:`<p><a href="${urls.awards()}">${t('fullAwards')}</a></p>`)};
+  +(ranked?`<p><a href="${urls.rankings(y)}">${t('fullRanking')}</a></p>`:`<p><a href="${urls.awards()}">${t('fullAwards')}</a></p>`);
+};
+
+const ins=y=>!y?insOverview():sn(y)?.mode==='live'?insLive(y):insArchived(y);
 // Nota: la tabla muestra los 10 primeros de los 161 equipos con premios; el enlace
 // lleva a /awards/, que los lista todos. La lista completa de bloques de premio
 // (arriba) sí incluye a todos los ganadores de cada premio.
@@ -124,7 +166,43 @@ const rankings=y=>bar(`${t('topRank')} ${y}`,sel(y,z=>urls.rankings(z)))
   +(onlyAwards(y)?noComp():S[y].length?rank(y):`<p class="note">${t('noData')}</p>`);
 const matches=y=>bar(`${t('matches')} ${y}`,sel(y,z=>urls.matches(z)))
   +(onlyAwards(y)?noComp():M[y].length?`<div>${matchList(M[y])}</div>`:`<p class="note">${t('noMatchData')}</p>`);
-const gameday=()=>bar('GameDay')+`<div class="map">${t('gamedaySoon')}</div>`;
+const gameday=()=>{
+  const defStream=STREAMS_2026.general[0];
+  const upcoming=(M[2026]||[]).filter(m=>m.rs===null);
+  const fields=[...new Set(upcoming.map(m=>m.field))].filter(Boolean).sort().slice(0,5);
+  const onDeck=fields.map(f=>upcoming.find(m=>m.field===f)).filter(Boolean);
+
+  const presetBtns=[
+    `<button class="stream-btn on" data-preset="1">${t('singleStream')}</button>`,
+    `<button class="stream-btn" data-preset="2">${t('dualView')}</button>`,
+    `<button class="stream-btn" data-preset="3">${t('tripleView')}</button>`,
+    `<button class="stream-btn" data-preset="4">${t('quadView')}</button>`,
+    `<button class="stream-btn" data-preset="5">${t('allFields')}</button>`,
+  ].join('');
+
+  const dayBtns=STREAMS_2026.general.map((d,i)=>
+    `<button class="stream-btn stream-toggle${i===0?' on':''}" data-stream-id="${d.id}" data-stream-key="${d.key}" data-stream-label="${d.label}">${d.label}</button>`
+  ).join('');
+
+  const fieldBtns=Object.values(STREAMS_2026.fields).map(f=>
+    `<button class="stream-btn stream-toggle" data-stream-id="${f.id}" data-stream-key="${f.key}" data-stream-field="${f.field}" data-stream-label="${f.label}">${f.label}</button>`
+  ).join('');
+
+  const initialCard=
+    `<div class="player-card" data-stream-id="${defStream.id}" data-stream-key="${defStream.key}">`
+    +`<div class="player-head"><span>● ${defStream.label}</span><button class="player-close" aria-label="${t('closeStream')}" title="${t('closeStream')}" data-id="${defStream.id}">×</button></div>`
+    +`<div class="player-frame"><iframe src="https://www.youtube.com/embed/${defStream.id}" title="${defStream.label}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+    +`</div>`;
+
+  return bar('GameDay',`<a class="stream-btn" href="${STREAMS_2026.playlist}" target="_blank" rel="noopener">▶ ${t('playlist')} ↗</a>`)
+  +`<p class="muted">${t('selectStream')} · Incheon, 2026 · ${t('koreaTime')}</p>`
+  +`<div class="stream-bar"><span>${t('presets')}:</span>${presetBtns}</div>`
+  +`<div class="stream-bar"><span>${t('mainBroadcast')}:</span>${dayBtns}</div>`
+  +`<div class="stream-bar"><span>${t('fieldStreams')}:</span>${fieldBtns}</div>`
+  +`<div class="gameday-grid" id="gameday-grid" data-count="1">${initialCard}</div>`
+  +`<div class="bar"><h3>${t('onDeck')}</h3><a href="${urls.insights(2026)}">${t('liveTracker')} →</a></div>`
+  +`<div class="on-deck-matches" id="on-deck-container">${onDeck.map(m=>matchRow(m)).join('')}</div>`;
+};
 
 // Foto del equipo EN ESA temporada: los integrantes cambian cada año, así que la
 // imagen es por (equipo, año) y no del equipo en general. La URL es un hotlink
@@ -133,10 +211,11 @@ const gameday=()=>bar('GameDay')+`<div class="map">${t('gamedaySoon')}</div>`;
 const photo=(c,y)=>{const u=PH[y]?.[c],alt=`${T[c][0]} ${y} · ${t('photo')}`;
   return `<div class="photo">${u?`<img src="${e(u)}" alt="${e(alt)}" loading="lazy" decoding="async">`:t('photo')}</div>`};
 
-const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);return z?{...z,y}:null}),P=R2.filter(Boolean),
+const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);if(z)return {...z,y};const ms=mine(c,y);return ms.length?{code:c,rank:t('noData'),y,live:true}:null}),P=R2.filter(Boolean),
   // Centinela Infinity, no 99: con 99 cualquier equipo peor que el puesto 99 se
   // quedaba con el valor inicial y mostraba «#99» como si fuera su mejor puesto.
-  b=P.reduce((a,z)=>z.rank<a.rank?{rank:z.rank,y:z.y}:a,{rank:Infinity,y:''}),
+  rankedP=P.filter(z=>typeof z.rank==='number'),
+  b=rankedP.reduce((a,z)=>z.rank<a.rank?{rank:z.rank,y:z.y}:a,{rank:Infinity,y:''}),
   // Un récord de carrera solo se puede sumar si TODAS las temporadas rankeadas del
   // equipo traen W-L-T (hoy: 2019 desde el CSV, 2024-2025 derivados de los partidos).
   // Sumar solo las que lo traen daría un total falso, así que si falta alguna temporada
@@ -144,7 +223,7 @@ const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);return z?{
   rec=P.filter(z=>z.w!==undefined),full=rec.length>0&&rec.length===P.length,
   W=rec.reduce((a,z)=>a+z.w,0),Lo=rec.reduce((a,z)=>a+z.l,0),Ti=rec.reduce((a,z)=>a+z.t,0),n=W+Lo+Ti;
   return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]}</h1></div>${ddY(t('seasons'),z=>urls.team(c,z),P.map(z=>z.y))}</div><div class="kv"><div><span>${t('iso')}:</span> ${c}</div></div>`
-  +boxes([box(t('matches'),full?n:t('noData')),box(t('awards'),tot(cnt(c))),box(t('record'),full?`${W}–${Lo}–${Ti}`:t('noData'),full?`${(100*W/n).toFixed(1)}%`:''),box(t('bestRank'),P.length?`#${b.rank}`:t('noData'),P.length?`${b.y} · ${t('of')} ${teamsOf(b.y)}`:''),box(t('medals'),'',pips(cnt(c)))],1)
+  +boxes([box(t('matches'),full?n:t('noData')),box(t('awards'),tot(cnt(c))),box(t('record'),full?`${W}–${Lo}–${Ti}`:t('noData'),full?`${(100*W/n).toFixed(1)}%`:''),box(t('bestRank'),rankedP.length?`#${b.rank}`:t('noData'),rankedP.length?`${b.y} · ${t('of')} ${teamsOf(b.y)}`:''),box(t('medals'),'',pips(cnt(c)))],1)
   +`<h3>${t('timeline')}</h3>`+Y.map((y,i)=>{const z=R2[i],s=sn(y);
     // Sin fila de ranking hay dos casos muy distintos:
     //  · la temporada NO se jugó (2020-2021, awards-only) → el aviso es cierto, se muestra;
@@ -154,11 +233,11 @@ const th=c=>{const R2=Y.map(y=>{const z=(S[y]||[]).find(x=>x.code==c);return z?{
     const ps=sc(mine(c,y));
     // Los KPIs de la temporada van en la columna IZQUIERDA, bajo Rank y Record, como
     // en @component:season-block del demo. La derecha queda para la foto.
-    return `<section class="ev"><div><h2><a href="${urls.team(c,y)}">${sName(y)}</a></h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),z.w!==undefined?`${z.w}–${z.l}–${z.t}`:t('noData'))])}${kvr(t('highestScore'),ps.length?Math.max(...ps):t('noData'))}${kvr(t('avgScore'),z.avg??t('noData'))}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`}).join('')};
+    return `<section class="ev" data-season="${y}"><div><h2><a href="${urls.team(c,y)}">${sName(y)}</a></h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),z.w!==undefined?`${z.w}–${z.l}–${z.t}`:t('noData'))])}${kvr(t('highestScore'),ps.length?Math.max(...ps):t('noData'))}${kvr(t('avgScore'),z.avg??t('noData'))}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`}).join('')};
 
-const ts=(c,y)=>{const z=S[y].find(x=>x.code==c),s=sn(y);
+const ts=(c,y)=>{const z=(S[y]||[]).find(x=>x.code==c)||{code:c,rank:t('noData')},s=sn(y);
   return `<div class="bar"><div class="title">${flag(c)}<h1>${T[c][0]} · ${y}</h1></div>${ddY(y,k=>urls.team(c,k),yearsOf(c))}</div><p><a href="${urls.team(c)}">← ${t('back')}</a></p>`
-  +`<section class="ev"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),z.w!==undefined?`${z.w}–${z.l}–${z.t}`:t('noData'))])}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`
+  +`<section class="ev" data-season="${y}"><div><h2>${sName(y)}</h2><div class="when">${when(s)}</div>${boxes([box(t('rank'),z.rank,`${t('of')} ${teamsOf(y)}`),box(t('record'),z.w!==undefined?`${z.w}–${z.l}–${z.t}`:t('noData'))])}${al(y,c)}<div class="lbl">${t('awards')}</div>${awList(y,c)}</div><div>${photo(c,y)}</div></section>`
   +`<h3>${t('matches')}</h3><div>${matchList(mine(c,y),c)}</div>`};
 
 // Página de un partido: a la izquierda la tabla estándar (alianzas y marcador, roja

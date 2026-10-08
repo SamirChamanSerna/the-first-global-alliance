@@ -17,7 +17,7 @@ const API = 'https://api.first.global';
 
 // 2024-2025: todo. 2017-2019 y 2022-2023: solo los premios son confiables.
 // 2020 y 2021 no existen en la API (no hubo competencia) — ver 05-plan.md.
-const FULL_YEARS = [2024, 2025];
+const FULL_YEARS = [2024, 2025, 2026];
 const AWARDS_YEARS = [2017, 2018, 2019, 2022, 2023];
 
 const years = process.argv.slice(2).map(Number).filter(Boolean);
@@ -31,9 +31,11 @@ async function get(url) {
 
 fs.mkdirSync(DIR, {recursive: true});
 
-const teams = await get(`${API}/v1/teams`);
-fs.writeFileSync(path.join(DIR, 'teams.json'), JSON.stringify(teams, null, 1), 'utf8');
-console.log(`teams.json      ${teams.length} equipos`);
+if (!fs.existsSync(path.join(DIR, 'teams.json')) || process.argv.includes('--teams')) {
+  const teams = await get(`${API}/v1/teams`);
+  fs.writeFileSync(path.join(DIR, 'teams.json'), JSON.stringify(teams, null, 1), 'utf8');
+  console.log(`teams.json      ${teams.length} equipos`);
+}
 
 for (const y of list) {
   // excludeMatchDetails=true es contraintuitivo: además de omitir el desglose por

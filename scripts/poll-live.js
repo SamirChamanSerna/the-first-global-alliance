@@ -1,0 +1,93 @@
+// scripts/poll-live.js
+// Poller de datos en vivo para la temporada 2026.
+//
+// Descarga el snapshot de api.first.global/v1?year=2026 y genera un
+// `live.json` ultraligero (~5-10 KB) en `site/dist/live.json` que el cliente
+// puede consultar sin saturar la API oficial.
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const DIST_LIVE = path.join(ROOT, 'site', 'dist', 'live.json');
+const PROCESSED_LIVE = path.join(ROOT, 'data', 'processed', 'live.json');
+const API = 'https://api.first.global/v1?year=2026&excludeMatchDetails=true';
+
+const STAGES = {
+  t2: { stage: 'ranking', letter: 'q' },
+  t3: { stage: 'round_robin', letter: 'rr' },
+  t4: { stage: 'finals', letter: 'f' }
+};
+
+export async function fetchLiveSnapshot() {
+  const res = await fetch(API);
+  if (!res.ok) throw new Error(`HTTP ${res.status} al consultar ${API}`);
+  const data = await res.json();
+
+  const matches = (data.matches || []).map((m) => {
+    const st = STAGES[m.tournamentKey] || { letter: 'q', stage: 'ranking' };
+    const side = (lo, hi) =>
+      (m.participants || [])
+        .filter((p) => p.station >= lo && p.station <= hi)
+        .sort((a, b) => a.station - b.station)
+        .map((p) => p.country);
+
+    return {
+      id: `2026_${st.letter}${m.id}`,
+      played: !!m.played,
+      rs: m.played ? m.redScore : null,
+      bs: m.played ? m.blueScore : null,
+      red: side(11, 14),
+      blue: side(21, 24)
+    };
+  });
+
+  const rankings = (data.rankings || []).map((r) => ({
+    rank: r.rank,
+    code: r.team?.country,
+    rp: r.rankingScore,
+    w: r.wins,
+    l: r.losses,
+    t: r.ties,
+    highest: r.highestScore,
+    avg: r.played ? Number((r.rankingScore / r.played).toFixed(1)) : null
+  }));
+
+  const payload = {
+    season: 2026,
+    updatedAt: new Date().toISOString(),
+    matchesCount: matches.length,
+    playedCount: matches.filter((m) => m.played).length,
+    matches,
+    rankings
+  };
+
+  const jsonStr = JSON.stringify(payload);
+  if (fs.existsSync(path.dirname(DIST_LIVE))) {
+    fs.writeFileSync(DIST_LIVE, jsonStr, 'utf8');
+  }
+  if (fs.existsSync(path.dirname(PROCESSED_LIVE))) {
+    fs.writeFileSync(PROCESSED_LIVE, jsonStr, 'utf8');
+  }
+
+  return payload;
+}
+
+// Ejecución directa por CLI
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  const isLoop = process.argv.includes('--watch') || process.argv.includes('--loop');
+  const delay = 45000;
+
+  async function run() {
+    try {
+      const p = await fetchLiveSnapshot();
+      console.log(`[${new Date().toLocaleTimeString()}] live.json actualizado: ${p.matchesCount} partidos (${p.playedCount} jugados), ${p.rankings.length} rankings.`);
+    } catch (err) {
+      console.error(`[${new Date().toLocaleTimeString()}] Error actualizando live.json:`, err.message);
+    }
+    if (isLoop) setTimeout(run, delay);
+  }
+
+  run();
+}

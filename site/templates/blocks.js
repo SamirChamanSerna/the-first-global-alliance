@@ -1,10 +1,12 @@
 // BLOQUES COMPARTIDOS. Markup copiado del demo (docs/web-style-guide/demo-team-match.html).
 import {brand,t} from '../brand/brand.js';
 import {urls} from './urls.js';
+import {T} from './data.js';
+import {STREAMS_2026} from '../brand/streams.js';
 export const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 // Sin ISO no hay imagen: marco gris (.fl.none), nunca un <img> roto.
 export const flag=i=>i?`<img class="fl" src="${urls.flag(i)}" alt="" width="16" height="11" loading="lazy">`:`<span class="fl none"></span>`;
-export const teamCell=(c,me)=>`<a class="t${me?' me':''}" href="${urls.team(c)}">${flag(c)}${c}</a>`;
+export const teamCell=(c,me)=>`<a class="t${me?' me':''}" href="${urls.team(c)}" title="${e(T[c]?.[0]||c)}">${flag(c)}${c}</a>`;
 export const teamLink=(c,n)=>`<a href="${urls.team(c)}">${flag(c)} ${e(n)}</a>`;
 export const pip=k=>{const m=brand.medals[k];return `<span class="pip">${m.emoji?m.emoji+' ':''}${m.label}</span>`};
 export const box=(l,v,s)=>`<div class="box"><small>${l}</small><b>${v}</b>${s?`<small>${s}</small>`:''}</div>`;
@@ -23,10 +25,13 @@ export const awardBlock=(name,desc,cells)=>`<div class="aw"><b>${e(name)}</b><i>
 const tone=(a,b)=>a==null||b==null?'neu':a===b?'lose':a>b?'win':'lose';
 const sc=(s,k)=>k=='win'?`<b class="w">${s}</b>`:s;
 export const matchRow=(m,me)=>{const p=m.rs!=null,r=p?tone(m.rs,m.bs):'neu',b=p?tone(m.bs,m.rs):'neu',cells=a=>a.map(c=>teamCell(c,c==me)).join('');
-  return `<div class="m"><span class="c-pl">${m.video?`<a class="pl" href="${urls.match(m.id)}" aria-label="${t('watch')}"></a>`:''}</span><a class="lb" href="${urls.match(m.id)}">${m.label}${p?'':`<small>~${m.time} · ${m.field}</small>`}</a><div class="ra ${r}">${cells(m.red)}</div><div class="ba ${b}">${cells(m.blue)}</div><span class="rs ${r}">${p?sc(m.rs,r):'–'}</span><span class="bs ${b}">${p?sc(m.bs,b):'–'}</span></div>`};
+  const tm=m.scheduledTime?`~${m.time} KST · ${m.field}`:`~${m.time} · ${m.field}`;
+  const allTeams=[...m.red,...m.blue].map(c=>`${c} ${T[c]?.[0]||''}`).join(' ');
+  const vidHref=(m.y==2026&&m.field&&STREAMS_2026.fields[m.field])?`${urls.gameday()}?stream=${encodeURIComponent(m.field)}`:m.video?urls.match(m.id):null;
+  return `<div class="m" data-match="${m.id}"${m.scheduledTime?` data-time="${m.scheduledTime}"`:''}${m.field?` data-field="${m.field}"`:''}${m.time?` data-clock="${m.time}"`:''} data-teams="${e(allTeams)}"><span class="c-pl">${vidHref?`<a class="pl" href="${vidHref}" aria-label="${t('watch')}"></a>`:''}</span><a class="lb" href="${urls.match(m.id)}">${m.label}${p?'':`<small>${tm}</small>`}</a><div class="ra ${r}">${cells(m.red)}</div><div class="ba ${b}">${cells(m.blue)}</div><span class="rs ${r}">${p?sc(m.rs,r):'–'}</span><span class="bs ${b}">${p?sc(m.bs,b):'–'}</span></div>`};
 const ST=[['finals','stageFinals'],['round_robin','stageRoundRobin'],['ranking','stageRanking']]; // última fase primero
 export const matchList=(ms,me)=>ST.map(([k,l])=>{const a=ms.filter(m=>m.stage==k);return a.length?`<div class="stg"><i></i><b>${t(l)}</b><i></i></div>`+a.map(m=>matchRow(m,me)).join(''):''}).join('');
-export const scoreboard=m=>{const r=tone(m.rs,m.bs),b=tone(m.bs,m.rs);return `<div class="sb"><div class="hd2">${t('teams')}</div><div class="hd2">${t('score')}</div><div class="ra ${r}">${m.red.map(c=>teamCell(c)).join('')}</div><span class="rs ${r}">${sc(m.rs,r)}</span><div class="ba ${b}">${m.blue.map(c=>teamCell(c)).join('')}</div><span class="bs ${b}">${sc(m.bs,b)}</span></div>`};
+export const scoreboard=m=>{const r=tone(m.rs,m.bs),b=tone(m.bs,m.rs);return `<div class="sb" data-match="${m.id}"><div class="hd2">${t('teams')}</div><div class="hd2">${t('score')}</div><div class="ra ${r}">${m.red.map(c=>teamCell(c)).join('')}</div><span class="rs ${r}">${sc(m.rs,r)}</span><div class="ba ${b}">${m.blue.map(c=>teamCell(c)).join('')}</div><span class="bs ${b}">${sc(m.bs,b)}</span></div>`};
 const bdr=(tot,l,a,b)=>`<tr><td class="${tot?'rw':'rl'}">${a}</td><td class="lb${tot?' tot':''}"><span class="ar">${a>b?'←':''}</span><span>${l}</span><span class="ar">${b>a?'→':''}</span></td><td class="${tot?'bw':'bl'}">${b}</td></tr>`;
 // Filas del desglose, que es específico de cada juego:
 //   datos reales → m.breakdown = [{label, red, blue}]  (mapa por temporada, ver docs/discovery/03)
@@ -56,7 +61,7 @@ export const layout=({title,path,active,body,latest,sx=[]})=>{
 <header class="nav"><a class="brand" href="${urls.home()}">${brand.logoSvg}<span>${brand.name}</span></a><nav class="links">${nv}</nav><form action="${urls.search()}"><input type="search" name="q" list="sx" placeholder="${t('search')}" aria-label="${t('search')}"><datalist id="sx">${sx.map(o=>`<option value="${e(o)}">`).join('')}</datalist></form><details class="menu"><summary>${t('menu')}</summary><div>${nv}</div></details></header>
 <div class="wrap one"><main>${body}</main></div>
 <footer><div class="row"><span>${brand.footerLinks.map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}</span><span class="seg"><button data-t="light">${t('light')}</button><button data-t="dark">${t('dark')}</button></span></div><p>${brand.attribution} ${t('mockNote')}.</p></footer>
-<script>${SORT}</script></body></html>`;
+<script>${SORT}</script><script src="/live.js" defer></script></body></html>`;
   const pre='../'.repeat(path.split('/').filter(Boolean).length)||'./';
   return h.replace(/(href|src)="\/([^"]*)"/g,(m,a,p)=>`${a}="${pre}${p===''||p.endsWith('/')?p+'index.html':p}"`);
 };

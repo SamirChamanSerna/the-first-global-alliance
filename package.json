@@ -1,0 +1,19 @@
+{
+  "name": "the-first-global-alliance",
+  "version": "1.0.0",
+  "description": "Historical archive and static site for the FIRST Global Challenge",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "build": "node site/build.js",
+    "build:fixture": "node site/build.js --fixture",
+    "normalize": "node scripts/normalize.js",
+    "check": "node scripts/check.js",
+    "poll:live": "node scripts/poll-live.js",
+    "poll:live:watch": "node scripts/poll-live.js --watch",
+    "fetch:archive": "node scripts/fetch-archive.js",
+    "fetch:flags": "node scripts/fetch-flags.js",
+    "templates:manual": "node scripts/make-manual-templates.js"
+  }
+}

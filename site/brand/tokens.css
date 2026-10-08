@@ -42,4 +42,6 @@ html[data-theme=dark]{color-scheme:dark}
   --r-pill:999px;                       /* chips y medallas */
   /* Premios por lugar (≈ tomados de la imagen de referencia de premios) */
   --gold:light-dark(#fff2cc,#5a4a14);--silver:light-dark(#eeeeee,#3a3a3c);--bronze:light-dark(#fce5cd,#5a3a1c);--tier:light-dark(#c9daf8,#1f3157);
+  /* En vivo */
+  --live:light-dark(#d32f2f,#ef5350);--live-bg:light-dark(#ffebee,#3b1818);
 }
