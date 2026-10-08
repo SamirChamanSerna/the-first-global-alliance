@@ -1,9 +1,10 @@
 // scripts/poll-live.js
 // Poller de datos en vivo para la temporada 2026.
 //
-// Descarga el snapshot de api.first.global/v1?year=2026 y genera un
-// `live.json` ultraligero (~5-10 KB) en `site/dist/live.json` que el cliente
-// puede consultar sin saturar la API oficial.
+// Descarga el snapshot de api.first.global/v1?year=2026 y genera un `live.json`
+// (30-40 KB: 340 partidos + 185 rankings) en `site/dist/live.json` que el cliente
+// puede consultar sin saturar la API oficial. El ranking lo publica la API ya
+// calculado, así que aquí no se recalcula nada.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -40,45 +41,25 @@ export async function fetchLiveSnapshot() {
       bs: m.played ? m.blueScore : null,
       ast: m.actualStartTime || null,
       red: side(11, 14),
-      blue: side(21, 24),
-      _climbRed: m.details ? [m.details.redRobotOneBraceState, m.details.redRobotTwoBraceState, m.details.redRobotThreeBraceState] : null,
-      _climbBlue: m.details ? [m.details.blueRobotOneBraceState, m.details.blueRobotTwoBraceState, m.details.blueRobotThreeBraceState] : null,
+      blue: side(21, 24)
     };
   });
 
-  const matchStats = {};
-  matches.forEach(m => {
-    if (!m.played || m.rs === null) return;
-    if (!m.id.includes('_q')) return; // solo matches de ranking
-    
-    const processSide = (side, own, other, climbs) => {
-      side.forEach((c, idx) => {
-        const z = matchStats[c] ??= {w: 0, l: 0, t: 0, n: 0, pts: 0, highest: 0, climbTotal: 0, climbCount: 0};
-        z.n++; z.pts += own;
-        if (own > z.highest) z.highest = own;
-        if (own > other) z.w++; else if (own < other) z.l++; else z.t++;
-        if (climbs && climbs[idx] !== undefined) {
-           z.climbTotal += (climbs[idx] || 0);
-           z.climbCount++;
-        }
-      });
-    };
-    processSide(m.red, m.rs, m.bs, m._climbRed);
-    processSide(m.blue, m.bs, m.rs, m._climbBlue);
-  });
-
-  const rankings = Object.entries(matchStats).map(([code, s]) => {
-    return {
-      code,
-      totalScore: s.pts,
-      highestScore: s.highest,
-      avgClimb: s.climbCount ? Number((s.climbTotal / s.climbCount).toFixed(2)) : 0,
-      w: s.w, l: s.l, t: s.t
-    };
-  });
-  
-  rankings.sort((a, b) => b.totalScore - a.totalScore || b.highestScore - a.highestScore || b.avgClimb - a.avgClimb || a.code.localeCompare(b.code));
-  rankings.forEach((r, i) => r.rank = i + 1);
+  // Pass-through del ranking. `code` es el alpha-3 de la API (HPE, ANT…), que NO es el del
+  // roster; `countryCode` es el alpha-2, el único puente fiable, y es lo que usa el cliente
+  // para localizar la fila por su bandera (ver docs/discovery/06-join-keys.md).
+  const rankings = (data.rankings || []).map((r) => ({
+    code: r.team?.country ?? null,
+    countryCode: r.team?.countryCode ?? null,
+    rank: r.rank,
+    rankingScore: r.rankingScore,
+    highestScore: r.highestScore,
+    climbPoints: r.climbPoints,
+    played: r.played,
+    wins: r.wins,
+    losses: r.losses,
+    ties: r.ties
+  }));
 
   const payload = {
     season: 2026,

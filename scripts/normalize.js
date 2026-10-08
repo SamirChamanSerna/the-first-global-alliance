@@ -281,33 +281,6 @@ const WLT_COL = {Wins: 'w', Losses: 'l', Ties: 't'};
 
 /** S[y][] desde manual/{year}/rankings.csv. `stats` (2024-2025) rellena W-L-T y avg. */
 function rankingsFromCsv(year, stats) {
-  if (year === 2026) {
-    // Cálculo dinámico para 2026 según las reglas: Total Score, Highest Score, Avg Climb
-    const list = Object.entries(stats).map(([code, s]) => {
-      const avgClimb = s.climbCount ? Number((s.climbTotal / s.climbCount).toFixed(2)) : 0;
-      return {
-        code,
-        totalScore: s.pts,
-        highestScore: s.highest,
-        avgClimb: avgClimb,
-        w: s.w, l: s.l, t: s.t, n: s.n, avg: s.avg
-      };
-    });
-    
-    list.sort((a, b) => b.totalScore - a.totalScore || b.highestScore - a.highestScore || b.avgClimb - a.avgClimb || a.code.localeCompare(b.code));
-    
-    return list.map((r, i) => ({
-      code: r.code,
-      rank: i + 1,
-      cols: [
-        ['Total Score', r.totalScore],
-        ['Highest Score', r.highestScore],
-        ['Avg Climb', r.avgClimb]
-      ],
-      w: r.w, l: r.l, t: r.t, n: r.n, avg: r.avg
-    }));
-  }
-
   return readCsv(`manual/${year}/rankings.csv`).map((r, i) => {
     const n = i + 2;
     const code = canon(r.team_code), rank = Number(r.rank);
@@ -330,6 +303,31 @@ function rankingsFromCsv(year, stats) {
     if (row.w !== undefined && row.n === undefined) row.n = row.w + row.l + row.t;
     return row;
   }).sort((a, b) => a.rank - b.rank);
+}
+
+/** Columnas del ranking de una temporada viva, en el orden de la tabla. */
+const COLS_LIVE = ['Ranking score', 'Highest points', 'Climb points', 'Played'];
+
+/** Filas de una temporada viva, que todavía no tiene ranking publicado. NO se calcula
+ *  nada: la API devuelve `rankings: []` y ningún partido jugado, así que fabricar la
+ *  tabla producía una fila por equipo con todo a 0 y puestos inventados por orden
+ *  alfabético. Se emite una fila por equipo INSCRITO —los que aparecen en el calendario,
+ *  que son exactamente los que rankea la API— con el hueco declarado: `rank` y las celdas
+ *  a null, que la plantilla pinta como «No data» (regla 6); así el HTML ya trae nombre,
+ *  código y bandera. El overlay en vivo (site/brand/live.js) rellena esas filas con el
+ *  ranking de la API; nunca crea ninguna. Los equipos del roster que no compiten no
+ *  entran: una lista de ranking no es la plantilla de inscritos. */
+function pendingRankings(matches) {
+  return [...new Set(matches.flatMap((m) => [...m.red, ...m.blue]))]
+    .sort((a, b) => (teams[a]?.name ?? a).localeCompare(teams[b]?.name ?? b, 'en') || a.localeCompare(b, 'en'))
+    .map((code) => ({
+      code,
+      rank: null,
+      cols: COLS_LIVE.map((label) => [label, null]),
+      // La columna W-L-T existe para esta temporada aunque el récord no se sepa todavía:
+      // `w` presente y a null es lo que la mantiene en `hasWlt` (null !== undefined).
+      w: null, l: null, t: null
+    }));
 }
 
 /** Equipos de una temporada: el total que muestra una página de temporada (el de la
@@ -486,29 +484,34 @@ const codes = new Set(Object.keys(teams));
 const problems = [];
 const check = (ok, msg) => { if (!ok) problems.push(msg); };
 
-// Rankings: el CSV es la fuente para todas las temporadas (2024-2025 incluidas), y sus
-// criterios de desempate cambian cada año. Se construyen aquí porque `rankingsFromCsv`
-// valida contra `codes` y usa `check`.
+// Rankings: el CSV es la fuente para las temporadas archivadas (2024-2025 incluidas), y
+// sus criterios de desempate cambian cada año. La temporada viva es la excepción: su
+// ranking lo publica la API, así que aquí solo se emiten las filas con el hueco declarado.
+// Se construyen aquí porque `rankingsFromCsv` valida contra `codes` y usa `check`.
 const RANK_LABELS = readJson('manual/rankings.labels.json') ?? {};
 const statsByYear = {};
+const modeOf = Object.fromEntries(seasons.map((s) => [s.y, s.mode]));
 for (const [y, d] of Object.entries(perYear)) {
   const year = Number(y);
   const stats = matchStats(year, d.matches, codes);
   statsByYear[year] = stats;
-  d.rankings = rankingsFromCsv(year, stats);
+  d.rankings = modeOf[year] === 'live' ? pendingRankings(d.matches) : rankingsFromCsv(year, stats);
 
   const seen = new Set(), ranks = new Set();
   let colCount = null;
   for (const r of d.rankings) {
     check(!seen.has(r.code), `${year}: ranking duplicado de ${r.code}`);
     seen.add(r.code);
-    check(!ranks.has(r.rank), `${year}: puesto ${r.rank} repetido`);
-    ranks.add(r.rank);
     colCount ??= r.cols.length;
     check(r.cols.length === colCount, `${year}: ${r.code} trae ${r.cols.length} columnas y el resto ${colCount}`);
+    // Una temporada viva puede no tener puestos todavía (`rank: null`): se comprueba la
+    // forma y, cuando la API los publique, también la contigüidad 1..N sobre los que sí
+    // los tienen.
+    if (r.rank === null) continue;
+    check(!ranks.has(r.rank), `${year}: puesto ${r.rank} repetido`);
+    ranks.add(r.rank);
   }
-  const n = d.rankings.length;
-  if (n) for (let i = 1; i <= n; i++) check(ranks.has(i), `${year}: falta el puesto ${i} (${n} filas)`);
+  for (let i = 1; i <= ranks.size; i++) check(ranks.has(i), `${year}: falta el puesto ${i} (${ranks.size} filas)`);
 }
 
 // El roster manda: es el código que ve quien rellena teams.csv y el de las URLs.

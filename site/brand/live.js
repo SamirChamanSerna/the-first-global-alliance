@@ -258,6 +258,14 @@
             const small = row.querySelector('.lb small');
             if (small) small.remove();
 
+            // La fila «Final score» del desglose lleva las mismas dos cifras que el
+            // marcador, y hasta ahora no la tocaba nadie: la tabla no usa .rs/.bs sino
+            // td.rw/td.bw, y el marcador sí se actualizaba porque lleva data-match.
+            const rw = row.querySelector('td.rw');
+            const bw = row.querySelector('td.bw');
+            if (rw) rw.textContent = m.rs;
+            if (bw) bw.textContent = m.bs;
+
             // Si está dentro de la lista de Próximos (#live-match-list), mover a Completados
             if (liveMatchList && completedMatchList && liveMatchList.contains(row)) {
               completedMatchList.prepend(row);
@@ -301,13 +309,27 @@
           const teamMatch = window.location.pathname.match(/\/team\/([A-Z0-9_]+)/i);
           const teamCode = teamMatch ? teamMatch[1].toUpperCase() : null;
           if (teamCode) {
+            // El código del roster no siempre es el de la API (10 Hope es HPE en la
+            // competición), así que la fila de ranking de live.json hace de puente. De paso
+            // es de donde sale el puesto de la temporada viva: sin esto la caja de Rank se
+            // quedaba en «No data» para siempre.
+            const rk = (data.rankings || []).find(
+              (x) => String(x.code ?? '').toUpperCase() === teamCode || String(x.countryCode ?? '').toUpperCase() === teamCode
+            );
+            const apiCode = rk?.code ?? teamCode;
+
+            if (rk && rk.rank != null) {
+              const rankBox = teamSection.querySelectorAll('.box b')[0];
+              if (rankBox) rankBox.textContent = rk.rank;
+            }
+
             const played = data.matches.filter(
-              (m) => m.played && (m.red.includes(teamCode) || m.blue.includes(teamCode))
+              (m) => m.played && (m.red.includes(apiCode) || m.blue.includes(apiCode))
             );
             if (played.length > 0) {
               let w = 0, l = 0, t = 0, highest = 0, totalPts = 0;
               played.forEach((m) => {
-                const isRed = m.red.includes(teamCode);
+                const isRed = m.red.includes(apiCode);
                 const own = isRed ? m.rs : m.bs;
                 const opp = isRed ? m.bs : m.rs;
                 if (own > opp) w++;
@@ -323,37 +345,78 @@
               const kvrSpans = teamSection.querySelectorAll('.kvr span:last-child');
               if (kvrSpans[0]) kvrSpans[0].textContent = highest;
               if (kvrSpans[1]) kvrSpans[1].textContent = (totalPts / played.length).toFixed(1);
+
+              // La fila de KPIs de carrera (Matches / Record) suma en el build las
+              // temporadas ya cerradas; la viva se añade aquí, porque en el build todavía
+              // no tiene récord. `.boxes.c3` solo existe en la cabecera del equipo.
+              const cBox = document.querySelectorAll('.boxes.c3 .box');
+              const recB = cBox[2] && cBox[2].querySelector('b');
+              const base = (recB ? recB.textContent : '').split('–').map((v) => parseInt(v, 10));
+              const from = base.length === 3 && base.every(Number.isFinite) ? base : [0, 0, 0];
+              const cW = from[0] + w, cL = from[1] + l, cT = from[2] + t, cN = cW + cL + cT;
+
+              const matchesB = cBox[0] && cBox[0].querySelector('b');
+              if (matchesB) matchesB.textContent = cN;
+              if (recB) recB.textContent = `${cW}–${cL}–${cT}`;
+              const pct = cBox[2] && cBox[2].querySelectorAll('small')[1];
+              if (pct && cN) pct.textContent = `${((100 * cW) / cN).toFixed(1)}%`;
             }
           }
         }
 
-        // Actualizar Rankings 2026
+        // Actualizar Rankings 2026. La API ya publica el ranking oficial, con sus
+        // desempates aplicados, así que aquí no se calcula nada: solo se rellenan las filas
+        // que el build dejó en «No data». Nunca se crean filas.
         if (data.rankings && data.rankings.length > 0) {
           const table = document.querySelector('table.dt');
           if (table && window.location.pathname.includes('/rankings/2026/')) {
             const tbody = table.querySelector('tbody');
             if (tbody) {
+              // El código de la API (HPE, ANT…) no es el del roster (10, ATG): el puente es
+              // el alpha-2, que es justo el nombre del archivo de bandera de la fila. Mismo
+              // criterio que scripts/lib/codes.js.
+              const byFlag = new Map();
+              tbody.querySelectorAll('tr').forEach((tr) => {
+                const img = tr.querySelector('img.fl');
+                if (!img) return;
+                const stem = (img.getAttribute('src') || '').split('/').pop().replace(/\.svg$/i, '').toLowerCase();
+                if (stem) byFlag.set(stem, tr);
+              });
+              const rowFor = (a2) => {
+                if (!a2) return null;
+                const direct = byFlag.get(a2);
+                if (direct) return direct;
+                // Los equipos especiales usan un asset con prefijo: 10 → 10_hope.
+                for (const [stem, tr] of byFlag) if (stem.startsWith(a2 + '_')) return tr;
+                return null;
+              };
+
               data.rankings.forEach((r) => {
-                const link = tbody.querySelector(`a[href*="/team/${r.code}/"]`);
-                const tr = link ? link.closest('tr') : null;
-                if (tr) {
-                  const cells = tr.querySelectorAll('td');
-                  if (cells[0]) cells[0].textContent = r.rank;
-                  if (cells[2]) cells[2].textContent = r.totalScore;
-                  if (cells[3]) cells[3].textContent = r.highestScore;
-                  if (cells[4]) cells[4].textContent = r.avgClimb;
-                  if (cells[5]) cells[5].textContent = `${r.w}–${r.l}–${r.t}`;
+                const tr = rowFor(String(r.countryCode ?? '').toLowerCase().split('_')[0]);
+                if (!tr) return; // sin fila no se inventa nada: se queda en «No data»
+                const cells = tr.querySelectorAll('td');
+                // `put` rechaza null para que no pueda acabar la palabra «null» en una celda.
+                const put = (i, v) => { if (cells[i] && v != null) cells[i].textContent = v; };
+                put(0, r.rank);         // #
+                put(2, r.rankingScore); // Ranking score
+                put(3, r.highestScore); // Highest points
+                put(4, r.climbPoints);  // Climb points
+                put(5, r.played);       // Played
+                if (cells[6] && r.wins != null && r.losses != null && r.ties != null) {
+                  cells[6].textContent = `${r.wins}–${r.losses}–${r.ties}`; // W-L-T
                 }
               });
 
-              // Reordenar las filas en el DOM según el nuevo rango
-              const rows = Array.from(tbody.querySelectorAll('tr'));
-              rows.sort((a, b) => {
-                 const rankA = parseInt(a.cells[0]?.textContent, 10) || 999;
-                 const rankB = parseInt(b.cells[0]?.textContent, 10) || 999;
-                 return rankA - rankB;
-              });
-              rows.forEach(row => tbody.appendChild(row));
+              // Reordenar por puesto. Las filas que siguen sin puesto se van al final y
+              // conservan su orden alfabético: el centinela es Infinity, no un número, para
+              // que ninguna fila con «No data» se cuele entre los líderes.
+              const rankOf = (tr) => {
+                const n = parseInt(tr.cells[0]?.textContent, 10);
+                return Number.isNaN(n) ? Infinity : n;
+              };
+              [...tbody.rows]
+                .sort((a, b) => { const x = rankOf(a), y = rankOf(b); return x === y ? 0 : x - y; })
+                .forEach((tr) => tbody.appendChild(tr));
             }
           }
         }
