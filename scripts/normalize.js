@@ -174,6 +174,8 @@ function buildMatches(year, snapshot) {
       red, blue,
       rs: played ? m.redScore : null,
       bs: played ? m.blueScore : null,
+      _climbRed: m.details ? [m.details.redRobotOneBraceState, m.details.redRobotTwoBraceState, m.details.redRobotThreeBraceState] : null,
+      _climbBlue: m.details ? [m.details.blueRobotOneBraceState, m.details.blueRobotTwoBraceState, m.details.blueRobotThreeBraceState] : null,
       // El desglose es específico de cada juego: sin mapa por temporada solo va el total.
       breakdown: breakdownOf(year, m),
       video: false, // los enlaces de video son manuales (data/raw/manual/videos.csv)
@@ -248,16 +250,26 @@ function apiRankings(snapshot, matches) {
 
 /** W-L-T y puntuación media derivados de los partidos de clasificación, por equipo.
  *  Un empate no entra en el promedio (ver `mg` en pages.js): cuenta en W-L-T, no en avg. */
-function matchStats(matches) {
+function matchStats(year, matches, allCodes) {
   const st = {};
+  if (year === 2026 && allCodes) {
+    for (const c of allCodes) {
+      st[c] = {w: 0, l: 0, t: 0, n: 0, pts: 0, scores: [], highest: 0, climbTotal: 0, climbCount: 0};
+    }
+  }
   for (const m of matches) {
     if (m.stage !== 'ranking' || m.rs === null) continue;
-    for (const [own_side, own, other] of [[m.red, m.rs, m.bs], [m.blue, m.bs, m.rs]]) {
-      for (const c of own_side) {
-        const z = (st[c] ??= {w: 0, l: 0, t: 0, n: 0, pts: 0, scores: []});
+    for (const [own_side, own, other, climbs] of [[m.red, m.rs, m.bs, m._climbRed], [m.blue, m.bs, m.rs, m._climbBlue]]) {
+      own_side.forEach((c, idx) => {
+        const z = (st[c] ??= {w: 0, l: 0, t: 0, n: 0, pts: 0, scores: [], highest: 0, climbTotal: 0, climbCount: 0});
         z.n++; z.pts += own; z.scores.push(own);
+        if (own > z.highest) z.highest = own;
         if (own > other) z.w++; else if (own < other) z.l++; else z.t++;
-      }
+        if (climbs && climbs[idx] !== undefined) {
+          z.climbTotal += (climbs[idx] || 0);
+          z.climbCount++;
+        }
+      });
     }
   }
   for (const z of Object.values(st)) z.avg = z.scores.length ? Number((z.pts / z.scores.length).toFixed(1)) : null;
@@ -269,6 +281,33 @@ const WLT_COL = {Wins: 'w', Losses: 'l', Ties: 't'};
 
 /** S[y][] desde manual/{year}/rankings.csv. `stats` (2024-2025) rellena W-L-T y avg. */
 function rankingsFromCsv(year, stats) {
+  if (year === 2026) {
+    // Cálculo dinámico para 2026 según las reglas: Total Score, Highest Score, Avg Climb
+    const list = Object.entries(stats).map(([code, s]) => {
+      const avgClimb = s.climbCount ? Number((s.climbTotal / s.climbCount).toFixed(2)) : 0;
+      return {
+        code,
+        totalScore: s.pts,
+        highestScore: s.highest,
+        avgClimb: avgClimb,
+        w: s.w, l: s.l, t: s.t, n: s.n, avg: s.avg
+      };
+    });
+    
+    list.sort((a, b) => b.totalScore - a.totalScore || b.highestScore - a.highestScore || b.avgClimb - a.avgClimb || a.code.localeCompare(b.code));
+    
+    return list.map((r, i) => ({
+      code: r.code,
+      rank: i + 1,
+      cols: [
+        ['Total Score', r.totalScore],
+        ['Highest Score', r.highestScore],
+        ['Avg Climb', r.avgClimb]
+      ],
+      w: r.w, l: r.l, t: r.t, n: r.n, avg: r.avg
+    }));
+  }
+
   return readCsv(`manual/${year}/rankings.csv`).map((r, i) => {
     const n = i + 2;
     const code = canon(r.team_code), rank = Number(r.rank);
@@ -454,7 +493,7 @@ const RANK_LABELS = readJson('manual/rankings.labels.json') ?? {};
 const statsByYear = {};
 for (const [y, d] of Object.entries(perYear)) {
   const year = Number(y);
-  const stats = matchStats(d.matches);
+  const stats = matchStats(year, d.matches, codes);
   statsByYear[year] = stats;
   d.rankings = rankingsFromCsv(year, stats);
 

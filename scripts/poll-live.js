@@ -40,20 +40,45 @@ export async function fetchLiveSnapshot() {
       bs: m.played ? m.blueScore : null,
       ast: m.actualStartTime || null,
       red: side(11, 14),
-      blue: side(21, 24)
+      blue: side(21, 24),
+      _climbRed: m.details ? [m.details.redRobotOneBraceState, m.details.redRobotTwoBraceState, m.details.redRobotThreeBraceState] : null,
+      _climbBlue: m.details ? [m.details.blueRobotOneBraceState, m.details.blueRobotTwoBraceState, m.details.blueRobotThreeBraceState] : null,
     };
   });
 
-  const rankings = (data.rankings || []).map((r) => ({
-    rank: r.rank,
-    code: r.team?.country,
-    rp: r.rankingScore,
-    w: r.wins,
-    l: r.losses,
-    t: r.ties,
-    highest: r.highestScore,
-    avg: r.played ? Number((r.rankingScore / r.played).toFixed(1)) : null
-  }));
+  const matchStats = {};
+  matches.forEach(m => {
+    if (!m.played || m.rs === null) return;
+    if (!m.id.includes('_q')) return; // solo matches de ranking
+    
+    const processSide = (side, own, other, climbs) => {
+      side.forEach((c, idx) => {
+        const z = matchStats[c] ??= {w: 0, l: 0, t: 0, n: 0, pts: 0, highest: 0, climbTotal: 0, climbCount: 0};
+        z.n++; z.pts += own;
+        if (own > z.highest) z.highest = own;
+        if (own > other) z.w++; else if (own < other) z.l++; else z.t++;
+        if (climbs && climbs[idx] !== undefined) {
+           z.climbTotal += (climbs[idx] || 0);
+           z.climbCount++;
+        }
+      });
+    };
+    processSide(m.red, m.rs, m.bs, m._climbRed);
+    processSide(m.blue, m.bs, m.rs, m._climbBlue);
+  });
+
+  const rankings = Object.entries(matchStats).map(([code, s]) => {
+    return {
+      code,
+      totalScore: s.pts,
+      highestScore: s.highest,
+      avgClimb: s.climbCount ? Number((s.climbTotal / s.climbCount).toFixed(2)) : 0,
+      w: s.w, l: s.l, t: s.t
+    };
+  });
+  
+  rankings.sort((a, b) => b.totalScore - a.totalScore || b.highestScore - a.highestScore || b.avgClimb - a.avgClimb || a.code.localeCompare(b.code));
+  rankings.forEach((r, i) => r.rank = i + 1);
 
   const payload = {
     season: 2026,

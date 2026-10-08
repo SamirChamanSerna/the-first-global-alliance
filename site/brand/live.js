@@ -339,10 +339,21 @@
                 if (tr) {
                   const cells = tr.querySelectorAll('td');
                   if (cells[0]) cells[0].textContent = r.rank;
-                  if (cells[2]) cells[2].textContent = r.rp;
-                  if (cells[3]) cells[3].textContent = `${r.w}–${r.l}–${r.t}`;
+                  if (cells[2]) cells[2].textContent = r.totalScore;
+                  if (cells[3]) cells[3].textContent = r.highestScore;
+                  if (cells[4]) cells[4].textContent = r.avgClimb;
+                  if (cells[5]) cells[5].textContent = `${r.w}–${r.l}–${r.t}`;
                 }
               });
+
+              // Reordenar las filas en el DOM según el nuevo rango
+              const rows = Array.from(tbody.querySelectorAll('tr'));
+              rows.sort((a, b) => {
+                 const rankA = parseInt(a.cells[0]?.textContent, 10) || 999;
+                 const rankB = parseInt(b.cells[0]?.textContent, 10) || 999;
+                 return rankA - rankB;
+              });
+              rows.forEach(row => tbody.appendChild(row));
             }
           }
         }
