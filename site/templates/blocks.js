@@ -63,7 +63,7 @@ export const layout=({title,path,active,body,latest,sx=[]})=>{
 <footer><div class="row"><span>${brand.footerLinks.map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}</span><span class="seg"><button data-t="light">${t('light')}</button><button data-t="dark">${t('dark')}</button></span></div><p>${brand.attribution} ${t('mockNote')}.</p></footer>
 <script>${SORT}</script><script src="/live.js" defer></script></body></html>`;
   const pre='../'.repeat(path.split('/').filter(Boolean).length)||'./';
-  return h.replace(/(href|src)="\/([^"]*)"/g,(m,a,p)=>`${a}="${pre}${p===''||p.endsWith('/')?p+'index.html':p}"`);
+  return h.replace(/(href|src|action)="\/([^"]*)"/g,(m,a,p)=>`${a}="${pre}${p===''||p.endsWith('/')?p+'index.html':p}"`);
 };
 
 export const hero=()=>`<div class="hero">${brand.logoSvg}<h1>${brand.name}</h1><p class="muted">${brand.tagline}</p></div>`;

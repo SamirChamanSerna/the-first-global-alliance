@@ -181,14 +181,37 @@ function buildMatches(year, snapshot) {
   });
 }
 
-/** Mapa por temporada {campo: {label, side}} — ver 03-raw-data-standard.md.
- *  Sin mapa no hay filas de detalle y el desglose muestra solo el total. */
 function breakdownOf(year, m) {
+  if (!m.details) return [];
+
+  if (year === 2026) {
+    const d = m.details;
+    const rSupp = d.wildfireInRedSuppressionUnit || 0;
+    const bSupp = d.wildfireInBlueSuppressionUnit || 0;
+    const rMult = d.redClimbMultiplier || 1.0;
+    const bMult = d.blueClimbMultiplier || 1.0;
+    const ext = d.wildfireInExtinguisher || 0;
+    const coop = d.coopertition || 0;
+    const knock = d.coopertitionKnockdownBonus || 0;
+    const rPart = d.redPartnerClimbPoints || 0;
+    const bPart = d.bluePartnerClimbPoints || 0;
+
+    return [
+      ['Suppression Unit', rSupp, bSupp],
+      ['Climb Multiplier', `x${rMult.toFixed(2)}`, `x${bMult.toFixed(2)}`],
+      ['Multiplied Suppression', Math.ceil(rSupp * rMult), Math.ceil(bSupp * bMult)],
+      ['Partner Climb', rPart, bPart],
+      ['Extinguisher (Global)', ext, ext],
+      ['Coopertition (Global)', coop, coop],
+      ['Knockdown (Global)', knock, knock],
+    ];
+  }
+
   const map = readJson(`manual/breakdown.${year}.json`);
-  if (!map || !m.details) return [];
+  if (!map) return [];
   return Object.entries(map)
     .filter(([field]) => m.details[field] !== undefined)
-    .map(([field, spec]) => ({label: spec.label, red: m.details[field]?.[0] ?? null, blue: m.details[field]?.[1] ?? null}));
+    .map(([field, spec]) => [spec.label, m.details[field]?.[0] ?? null, m.details[field]?.[1] ?? null]);
 }
 
 // ---------------------------------------------------------------- rankings

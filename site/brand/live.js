@@ -4,6 +4,96 @@
 
 (function () {
   function init() {
+    // 0. Buscador global (en cabecera y página /search/)
+    const navForm = document.querySelector('.nav form');
+    const navInput = document.querySelector('.nav input[type="search"]');
+
+    if (navForm && navInput) {
+      navForm.addEventListener('submit', (e) => {
+        const val = navInput.value.trim();
+        if (!val) {
+          e.preventDefault();
+          return;
+        }
+
+        // Si es un año exacto (e.g. 2024, 2026), redirigir a esa temporada
+        if (/^20\d{2}$/.test(val)) {
+          e.preventDefault();
+          const cssLink = document.querySelector('link[rel="stylesheet"]');
+          const pre = cssLink ? cssLink.getAttribute('href').replace(/site\.css.*$/, '') : './';
+          window.location.href = `${pre}insights/${val}/index.html`;
+          return;
+        }
+
+        // Si coincide exactamente con un equipo en el DOM
+        const cleanVal = val.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+        const teamLink = Array.from(document.querySelectorAll('a[href*="/team/"]')).find((a) => {
+          const tText = (a.textContent || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim();
+          return tText === cleanVal || a.getAttribute('href').includes(`/team/${cleanVal}/`);
+        });
+
+        if (teamLink) {
+          e.preventDefault();
+          window.location.href = teamLink.getAttribute('href');
+          return;
+        }
+      });
+    }
+
+    // Lógica específica para /search/
+    const searchPageInput = document.getElementById('search-page-input');
+    const searchResults = document.getElementById('search-results');
+    if (searchPageInput && searchResults) {
+      function filterSearch(term) {
+        const q = (term || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim();
+        const rows = document.querySelectorAll('#search-results table.dt tbody tr');
+        let visible = 0;
+        rows.forEach((row) => {
+          if (!q) {
+            row.hidden = false;
+            visible++;
+            return;
+          }
+          const text = (row.textContent || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+          const match = text.includes(q);
+          row.hidden = !match;
+          if (match) visible++;
+        });
+
+        let noMsg = document.getElementById('search-no-results');
+        if (visible === 0 && q) {
+          if (!noMsg) {
+            noMsg = document.createElement('p');
+            noMsg.id = 'search-no-results';
+            noMsg.className = 'note';
+            noMsg.textContent = 'No results found.';
+            searchResults.appendChild(noMsg);
+          }
+          noMsg.hidden = false;
+        } else if (noMsg) {
+          noMsg.hidden = true;
+        }
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get('q') || '';
+      if (q) {
+        searchPageInput.value = q;
+        filterSearch(q);
+      }
+
+      searchPageInput.addEventListener('input', () => {
+        const val = searchPageInput.value.trim();
+        filterSearch(val);
+        try {
+          const url = new URL(window.location);
+          if (val) url.searchParams.set('q', val);
+          else url.searchParams.delete('q');
+          window.history.replaceState({}, '', url);
+        } catch {}
+      });
+    }
+
     // Comprobar si la página actual muestra contenido de la temporada 2026
     const is2026 =
       document.querySelector('[data-season="2026"]') ||
@@ -50,12 +140,13 @@
     }
 
     // 2. Formato de ETA
-    function formatEta(diffMs) {
+    function formatEta(diffMs, inProgress) {
+      if (inProgress) return '● In progress';
       if (diffMs <= -3600000) {
         return '';
       }
       if (diffMs <= 0) {
-        return '● In progress';
+        return 'Starting soon';
       }
       const totalMinutes = Math.round(diffMs / 60000);
       if (totalMinutes === 0) {
@@ -94,7 +185,8 @@
         const clock = row.dataset.clock || '';
 
         const localTimeStr = targetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const etaStr = formatEta(diff);
+        const inProgress = row.dataset.inProgress === 'true';
+        const etaStr = formatEta(diff, inProgress);
 
         const timeLabel = (!isKst && clock)
           ? `${localTimeStr} local (${clock} KST)`
@@ -121,10 +213,28 @@
         const data = await res.json();
         if (!data || !data.matches) return;
 
-        // Actualizar partidos (scores y tono win/lose)
+        const playedList = data.matches.filter((m) => m.played && m.rs !== null && m.bs !== null);
+        const unplayedList = data.matches.filter((m) => !m.played || m.rs === null || m.bs === null);
+
+        // Actualizar KPIs de partidos en Insights 2026
+        const kpiComp = document.getElementById('kpi-completed');
+        const kpiUpc = document.getElementById('kpi-upcoming');
+        if (kpiComp) kpiComp.textContent = playedList.length;
+        if (kpiUpc) kpiUpc.textContent = data.matches.length - playedList.length;
+
+        const liveMatchList = document.getElementById('live-match-list');
+        const completedMatchList = document.getElementById('completed-match-list');
+        const completedSection = document.getElementById('completed-section');
+
+        // Actualizar partidos (scores, win/lose y mover de Próximos a Completados)
         data.matches.forEach((m) => {
-          if (!m.played || m.rs === null || m.bs === null) return;
           const rows = document.querySelectorAll(`[data-match="${m.id}"]`);
+          if (!m.played || m.rs === null || m.bs === null) {
+            if (m.ast) {
+              rows.forEach((row) => row.dataset.inProgress = 'true');
+            }
+            return;
+          }
           rows.forEach((row) => {
             const rTone = m.rs === m.bs ? 'lose' : m.rs > m.bs ? 'win' : 'lose';
             const bTone = m.rs === m.bs ? 'lose' : m.bs > m.rs ? 'win' : 'lose';
@@ -147,25 +257,43 @@
 
             const small = row.querySelector('.lb small');
             if (small) small.remove();
+
+            // Si está dentro de la lista de Próximos (#live-match-list), mover a Completados
+            if (liveMatchList && completedMatchList && liveMatchList.contains(row)) {
+              completedMatchList.prepend(row);
+              if (completedSection) completedSection.hidden = false;
+            }
           });
         });
 
-        // Actualizar partidos activos en On Deck (5 canchas)
-        const onDeckContainer = document.getElementById('on-deck-container');
-        if (onDeckContainer) {
-          const onDeckRows = onDeckContainer.querySelectorAll('.m');
+        // Actualizar partidos activos en On Deck (Fields 1–5) en Insights y GameDay
+        const onDeckContainers = document.querySelectorAll('#on-deck-container');
+        onDeckContainers.forEach((container) => {
+          const onDeckRows = Array.from(container.querySelectorAll('.m'));
           onDeckRows.forEach((row) => {
             const matchId = row.dataset.match;
             const liveMatch = data.matches.find((m) => m.id === matchId);
             if (liveMatch && liveMatch.played && liveMatch.rs !== null) {
               const field = row.dataset.field;
-              const nextUpcoming = document.querySelector(`#live-match-list .m[data-field="${field}"]`);
-              if (nextUpcoming) {
-                row.replaceWith(nextUpcoming.cloneNode(true));
+              // Buscar en unplayedList el próximo partido de esa cancha
+              const nextUpcomingData = unplayedList.find((um) => {
+                const domEl = document.querySelector(`.m[data-match="${um.id}"]`);
+                return domEl && domEl.dataset.field === field && !container.contains(domEl);
+              });
+
+              if (nextUpcomingData) {
+                const sourceEl = document.querySelector(`.m[data-match="${nextUpcomingData.id}"]`);
+                if (sourceEl) {
+                  const clone = sourceEl.cloneNode(true);
+                  row.replaceWith(clone);
+                  return;
+                }
               }
+              // Si no quedan partidos próximos para esa cancha
+              row.remove();
             }
           });
-        }
+        });
 
         // Actualizar estadísticas de equipo en la sección 2026
         const teamSection = document.querySelector('section.ev[data-season="2026"]');

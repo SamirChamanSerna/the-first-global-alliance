@@ -38,6 +38,7 @@ export async function fetchLiveSnapshot() {
       played: !!m.played,
       rs: m.played ? m.redScore : null,
       bs: m.played ? m.blueScore : null,
+      ast: m.actualStartTime || null,
       red: side(11, 14),
       blue: side(21, 24)
     };

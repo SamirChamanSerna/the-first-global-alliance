@@ -93,6 +93,10 @@ export const brand = {
     quadView: "4 Fields",
     allFields: "All 5 Fields",
     closeStream: "Close stream",
+    searchResults: "Search results",
+    noResults: "No results found",
+    searchPrompt: "Type a team name, country, or season year…",
+    allTeams: "All teams",
   },
 };
 

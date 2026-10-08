@@ -115,13 +115,18 @@ const insLive=y=>{
 
   return bar(`${t('season')} ${y}`,dd(y,[[urls.insights(),t('overview')],...Y.map(z=>[urls.insights(z),z])]))
   +`<p class="muted">${[sName(y),place(s)].filter(Boolean).join(' · ')} · <a href="https://first.global/archive/fgc-${y}/">${t('officialSite')}</a> · ${t('koreaTime')}</p>`
-  +boxes([box(t('matches'),ms.length),box(t('completed'),completed.length),box(t('upcoming'),upcoming.length),box(t('teams'),teamsOf(y))],1)
+  +boxes([
+    box(t('matches'),ms.length),
+    `<div class="box"><small>${t('completed')}</small><b id="kpi-completed">${completed.length}</b></div>`,
+    `<div class="box"><small>${t('upcoming')}</small><b id="kpi-upcoming">${upcoming.length}</b></div>`,
+    box(t('teams'),teamsOf(y))
+  ],1)
   +`<div class="stream-bar"><span>${t('mainBroadcast')}:</span>${dayBtns}<a class="stream-btn" href="${STREAMS_2026.playlist}" target="_blank" rel="noopener">▶ ${t('playlist')} ↗</a><a class="stream-btn on" href="${urls.gameday()}">⚡ ${t('gamedayTitle')}</a></div>`
   +revealBlock(y)
   +`<div class="bar"><h3>${t('liveTracker')}</h3><input type="search" id="match-filter" placeholder="${t('search')}" aria-label="${t('search')}"></div>`
-  +(onDeck.length?`<h3>${t('onDeck')}</h3><div class="on-deck-matches" id="on-deck-container">${onDeck.map(m=>matchRow(m)).join('')}</div>`:'')
-  +(completed.length?`<h3>${t('completed')}</h3><div>${completed.slice().reverse().map(m=>matchRow(m)).join('')}</div>`:'')
-  +`<h3>${t('upcoming')}</h3><div id="live-match-list">${upcoming.map(m=>matchRow(m)).join('')}</div>`;
+  +`<div id="on-deck-section"${onDeck.length?'':' hidden'}><h3>${t('onDeck')}</h3><div class="on-deck-matches" id="on-deck-container">${onDeck.map(m=>matchRow(m)).join('')}</div></div>`
+  +`<div id="completed-section"${completed.length?'':' hidden'}><h3>${t('completed')}</h3><div id="completed-match-list">${completed.slice().reverse().map(m=>matchRow(m)).join('')}</div></div>`
+  +`<div id="upcoming-section"><h3>${t('upcoming')}</h3><div id="live-match-list">${upcoming.map(m=>matchRow(m)).join('')}</div></div>`;
 };
 
 const insArchived=y=>{
@@ -245,7 +250,19 @@ const ts=(c,y)=>{const z=(S[y]||[]).find(x=>x.code==c)||{code:c,rank:t('noData')
 // La lista de equipos del pie se quitó: repetía la tabla.
 const mp=m=>`<div class="bar"><h1>${m.label} · ${sName(m.y)}</h1></div><p class="when">${m.field} · ${m.time}</p><section class="ev"><div class="mh span-all"><div>${scoreboard(m)}<div class="sec">${breakdown(m)}</div></div><div class="vids">${videoThumb(m)}</div></div></section>`;
 
-export const pages=()=>{const P=[{path:'',title:brand.name,body:home()},{path:outPath(urls.insights()),title:t('overview'),active:'insights',body:ins()},{path:outPath(urls.teams()),title:t('teams'),active:'teams',body:teams()},{path:outPath(urls.awards()),title:t('awards'),active:'awards',body:awards()},{path:outPath(urls.gameday()),title:'GameDay',active:'gameday',body:gameday()}];
+const searchPage=()=>{
+  return bar(t('search'))
+  +`<p class="muted">${t('searchPrompt')}</p>`
+  +`<div class="bar"><input type="search" id="search-page-input" placeholder="${t('search')}" aria-label="${t('search')}"></div>`
+  +`<div id="search-results">`
+  +`<h3>${t('teams')}</h3>`
+  +`<div>${dt([[t('flagCol')],[t('iso')],[t('team')],[t('seasons'),1]],codes.map(c=>[flag(c),c,`<a href="${urls.team(c)}">${T[c][0]}</a>`,yearsOf(c).length]))}</div>`
+  +`<h3>${t('seasons')}</h3>`
+  +`<div>${dt([[t('year')],[t('venue')],[t('country')],[t('dates')]],seasons.map(s=>[`<a href="${urls.insights(s.y)}">${s.y}</a>`,s.city||t('noData'),countryCell(s),s.dates||t('noData')]))}</div>`
+  +`</div>`;
+};
+
+export const pages=()=>{const P=[{path:'',title:brand.name,body:home()},{path:outPath(urls.insights()),title:t('overview'),active:'insights',body:ins()},{path:outPath(urls.teams()),title:t('teams'),active:'teams',body:teams()},{path:outPath(urls.awards()),title:t('awards'),active:'awards',body:awards()},{path:outPath(urls.gameday()),title:'GameDay',active:'gameday',body:gameday()},{path:outPath(urls.search()),title:t('search'),active:'search',body:searchPage()}];
   Y.forEach(y=>{P.push({path:outPath(urls.insights(y)),title:`${t('season')} ${y}`,active:'insights',body:ins(y)},
     // Las temporadas sin competencia (2020-2021) también tienen páginas de ranking y de
     // partidos: muestran el aviso, no una tabla vacía. Sus partidos son 0, así que el
