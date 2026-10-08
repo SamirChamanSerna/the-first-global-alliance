@@ -323,6 +323,23 @@
               if (rankBox) rankBox.textContent = rk.rank;
             }
 
+            // La fila de KPIs de carrera de la cabecera suma en el build las temporadas ya
+            // cerradas; la viva se añade aquí, porque en el build todavía no la tiene.
+            // `.boxes.c3` solo existe en la cabecera del equipo.
+            const cBox = document.querySelectorAll('.boxes.c3 .box');
+
+            // «Best rank» se calcula igual, solo con las cerradas: si el puesto de la viva
+            // es mejor, se queda con él y con su año. Sin JS queda el de las cerradas.
+            if (rk && rk.rank != null) {
+              const bestB = cBox[3] && cBox[3].querySelector('b');
+              const cur = bestB ? parseInt(String(bestB.textContent).replace('#', ''), 10) : NaN;
+              if (bestB && (!Number.isFinite(cur) || rk.rank < cur)) {
+                bestB.textContent = `#${rk.rank}`;
+                const sub = cBox[3].querySelectorAll('small')[1];
+                if (sub) sub.textContent = `${data.season} · of ${data.rankings.length}`;
+              }
+            }
+
             const played = data.matches.filter(
               (m) => m.played && (m.red.includes(apiCode) || m.blue.includes(apiCode))
             );
@@ -346,10 +363,7 @@
               if (kvrSpans[0]) kvrSpans[0].textContent = highest;
               if (kvrSpans[1]) kvrSpans[1].textContent = (totalPts / played.length).toFixed(1);
 
-              // La fila de KPIs de carrera (Matches / Record) suma en el build las
-              // temporadas ya cerradas; la viva se añade aquí, porque en el build todavía
-              // no tiene récord. `.boxes.c3` solo existe en la cabecera del equipo.
-              const cBox = document.querySelectorAll('.boxes.c3 .box');
+              // La temporada viva se suma al total de carrera (Matches / Record) del build.
               const recB = cBox[2] && cBox[2].querySelector('b');
               const base = (recB ? recB.textContent : '').split('–').map((v) => parseInt(v, 10));
               const from = base.length === 3 && base.every(Number.isFinite) ? base : [0, 0, 0];
