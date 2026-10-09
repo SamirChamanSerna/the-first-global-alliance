@@ -117,7 +117,7 @@ Two things are not obvious:
 
 **`awards.csv`** (only if ever needed manually) — `year` ✅, `award_slug` ✅, `name`, `description`, `tier` ✅ (`gold` \| `silver` \| `bronze` \| `awarded`), `team_code` ✅. One row per team per award.
 
-**`teams.csv`** — object keyed by `team_code`: `{ continent, website, instagram, twitter, facebook, contact }`. `continent` is required for the `/teams/` grouping and exists nowhere in the API.
+**`teams.csv`** — object keyed by `team_code`: `{ continent, website, instagram, twitter, facebook, contact }`. `continent` is required for the `/teams/` grouping and exists nowhere in the API. Only a team with no country at all leaves it empty (the refugee team): `/teams/` lists those in a trailing `No continent` group rather than dropping them.
 
 **`photos.csv`** — the team photo **per season** (members change every year, so there is no team-level photo).
 
