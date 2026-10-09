@@ -71,7 +71,18 @@ const {byAlpha2, byAlpha3} = await regions();
 
 // El puente fiable es alpha-2: el roster trae códigos alpha-3 obsoletos (ANT no
 // existe en el ISO vigente, pero su alpha-2 «ag» sí). Ver scripts/lib/codes.js.
-const regionOf = (t) => byAlpha2[String(t.countryCode).toUpperCase()] ?? byAlpha3[t.country.toUpperCase()] ?? '';
+//
+// El listado tiene dos países del roster sin región y hay que fijarlos a mano:
+// Taiwán (`TW`) aparece con la `region` vacía, y Kosovo (`XK`) no tiene alpha-2 en
+// ISO 3166-1 (es un código de uso interno). Sin esto, Chinese Taipei y Kosovo se
+// quedan sin continente y desaparecen del directorio /teams/. Se aplican como
+// último recurso, nunca pisan una región que el listado sí traiga.
+const OVERRIDE = {TW: 'Asia', XK: 'Europe'};
+
+const regionOf = (t) => {
+  const a2 = String(t.countryCode).toUpperCase();
+  return byAlpha2[a2] ?? byAlpha3[String(t.country).toUpperCase()] ?? OVERRIDE[a2] ?? '';
+};
 
 const rows = parseCsv(fs.readFileSync(TEAMS, 'utf8'));
 const head = rows[0].map((h) => h.trim());

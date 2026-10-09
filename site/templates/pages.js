@@ -159,7 +159,13 @@ const ins=y=>!y?insOverview():sn(y)?.mode==='live'?insLive(y):insArchived(y);
 // lleva a /awards/, que los lista todos. La lista completa de bloques de premio
 // (arriba) sí incluye a todos los ganadores de cada premio.
 
-const teams=()=>bar(t('teams'))+['Africa','Americas','Asia','Europe','Oceania'].map(k=>`<h3>${k}</h3>`+dt([[t('flagCol')],[t('iso')],[t('team')],[t('seasons'),1]],codes.filter(c=>T[c][1]==k).sort().map(c=>[flag(c),c,`<a href="${urls.team(c)}">${T[c][0]}</a>`,yearsOf(c).length]))).join('');
+// Un equipo sin continente no cae en ninguno de los cinco grupos y desaparecería del
+// directorio sin aviso (hoy solo Hope, el equipo de refugiados: no tiene país). El
+// grupo final lo recoge como estado explícito, y solo se dibuja si queda alguno.
+const teams=()=>{
+  const groups=[...['Africa','Americas','Asia','Europe','Oceania'].map(k=>[k,c=>T[c][1]===k]),[t('noContinent'),c=>!T[c][1]]].filter(([,f])=>codes.some(f));
+  return bar(t('teams'))+groups.map(([k,f])=>`<h3>${k}</h3>`+dt([[t('flagCol')],[t('iso')],[t('team')],[t('seasons'),1]],codes.filter(f).sort().map(c=>[flag(c),c,`<a href="${urls.team(c)}">${T[c][0]}</a>`,yearsOf(c).length]))).join('');
+};
 
 const awards=()=>bar(t('awards'))+dt([[t('team')],...['gold','silver','bronze','honorable'].map(k=>[brand.medals[k].label,1]),[t('total'),1]],codes.map(c=>[c,cnt(c)]).sort((a,b)=>tot(b[1])-tot(a[1])).map(([c,o])=>[tl(c),o.gold,o.silver,o.bronze,o.honorable,tot(o)]),1);
 const tot=o=>Object.values(o).reduce((x,y)=>x+y,0);

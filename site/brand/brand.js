@@ -56,7 +56,7 @@ export const brand = {
     teams: "Teams", score: "Score", watch: "Watch", watchAllVideos: "Watch all videos",
     endOfDay: "End of Day", matchDetails: "Match details", estimated: "Estimated",
     entityType: "Entity type", firstSeason: "First season", seasonsActive: "Seasons active",
-    iso: "ISO", medals: "Medals", noData: "No data", noMatchData: "No match data",
+    iso: "ISO", medals: "Medals", noData: "No data", noMatchData: "No match data", noContinent: "No continent",
     stageRanking: "Qualifications", stageRoundRobin: "Round robin", stageFinals: "Finals",
     generatedOn: "Generated on",
     season: "Season", seasons: "Seasons", overview: "Overview", matches: "Matches", team: "Team", total: "Total", year: "Year",
