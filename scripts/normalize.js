@@ -288,10 +288,8 @@ function buildMatches(year, snapshot) {
 }
 
 function breakdownOf(year, m) {
-  if (!m.details) return [];
-
   if (year === 2026) {
-    const d = m.details;
+    const d = m.details || {};
     const rSupp = d.wildfireInRedSuppressionUnit || 0;
     const bSupp = d.wildfireInBlueSuppressionUnit || 0;
     const rMult = d.redClimbMultiplier || 1.0;
@@ -303,15 +301,17 @@ function breakdownOf(year, m) {
     const bPart = d.bluePartnerClimbPoints || 0;
 
     return [
-      ['Suppression Unit', rSupp, bSupp],
-      ['Climb Multiplier', `x${rMult.toFixed(2)}`, `x${bMult.toFixed(2)}`],
-      ['Multiplied Suppression', Math.ceil(rSupp * rMult), Math.ceil(bSupp * bMult)],
-      ['Partner Climb', rPart, bPart],
-      ['Extinguisher (Global)', ext, ext],
-      ['Coopertition (Global)', coop, coop],
-      ['Knockdown (Global)', knock, knock],
+      ['Suppression Unit', m.played ? rSupp : '-', m.played ? bSupp : '-'],
+      ['Climb Multiplier', m.played ? `x${rMult.toFixed(2)}` : '-', m.played ? `x${bMult.toFixed(2)}` : '-'],
+      ['Multiplied Suppression', m.played ? Math.ceil(rSupp * rMult) : '-', m.played ? Math.ceil(bSupp * bMult) : '-'],
+      ['Partner Climb', m.played ? rPart : '-', m.played ? bPart : '-'],
+      ['Extinguisher (Global)', '-', m.played ? ext : '-'],
+      ['Coopertition (Global)', '-', m.played ? coop : '-'],
+      ['Knockdown (Global)', '-', m.played ? knock : '-'],
     ];
   }
+
+  if (!m.details) return [];
 
   const map = readJson(`manual/breakdown.${year}.json`);
   if (!map) return [];

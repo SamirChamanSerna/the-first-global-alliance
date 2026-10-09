@@ -262,9 +262,22 @@
             // marcador, y hasta ahora no la tocaba nadie: la tabla no usa .rs/.bs sino
             // td.rw/td.bw, y el marcador sí se actualizaba porque lleva data-match.
             const rw = row.querySelector('td.rw');
-            const bw = row.querySelector('td.bw');
-            if (rw) rw.textContent = m.rs;
-            if (bw) bw.textContent = m.bs;
+              const bw = row.querySelector('td.bw');
+              if (rw) rw.textContent = m.rs;
+              if (bw) bw.textContent = m.bs;
+
+              if (m.bd && row.tagName === 'TABLE' && row.classList.contains('bd')) {
+                const trs = row.querySelectorAll('tbody tr');
+                m.bd.forEach((bdRow, i) => {
+                  if (trs[i]) {
+                    const tds = trs[i].querySelectorAll('td');
+                    if (tds.length >= 3) {
+                      tds[0].textContent = bdRow[0];
+                      tds[2].textContent = bdRow[1];
+                    }
+                  }
+                });
+              }
 
             // Si está dentro de la lista de Próximos (#live-match-list), mover a Completados
             if (liveMatchList && completedMatchList && liveMatchList.contains(row)) {
@@ -406,16 +419,18 @@
               };
 
               data.rankings.forEach((r) => {
-                const tr = rowFor(String(r.countryCode ?? '').toLowerCase().split('_')[0]);
-                if (!tr) return; // sin fila no se inventa nada: se queda en «No data»
+                const codeKey = r.code || r.countryCode || '';
+                const tr = rowFor(String(codeKey).toLowerCase().split('_')[0]);
+                if (!tr) return;
                 const cells = tr.querySelectorAll('td');
-                // `put` rechaza null para que no pueda acabar la palabra «null» en una celda.
                 const put = (i, v) => { if (cells[i] && v != null) cells[i].textContent = v; };
-                put(0, r.rank);         // #
-                put(2, r.rankingScore); // Ranking score
-                put(3, r.highestScore); // Highest points
-                put(4, r.climbPoints);  // Climb points
-                put(5, r.played);       // Played
+                put(0, r.rank);
+                put(2, r.totalScore);
+                put(3, r.highestScore);
+                put(4, r.avgClimb);
+                if (cells[5]) {
+                  cells[5].textContent = `${r.w}–${r.l}–${r.t}`;
+                }
                 if (cells[6] && r.wins != null && r.losses != null && r.ties != null) {
                   cells[6].textContent = `${r.wins}–${r.losses}–${r.ties}`; // W-L-T
                 }
