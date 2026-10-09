@@ -142,6 +142,96 @@ const rememberName = (code, name) => {
   displayNames[code] = String(name).replace(/^Team /, '').trim();
 };
 
+// ---------------------------------------------------------------- vídeos y streams
+//
+// Dos entradas manuales, las dos por temporada:
+//   · `manual/{year}/streams.csv` — el enlace de CADA campo en CADA día. Es lo que
+//     alimenta el GameDay (siempre el día más reciente) y el enlace de reserva de los
+//     partidos de ese día.
+//   · `manual/{year}/{year}.json` — la salida del extractor de vídeo: por partido, el
+//     stream del campo con el segundo exacto en el que empieza. Solo es una parte de
+//     los partidos; los que falten se quedan con el enlace del campo, que es un estado
+//     declarado, no un hueco silencioso.
+//
+// El id de YouTube es lo que necesita el reproductor del GameDay (`/embed/{id}`).
+// Se exige que la URL sea de YouTube y traiga id: una URL sin id acabaría en un iframe
+// roto, y es preferible que el build lo diga a publicarlo.
+const YT_ID = /(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/;
+
+/** Enlaces por (día, campo) de una temporada, tal como los escribe el CSV. */
+function readStreams(year) {
+  const rows = readCsv(`manual/${year}/streams.csv`);
+  if (!rows.length) return null;
+  const days = new Map();
+  for (const [i, r] of rows.entries()) {
+    const n = i + 2; // +1 por la cabecera, +1 porque el índice empieza en 0
+    const day = Number(r.day), field = Number(r.field), url = (r.youtube_url ?? '').trim();
+    const fail = (msg) => die(`streams.csv de ${year} (fila ${n}): ${msg}`);
+    if (r.year !== String(year)) fail(`el año es "${r.year}" y el archivo está en la carpeta de ${year}`);
+    if (!Number.isInteger(day) || day < 1) fail(`día inválido "${r.day}"`);
+    if (!Number.isInteger(field) || field < 1 || field > 5) fail(`campo inválido "${r.field}" (1–5)`);
+    if (!HTTP_URL.test(url)) fail(`URL vacía o sin http(s) — "${r.youtube_url ?? ''}"`);
+    if (!YT_ID.test(url)) fail(`"${url}" no es una URL de YouTube con id`);
+    const fields = days.get(day) ?? new Map();
+    if (fields.has(field)) fail(`el campo ${field} del día ${day} está repetido`);
+    fields.set(field, {id: YT_ID.exec(url)[1], url});
+    days.set(day, fields);
+  }
+  // El día más alto es el que se está jugando: el GameDay se actualiza solo al añadir
+  // las filas del día siguiente, sin ningún interruptor que mantener a mano.
+  const latest = Math.max(...days.keys());
+  return {
+    year,
+    latest,
+    days: [...days.keys()].sort((a, b) => a - b).map((day) => ({
+      day,
+      fields: Object.fromEntries([...days.get(day).keys()].sort((a, b) => a - b).map((f) => [`Field ${f}`, days.get(day).get(f)])),
+    })),
+  };
+}
+
+/** Vídeo exacto por partido, desde la salida del extractor, indexado por `match_number`
+ *  del bloque `RANK` (que es el número del partido `{year}_qN`). Se ignoran las
+ *  detecciones sin equipos (`stage: "UNKNOWN"`, extracciones fallidas: no hay nada con
+ *  lo que unirlas a un partido). La comprobación de que cada número exista se hace al
+ *  final, con `check`, junto al resto de la validación. */
+function readExactVideos(year) {
+  const raw = readJson(`manual/${year}/${year}.json`);
+  if (!raw) return null;
+  const map = new Map();
+  let unusable = 0;
+  for (const e of raw) {
+    const url = (e.video?.url ?? '').trim();
+    if (e.stage !== 'RANK' || !Number.isInteger(e.match_number) || !HTTP_URL.test(url)) { unusable++; continue; }
+    map.set(e.match_number, {url, entry: e.id});
+  }
+  return {year, map, unusable};
+}
+
+const streamsByYear = {};
+const exactByYear = {};
+for (const y of FULL_YEARS) {
+  const s = readStreams(y);
+  if (s) streamsByYear[y] = s;
+  const e = readExactVideos(y);
+  if (e) exactByYear[y] = e;
+}
+
+// Un solo aviso por temporada, resumido: el detalle de cada detección fallida está en
+// el propio JSON del extractor, y repetirlo 44 veces no aporta nada al operador.
+for (const e of Object.values(exactByYear)) {
+  if (e.unusable) console.log(`aviso: ${e.unusable} entrada(s) de ${e.year}/${e.year}.json sin partido al que unirse — se omiten`);
+}
+
+// Día de competición = posición de la fecha entre las que aparecen en el snapshot, en
+// orden. Es el único puente entre un partido y el stream de su día: `streams.csv` cuenta
+// días, la API da fechas. Se comprobó contra el extractor: los 74 vídeos exactos son de
+// partidos del 2026-10-08 y su id es justo el stream del día 1 de su campo.
+const daysOf = (matches) => {
+  const dates = [...new Set(matches.map((m) => (m.scheduledTime ?? '').slice(0, 10)).filter(Boolean))].sort();
+  return new Map(dates.map((d, i) => [d, i + 1]));
+};
+
 // ---------------------------------------------------------------- partidos
 
 /** Hora local del evento, tal como la declara la API ("...T11:15:00-05:00" → "11:15").
@@ -152,6 +242,9 @@ const timeOf = (iso) => {
 };
 
 function buildMatches(year, snapshot) {
+  const days = daysOf(snapshot.matches ?? []);
+  const streams = streamsByYear[year];
+  const exact = exactByYear[year]?.map ?? new Map();
   return (snapshot.matches ?? []).map((m) => {
     const st = STAGES[m.tournamentKey] ?? die(`Año ${year}: tournamentKey desconocido "${m.tournamentKey}"`);
     const side = (lo, hi) => m.participants
@@ -163,22 +256,33 @@ function buildMatches(year, snapshot) {
     // `played` es siempre true en un snapshot completo; si algún día no lo es, un
     // partido sin jugar deja rs/bs en null — nunca 0, que sería un resultado falso.
     const played = m.played === undefined ? true : !!m.played;
+    const field = m.field === undefined ? '' : `Field ${m.field}`;
+    // Stream del campo EN EL DÍA DE ESTE PARTIDO, no el del día que se juega hoy: un
+    // partido del día 1 enlaza al stream del día 1. Se resuelve aquí para que la
+    // plantilla no tenga que saber de qué día es cada partido.
+    const day = days.get((m.scheduledTime ?? '').slice(0, 10));
+    const stream = streams?.days.find((d) => d.day === day)?.fields[field]?.url ?? null;
+    const video = st.stage === 'ranking' ? (exact.get(m.id)?.url ?? null) : null;
     return {
       id: `${year}_${st.letter}${m.id}`,
       y: year,
       stage: st.stage,
       label: m.name,
-      field: m.field === undefined ? '' : `Field ${m.field}`,
+      field,
       time: timeOf(m.scheduledTime),
       scheduledTime: m.scheduledTime ?? null,
       red, blue,
       rs: played ? m.redScore : null,
       bs: played ? m.blueScore : null,
       _climbRed: m.details ? [m.details.redRobotOneBraceState, m.details.redRobotTwoBraceState, m.details.redRobotThreeBraceState] : null,
-      _climbBlue: m.details ? [m.details.blueRobotOneBraceState, m.details.blueRobotTwoBraceState, m.details.blueRobotThreeBraceState] : null,
+      _climbBlue: m.details ? [m.details.redRobotOneBraceState, m.details.redRobotTwoBraceState, m.details.redRobotThreeBraceState] : null,
       // El desglose es específico de cada juego: sin mapa por temporada solo va el total.
       breakdown: breakdownOf(year, m),
-      video: false, // los enlaces de video son manuales (data/raw/manual/videos.csv)
+      // `video` = enlace exacto del partido (con el segundo de inicio). `stream` = enlace
+      // del campo, que es la reserva cuando no hay vídeo exacto. Sin ninguno de los dos
+      // el partido no tiene nada que enlazar, y es un estado: el botón ▶ no se pinta.
+      video,
+      stream,
     };
   });
 }
@@ -483,6 +587,7 @@ if (isoList) {
 const codes = new Set(Object.keys(teams));
 const problems = [];
 const check = (ok, msg) => { if (!ok) problems.push(msg); };
+const streamMismatches = [];
 
 // Rankings: el CSV es la fuente para las temporadas archivadas (2024-2025 incluidas), y
 // sus criterios de desempate cambian cada año. La temporada viva es la excepción: su
@@ -512,6 +617,23 @@ for (const [y, d] of Object.entries(perYear)) {
     ranks.add(r.rank);
   }
   for (let i = 1; i <= ranks.size; i++) check(ranks.has(i), `${year}: falta el puesto ${i} (${ranks.size} filas)`);
+
+  // Vídeos: cada entrada del extractor tiene que apuntar a un partido que exista. Si la
+  // numeración del extractor se desplazara, sin esta comprobación la temporada se
+  // publicaría sin un solo vídeo y nadie se enteraría.
+  const byId = new Map(d.matches.map((m) => [m.id, m]));
+  for (const [n, e] of exactByYear[year]?.map ?? []) {
+    check(byId.has(`${year}_q${n}`), `${year}.json: la entrada ${e.entry} apunta al partido ${year}_q${n}, que no existe`);
+  }
+  // Y el cruce que delata un mapeo de días roto: el vídeo exacto de un partido tiene que
+  // ser el stream que streams.csv declara para SU día y SU campo. No es un error fatal
+  // —el vídeo exacto se publica igual, es el bueno—, pero sí la señal de que uno de los
+  // dos archivos está mal, así que se avisa.
+  for (const m of d.matches) {
+    if (!m.video || !m.stream) continue;
+    const exactId = YT_ID.exec(m.video)?.[1], streamId = YT_ID.exec(m.stream)?.[1];
+    if (exactId && streamId && exactId !== streamId) streamMismatches.push(`${m.id} (${m.field})`);
+  }
 }
 
 // El roster manda: es el código que ve quien rellena teams.csv y el de las URLs.
@@ -582,6 +704,11 @@ if (nonTeamAwards.length) {
     `${names.length} — ${names.join(' · ')}`);
 }
 
+if (streamMismatches.length) {
+  console.warn(`aviso: ${streamMismatches.length} partido(s) cuyo vídeo exacto no es el stream declarado para su día y campo — ` +
+    `revisa streams.csv o el mapeo de días: ${streamMismatches.slice(0, 5).join(' · ')}`);
+}
+
 if (problems.length) {
   console.error(`\n${problems.length} problema(s):`);
   problems.slice(0, 20).forEach((p) => console.error('  · ' + p));
@@ -605,6 +732,7 @@ write('flags.json', flags);
 write('photos.json', photos);
 write('awards.json', buildCatalogue(perYear));
 for (const [y, d] of Object.entries(perYear)) {
+  if (streamsByYear[y]) write(`${y}/streams.json`, streamsByYear[y]);
   write(`${y}/matches.json`, d.matches);
   write(`${y}/rankings.json`, d.rankings);
   write(`${y}/alliances.json`, d.alliances);
@@ -614,6 +742,8 @@ for (const [y, d] of Object.entries(perYear)) {
 console.log(`data/processed/ — ${seasons.length} temporadas, ${codes.size} equipos, ${seenPhotos.size} fotos`);
 for (const y of ALL_YEARS) {
   const d = perYear[y];
-  console.log(`  ${y}: ${d.matches.length} partidos, ${d.rankings.length} rankings, ${d.alliances.length} alianzas, ${d.awards.length} premios`);
+  const withVideo = d.matches.filter((m) => m.video).length, withStream = d.matches.filter((m) => m.stream).length;
+  const vids = d.matches.length ? ` — ${withVideo} con vídeo exacto, ${withStream} con enlace del campo` : '';
+  console.log(`  ${y}: ${d.matches.length} partidos, ${d.rankings.length} rankings, ${d.alliances.length} alianzas, ${d.awards.length} premios${vids}`);
 }
 console.log('siguiente paso: node site/build.js');

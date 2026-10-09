@@ -33,7 +33,11 @@ const read = (file) => {
  *   teams.json              {CODE: {name, continent}}
  *   photos.json             {"2025": {CODE: url}}   una foto por equipo y temporada
  *   awards.json             [[name, desc, ty, tier], …]   catálogo de premios
- *   {year}/matches.json     [{id, stage, label, …, red[], blue[], rs, bs, breakdown[]}]
+ *   {year}/matches.json     [{id, stage, label, …, red[], blue[], rs, bs, breakdown[],
+ *                             video, stream}]   `video` = enlace exacto del partido (o
+ *                           null) y `stream` = enlace del campo de su día (o null)
+ *   {year}/streams.json     {year, latest, days:[{day, fields:{"Field N": {id, url}}}]}
+ *                           enlaces de cada campo y día; `latest` es el día en juego
  *   {year}/rankings.json    [{code, rank, cols: [[etiqueta, valor]…], w?, l?, t?, n?, avg?}]
  *                           `cols` son los criterios de desempate DE ESA temporada, en su
  *                           orden, con la etiqueta que fija rankings.labels.json. `w/l/t`
@@ -48,12 +52,15 @@ function load() {
   const teams = read('teams.json');
   if (!teams) return null;
 
-  const M = {}, S = {}, A = {}, AL = {};
+  const M = {}, S = {}, A = {}, AL = {}, ST = {};
   for (const s of seasons) {
     M[s.y] = read(`${s.y}/matches.json`) ?? [];
     S[s.y] = read(`${s.y}/rankings.json`) ?? [];
     AL[s.y] = read(`${s.y}/alliances.json`) ?? [];
     A[s.y] = read(`${s.y}/awards.json`) ?? [];
+    // Enlaces de los streams, por temporada. Solo la temporada viva los tiene hoy, y el
+    // GameDay los necesita para construir sus botones de campo.
+    ST[s.y] = read(`${s.y}/streams.json`) ?? null;
   }
   // Sin ningún partido en ninguna temporada los datos procesados no sirven: es
   // preferible construir el sitio de prueba que publicar un archivo a medias.
@@ -66,7 +73,7 @@ function load() {
   // Las fotos son opcionales: un processed/ sin photos.json sigue sirviendo y las
   // páginas caen a su marcador. Hacerlas obligatorias mandaría al fixture cualquier
   // data/processed/ generado antes de que existiera este archivo.
-  return {seasons, T, codes: Object.keys(T), M, S, A, AL, AW: read('awards.json') ?? [], PH: read('photos.json') ?? {}};
+  return {seasons, T, codes: Object.keys(T), M, S, A, AL, ST, AW: read('awards.json') ?? [], PH: read('photos.json') ?? {}};
 }
 
 const real = load();
@@ -84,6 +91,9 @@ export const A = d.A;
 export const AL = d.AL;
 export const AW = d.AW;
 export const PH = d.PH ?? {};
+/** Enlaces de los streams por temporada (día → campo). El fixture trae un juego mínimo
+ *  para que la barra de campos del GameDay también se vea sin datos reales. */
+export const ST = d.ST ?? {};
 
 /**
  * Código de país → nombre del archivo de bandera. El repositorio real de banderas

@@ -14,7 +14,8 @@ data/
     manual/                      # hand-entered CSVs — the ONLY hand-written inputs
       README.md                  # operator's guide
       seasons.csv  teams.csv  photos.csv  videos.csv
-      {year}/{matches,rankings,alliances}.csv
+      {year}/{matches,rankings,alliances,streams}.csv
+      {year}/{year}.json         # video-extractor output: exact per-match stream links
       breakdown.{year}.json      # game-specific field map (no tabular form)
   processed/                     # ENTRADA DEL BUILD — generada, NO versionada (.gitignore). data.js lee esto
     seasons.json                 # [{y,name,city,country,iso,dates,mode}]
@@ -22,6 +23,7 @@ data/
     photos.json                  # {"2025": {CODE: url}}   one photo per team and season
     awards.json                  # [[name,desc,ty,tier], …]  award catalogue
     {year}/matches.json  rankings.json  alliances.json  awards.json
+    {year}/streams.json          # {year, latest, days:[{day, fields:{"Field N": {id,url}}}]}
 ```
 
 `raw/api/*` is written by the fetcher and never opened by hand. `raw/manual/*` is the only thing a human edits, and it is **CSV** because that is what a spreadsheet emits. The build converts it into `processed/*.json`, which is what the templates actually read through `site/templates/data.js` — no CSV is parsed at runtime, and none is ever served.
@@ -82,7 +84,15 @@ One row per `(team_code, year)`: the team photo of **that edition**, not of the 
 
 **`videos.csv`** — `match_id,video_url,start,end`
 
-A match link is the stream URL plus a timestamp. Store `start`/`end` as `H:MM:SS` and convert to `t=` seconds at build time.
+A match link is the stream URL plus a timestamp. Store `start`/`end` as `H:MM:SS` and convert to `t=` seconds at build time. This file is declared but **not wired yet**: today the per-match links come from the 2026 extractor output (below), which already carries its own URL with the start second.
+
+**`{year}/streams.csv`** — `year,field,day,youtube_url`, one row per field **and** day of competition.
+
+This is what feeds the GameDay (which shows the highest `day` in the file) and the fallback link of every match of that day. `day` counts competition days from 1 — the position of the date in the API snapshot's schedule, not a label stored anywhere else — and `field` is the field **number** (1–5) that `matches.csv` uses. Rows are validated hard: a malformed day or field, a repeated `(day, field)` pair, or a URL that is not a YouTube link with an id fails the build.
+
+**`{year}/{year}.json`** — output of the video extractor, not hand-written. Every `RANK` entry is `{match_number, video:{url}}`: the deep link into that field's stream at the second the match starts, joined by match number. Entries the extractor could not read teams out of (`stage: "UNKNOWN"`) are counted and skipped — their matches keep the field-stream fallback.
+
+The result reaches the templates as two fields per match: `video` (the exact link, or empty) and `stream` (the field stream of **that match's own day**, resolved at build time so no template has to know what day a match belongs to). No link at all is a state, not a hole to fill: the match renders without a play button.
 
 **`breakdown.{year}.json`** — the one hand-edited file with no tabular form; it maps game-specific API field names to display rows.
 
@@ -96,6 +106,7 @@ The templates expect the shapes in `00-instrucciones-agentes.md` §4. The normal
 | `T[code] → [name, continent]` | `/v1/teams` + `teams.csv` | name auto, continent manual |
 | `PH[y][code] → url` | `photos.csv` | manual, one per team and season |
 | `M[y][]` | `/v1?year=` matches + participants, or `manual/matches.csv` | auto for 2024/2025 |
+| `M[y][].video` / `.stream` | `manual/{year}/{year}.json` (exact link) + `manual/{year}/streams.csv` (field of that match's day) | manual; the extractor covers part of the season, the rest falls back to the field stream |
 | `S[y][]` | `manual/{year}/rankings.csv` for **every** season | manual (the API lacks tie-breaker criteria, and they change yearly). Per-season `cols` + labels from `rankings.labels.json` |
 | `AL[y][]` | `alliances_round_robin` + `alliances_finals` | auto for 2024/2025 |
 | `A[y][]` | `awards[]`: `gold/silver/bronze` + `other[].class` → `ty`/`tier`/`w[]` | auto 2017–2025 |

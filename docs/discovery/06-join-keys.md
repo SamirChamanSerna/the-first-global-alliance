@@ -82,8 +82,20 @@ Every hand-entered file must carry these. Extra columns are allowed and ignored.
 | `red_score` `blue_score` | | integer | **empty = not played**, never `0` |
 | `video_url` `video_start` `video_end` | | text / `H:MM:SS` | |
 
-**`rankings.csv`** — the final ranking of **every** season, including 2024-2025 (the API does not return all the tie-breaker criteria, and they differ year to year, so the CSV always wins).
+**`streams.csv`** (`manual/{year}/streams.csv`) — the official stream of each field, for each day of competition.
 
+| Column | Key? | Format | Notes |
+|---|---|---|---|
+| `year` | ✅ | integer | must exist in `seasons.csv`, and match the folder |
+| `field` | ✅ | integer 1–5 | the field **number**, the same one `matches.csv` uses |
+| `day` | ✅ | integer ≥ 1 | competition day; day 1 is the earliest date in that season's API snapshot |
+| `youtube_url` | | `http(s)://` YouTube URL with an id | the id is what the GameDay embeds, so a URL without one fails the build |
+
+`(year, day, field)` is the key: a repeated pair fails the build. There is no `date` column on purpose — the day is derived from the schedule, so a fixed date can never drift out of sync with the matches. The GameDay shows the highest `day` present, so rolling it over is just adding the next day's five rows.
+
+**`{year}.json`** (`manual/{year}/{year}.json`) — the video extractor's output, not hand-written. Joined to matches by `match_number` inside the `RANK` (qualification) block, which is the `N` of the site's `{year}_qN` match id — the country codes in that file are the extractor's alpha-3 spelling (`VUT`, `BWA`), which is **not** the roster's, so teams are never the join key here. Each entry's `video.url` becomes the match's `video`; entries without a readable stage or teams (`stage: "UNKNOWN"`) are skipped and counted.
+
+**`rankings.csv`** — the final ranking of **every** season, including 2024-2025 (the API does not return all the tie-breaker criteria, and they differ year to year, so the CSV always wins).
 | Column | Key? | Format | Notes |
 |---|---|---|---|
 | `year` | ✅ | integer | must exist in `seasons.csv` |

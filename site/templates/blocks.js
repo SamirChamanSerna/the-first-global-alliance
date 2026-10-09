@@ -2,7 +2,6 @@
 import {brand,t} from '../brand/brand.js';
 import {urls} from './urls.js';
 import {T} from './data.js';
-import {STREAMS_2026} from '../brand/streams.js';
 export const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 // Sin ISO no hay imagen: marco gris (.fl.none), nunca un <img> roto.
 export const flag=i=>i?`<img class="fl" src="${urls.flag(i)}" alt="" width="16" height="11" loading="lazy">`:`<span class="fl none"></span>`;
@@ -30,8 +29,12 @@ const sc=(s,k)=>dash(k=='win'?`<b class="w">${s}</b>`:s);
 export const matchRow=(m,me)=>{const p=m.rs!=null,r=p?tone(m.rs,m.bs):'neu',b=p?tone(m.bs,m.rs):'neu',cells=a=>a.map(c=>teamCell(c,c==me)).join('');
   const tm=m.scheduledTime?`~${m.time} KST · ${m.field}`:`~${m.time} · ${m.field}`;
   const allTeams=[...m.red,...m.blue].map(c=>`${c} ${T[c]?.[0]||''}`).join(' ');
-  const vidHref=(m.y==2026&&m.field&&STREAMS_2026.fields[m.field])?`${urls.gameday()}?stream=${encodeURIComponent(m.field)}`:m.video?urls.match(m.id):null;
-  return `<div class="m" data-match="${m.id}"${m.scheduledTime?` data-time="${m.scheduledTime}"`:''}${m.field?` data-field="${m.field}"`:''}${m.time?` data-clock="${m.time}"`:''} data-teams="${e(allTeams)}"><span class="c-pl">${vidHref?`<a class="pl" href="${vidHref}" aria-label="${t('watch')}"></a>`:''}</span><a class="lb" href="${urls.match(m.id)}">${m.label}${p?'':`<small>${tm}</small>`}</a><div class="ra ${r}">${cells(m.red)}</div><div class="ba ${b}">${cells(m.blue)}</div><span class="rs ${r}">${p?sc(m.rs,r):'–'}</span><span class="bs ${b}">${p?sc(m.bs,b):'–'}</span></div>`};
+  // El vídeo lo resuelve el pipeline: `video` es el enlace exacto del partido (con el
+  // segundo en el que empieza) y `stream` el del campo de ESE día. Sin ninguno de los
+  // dos no hay botón: el hueco se queda vacío, como en la maqueta para un partido que
+  // todavía no se ha jugado. El enlace es externo, así que va escapado.
+  const vidHref=m.video||m.stream;
+  return `<div class="m" data-match="${m.id}"${m.scheduledTime?` data-time="${m.scheduledTime}"`:''}${m.field?` data-field="${m.field}"`:''}${m.time?` data-clock="${m.time}"`:''} data-teams="${e(allTeams)}"><span class="c-pl">${vidHref?`<a class="pl" href="${e(vidHref)}" aria-label="${t('watch')}"></a>`:''}</span><a class="lb" href="${urls.match(m.id)}">${m.label}${p?'':`<small>${tm}</small>`}</a><div class="ra ${r}">${cells(m.red)}</div><div class="ba ${b}">${cells(m.blue)}</div><span class="rs ${r}">${p?sc(m.rs,r):'–'}</span><span class="bs ${b}">${p?sc(m.bs,b):'–'}</span></div>`};
 const ST=[['finals','stageFinals'],['round_robin','stageRoundRobin'],['ranking','stageRanking']]; // última fase primero
 export const matchList=(ms,me)=>ST.map(([k,l])=>{const a=ms.filter(m=>m.stage==k);return a.length?`<div class="stg"><i></i><b>${t(l)}</b><i></i></div>`+a.map(m=>matchRow(m,me)).join(''):''}).join('');
 export const scoreboard=m=>{const r=tone(m.rs,m.bs),b=tone(m.bs,m.rs);return `<div class="sb" data-match="${m.id}"><div class="hd2">${t('teams')}</div><div class="hd2">${t('score')}</div><div class="ra ${r}">${m.red.map(c=>teamCell(c)).join('')}</div><span class="rs ${r}">${sc(m.rs,r)}</span><div class="ba ${b}">${m.blue.map(c=>teamCell(c)).join('')}</div><span class="bs ${b}">${sc(m.bs,b)}</span></div>`};
@@ -44,13 +47,23 @@ const bdRows=m=>m.breakdown??[[t('water'),m.bd?.[0],m.bd?.[2]],[t('parking'),m.b
 // `data-match` para que el overlay en vivo la encuentre: la fila de total lleva las mismas
 // cifras que el marcador, y sin el atributo se quedaba con el «–» del build para siempre.
 export const breakdown=m=>`<table class="bd" data-match="${m.id}"><tbody>${bdRows(m).map(([l,a,b])=>bdr(0,l,a,b)).join('')}${bdr(1,t('final'),m.rs,m.bs)}</tbody></table>`;
-export const videoThumb=m=>`<div><a class="thumb" href="${urls.match(m.id)}" aria-label="${e(m.label)}">${t('thumbnail')}</a><div class="cap"><span>${e(m.label)}</span><small>${e(m.y)} · ${e(m.field)}</small></div></div>`;
 // Miniatura de un vídeo de YouTube. `mqdefault.jpg` son 320×180, justo la medida que fija
 // 02-guia-de-estilos.md §3.15 para las miniaturas (≤ 40 KB), y es una URL determinista del
 // CDN: no necesita API, clave ni JS. Con una URL que no sea de YouTube se deja el marcador
 // de texto de la maqueta. `alt=""` a propósito: la miniatura es decorativa y el enlace de
-// al lado ya dice de qué vídeo se trata (mismo criterio que las banderas).
-const ytId=u=>{const m=/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/.exec(u||'');return m?m[1]:null};
+// al lado ya dice de qué vídeo se trata (mismo criterio que las banderas). Lo usa también
+// GameDay para el id incrustable de cada campo, así que va exportado.
+export const ytId=u=>{const m=/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/.exec(u||'');return m?m[1]:null};
+// Tarjeta de vídeo de un partido. Una sola pieza para los dos casos, como pidió el
+// dueño: si la extracción tiene el partido, el enlace es su deep link (con el segundo de
+// inicio); si no, el stream del campo de ese día. La miniatura es la del vídeo al que se
+// enlaza. Sin ningún enlace queda el marcador de la maqueta, que es el estado explícito
+// de «este partido no tiene vídeo».
+export const videoThumb=m=>{const href=m.video||m.stream,id=ytId(href);
+  const thumb=id
+    ?`<a class="thumb" href="${e(href)}" rel="noopener" aria-label="${e(m.label)}"><img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg" alt="" width="320" height="180" loading="lazy" decoding="async"></a>`
+    :`<div class="thumb">${t('thumbnail')}</div>`;
+  return `<div>${thumb}<div class="cap"><span>${e(m.label)}</span><small>${e(m.y)} · ${e(m.field)}</small></div></div>`};
 // Misma forma que video-thumb del demo, pero con un enlace externo y sin depender de
 // un partido. Se usa para el video de revelación de la temporada. La miniatura ES el
 // enlace (02-guia-de-estilos.md §3.16: «toda la miniatura es el enlace»); el pie es texto,

@@ -2,7 +2,7 @@
 import {brand,t} from '../brand/brand.js';
 import {e,hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
 import {urls,outPath} from './urls.js';
-import {seasons,T,codes,M,S,A,AL,AW,PH} from './data.js';
+import {seasons,T,codes,M,S,A,AL,AW,PH,ST} from './data.js';
 import {STREAMS_2026} from '../brand/streams.js';
 const Y=seasons.map(s=>s.y),L=Y[0],sn=y=>seasons.find(s=>s.y==y);
 // YC = temporadas con competencia. Las de solo premios (2020, 2021) no tienen partidos,
@@ -35,7 +35,7 @@ const awBlocks=y=>`<div class="aws">${(y?A[y]:AW.map(([name,desc])=>({name,desc}
 const pips=o=>Object.entries(o).map(([k,n])=>`${pip(k)} ×${n}`).join(' ');
 const av=a=>a.reduce((x,y)=>x+y,0)/a.length,sd=a=>{const m=av(a);return Math.sqrt(av(a.map(v=>(v-m)**2)))},pm=a=>`${av(a).toFixed(1)} <span class="muted">± ${sd(a).toFixed(1)}</span>`;
 const best=ms=>ms.length?ms.reduce((a,m)=>Math.max(m.rs,m.bs)>Math.max(a.rs,a.bs)?m:a):null;
-const hi=m=>m?`<div>${matchRow(m)}</div><div class="sec">${m.video?videoThumb(m):videoFallback(m)}</div>`:`<div class="muted">${t('noMatchData')}</div>`;
+const hi=m=>m?`<div>${matchRow(m)}</div><div class="sec">${(m.video||m.stream)?videoThumb(m):videoFallback(m)}</div>`:`<div class="muted">${t('noMatchData')}</div>`;
 const sc=ms=>ms.flatMap(m=>[m.rs,m.bs]).filter(v=>v!=null);
 // "Average winning margin": un empate no tiene margen de victoria, así que no entra.
 // Contarlos como 0 hundía el promedio (2025: 7.0 con empates, 8.0 sin ellos).
@@ -176,7 +176,13 @@ const rankings=y=>bar(`${t('topRank')} ${y}`,sel(y,z=>urls.rankings(z)))
 const matches=y=>bar(`${t('matches')} ${y}`,sel(y,z=>urls.matches(z)))
   +(onlyAwards(y)?noComp():M[y].length?`<div>${matchList(M[y])}</div>`:`<p class="note">${t('noMatchData')}</p>`);
 const gameday=()=>{
-  const defStream=STREAMS_2026.general[0];
+  // Los campos salen de data/raw/manual/2026/streams.csv (ya procesado): `latest` es el
+  // día más reciente con enlaces, así que al añadir las filas del día siguiente el
+  // GameDay se actualiza solo, sin tocar código. La retransmisión principal del día en
+  // juego es la tarjeta con la que abre.
+  const streams=ST[2026];
+  const day=streams?.days.find(d=>d.day===streams.latest);
+  const defStream=STREAMS_2026.general.find(g=>g.day===streams?.latest)??STREAMS_2026.general[0];
   const upcoming=(M[2026]||[]).filter(m=>m.rs===null);
   const fields=[...new Set(upcoming.map(m=>m.field))].filter(Boolean).sort().slice(0,5);
   const onDeck=fields.map(f=>upcoming.find(m=>m.field===f)).filter(Boolean);
@@ -189,12 +195,16 @@ const gameday=()=>{
     `<button class="stream-btn" data-preset="5">${t('allFields')}</button>`,
   ].join('');
 
-  const dayBtns=STREAMS_2026.general.map((d,i)=>
-    `<button class="stream-btn stream-toggle${i===0?' on':''}" data-stream-id="${d.id}" data-stream-key="${d.key}" data-stream-label="${d.label}">${d.label}</button>`
+  const dayBtns=STREAMS_2026.general.map(d=>
+    `<button class="stream-btn stream-toggle${d===defStream?' on':''}" data-stream-id="${d.id}" data-stream-key="${d.key}" data-stream-label="${d.label}">${d.label}</button>`
   ).join('');
 
-  const fieldBtns=Object.values(STREAMS_2026.fields).map(f=>
-    `<button class="stream-btn stream-toggle" data-stream-id="${f.id}" data-stream-key="${f.key}" data-stream-field="${f.field}" data-stream-label="${f.label}">${f.label}</button>`
+  // `data-stream-field` es lo que hace que `?stream=field 1` abra el campo correcto:
+  // live.js busca por campo, clave o id. La clave es del CAMPO, no del vídeo («field1»
+  // sigue siendo el campo 1 cuando cambie su enlace), así que una URL guardada no
+  // envejece al día siguiente.
+  const fieldBtns=Object.entries(day?.fields??{}).map(([field,s])=>
+    `<button class="stream-btn stream-toggle" data-stream-id="${s.id}" data-stream-key="${field.toLowerCase().replace(/\s+/g,'')}" data-stream-field="${field}" data-stream-label="${field}">${field}</button>`
   ).join('');
 
   const initialCard=
