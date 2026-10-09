@@ -1,0 +1,7060 @@
+[
+  {
+    "id": "2026-RANK-001",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 1,
+    "label": "Ranking Match 1",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 1745.07,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 2027.07,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=1742"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "SLE",
+          "ARU",
+          "AFG"
+        ],
+        "score": 72,
+        "breakdown": {
+          "suppression_unit": 48,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "ANG",
+          "SRB",
+          "NOR"
+        ],
+        "score": 42,
+        "breakdown": {
+          "suppression_unit": 34,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 4,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_001",
+      "frame": "frames/result_frames/det_001_1.jpg",
+      "raw_response": "extract/raw/det_001_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-002",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 2,
+    "label": "Ranking Match 2",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 1533.63,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 1849.63,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=1530"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "URU",
+          "CRC",
+          "RUS"
+        ],
+        "score": 7,
+        "breakdown": {
+          "suppression_unit": 1,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "KAZ",
+          "VUT",
+          "KOS"
+        ],
+        "score": 272,
+        "breakdown": {
+          "suppression_unit": 205,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 5,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_001",
+      "frame": "frames/result_frames/det_001_1.jpg",
+      "raw_response": "extract/raw/det_001_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-003",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 3,
+    "label": "det_001",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 1409.84,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=1406"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_001",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-004",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 4,
+    "label": "Ranking Match 4",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 1743.97,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 2069.97,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=1740"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "MLI",
+          "BWA",
+          "ETH"
+        ],
+        "score": 84,
+        "breakdown": {
+          "suppression_unit": 51,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "BOL",
+          "MAR",
+          "SWE"
+        ],
+        "score": 57,
+        "breakdown": {
+          "suppression_unit": 52,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_001",
+      "frame": "frames/result_frames/det_001_1.jpg",
+      "raw_response": "extract/raw/det_001_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-005",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 5,
+    "label": "Ranking Match 5",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 1922.8400000000001,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 2206.84,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=1919"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "POL",
+          "PNG",
+          "CYM"
+        ],
+        "score": 173,
+        "breakdown": {
+          "suppression_unit": 72,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "MAD",
+          "MYA",
+          "PHI"
+        ],
+        "score": 53,
+        "breakdown": {
+          "suppression_unit": 12,
+          "climb_multiplier": 14,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 26,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "4 Robots (+10)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_001",
+      "frame": "frames/result_frames/det_001_1.jpg",
+      "raw_response": "extract/raw/det_001_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-006",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 6,
+    "label": "det_002",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 1907.3000000000002,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=1904"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_002",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-007",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 7,
+    "label": "Ranking Match 7",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 2546.66,
+      "start_method": "audio_start",
+      "result_frame_s": 2848.92,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=2543"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "ASA",
+          "ECU",
+          "CIV"
+        ],
+        "score": 9,
+        "breakdown": {
+          "suppression_unit": 0,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "TGA",
+          "CRO",
+          "ANT"
+        ],
+        "score": 51,
+        "breakdown": {
+          "suppression_unit": 38,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 9,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_002",
+      "frame": "frames/result_frames/det_002_1.jpg",
+      "raw_response": "extract/raw/det_002_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-008",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 8,
+    "label": "Ranking Match 8",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 2284.0,
+      "start_method": "audio_start",
+      "result_frame_s": 2606.58,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=2281"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "TPE",
+          "YEM",
+          "FRA"
+        ],
+        "score": 265,
+        "breakdown": {
+          "suppression_unit": 118,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "CHN",
+          "ZAM",
+          "BRA"
+        ],
+        "score": 436,
+        "breakdown": {
+          "suppression_unit": 208,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "6 Robots (+40)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_002",
+      "frame": "frames/result_frames/det_002_1.jpg",
+      "raw_response": "extract/raw/det_002_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-009",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 9,
+    "label": "det_003",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 2393.22,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=2390"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_003",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-010",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 10,
+    "label": "Ranking Match 10",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 2865.95,
+      "start_method": "audio_start",
+      "result_frame_s": 3281.27,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=2862"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "KNA",
+          "VCT",
+          "IDN"
+        ],
+        "score": 194,
+        "breakdown": {
+          "suppression_unit": 130,
+          "climb_multiplier": 1.45,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "PAN",
+          "GUM",
+          "COM"
+        ],
+        "score": 28,
+        "breakdown": {
+          "suppression_unit": 17,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 5,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_002",
+      "frame": "frames/result_frames/det_002_1.jpg",
+      "raw_response": "extract/raw/det_002_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-011",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 11,
+    "label": "Ranking Match 11",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 2704.23,
+      "start_method": "audio_start",
+      "result_frame_s": 2940.46,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=2701"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "AZE",
+          "MDV",
+          "MRT"
+        ],
+        "score": 29,
+        "breakdown": {
+          "suppression_unit": 1,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "LCA",
+          "SSD",
+          "RWA"
+        ],
+        "score": 27,
+        "breakdown": {
+          "suppression_unit": 0,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 17,
+      "knockdown_bonus": "Achieved (+10)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_002",
+      "frame": "frames/result_frames/det_002_1.jpg",
+      "raw_response": "extract/raw/det_002_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-012",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 12,
+    "label": "det_004",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 2777.34,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=2774"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_004",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-014",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 14,
+    "label": "Ranking Match 14",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 3114.18,
+      "start_method": "audio_start",
+      "result_frame_s": 3427.78,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=3111"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "GNB",
+          "BAN",
+          "ZWE"
+        ],
+        "score": 63,
+        "breakdown": {
+          "suppression_unit": 45,
+          "climb_multiplier": 1.15,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "PAK",
+          "VIR",
+          "SEN"
+        ],
+        "score": 33,
+        "breakdown": {
+          "suppression_unit": 20,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 11,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_003",
+      "frame": "frames/result_frames/det_003_1.jpg",
+      "raw_response": "extract/raw/det_003_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-015",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 15,
+    "label": "det_005",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 3190.22,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=3187"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_005",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-017",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 17,
+    "label": "Ranking Match 17",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 3792.52,
+      "start_method": "audio_start",
+      "result_frame_s": 4202.65,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=3789"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "BEN",
+          "ALB",
+          "SLV"
+        ],
+        "score": 95,
+        "breakdown": {
+          "suppression_unit": 62,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "BAR",
+          "COG",
+          "EST"
+        ],
+        "score": 46,
+        "breakdown": {
+          "suppression_unit": 29,
+          "climb_multiplier": 1.2,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 11,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_003",
+      "frame": "frames/result_frames/det_003_1.jpg",
+      "raw_response": "extract/raw/det_003_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-018",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 18,
+    "label": "det_006",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 3596.48,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=3593"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_006",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-020",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 20,
+    "label": "Ranking Match 20",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 4256.88,
+      "start_method": "audio_start",
+      "result_frame_s": 4613.06,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=4253"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "HAI",
+          "ERI",
+          "USA"
+        ],
+        "score": 135,
+        "breakdown": {
+          "suppression_unit": 125,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "EGY",
+          "LBN",
+          "BEL"
+        ],
+        "score": 83,
+        "breakdown": {
+          "suppression_unit": 76,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 3,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_004",
+      "frame": "frames/result_frames/det_004_1.jpg",
+      "raw_response": "extract/raw/det_004_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-021",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 21,
+    "label": "det_007",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 3993.75,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=3990"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_007",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-022",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 22,
+    "label": "Ranking Match 22",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 4915.89,
+      "start_method": "audio_start",
+      "result_frame_s": 5274.55,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=4912"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "BIH",
+          "JAM",
+          "LBR"
+        ],
+        "score": 95,
+        "breakdown": {
+          "suppression_unit": 66,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "IRQ",
+          "ROU",
+          "TGO"
+        ],
+        "score": 211,
+        "breakdown": {
+          "suppression_unit": 139,
+          "climb_multiplier": 1.5,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_004",
+      "frame": "frames/result_frames/det_004_1.jpg",
+      "raw_response": "extract/raw/det_004_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-023",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 23,
+    "label": "Ranking Match 23",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 4670.89,
+      "start_method": "audio_start",
+      "result_frame_s": 4991.34,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=4667"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "MLT",
+          "MGL",
+          "MAS"
+        ],
+        "score": 32,
+        "breakdown": {
+          "suppression_unit": 17,
+          "climb_multiplier": 1.0,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "MAR",
+          "KGZ",
+          "NGA"
+        ],
+        "score": 174,
+        "breakdown": {
+          "suppression_unit": 113,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 15,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_004",
+      "frame": "frames/result_frames/det_004_1.jpg",
+      "raw_response": "extract/raw/det_004_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-024",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 24,
+    "label": "det_008",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 4497.85,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=4494"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_008",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-025",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 25,
+    "label": "Ranking Match 25",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 5129.47,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 5456.47,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=5126"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "VIR",
+          "TUN",
+          "GBR"
+        ],
+        "score": 15,
+        "breakdown": {
+          "suppression_unit": 1,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "PER",
+          "THA",
+          "PLE"
+        ],
+        "score": 53,
+        "breakdown": {
+          "suppression_unit": 36,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 13,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_004",
+      "frame": "frames/result_frames/det_004_1.jpg",
+      "raw_response": "extract/raw/det_004_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-026",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 26,
+    "label": "Ranking Match 26",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 5179.57,
+      "start_method": "audio_start",
+      "result_frame_s": 5490.48,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=5176"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "PUR",
+          "LBY",
+          "MOZ"
+        ],
+        "score": 8,
+        "breakdown": {
+          "suppression_unit": 6,
+          "climb_multiplier": 1.0,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "STP",
+          "OMA",
+          "HKG"
+        ],
+        "score": 207,
+        "breakdown": {
+          "suppression_unit": 128,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_005",
+      "frame": "frames/result_frames/det_005_1.jpg",
+      "raw_response": "extract/raw/det_005_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-027",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 27,
+    "label": "det_009",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 5043.88,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=5040"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_009",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-028",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 28,
+    "label": "Ranking Match 28",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 5562.17,
+      "start_method": "audio_start",
+      "result_frame_s": 5848.63,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=5559"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "QAT",
+          "CAF",
+          "AUT"
+        ],
+        "score": 98,
+        "breakdown": {
+          "suppression_unit": 65,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "LUX",
+          "UGA",
+          "SWZ"
+        ],
+        "score": 15,
+        "breakdown": {
+          "suppression_unit": 8,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 6,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_005",
+      "frame": "frames/result_frames/det_005_1.jpg",
+      "raw_response": "extract/raw/det_005_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-029",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 29,
+    "label": "Ranking Match 29",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 5547.87,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 5849.87,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=5544"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "GAM",
+          "VEN",
+          "POR"
+        ],
+        "score": 97,
+        "breakdown": {
+          "suppression_unit": 69,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "CAN",
+          "AUS",
+          "ARG"
+        ],
+        "score": 80,
+        "breakdown": {
+          "suppression_unit": 50,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_005",
+      "frame": "frames/result_frames/det_005_1.jpg",
+      "raw_response": "extract/raw/det_005_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-030",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 30,
+    "label": "det_010",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 5555.29,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=5552"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_010",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-031",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 31,
+    "label": "Ranking Match 31",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 6160.72,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 6531.72,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=6157"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "NEP",
+          "UAE",
+          "ECU"
+        ],
+        "score": 272,
+        "breakdown": {
+          "suppression_unit": 169,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "NED",
+          "LSO",
+          "VNM"
+        ],
+        "score": 76,
+        "breakdown": {
+          "suppression_unit": 65,
+          "climb_multiplier": 1.15,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 1,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_005",
+      "frame": "frames/result_frames/det_005_1.jpg",
+      "raw_response": "extract/raw/det_005_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-032",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 32,
+    "label": "Ranking Match 32",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 6145.07,
+      "start_method": "audio_start",
+      "result_frame_s": 6421.32,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=6142"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "FRA",
+          "BOT",
+          "SLE"
+        ],
+        "score": 101,
+        "breakdown": {
+          "suppression_unit": 54,
+          "climb_multiplier": 1.7,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "VGB",
+          "COM",
+          "KEN"
+        ],
+        "score": 17,
+        "breakdown": {
+          "suppression_unit": 7,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 9,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_006",
+      "frame": "frames/result_frames/det_006_1.jpg",
+      "raw_response": "extract/raw/det_006_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-033",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 33,
+    "label": "det_011",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 5973.97,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=5970"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_011",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-034",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 34,
+    "label": "Ranking Match 34",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 6452.46,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 6831.46,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=6449"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "AZE",
+          "FIN",
+          "MAR"
+        ],
+        "score": 88,
+        "breakdown": {
+          "suppression_unit": 51,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "KOR",
+          "CMR",
+          "ALG"
+        ],
+        "score": 71,
+        "breakdown": {
+          "suppression_unit": 38,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 19,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_006",
+      "frame": "frames/result_frames/det_006_1.jpg",
+      "raw_response": "extract/raw/det_006_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-035",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 35,
+    "label": "Ranking Match 35",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 6538.0,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 6814.0,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=6535"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "CUB",
+          "VUT",
+          "SOM"
+        ],
+        "score": 13,
+        "breakdown": {
+          "suppression_unit": 0,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "ETH",
+          "GHA",
+          "LCA"
+        ],
+        "score": 91,
+        "breakdown": {
+          "suppression_unit": 74,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 13,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 2,
+      "detection_id": "det_006",
+      "frame": "frames/result_frames/det_006_2.jpg",
+      "raw_response": "extract/raw/det_006_2.json"
+    }
+  },
+  {
+    "id": "2026-RANK-036",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 36,
+    "label": "det_012",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 6495.07,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=6492"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_012",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-037",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 37,
+    "label": "Ranking Match 37",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 7013.57,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 7353.57,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=7010"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "NOR",
+          "KHM",
+          "IRL"
+        ],
+        "score": 149,
+        "breakdown": {
+          "suppression_unit": 104,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "COL",
+          "CRO",
+          "CRC"
+        ],
+        "score": 144,
+        "breakdown": {
+          "suppression_unit": 97,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 8,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_006",
+      "frame": "frames/result_frames/det_006_1.jpg",
+      "raw_response": "extract/raw/det_006_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-038",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 38,
+    "label": "Ranking Match 38",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 6959.74,
+      "start_method": "audio_start",
+      "result_frame_s": 7261.13,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=6956"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "GUY",
+          "USA",
+          "KAZ"
+        ],
+        "score": 399,
+        "breakdown": {
+          "suppression_unit": 198,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "JOR",
+          "LBR",
+          "BBD"
+        ],
+        "score": 22,
+        "breakdown": {
+          "suppression_unit": 0,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 22,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_007",
+      "frame": "frames/result_frames/det_007_1.jpg",
+      "raw_response": "extract/raw/det_007_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-039",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 39,
+    "label": "det_013",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 6974.83,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=6971"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_013",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-040",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 40,
+    "label": "Ranking Match 40",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 11392.75,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 11794.75,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=11389"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "DEN",
+          "BIH",
+          "PAR"
+        ],
+        "score": 75,
+        "breakdown": {
+          "suppression_unit": 52,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "COG",
+          "GNB",
+          "REF"
+        ],
+        "score": 19,
+        "breakdown": {
+          "suppression_unit": 8,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 7,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_007",
+      "frame": "frames/result_frames/det_007_1.jpg",
+      "raw_response": "extract/raw/det_007_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-041",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 41,
+    "label": "Ranking Match 41",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 11503.06,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 11792.06,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=11500"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "CPV",
+          "BOL",
+          "PHI"
+        ],
+        "score": 132,
+        "breakdown": {
+          "suppression_unit": 79,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "ZWE",
+          "MNE",
+          "CHA"
+        ],
+        "score": 22,
+        "breakdown": {
+          "suppression_unit": 12,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 5,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_007",
+      "frame": "frames/result_frames/det_007_1.jpg",
+      "raw_response": "extract/raw/det_007_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-042",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 42,
+    "label": "det_014",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 11375.21,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=11372"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_014",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-043",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 43,
+    "label": "Ranking Match 43",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 11752.27,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 12162.27,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=11749"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "BEL",
+          "SVK",
+          "MWI"
+        ],
+        "score": 97,
+        "breakdown": {
+          "suppression_unit": 42,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "PLE",
+          "UZB",
+          "MAD"
+        ],
+        "score": 438,
+        "breakdown": {
+          "suppression_unit": 216,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "5 Robots (+25)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_007",
+      "frame": "frames/result_frames/det_007_1.jpg",
+      "raw_response": "extract/raw/det_007_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-044",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 44,
+    "label": "Ranking Match 44",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 11872.42,
+      "start_method": "audio_start",
+      "result_frame_s": 12196.23,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=11869"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "CHN",
+          "KIR",
+          "TTO"
+        ],
+        "score": 371,
+        "breakdown": {
+          "suppression_unit": 210,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "HUN",
+          "COD",
+          "ARU"
+        ],
+        "score": 186,
+        "breakdown": {
+          "suppression_unit": 79,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 10,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "5 Robots (+25)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_008",
+      "frame": "frames/result_frames/det_008_1.jpg",
+      "raw_response": "extract/raw/det_008_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-045",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 45,
+    "label": "det_015",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 11813.22,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=11810"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_015",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-046",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 46,
+    "label": "Ranking Match 46",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 12073.48,
+      "start_method": "audio_start",
+      "result_frame_s": 12435.72,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=12070"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "MAR",
+          "AUT",
+          "MEX"
+        ],
+        "score": 377,
+        "breakdown": {
+          "suppression_unit": 185,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "LBY",
+          "NAM",
+          "HAI"
+        ],
+        "score": 80,
+        "breakdown": {
+          "suppression_unit": 34,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "5 Robots (+25)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_008",
+      "frame": "frames/result_frames/det_008_1.jpg",
+      "raw_response": "extract/raw/det_008_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-047",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 47,
+    "label": "Ranking Match 47",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 12265.19,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 12578.19,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=12262"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "NGA",
+          "GBR",
+          "MUS"
+        ],
+        "score": 39,
+        "breakdown": {
+          "suppression_unit": 26,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "IDN",
+          "LUX",
+          "BGD"
+        ],
+        "score": 117,
+        "breakdown": {
+          "suppression_unit": 71,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 3,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_008",
+      "frame": "frames/result_frames/det_008_1.jpg",
+      "raw_response": "extract/raw/det_008_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-048",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 48,
+    "label": "det_016",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 12195.89,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=12192"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_016",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-049",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 49,
+    "label": "Ranking Match 49",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 12589.32,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 12883.32,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=12586"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "VCT",
+          "UAE",
+          "DJI"
+        ],
+        "score": 227,
+        "breakdown": {
+          "suppression_unit": 118,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "GRN",
+          "ERI",
+          "CIV"
+        ],
+        "score": 17,
+        "breakdown": {
+          "suppression_unit": 14,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_008",
+      "frame": "frames/result_frames/det_008_1.jpg",
+      "raw_response": "extract/raw/det_008_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-050",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 50,
+    "label": "Ranking Match 50",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 12665.46,
+      "start_method": "audio_start",
+      "result_frame_s": 12998.81,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=12662"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "SRB",
+          "GEO",
+          "HON"
+        ],
+        "score": 168,
+        "breakdown": {
+          "suppression_unit": 89,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "TKM",
+          "POR",
+          "KGZ"
+        ],
+        "score": 394,
+        "breakdown": {
+          "suppression_unit": 194,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "5 Robots (+25)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_009",
+      "frame": "frames/result_frames/det_009_1.jpg",
+      "raw_response": "extract/raw/det_009_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-051",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 51,
+    "label": "det_017",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 12601.85,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=12598"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_017",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-052",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 52,
+    "label": "Ranking Match 52",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 12964.27,
+      "start_method": "audio_start",
+      "result_frame_s": 13327.92,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=12961"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "SRI",
+          "RWA",
+          "ROU"
+        ],
+        "score": 327,
+        "breakdown": {
+          "suppression_unit": 194,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "CAF",
+          "NED",
+          "BRU"
+        ],
+        "score": 74,
+        "breakdown": {
+          "suppression_unit": 36,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 6,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "4 Robots (+10)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_009",
+      "frame": "frames/result_frames/det_009_1.jpg",
+      "raw_response": "extract/raw/det_009_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-053",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 53,
+    "label": "Ranking Match 53",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 13068.21,
+      "start_method": "audio_start",
+      "result_frame_s": 13335.3,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=13065"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "PNG",
+          "GEQ",
+          "BEN"
+        ],
+        "score": 48,
+        "breakdown": {
+          "suppression_unit": 18,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "SYR",
+          "MDV",
+          "TZA"
+        ],
+        "score": 86,
+        "breakdown": {
+          "suppression_unit": 57,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 23,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_009",
+      "frame": "frames/result_frames/det_009_1.jpg",
+      "raw_response": "extract/raw/det_009_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-054",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 54,
+    "label": "det_018",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 13011.14,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=13008"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_018",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-056",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 56,
+    "label": "Ranking Match 56",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 13716.84,
+      "start_method": "audio_start",
+      "result_frame_s": 14010.54,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=13713"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "MOZ",
+          "IRQ",
+          "THA"
+        ],
+        "score": 52,
+        "breakdown": {
+          "suppression_unit": 46,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "NEP",
+          "KNA",
+          "YEM"
+        ],
+        "score": 28,
+        "breakdown": {
+          "suppression_unit": 19,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 3,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_010",
+      "frame": "frames/result_frames/det_010_1.jpg",
+      "raw_response": "extract/raw/det_010_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-057",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 57,
+    "label": "det_019",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 13421.93,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=13418"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_019",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-058",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 58,
+    "label": "Ranking Match 58",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 13955.99,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 14267.99,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=13952"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "UGU",
+          "GAB",
+          "BFA"
+        ],
+        "score": 52,
+        "breakdown": {
+          "suppression_unit": 35,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "BLZ",
+          "UKR",
+          "GER"
+        ],
+        "score": 17,
+        "breakdown": {
+          "suppression_unit": 8,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 6,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_010",
+      "frame": "frames/result_frames/det_010_1.jpg",
+      "raw_response": "extract/raw/det_010_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-059",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 59,
+    "label": "Ranking Match 59",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 14079.47,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 14332.47,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=14076"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "AUS",
+          "FIJ",
+          "GUM"
+        ],
+        "score": 62,
+        "breakdown": {
+          "suppression_unit": 32,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "DMA",
+          "PUR",
+          "BUL"
+        ],
+        "score": 10,
+        "breakdown": {
+          "suppression_unit": 0,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 10,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_010",
+      "frame": "frames/result_frames/det_010_1.jpg",
+      "raw_response": "extract/raw/det_010_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-060",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 60,
+    "label": "det_020",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 14018.6,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=14015"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_020",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-061",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 61,
+    "label": "Ranking Match 61",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 14514.44,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 14888.44,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=14511"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "MAS",
+          "PER",
+          "FSM"
+        ],
+        "score": 91,
+        "breakdown": {
+          "suppression_unit": 65,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "TGA",
+          "IND",
+          "MYA"
+        ],
+        "score": 221,
+        "breakdown": {
+          "suppression_unit": 167,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 3,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_009",
+      "frame": "frames/result_frames/det_009_1.jpg",
+      "raw_response": "extract/raw/det_009_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-062",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 62,
+    "label": "Ranking Match 62",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 14452.45,
+      "start_method": "audio_start",
+      "result_frame_s": 14731.86,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=14449"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "ZAM",
+          "AZE",
+          "QAT"
+        ],
+        "score": 131,
+        "breakdown": {
+          "suppression_unit": 90,
+          "climb_multiplier": 1.25,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "GUI",
+          "JAM",
+          "PSE"
+        ],
+        "score": 31,
+        "breakdown": {
+          "suppression_unit": 9,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 18,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_011",
+      "frame": "frames/result_frames/det_011_1.jpg",
+      "raw_response": "extract/raw/det_011_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-063",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 63,
+    "label": "det_021",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 14442.65,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=14439"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_021",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-064",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 64,
+    "label": "Ranking Match 64",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 14938.71,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 15366.71,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=14935"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "VGB",
+          "HKG",
+          "REF"
+        ],
+        "score": 193,
+        "breakdown": {
+          "suppression_unit": 96,
+          "climb_multiplier": 1.6,
+          "partner_climb": 25,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "MNE",
+          "IRI",
+          "IDN"
+        ],
+        "score": 86,
+        "breakdown": {
+          "suppression_unit": 40,
+          "climb_multiplier": 1.8,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 4,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "4 Robots (+10)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_011",
+      "frame": "frames/result_frames/det_011_1.jpg",
+      "raw_response": "extract/raw/det_011_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-065",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 65,
+    "label": "Ranking Match 65",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 14904.88,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 15239.88,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=14901"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "NOR",
+          "GHA",
+          "SVK"
+        ],
+        "score": 177,
+        "breakdown": {
+          "suppression_unit": 127,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "MLI",
+          "PAK",
+          "KOR"
+        ],
+        "score": 73,
+        "breakdown": {
+          "suppression_unit": 41,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 5,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_011",
+      "frame": "frames/result_frames/det_011_1.jpg",
+      "raw_response": "extract/raw/det_011_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-066",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 66,
+    "label": "det_022",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 14848.89,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=14845"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_022",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-067",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 67,
+    "label": "Ranking Match 67",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 15541.41,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 15892.41,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=15538"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "DJI",
+          "CYM",
+          "CPV"
+        ],
+        "score": 113,
+        "breakdown": {
+          "suppression_unit": 84,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "VIR",
+          "ITA",
+          "SOM"
+        ],
+        "score": 125,
+        "breakdown": {
+          "suppression_unit": 63,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 24,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_010",
+      "frame": "frames/result_frames/det_010_1.jpg",
+      "raw_response": "extract/raw/det_010_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-068",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 68,
+    "label": "Ranking Match 68",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 15420.27,
+      "start_method": "audio_start",
+      "result_frame_s": 15741.55,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=15417"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "CUB",
+          "CAM",
+          "NIG"
+        ],
+        "score": 106,
+        "breakdown": {
+          "suppression_unit": 38,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "CHN",
+          "EST",
+          "AFG"
+        ],
+        "score": 380,
+        "breakdown": {
+          "suppression_unit": 210,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 8,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "5 Robots (+25)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_012",
+      "frame": "frames/result_frames/det_012_1.jpg",
+      "raw_response": "extract/raw/det_012_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-069",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 69,
+    "label": "det_023",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 15281.62,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=15278"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_023",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-070",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 70,
+    "label": "Ranking Match 70",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 15993.05,
+      "start_method": "audio_start",
+      "result_frame_s": 16382.69,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=15990"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "CRO",
+          "HAI",
+          "CZE"
+        ],
+        "score": 73,
+        "breakdown": {
+          "suppression_unit": 73,
+          "climb_multiplier": 1.0,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "KAZ",
+          "SYR",
+          "MRI"
+        ],
+        "score": 326,
+        "breakdown": {
+          "suppression_unit": 197,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_012",
+      "frame": "frames/result_frames/det_012_1.jpg",
+      "raw_response": "extract/raw/det_012_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-071",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 71,
+    "label": "Ranking Match 71",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 15871.92,
+      "start_method": "audio_start",
+      "result_frame_s": 16193.46,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=15868"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "OMA",
+          "HUN",
+          "TLS"
+        ],
+        "score": 322,
+        "breakdown": {
+          "suppression_unit": 164,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "GRN",
+          "ETH",
+          "BRU"
+        ],
+        "score": 85,
+        "breakdown": {
+          "suppression_unit": 55,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "4 Robots (+10)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_012",
+      "frame": "frames/result_frames/det_012_1.jpg",
+      "raw_response": "extract/raw/det_012_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-072",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 72,
+    "label": "det_024",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 15829.96,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=15826"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_024",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-073",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 73,
+    "label": "Ranking Match 73",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 16431.5,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 16749.5,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=16428"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "EGY",
+          "IRQ",
+          "PNG"
+        ],
+        "score": 119,
+        "breakdown": {
+          "suppression_unit": 67,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "TPE",
+          "PAR",
+          "RUS"
+        ],
+        "score": 191,
+        "breakdown": {
+          "suppression_unit": 130,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 8,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_011",
+      "frame": "frames/result_frames/det_011_1.jpg",
+      "raw_response": "extract/raw/det_011_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-074",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 74,
+    "label": "Ranking Match 74",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 16500.61,
+      "start_method": "audio_start",
+      "result_frame_s": 16876.43,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=16497"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "KEN",
+          "MAR",
+          "URU"
+        ],
+        "score": 9,
+        "breakdown": {
+          "suppression_unit": 2,
+          "climb_multiplier": 1.0,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "GUA",
+          "ARG",
+          "JOR"
+        ],
+        "score": 141,
+        "breakdown": {
+          "suppression_unit": 81,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 7,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_013",
+      "frame": "frames/result_frames/det_013_1.jpg",
+      "raw_response": "extract/raw/det_013_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-075",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 75,
+    "label": "det_025",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 16344.32,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=16341"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_025",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-076",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 76,
+    "label": "Ranking Match 76",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 17440.23,
+      "start_method": "audio_start",
+      "result_frame_s": 17797.81,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=17437"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "ROU",
+          "SEN",
+          "NEP"
+        ],
+        "score": 149,
+        "breakdown": {
+          "suppression_unit": 85,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "NCA",
+          "LBN",
+          "SLB"
+        ],
+        "score": 170,
+        "breakdown": {
+          "suppression_unit": 101,
+          "climb_multiplier": 1.55,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 13,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_013",
+      "frame": "frames/result_frames/det_013_1.jpg",
+      "raw_response": "extract/raw/det_013_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-077",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 77,
+    "label": "Ranking Match 77",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 24541.83,
+      "start_method": "audio_start",
+      "result_frame_s": 24822.46,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=24538"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "DEN",
+          "SWZ",
+          "TGO"
+        ],
+        "score": 167,
+        "breakdown": {
+          "suppression_unit": 78,
+          "climb_multiplier": 1.8,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "BEL",
+          "SLV",
+          "FSM"
+        ],
+        "score": 137,
+        "breakdown": {
+          "suppression_unit": 58,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 1,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "5 Robots (+25)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_021",
+      "frame": "frames/result_frames/det_021_1.jpg",
+      "raw_response": "extract/raw/det_021_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-078",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 78,
+    "label": "det_026",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 17576.0,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=17573"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_026",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-079",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 79,
+    "label": "Ranking Match 79",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 17973.97,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 18369.97,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=17970"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "TJK",
+          "TGA",
+          "UZB"
+        ],
+        "score": 415,
+        "breakdown": {
+          "suppression_unit": 213,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "NAM",
+          "LUX",
+          "LAO"
+        ],
+        "score": 114,
+        "breakdown": {
+          "suppression_unit": 61,
+          "climb_multiplier": 1.7,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "4 Robots (+10)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_012",
+      "frame": "frames/result_frames/det_012_1.jpg",
+      "raw_response": "extract/raw/det_012_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-080",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 80,
+    "label": "Ranking Match 80",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 18290.46,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 18581.46,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=18287"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "SSD",
+          "ALG",
+          "KNA"
+        ],
+        "score": 17,
+        "breakdown": {
+          "suppression_unit": 7,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "LSO",
+          "MYS",
+          "GIN"
+        ],
+        "score": 59,
+        "breakdown": {
+          "suppression_unit": 37,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 9,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_014",
+      "frame": "frames/result_frames/det_014_1.jpg",
+      "raw_response": "extract/raw/det_014_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-081",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 81,
+    "label": "det_027",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 18011.86,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=18008"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_027",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-082",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 82,
+    "label": "Ranking Match 82",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 18323.04,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 18709.04,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=18320"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "BAR",
+          "MOZ",
+          "PER"
+        ],
+        "score": 83,
+        "breakdown": {
+          "suppression_unit": 61,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "GAB",
+          "PHI",
+          "ARU"
+        ],
+        "score": 108,
+        "breakdown": {
+          "suppression_unit": 60,
+          "climb_multiplier": 1.8,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_014",
+      "frame": "frames/result_frames/det_014_1.jpg",
+      "raw_response": "extract/raw/det_014_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-083",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 83,
+    "label": "Ranking Match 83",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 18629.89,
+      "start_method": "audio_start",
+      "result_frame_s": 19000.25,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=18626"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "LBR",
+          "MDA",
+          "ESP"
+        ],
+        "score": 352,
+        "breakdown": {
+          "suppression_unit": 179,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "PAN",
+          "MWI",
+          "RSA"
+        ],
+        "score": 26,
+        "breakdown": {
+          "suppression_unit": 13,
+          "climb_multiplier": 1.15,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 11,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_014",
+      "frame": "frames/result_frames/det_014_1.jpg",
+      "raw_response": "extract/raw/det_014_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-084",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 84,
+    "label": "det_028",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 18499.14,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=18496"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_028",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-085",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 85,
+    "label": "Ranking Match 85",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 18916.68,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 19214.68,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=18913"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "YEM",
+          "MLT",
+          "ERI"
+        ],
+        "score": 64,
+        "breakdown": {
+          "suppression_unit": 37,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "RWA",
+          "JAM",
+          "ZWE"
+        ],
+        "score": 5,
+        "breakdown": {
+          "suppression_unit": 2,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_013",
+      "frame": "frames/result_frames/det_013_1.jpg",
+      "raw_response": "extract/raw/det_013_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-086",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 86,
+    "label": "Ranking Match 86",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 19065.77,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 19352.77,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=19062"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "MKD",
+          "VEN",
+          "TZA"
+        ],
+        "score": 61,
+        "breakdown": {
+          "suppression_unit": 43,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "BGD",
+          "AUT",
+          "ALB"
+        ],
+        "score": 89,
+        "breakdown": {
+          "suppression_unit": 64,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_015",
+      "frame": "frames/result_frames/det_015_1.jpg",
+      "raw_response": "extract/raw/det_015_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-087",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 87,
+    "label": "det_029",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 18980.07,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=18977"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_029",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-088",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 88,
+    "label": "Ranking Match 88",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 19300.26,
+      "start_method": "audio_start",
+      "result_frame_s": 19664.63,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=19297"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "NGA",
+          "THA",
+          "POR"
+        ],
+        "score": 7,
+        "breakdown": {
+          "suppression_unit": 4,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "LBY",
+          "BEN",
+          "VIE"
+        ],
+        "score": 80,
+        "breakdown": {
+          "suppression_unit": 46,
+          "climb_multiplier": 1.7,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 1,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_015",
+      "frame": "frames/result_frames/det_015_1.jpg",
+      "raw_response": "extract/raw/det_015_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-089",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 89,
+    "label": "Ranking Match 89",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 19403.35,
+      "start_method": "audio_start",
+      "result_frame_s": 19717.25,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=19400"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "UKR",
+          "GNB",
+          "GAM"
+        ],
+        "score": 55,
+        "breakdown": {
+          "suppression_unit": 40,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "GEQ",
+          "KGZ",
+          "SWE"
+        ],
+        "score": 139,
+        "breakdown": {
+          "suppression_unit": 77,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 11,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_015",
+      "frame": "frames/result_frames/det_015_1.jpg",
+      "raw_response": "extract/raw/det_015_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-090",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 90,
+    "label": "det_030",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 19339.39,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=19336"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_030",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-091",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 91,
+    "label": "Ranking Match 91",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 19870.63,
+      "start_method": "audio_start",
+      "result_frame_s": 20259.94,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=19867"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "MGL",
+          "QAT",
+          "MAR"
+        ],
+        "score": 140,
+        "breakdown": {
+          "suppression_unit": 81,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "FIJ",
+          "LTU",
+          "KOS"
+        ],
+        "score": 85,
+        "breakdown": {
+          "suppression_unit": 57,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 10,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_014",
+      "frame": "frames/result_frames/det_014_1.jpg",
+      "raw_response": "extract/raw/det_014_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-092",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 92,
+    "label": "Ranking Match 92",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 19797.92,
+      "start_method": "audio_start",
+      "result_frame_s": 20150.82,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=19794"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "CIV",
+          "FRA",
+          "UGA"
+        ],
+        "score": 79,
+        "breakdown": {
+          "suppression_unit": 58,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "SUD",
+          "FIN",
+          "HON"
+        ],
+        "score": 217,
+        "breakdown": {
+          "suppression_unit": 149,
+          "climb_multiplier": 1.45,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_016",
+      "frame": "frames/result_frames/det_016_1.jpg",
+      "raw_response": "extract/raw/det_016_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-093",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 93,
+    "label": "det_031",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 19756.85,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=19753"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_031",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-095",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 95,
+    "label": "Ranking Match 95",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 20240.45,
+      "start_method": "audio_start",
+      "result_frame_s": 20598.88,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=20237"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "LAO",
+          "MEX",
+          "CRO"
+        ],
+        "score": 537,
+        "breakdown": {
+          "suppression_unit": 267,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "PNG",
+          "BRN",
+          "NCA"
+        ],
+        "score": 117,
+        "breakdown": {
+          "suppression_unit": 53,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 4,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "5 Robots (+25)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_016",
+      "frame": "frames/result_frames/det_016_1.jpg",
+      "raw_response": "extract/raw/det_016_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-096",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 96,
+    "label": "det_032",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 20251.04,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=20248"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_032",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-098",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 98,
+    "label": "Ranking Match 98",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 20698.42,
+      "start_method": "audio_start",
+      "result_frame_s": 21004.89,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=20695"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "PER",
+          "LKA",
+          "SSD"
+        ],
+        "score": 374,
+        "breakdown": {
+          "suppression_unit": 224,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "ARG",
+          "ANT",
+          "SLB"
+        ],
+        "score": 41,
+        "breakdown": {
+          "suppression_unit": 16,
+          "climb_multiplier": 1.6,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 5,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "4 Robots (+10)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_017",
+      "frame": "frames/result_frames/det_017_1.jpg",
+      "raw_response": "extract/raw/det_017_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-099",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 99,
+    "label": "det_033",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 20700.74,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=20697"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_033",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-100",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 100,
+    "label": "Ranking Match 100",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 21262.57,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 21583.57,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=21259"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "NOR",
+          "GUI",
+          "ISR"
+        ],
+        "score": 9,
+        "breakdown": {
+          "suppression_unit": 7,
+          "climb_multiplier": 1.0,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "PAR",
+          "URU",
+          "MOZ"
+        ],
+        "score": 18,
+        "breakdown": {
+          "suppression_unit": 16,
+          "climb_multiplier": 1.0,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_017",
+      "frame": "frames/result_frames/det_017_1.jpg",
+      "raw_response": "extract/raw/det_017_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-101",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 101,
+    "label": "Ranking Match 101",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 21237.02,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 21523.02,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=21234"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "EGY",
+          "GER",
+          "CZE"
+        ],
+        "score": 72,
+        "breakdown": {
+          "suppression_unit": 46,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "PHI",
+          "CAF",
+          "EST"
+        ],
+        "score": 86,
+        "breakdown": {
+          "suppression_unit": 59,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 9,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 2,
+      "detection_id": "det_017",
+      "frame": "frames/result_frames/det_017_2.jpg",
+      "raw_response": "extract/raw/det_017_2.json"
+    }
+  },
+  {
+    "id": "2026-RANK-103",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 103,
+    "label": "Ranking Match 103",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 21882.93,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 22183.93,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=21879"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "HKG",
+          "CHA",
+          "GUM"
+        ],
+        "score": 109,
+        "breakdown": {
+          "suppression_unit": 72,
+          "climb_multiplier": 1.5,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "BGD",
+          "NPL",
+          "RWA"
+        ],
+        "score": 53,
+        "breakdown": {
+          "suppression_unit": 31,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 1,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_016",
+      "frame": "frames/result_frames/det_016_1.jpg",
+      "raw_response": "extract/raw/det_016_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-104",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 104,
+    "label": "Ranking Match 104",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 21801.01,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 22119.01,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=21798"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "DOM",
+          "BOL",
+          "CHN"
+        ],
+        "score": 514,
+        "breakdown": {
+          "suppression_unit": 264,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "BUL",
+          "GHA",
+          "MRT"
+        ],
+        "score": 100,
+        "breakdown": {
+          "suppression_unit": 65,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 2,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "4 Robots (+10)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_018",
+      "frame": "frames/result_frames/det_018_1.jpg",
+      "raw_response": "extract/raw/det_018_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-105",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 105,
+    "label": "det_034",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 21878.74,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=21875"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_034",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-106",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 106,
+    "label": "Ranking Match 106",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 22255.58,
+      "start_method": "audio_start",
+      "result_frame_s": 22686.65,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=22252"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "ITA",
+          "RSA",
+          "GUY"
+        ],
+        "score": 114,
+        "breakdown": {
+          "suppression_unit": 75,
+          "climb_multiplier": 1.4,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "KNA",
+          "IRL",
+          "CAN"
+        ],
+        "score": 116,
+        "breakdown": {
+          "suppression_unit": 101,
+          "climb_multiplier": 1.05,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 9,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_018",
+      "frame": "frames/result_frames/det_018_1.jpg",
+      "raw_response": "extract/raw/det_018_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-107",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 107,
+    "label": "Ranking Match 107",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 22291.68,
+      "start_method": "audio_start",
+      "result_frame_s": 22582.25,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=22288"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "TGA",
+          "BLZ",
+          "HUN"
+        ],
+        "score": 111,
+        "breakdown": {
+          "suppression_unit": 44,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "YEM",
+          "SYC",
+          "MDV"
+        ],
+        "score": 113,
+        "breakdown": {
+          "suppression_unit": 63,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 17,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "4 Robots (+10)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_018",
+      "frame": "frames/result_frames/det_018_1.jpg",
+      "raw_response": "extract/raw/det_018_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-108",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 108,
+    "label": "det_035",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 22371.58,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=22368"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_035",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-109",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 109,
+    "label": "Ranking Match 109",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 22831.95,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 23206.95,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=22828"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "IND",
+          "SDN",
+          "ETH"
+        ],
+        "score": 219,
+        "breakdown": {
+          "suppression_unit": 162,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "GTM",
+          "SYR",
+          "BIH"
+        ],
+        "score": 144,
+        "breakdown": {
+          "suppression_unit": 106,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_017",
+      "frame": "frames/result_frames/det_017_1.jpg",
+      "raw_response": "extract/raw/det_017_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-110",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 110,
+    "label": "Ranking Match 110",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 22697.51,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 23001.51,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=22694"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "ERI",
+          "LAT",
+          "AFG"
+        ],
+        "score": 87,
+        "breakdown": {
+          "suppression_unit": 48,
+          "climb_multiplier": 1.8,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "VEN",
+          "SVK",
+          "MGL"
+        ],
+        "score": 84,
+        "breakdown": {
+          "suppression_unit": 62,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 0,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_019",
+      "frame": "frames/result_frames/det_019_1.jpg",
+      "raw_response": "extract/raw/det_019_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-111",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 111,
+    "label": "det_036",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 22985.9,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=22982"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_036",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-112",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 112,
+    "label": "Ranking Match 112",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 23138.32,
+      "start_method": "audio_start",
+      "result_frame_s": 23490.4,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=23135"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "FIN",
+          "CUB",
+          "AGO"
+        ],
+        "score": 213,
+        "breakdown": {
+          "suppression_unit": 111,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "MNE",
+          "GNB",
+          "RUS"
+        ],
+        "score": 56,
+        "breakdown": {
+          "suppression_unit": 18,
+          "climb_multiplier": 1.45,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 29,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_019",
+      "frame": "frames/result_frames/det_019_1.jpg",
+      "raw_response": "extract/raw/det_019_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-113",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 113,
+    "label": "Ranking Match 113",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 23112.08,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 23438.08,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=23109"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "BHU",
+          "KOS",
+          "MDA"
+        ],
+        "score": 264,
+        "breakdown": {
+          "suppression_unit": 125,
+          "climb_multiplier": 1.9,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "SRB",
+          "GAM",
+          "BEN"
+        ],
+        "score": 96,
+        "breakdown": {
+          "suppression_unit": 42,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 1,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "5 Robots (+25)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 2,
+      "detection_id": "det_019",
+      "frame": "frames/result_frames/det_019_2.jpg",
+      "raw_response": "extract/raw/det_019_2.json"
+    }
+  },
+  {
+    "id": "2026-RANK-114",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 114,
+    "label": "det_037",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 23345.3,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=23342"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_037",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-115",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 115,
+    "label": "Ranking Match 115",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 23721.69,
+      "start_method": "audio_start",
+      "result_frame_s": 24063.47,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=23718"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "BLR",
+          "PAN",
+          "KGZ"
+        ],
+        "score": 172,
+        "breakdown": {
+          "suppression_unit": 105,
+          "climb_multiplier": 1.5,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "FRA",
+          "SLV",
+          "COD"
+        ],
+        "score": 162,
+        "breakdown": {
+          "suppression_unit": 82,
+          "climb_multiplier": 1.8,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 14,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_018",
+      "frame": "frames/result_frames/det_018_1.jpg",
+      "raw_response": "extract/raw/det_018_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-116",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 116,
+    "label": "Ranking Match 116",
+    "scheduled_time": null,
+    "field": "4",
+    "video": {
+      "video_id": "C7MIYhOdYS4",
+      "start_s": 23650.98,
+      "start_method": "audio_start",
+      "result_frame_s": 23972.6,
+      "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB&t=23647"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "MYA",
+          "CIV",
+          "CPV"
+        ],
+        "score": 65,
+        "breakdown": {
+          "suppression_unit": 34,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "TTO",
+          "REF",
+          "AUS"
+        ],
+        "score": 88,
+        "breakdown": {
+          "suppression_unit": 47,
+          "climb_multiplier": 1.45,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 19,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_020",
+      "frame": "frames/result_frames/det_020_1.jpg",
+      "raw_response": "extract/raw/det_020_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-117",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 117,
+    "label": "det_038",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 23702.69,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=23699"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_038",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-118",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 118,
+    "label": "Ranking Match 118",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 24094.36,
+      "start_method": "audio_start",
+      "result_frame_s": 24382.67,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=24091"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "CMR",
+          "LSO",
+          "BFA"
+        ],
+        "score": 24,
+        "breakdown": {
+          "suppression_unit": 10,
+          "climb_multiplier": 1.3,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "LCA",
+          "ARU",
+          "GEO"
+        ],
+        "score": 69,
+        "breakdown": {
+          "suppression_unit": 35,
+          "climb_multiplier": 1.65,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 11,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_020",
+      "frame": "frames/result_frames/det_020_1.jpg",
+      "raw_response": "extract/raw/det_020_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-119",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 119,
+    "label": "Ranking Match 119",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 24096.79,
+      "start_method": "inferred_from_end",
+      "result_frame_s": 24441.79,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=24093"
+    },
+    "alliances": {
+      "red": {
+        "teams": [
+          "LTU",
+          "COG",
+          "ZAM"
+        ],
+        "score": 124,
+        "breakdown": {
+          "suppression_unit": 81,
+          "climb_multiplier": 1.35,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      },
+      "blue": {
+        "teams": [
+          "VUT",
+          "KEN",
+          "MDG"
+        ],
+        "score": 14,
+        "breakdown": {
+          "suppression_unit": 0,
+          "climb_multiplier": 1.1,
+          "partner_climb": 0,
+          "penalties": 0
+        }
+      }
+    },
+    "global_breakdown": {
+      "extinguisher_points": 14,
+      "knockdown_bonus": "None (+0)",
+      "coopertition_bonus": "None (+0)"
+    },
+    "validation": {
+      "self_check": "pass",
+      "stage_parsed": "pass",
+      "breakdown_parsed": "pass",
+      "score_formula": "not verified: no score formula configured for 2026 (D31)",
+      "team_count": "pass",
+      "duplicate_teams": "pass",
+      "sequence": "pass",
+      "completeness": "pass",
+      "attempts_agree": "pass"
+    },
+    "status": "ok",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 1,
+      "detection_id": "det_020",
+      "frame": "frames/result_frames/det_020_1.jpg",
+      "raw_response": "extract/raw/det_020_1.json"
+    }
+  },
+  {
+    "id": "2026-RANK-120",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 120,
+    "label": "det_039",
+    "scheduled_time": null,
+    "field": "3",
+    "video": {
+      "video_id": "-jA1YanHcB8",
+      "start_s": 24087.96,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB&t=24084"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_039",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-016",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 16,
+    "label": "det_003",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 3666.67,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=3663"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_003",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-019",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 19,
+    "label": "det_003",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 4165.23,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=4162"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_003",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-077",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 77,
+    "label": "det_013",
+    "scheduled_time": null,
+    "field": "5",
+    "video": {
+      "video_id": "rQO7Ml3pYxk",
+      "start_s": 17436.08,
+      "start_method": "audio_start",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB&t=17433"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_013",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-094",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 94,
+    "label": "det_016",
+    "scheduled_time": null,
+    "field": "2",
+    "video": {
+      "video_id": "jJ5DHNJrpc4",
+      "start_s": 20318.91,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB&t=20315"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_016",
+      "frame": null,
+      "raw_response": null
+    }
+  },
+  {
+    "id": "2026-RANK-097",
+    "year": 2026,
+    "stage": "RANK",
+    "match_number": 97,
+    "label": "det_015",
+    "scheduled_time": null,
+    "field": "1",
+    "video": {
+      "video_id": "OYWoZl6scbM",
+      "start_s": 21042.05,
+      "start_method": "inferred_from_end",
+      "result_frame_s": null,
+      "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB&t=21039"
+    },
+    "alliances": {
+      "red": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      },
+      "blue": {
+        "teams": [],
+        "score": null,
+        "breakdown": {}
+      }
+    },
+    "global_breakdown": {},
+    "validation": {
+      "extraction": "fail"
+    },
+    "status": "failed",
+    "extraction": {
+      "model": "gemma-4-31b-it",
+      "prompt_hash": "3900fedb12d302e0",
+      "attempts": 0,
+      "detection_id": "det_015",
+      "frame": null,
+      "raw_response": null
+    }
+  }
+]

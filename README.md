@@ -45,8 +45,27 @@ Hand-entered data (seasons, team continents, photos, videos, 2017–2023 matches
 Opening the file from disk is enough. Use a server only if you want real URLs:
 
 ```bash
+node scripts/normalize.js && node site/build.js   # first: a server serves, it does not build
 npx --yes serve site/dist          # or:  python -m http.server -d site/dist
 ```
+
+A static server serves `site/dist/` exactly as it is on disk. It does **not** run the
+pipeline, so after touching anything in `data/raw/` run `normalize` **and** `build` before
+serving — otherwise you are looking at the previous build and wondering why your change is
+not there.
+
+It also leaves the live overlay frozen. `dist/live.json` is the copy `build` takes from
+`data/processed/live.json`, so on a static server the 2026 scores of the Live Match Tracker
+never move. To watch them update while you work:
+
+```bash
+node scripts/dev.js          # dev server on :3000: live reload, rebuilds on change, refreshes the overlay
+node scripts/poll-live.js --watch   # or just refresh the snapshot: once, or every 45 s
+```
+
+`dev.js` watches `site/templates`, `site/brand`, `site/css` and `data/processed`, so it
+rebuilds on a template change but **not** on a change in `data/raw/` — running `normalize` is
+still yours to do.
 
 ## Editing
 

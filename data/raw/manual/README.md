@@ -22,6 +22,8 @@ It never overwrites an existing file, so re-running it is always safe.
 | `videos.csv` | Match video links: stream URL + start/end timestamps |
 | `{year}/matches.csv` | Matches for years the API does not serve (2017–2019, 2022, 2023) |
 | `{year}/rankings.csv` | Final ranking of **every** season, 2024-2025 included. Fixed columns `year,team_code,rank`, then that season's tie-breaker criteria |
+| `{year}/streams.csv` | Official streams, one row per field and day (`field` 1–5). Feeds the GameDay and the fallback link of every match of that day |
+| `{year}/{year}.json` | Output of the video extractor: the exact deep link of each match it could read. Only a part of the season's matches |
 | `rankings.labels.json` | Readable label for each ranking criterion (`Total_Hydrogen_Oxygen_Points` → `Total hydrogen/oxygen points`) |
 | `{year}/alliances.csv` | Playoff alliances for those years |
 
@@ -84,8 +86,36 @@ year,stage,alliance_number,captain,pick1,pick2,pick3
 2023,round_robin,1,MEX,BRA,JPN,IND
 ```
 
+`2026/streams.csv` — the official stream of each field, for each day of competition:
+
+```
+year,field,day,youtube_url
+2026,1,1,https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB
+2026,1,2,https://www.youtube.com/watch?v=tkQpTnlTcu8&list=PLU01kG-VN6qw&index=6&pp=iAQB
+```
+
+- `field` is the field **number** (1–5), the same one `matches.csv` uses; `day` is the competition day, counting from 1.
+- **The day is the position of the date in that season's schedule**, not a label in the file: the earliest date in the API snapshot is day 1. In 2026 that makes Oct 8 → day 1, Oct 9 → day 2, Oct 10 → day 3.
+- The GameDay shows the **highest day** in the file, so adding next day's five rows is all it takes to roll it over. A day with no rows leaves its matches without a link — an explicit hole, never a wrong link.
+- That also means adding a day that has not started yet moves the GameDay onto it early. To hold it on the day actually being played, leave that day's rows out until it begins.
+- A row with a day that is not a whole number ≥ 1, a field outside 1–5, a URL that is not YouTube, or a repeated `(day, field)` **fails the build**.
+
+`2026/2026.json` — output of the video extractor, written by the extraction tool, not by hand:
+
+- Its `RANK` entries carry `match_number` (the ranking match number) and `video.url`, the deep link into that field's stream at the second the match starts. The normalizer joins them on the match number.
+- Its `UNKNOWN`/`failed` entries are detections the extractor could not read teams out of; there is nothing to join them to, so they are skipped and counted in a build warning. Those matches fall back to their field's stream.
+- **Two entries with the same `match_number` do not fail the build**: the last one wins. That is worth a look instead of a shrug — one of the two is misassigned.
+- An entry pointing at a match that does not exist **fails the build**: silently publishing a season with no videos is worse than a loud error.
+
 ## What the build does with these
 
 Every file is validated (keys exist, no duplicate ids, controlled vocabularies, alliance sizes) and the build **fails loudly** on a bad row rather than rendering something wrong. The CSVs are then converted into the JSON the site consumes — nothing reads CSV at runtime, and no CSV is ever served.
 
 Team photos are **not** copied into the repo: `photos.csv` holds the public FIRST URL and the page hotlinks it. A photo belongs to **one season**, not to the team in general — the members change every year, so it is keyed by `(year, team_code)` and shows next to that season in the Team History timeline and on the Team Season page. A team with no URL renders the UI placeholder, which is a normal state, not an error. Because the URL is third-party, it can rot: if the image disappears later the browser shows a broken/alt state rather than the placeholder.
+
+Match videos are resolved **per match**, and that resolution is what the templates consume:
+
+- `video` is the exact link from the extractor (stream + start second), or empty. `stream` is that match's own field stream of that match's own day — **not** today's: a match played on day 1 keeps linking to day 1.
+- The play button next to a match and the video card on the match page use `video` when it exists and `stream` when it does not. A match with neither shows no play button and the placeholder card, rather than a link to the wrong streaming day.
+- The videos themselves are hotlinked from YouTube, like the photos, and never mirrored. The thumbnail is YouTube's own `mqdefault.jpg` for the linked video.
+- `videos.csv` (match id + `H:MM:SS` timestamps) is still a declared, empty input: nothing reads it yet, and it is not involved in any of the above.
