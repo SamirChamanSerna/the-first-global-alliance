@@ -419,18 +419,20 @@
               };
 
               data.rankings.forEach((r) => {
-                const codeKey = r.code || r.countryCode || '';
+                // El puente es countryCode (alpha-2), que es el nombre del archivo de
+                // bandera de la fila; `code` es el alpha-3 de la API (HPE, ANT…).
+                const codeKey = r.countryCode || r.code || '';
                 const tr = rowFor(String(codeKey).toLowerCase().split('_')[0]);
                 if (!tr) return;
                 const cells = tr.querySelectorAll('td');
                 const put = (i, v) => { if (cells[i] && v != null) cells[i].textContent = v; };
+                // Columnas: 0 # · 2 Ranking score · 3 Highest points · 4 Climb points ·
+                // 5 Played · 6 W-L-T. Los campos son los que publica la API.
                 put(0, r.rank);
-                put(2, r.totalScore);
+                put(2, r.rankingScore);
                 put(3, r.highestScore);
-                put(4, r.avgClimb);
-                if (cells[5]) {
-                  cells[5].textContent = `${r.w}–${r.l}–${r.t}`;
-                }
+                put(4, r.climbPoints);
+                put(5, r.played);
                 if (cells[6] && r.wins != null && r.losses != null && r.ties != null) {
                   cells[6].textContent = `${r.wins}–${r.losses}–${r.ties}`; // W-L-T
                 }
