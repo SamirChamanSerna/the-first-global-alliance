@@ -1,7 +1,3 @@
-// El ranking lo publica la API ya calculado y con sus desempates aplicados, así que el
-// worker no recalcula nada: reenvía data.rankings tal cual. Reimplementar la media de los
-// mejores partidos era justo el bug (sumaba todos los partidos jugados).
-// `excludeMatchDetails=false` se deja como estaba: no cambia nada de lo que ve el cliente.
 const API = 'https://api.first.global/v1?year=2026&excludeMatchDetails=false';
 
 const STAGES = {
@@ -30,25 +26,54 @@ async function fetchAndProcessLive() {
       bs: m.played ? m.blueScore : null,
       ast: m.actualStartTime || null,
       red: side(11, 14),
-      blue: side(21, 24)
+      blue: side(21, 24),
+      _climbRed: m.details ? [m.details.redRobotOneBraceState, m.details.redRobotTwoBraceState, m.details.redRobotThreeBraceState] : null,
+      _climbBlue: m.details ? [m.details.blueRobotOneBraceState, m.details.blueRobotTwoBraceState, m.details.blueRobotThreeBraceState] : null,
+      // NUEVO: Se extrae el desglose matemático si el partido ya se jugó
+      bd: (m.played && m.details) ? [
+        [m.details.wildfireInRedSuppressionUnit || 0, m.details.wildfireInBlueSuppressionUnit || 0],
+        ['x' + (m.details.redClimbMultiplier || 1).toFixed(2), 'x' + (m.details.blueClimbMultiplier || 1).toFixed(2)],
+        [Math.ceil((m.details.wildfireInRedSuppressionUnit || 0) * (m.details.redClimbMultiplier || 1)), Math.ceil((m.details.wildfireInBlueSuppressionUnit || 0) * (m.details.blueClimbMultiplier || 1))],
+        [m.details.redPartnerClimbPoints || 0, m.details.bluePartnerClimbPoints || 0],
+        [m.details.wildfireInExtinguisher || 0, m.details.wildfireInExtinguisher || 0],
+        [m.details.coopertition || 0, m.details.coopertition || 0],
+        [m.details.coopertitionKnockdownBonus || 0, m.details.coopertitionKnockdownBonus || 0]
+      ] : null
     };
   });
 
-  // Pass-through del ranking. `code` es el alpha-3 de la API (HPE, ANT…), que NO es el del
-  // roster; `countryCode` es el alpha-2, el único puente fiable, y es lo que usa el cliente
-  // para localizar la fila por su bandera (ver docs/discovery/06-join-keys.md).
-  const rankings = (data.rankings || []).map((r) => ({
-    code: r.team?.country ?? null,
-    countryCode: r.team?.countryCode ?? null,
-    rank: r.rank,
-    rankingScore: r.rankingScore,
-    highestScore: r.highestScore,
-    climbPoints: r.climbPoints,
-    played: r.played,
-    wins: r.wins,
-    losses: r.losses,
-    ties: r.ties
-  }));
+  const matchStats = {};
+  matches.forEach(m => {
+    if (!m.played || m.rs === null) return;
+    if (!m.id.includes('_q')) return;
+    const processSide = (side, own, other, climbs) => {
+      side.forEach((c, idx) => {
+        const z = matchStats[c] ??= {w: 0, l: 0, t: 0, n: 0, pts: 0, highest: 0, climbTotal: 0, climbCount: 0};
+        z.n++; z.pts += own;
+        if (own > z.highest) z.highest = own;
+        if (own > other) z.w++; else if (own < other) z.l++; else z.t++;
+        if (climbs && climbs[idx] !== undefined) {
+           z.climbTotal += (climbs[idx] || 0);
+           z.climbCount++;
+        }
+      });
+    };
+    processSide(m.red, m.rs, m.bs, m._climbRed);
+    processSide(m.blue, m.bs, m.rs, m._climbBlue);
+  });
+
+  const rankings = Object.entries(matchStats).map(([code, s]) => {
+    return {
+      code,
+      totalScore: s.pts,
+      highestScore: s.highest,
+      avgClimb: s.climbCount ? Number((s.climbTotal / s.climbCount).toFixed(2)) : 0,
+      w: s.w, l: s.l, t: s.t
+    };
+  });
+
+  rankings.sort((a, b) => b.totalScore - a.totalScore || b.highestScore - a.highestScore || b.avgClimb - a.avgClimb || a.code.localeCompare(b.code));
+  rankings.forEach((r, i) => r.rank = i + 1);
 
   const payload = {
     season: 2026,
@@ -72,9 +97,6 @@ export default {
 
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (url.pathname === '/') {
-      return new Response('Worker activo. Usa /live.json');
-    }
     if (url.pathname === '/live.json') {
       const liveJson = await env.LIVE_DATA.get('live_json');
       return new Response(liveJson || '{}', {
