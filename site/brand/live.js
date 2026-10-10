@@ -395,7 +395,11 @@
         // desempates aplicados, así que aquí no se calcula nada: solo se rellenan las filas
         // que el build dejó en «No data». Nunca se crean filas.
         if (data.rankings && data.rankings.length > 0) {
-          const table = document.querySelector('table.dt');
+          // `#ranking-table` acota la búsqueda a la tabla de puestos: en /rankings/ la
+          // página abre con la tabla de alianzas, que también es `table.dt`, y un
+          // `querySelector('table.dt')` a secas le escribía encima el ranking de equipos.
+          // El `||` mantiene el comportamiento de antes en cualquier otra página.
+          const table = document.querySelector('#ranking-table table.dt') || document.querySelector('table.dt');
           if (table && window.location.pathname.includes('/rankings/2026/')) {
             const tbody = table.querySelector('tbody');
             if (tbody) {

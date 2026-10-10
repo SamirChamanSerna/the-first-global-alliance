@@ -1,6 +1,6 @@
 // PLANTILLAS de las 10 pantallas. Cada una = composición de bloques; sin HTML de estilo propio.
 import {brand,t} from '../brand/brand.js';
-import {e,hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
+import {e,hero,flag,teamLink,teamCell,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
 import {urls,outPath} from './urls.js';
 import {seasons,T,codes,M,S,A,AL,AW,PH,ST} from './data.js';
 import {STREAMS_2026} from '../brand/streams.js';
@@ -26,6 +26,15 @@ const awList=(y,c)=>won(y,c).map(x=>kvr(x.n,pip(x.tr))).join('')||`<div class="m
 // (decidida por el dueño): el hueco no se declara, simplemente no aparece.
 const al=(y,c)=>{const i=(AL[y]||[]).findIndex(g=>g.includes(c));
   return i<0?'':kvr(`${t('alliance')} ${i+1}`,AL[y][i].map(k=>`<a href="${urls.team(k)}">${k}</a>`).join(' '))};
+// Alianzas de playoffs de la temporada, en una tabla. El número es el índice + 1, igual
+// que en `al()`, y el orden es el de las alianzas de la API. Se pinta siempre que la
+// temporada traiga alianzas —las publica el sorteo del round robin, así que ya están
+// antes de que se juegue un solo partido de esa fase— y donde no las haya no se imprime
+// nada: `AL[y]` vacío es la mayoría de las temporadas y un «No alliances» en cada una
+// sería ruido (misma excepción deliberada que en `al`). Tampoco lleva puesto ni récord:
+// son datos que la API todavía no publica en esa fase, y no se inventan.
+const alTable=y=>{const g=AL[y]||[];
+  return g.length?`<h3>${t('alliances')}</h3>`+dt([[t('alliance'),1],[t('teams')]],g.map((a,i)=>[`#${i+1}`,a.map(c=>teamCell(c)).join(' ')])):''};
 const R={gold:0,silver:1,bronze:2,honorable:3,awarded:4},nm=c=>teamLink(c,T[c][0]);
 const cells=a=>a.ty=='a'?[[a.w.map(nm).join(', '),a.tier]]:a.w.map((c,i)=>[nm(c),tierOf(a,i)]);
 // Un premio del catálogo puede no existir en todos los años (el catálogo es la unión),
@@ -127,6 +136,10 @@ const insLive=y=>{
   ],1)
   +`<div class="stream-bar"><span>${t('mainBroadcast')}:</span>${dayBtns}<a class="stream-btn" href="${STREAMS_2026.playlist}" target="_blank" rel="noopener">▶ ${t('playlist')} ↗</a><a class="stream-btn on" href="${urls.gameday()}">⚡ ${t('gamedayTitle')}</a></div>`
   +revealBlock(y)
+  // La tabla de alianzas de la fase que se está jugando: es lo que pide la especificación
+  // (§2, «Playoffs / Round Robin: tabla de alianzas clasificadas») para la página de la
+  // temporada. Va entre el vídeo de revelación y el tracker, antes de los partidos.
+  +alTable(y)
   +`<div class="bar"><h3>${t('liveTracker')}</h3><input type="search" id="match-filter" placeholder="${t('search')}" aria-label="${t('search')}"></div>`
   +`<div id="on-deck-section"${onDeck.length?'':' hidden'}><h3>${t('onDeck')}</h3><div class="on-deck-matches" id="on-deck-container">${onDeck.map(m=>matchRow(m)).join('')}</div></div>`
   +`<div id="completed-section"${completed.length?'':' hidden'}><h3>${t('completed')}</h3><div id="completed-match-list">${completed.slice().reverse().map(m=>matchRow(m)).join('')}</div></div>`
@@ -178,7 +191,10 @@ const noComp=()=>`<p class="note">${t('noCompetition')}</p>`;
 // Y una temporada que existe pero todavía no tiene datos (2026, viva) declara su hueco
 // en vez de pintar una tabla sin filas o un div vacío.
 const rankings=y=>bar(`${t('topRank')} ${y}`,sel(y,z=>urls.rankings(z)))
-  +(onlyAwards(y)?noComp():S[y].length?rank(y):`<p class="note">${t('noData')}</p>`);
+  // Las alianzas van arriba y la tabla de puestos debajo. El `id` no es decorativo: el
+  // overlay en vivo (site/brand/live.js) busca `table.dt` para rellenar los puestos, y
+  // sin él encontraba esta primera tabla y le escribía el ranking de equipos encima.
+  +(onlyAwards(y)?noComp():S[y].length?alTable(y)+`<div id="ranking-table">${rank(y)}</div>`:`<p class="note">${t('noData')}</p>`);
 const matches=y=>bar(`${t('matches')} ${y}`,sel(y,z=>urls.matches(z)))
   +(onlyAwards(y)?noComp():M[y].length?`<div>${matchList(M[y])}</div>`:`<p class="note">${t('noMatchData')}</p>`);
 const gameday=()=>{
