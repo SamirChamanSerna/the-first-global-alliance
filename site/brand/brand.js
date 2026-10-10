@@ -60,6 +60,9 @@ export const brand = {
     stageRanking: "Qualifications", stageRoundRobin: "Round robin", stageFinals: "Finals",
     generatedOn: "Generated on",
     season: "Season", seasons: "Seasons", overview: "Overview", matches: "Matches", team: "Team", total: "Total", year: "Year",
+    // «Team {n}» es la unidad traducible entera, no `t('team') + ' ' + n`: el orden de las
+    // palabras no es el mismo en todos los idiomas. {n} se sustituye como {season} en el nav.
+    teamN: "Team {n}", played: "Played",
     venues: "Host venues", venue: "Venue", country: "Country", dates: "Dates", flagCol: "Flag", wlt: "W-L-T", avgScore: "Avg score",
     highestMatch: "Highest scoring match", avgMatch: "Average match score",
     avgMargin: "Average winning margin", playoffs: "Playoffs / Round Robin", topRank: "Top ranking", mostAwards: "Most awards",

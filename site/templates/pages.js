@@ -24,17 +24,25 @@ const awList=(y,c)=>won(y,c).map(x=>kvr(x.n,pip(x.tr))).join('')||`<div class="m
 // equipos no pasa a playoffs, así que un «Did not play playoffs» repetido en cada bloque
 // de cada temporada es ruido, no información. Es una excepción deliberada a la regla 6
 // (decidida por el dueño): el hueco no se declara, simplemente no aparece.
-const al=(y,c)=>{const i=(AL[y]||[]).findIndex(g=>g.includes(c));
-  return i<0?'':kvr(`${t('alliance')} ${i+1}`,AL[y][i].map(k=>`<a href="${urls.team(k)}">${k}</a>`).join(' '))};
-// Alianzas de playoffs de la temporada, en una tabla. El número es el índice + 1, igual
-// que en `al()`, y el orden es el de las alianzas de la API. Se pinta siempre que la
-// temporada traiga alianzas —las publica el sorteo del round robin, así que ya están
-// antes de que se juegue un solo partido de esa fase— y donde no las haya no se imprime
-// nada: `AL[y]` vacío es la mayoría de las temporadas y un «No alliances» en cada una
-// sería ruido (misma excepción deliberada que en `al`). Tampoco lleva puesto ni récord:
-// son datos que la API todavía no publica en esa fase, y no se inventan.
-const alTable=y=>{const g=AL[y]||[];
-  return g.length?`<h3>${t('alliances')}</h3>`+dt([[t('alliance'),1],[t('teams')]],g.map((a,i)=>[`#${i+1}`,a.map(c=>teamCell(c)).join(' ')])):''};
+const al=(y,c)=>{const i=(AL[y]||[]).findIndex(g=>g.teams.includes(c));
+  return i<0?'':kvr(`${t('alliance')} ${i+1}`,AL[y][i].teams.map(k=>`<a href="${urls.team(k)}">${k}</a>`).join(' '))};
+// Ranking de la fase de round robin: una fila por alianza, ordenadas por su puesto en esa
+// fase (y por número de alianza mientras no lo haya). El puesto, la puntuación y los
+// partidos jugados son de la ALIANZA —la API los repite en las cuatro filas de equipo— y
+// llegan a null hasta que publica `round_robin`, así que se declaran «No data» (regla 6) en
+// vez de esconder la columna o inventar un 0; el overlay en vivo (site/brand/live.js) los
+// rellena de `live.json` en cuanto el worker los reenvía. Donde no hay alianzas no se
+// imprime nada, ni un «No alliances»: la mayoría de las temporadas no las tienen y sería
+// ruido (misma excepción deliberada que en `al`). El `id` es el gancho del overlay, igual
+// que `#ranking-table`.
+const alTable=y=>{const g=(AL[y]||[]).map((a,i)=>({...a,n:i+1}));
+  if(!g.length)return '';
+  const head=[[t('rank'),1],[t('alliance')],[t('rankingScore'),1],[t('played'),1],
+    ...[1,2,3,4].map(i=>[t('teamN').replace('{n}',i)])];
+  const rows=g.slice().sort((a,b)=>(a.rank??Infinity)-(b.rank??Infinity)||a.n-b.n)
+    .map(a=>[a.rank??t('noData'),`${t('alliance')} ${a.n}`,a.score??t('noData'),a.played??t('noData'),
+      ...[0,1,2,3].map(i=>a.teams[i]?teamCell(a.teams[i]):'')]);
+  return `<h3>${t('alliances')}</h3><div id="alliances-table">${dt(head,rows)}</div>`};
 const R={gold:0,silver:1,bronze:2,honorable:3,awarded:4},nm=c=>teamLink(c,T[c][0]);
 const cells=a=>a.ty=='a'?[[a.w.map(nm).join(', '),a.tier]]:a.w.map((c,i)=>[nm(c),tierOf(a,i)]);
 // Un premio del catálogo puede no existir en todos los años (el catálogo es la unión),
@@ -77,7 +85,7 @@ const sName=y=>sn(y)?.name||String(y);
 const teamsOf=y=>(y?(sn(y)?.teams||t('noData')):codes.length);
 // Temporadas en las que el equipo llegó a la fase de round robin (está en alguna
 // alianza). No es el número de partidos jugados.
-const rrSeasons=c=>Y.filter(z=>(AL[z]||[]).some(g=>g.includes(c))).length;
+const rrSeasons=c=>Y.filter(z=>(AL[z]||[]).some(g=>g.teams.includes(c))).length;
 const place=s=>[s.city,s.country].filter(Boolean).join(', ');
 const when=s=>[place(s),s.dates].filter(Boolean).join(' · ');
 const countryCell=s=>s.country?`${flag(s.iso)} ${s.country}`:t('noData');

@@ -60,13 +60,27 @@ async function fetchAndProcessLive() {
     ties: r.ties
   }));
 
+  // Standings de la fase en curso (`round_robin`), reenviados tal cual los publica la API.
+  // Son filas POR EQUIPO —las cuatro de una alianza repiten el mismo rank/rankingScore/
+  // played— y el cliente las coloca en la tabla de alianzas cruzando por alpha-2, que es
+  // el nombre del archivo de bandera de cada celda de equipo (ver docs/discovery/06).
+  // `wins/losses/ties` y `highestScore` llegan a 0 con 4 partidos jugados: no son dato.
+  const roundRobin = (data.round_robin || []).map((r) => ({
+    code: r.team?.country ?? null,
+    countryCode: r.team?.countryCode ?? null,
+    rank: r.rank,
+    rankingScore: r.rankingScore,
+    played: r.played
+  }));
+
   const payload = {
     season: 2026,
     updatedAt: new Date().toISOString(),
     matchesCount: matches.length,
     playedCount: matches.filter((m) => m.played).length,
     matches,
-    rankings
+    rankings,
+    roundRobin
   };
 
   return JSON.stringify(payload);

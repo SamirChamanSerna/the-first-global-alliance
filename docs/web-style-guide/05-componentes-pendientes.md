@@ -58,7 +58,10 @@ en cuanto el evento cambia de fase, y el sitio no mostraba nada de esa fase: los
 clasificados no aparecían en ninguna tabla hasta que se jugaban los partidos. La
 especificación lo pide en la temporada (§2, «Playoffs / Round Robin: tabla de alianzas
 clasificadas») y el dueño lo pidió además en `/rankings/`, que es donde se busca el estado
-de la competición.
+de la competición. Nació como una lista de dos columnas (Alliance · Teams) y el dueño lo
+corrigió el mismo día: en esa fase lo que se mira es **el ranking de las alianzas**, así que
+la tabla lleva puesto, puntuación y partidos jugados de cada una, con sus cuatro equipos en
+columnas.
 
 **Dónde.** `site/templates/pages.js`, helper `alTable(y)`, llamado desde dos sitios:
 `rankings(y)` — arriba del todo, por encima de la tabla de puestos — y `insLive(y)` — entre
@@ -69,18 +72,21 @@ alianzas: 2024, 2025 y 2026.
 
 ```
 Alliances
-┌──────────┬──────────────────────────────────────────┐
-│ Alliance │ Teams                                    │
-├──────────┼──────────────────────────────────────────┤
-│       #1 │ 🇺🇿 UZB  🇲🇩 MDA  🇻🇪 VEN  🇸🇻 ESA          │
-│       #2 │ 🇨🇳 CHN  🇹🇲 TKM  🇰🇾 CAY  🇹🇷 TUR          │
-└──────────┴──────────────────────────────────────────┘
+┌──────┬───────────┬───────────────┬────────┬────────┬────────┬────────┬────────┐
+│ Rank │ Alliance  │ Ranking score │ Played │ Team 1 │ Team 2 │ Team 3 │ Team 4 │
+├──────┼───────────┼───────────────┼────────┼────────┼────────┼────────┼────────┤
+│    1 │ Alliance 1│           595 │      4 │ 🇰🇿 KAZ │ 🇦🇼 ARU │ 🇧🇴 BOL │ 🇯🇲 JAM │
+│    2 │ Alliance 6│           586 │      4 │ 🇷🇸 SRB │ 🇱🇹 LTU │ 🇲🇹 MLT │ 🇰🇪 KEN │
+└──────┴───────────┴───────────────┴────────┴────────┴────────┴────────┴────────┘
 ```
 
 **Marcado.** No hay componente nuevo ni clases nuevas: reutiliza `dt()` para la tabla y
 `teamCell()` para cada equipo (bandera + código, con el nombre completo en el `title` y
-enlace a su página), que es el vocabulario que ya usan las filas de partido. El número de
-alianza es el índice + 1, el mismo criterio que `al()` en las páginas de equipo.
+enlace a su página), que es el vocabulario que ya usan las filas de partido. La columna
+`Alliance` lleva el número escrito («Alliance 3», no «#3») para no confundirse con la
+columna de puesto, que es lo que se mira primero. La etiqueta de las columnas de equipo es
+`t('teamN').replace('{n}', i)`, una unidad traducible entera: `t('team') + ' 1'` pegaría dos
+fragmentos y ataría el orden de las palabras al inglés.
 
 En `/rankings/` la tabla de puestos queda envuelta en `<div id="ranking-table">`. No es
 decorativo: el overlay en vivo (`site/brand/live.js`) buscaba `table.dt`, y ahora la primera
@@ -90,22 +96,43 @@ del documento es la de alianzas, así que le escribía encima el ranking de equi
 **Tokens y CSS.** Ninguno nuevo: la tabla ya trae el estilo de `.dt` y las banderas el de `.fl`.
 
 **Datos que necesita.** `AL[y]` (`data/processed/{year}/alliances.json`), `t('alliances')`,
-`t('alliance')`, `t('teams')`. Sin alianzas —la mayoría de las temporadas— no se imprime
-nada, ni un «No alliances»: misma excepción deliberada que en `al()` (regla 6), porque el
-hueco no es un dato que falte sino una fase que no existió.
+`t('alliance')`, `t('teamN')`, `t('rank')`, `t('rankingScore')`, `t('played')`. Sin alianzas
+—la mayoría de las temporadas— no se imprime nada, ni un «No alliances»: misma excepción
+deliberada que en `al()` (regla 6), porque el hueco no es un dato que falte sino una fase que
+no existió.
 
 **Sin JS.** Es HTML del build; el overlay solo añade los marcadores de los partidos.
 
-**No lleva puesto ni récord.** En esa fase la API publica `rank: 0` para las ocho alianzas y
-ningún partido jugado, así que un puesto sería inventado y un 0 sería justo lo que prohíbe
-la regla 6. Se añadirán cuando la API los publique, igual que el ranking de la temporada
-viva, que rellena el overlay.
+**De dónde sale el puesto.** De `round_robin` (la API), que son filas **por equipo**: los
+cuatro de una alianza repiten el mismo `rank`, `rankingScore` y `played`, así que
+`buildAlliances` lee una y avisa si las otras tres dicen otra cosa (un puesto de alianza no
+puede salir de cuatro puestos distintos). Mientras la API no publique esas filas —el caso de
+2026 hoy, recién sorteado el round robin—, van a `null` y la tabla las declara «No data» en
+vez de esconder las columnas o inventar un 0. En 2024 y 2025 el build las trae completas.
+
+**Se rellena en vivo** (a diferencia de los partidos, que necesitan un rebuild para existir:
+aquí las filas ya están y solo faltan tres celdas). El worker reenvía `round_robin` como
+`roundRobin` en su payload —y `scripts/poll-live.js`, su gemelo, igual: los dos tienen que
+emitir lo mismo o el sitio se comporta distinto en local que en producción—, y `live.js`
+escribe Rank / Ranking score / Played en la fila de cada alianza y reordena la tabla por
+puesto. Para eso la tabla va envuelta en `<div id="alliances-table">`, el gancho del overlay
+(igual que `#ranking-table`).
+
+El cruce es el mismo de la tabla de puestos: **la bandera de cada celda de equipo ES el
+nombre del archivo, o sea el alpha-2**, y la entrada de `round_robin` trae `countryCode`. La
+fila se localiza por cualquiera de sus cuatro equipos, porque los cuatro comparten puesto. La
+localización y el reordenado viven en dos ayudas compartidas de `live.js` (`rowsByFlag` y
+`sortByRank`), que es también lo que usa la tabla de puestos: la lógica de «buscar la fila por
+su bandera» está en un solo sitio.
+
+**No lleva W-L-T.** Las filas de `round_robin` traen `wins`/`losses`/`ties` a 0 con
+`played: 4`: no son dato, están sin rellenar, así que copiarlos sería el 0 falso que prohíbe
+la regla 6. `highestScore` está igual, y por eso el worker no los reenvía.
 
 **PENDIENTE — el capitán.** `buildAlliances` deja al capitán en el primer hueco
-(`[captain, pick1, pick2, pick3]`), pero la tabla no lo marca porque `AL[y]` es una lista de
-códigos y pierde esa información, que la API sí declara (`isCaptain`, `pickOrder`). Marcar
-al capitán pediría cambiar la forma de `AL[y]`, así que es una decisión abierta, no un
-descuido.
+(`teams[0]`, que es `Team 1`), pero la tabla no lo marca: la API sí lo declara (`isCaptain`,
+`pickOrder`) y el dato se pierde al normalizar. Marcarlo pediría ampliar la forma de
+`AL[y]`, así que es una decisión abierta, no un descuido.
 
 **Nota para el demo.** `demo-team-match.html` tiene la fila de alianza del bloque de
 temporada (`.row` + `.chip`) y una tabla de partidos con las fases, pero ninguna tabla de

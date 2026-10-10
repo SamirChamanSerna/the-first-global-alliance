@@ -71,13 +71,24 @@ export async function fetchLiveSnapshot() {
     ties: r.ties
   }));
 
+  // Igual que el worker (worker/worker.js, el gemelo de este archivo): los dos tienen que
+  // emitir el mismo payload o el sitio se comporta distinto en local que en producción.
+  const roundRobin = (data.round_robin || []).map((r) => ({
+    code: r.team?.country ?? null,
+    countryCode: r.team?.countryCode ?? null,
+    rank: r.rank,
+    rankingScore: r.rankingScore,
+    played: r.played
+  }));
+
   const payload = {
     season: 2026,
     updatedAt: new Date().toISOString(),
     matchesCount: matches.length,
     playedCount: matches.filter((m) => m.played).length,
     matches,
-    rankings
+    rankings,
+    roundRobin
   };
 
   const jsonStr = JSON.stringify(payload);
