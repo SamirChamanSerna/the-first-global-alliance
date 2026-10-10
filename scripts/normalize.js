@@ -445,17 +445,42 @@ const teamsIn = (matches, rankings) =>
 
 // ---------------------------------------------------------------- alianzas
 
-/** AL[y] = alianzas de playoffs ordenadas por número: el índice + 1 es la alianza.
- *  Son las del round robin, de las que salen los finalistas. */
+/** AL[y] = alianzas de playoffs: `{teams, rank, score, played}`, en el orden de la API (el
+ *  índice + 1 es la alianza). Son las del round robin, de las que salen los finalistas.
+ *  El puesto y sus métricas salen de `round_robin`, que son filas POR EQUIPO: los cuatro
+ *  de una alianza repiten el mismo `rank`, `rankingScore` y `played`, así que se lee uno y
+ *  se avisa si los otros tres dicen otra cosa — un puesto de alianza no puede salir de
+ *  cuatro puestos distintos. `rank` es 0 cuando la API todavía no ha clasificado la fase
+ *  (es su centinela de «sin puesto», el mismo que usa `alliances_round_robin`), y ahí se
+ *  emite null para que la tabla lo declare «No data». Tampoco se copian `wins/losses/ties`
+ *  ni `highestScore`: llegan a 0 aunque el equipo haya jugado 4 partidos, o sea que no son
+ *  dato (regla 6). */
+const allianceMismatches = [];
+
 function buildAlliances(snapshot) {
+  const standing = new Map();
+  for (const r of snapshot.round_robin ?? []) standing.set(canon(r.team?.country), r);
   return (snapshot.alliances_round_robin ?? [])
     .slice()
     .sort((a, b) => a.captain.allianceRank - b.captain.allianceRank)
-    .map((a) => [a.captain, a.pick1, a.pick2, a.pick3].filter(Boolean).map((m) => {
-      const c = canon(m.team.country);
-      rememberName(c, m.team.name);
-      return c;
-    }));
+    .map((a) => {
+      const teams = [a.captain, a.pick1, a.pick2, a.pick3].filter(Boolean).map((m) => {
+        const c = canon(m.team.country);
+        rememberName(c, m.team.name);
+        return c;
+      });
+      const rows = teams.map((c) => standing.get(c)).filter(Boolean);
+      const s = rows[0];
+      if (s && rows.some((r) => r.rank !== s.rank)) {
+        allianceMismatches.push(`${a.name ?? teams[0]} (${rows.map((r) => r.rank).join('/')})`);
+      }
+      return {
+        teams,
+        rank: s?.rank || null,
+        score: s ? s.rankingScore : null,
+        played: s ? s.played : null,
+      };
+    });
 }
 
 // ---------------------------------------------------------------- premios
@@ -662,9 +687,9 @@ for (const [y, d] of Object.entries(perYear)) {
   for (const r of d.rankings) check(codes.has(r.code), `${y}: ranking de ${r.code}, fuera del roster`);
   const nums = new Set();
   for (const a of d.alliances) {
-    check(a.length === 4, `${y}: alianza de ${a.length} equipos, se esperan 4`);
-    for (const c of a) check(codes.has(c), `${y}: alianza con ${c}, fuera del roster`);
-    check(!nums.has(a.join()), `${y}: alianza duplicada`); nums.add(a.join());
+    check(a.teams.length === 4, `${y}: alianza de ${a.teams.length} equipos, se esperan 4`);
+    for (const c of a.teams) check(codes.has(c), `${y}: alianza con ${c}, fuera del roster`);
+    check(!nums.has(a.teams.join()), `${y}: alianza duplicada`); nums.add(a.teams.join());
   }
   for (const a of d.awards) for (const c of a.w) check(codes.has(c), `${y}: premio "${a.name}" con ${c}, fuera del roster`);
 }
@@ -707,6 +732,13 @@ if (nonTeamAwards.length) {
 if (streamMismatches.length) {
   console.warn(`aviso: ${streamMismatches.length} partido(s) cuyo vídeo exacto no es el stream declarado para su día y campo — ` +
     `revisa streams.csv o el mapeo de días: ${streamMismatches.slice(0, 5).join(' · ')}`);
+}
+
+// No es fatal —el puesto se publica con el del primer equipo que aparezca— pero significa
+// que la API dejó de rankear la fase por alianza, y la tabla enseñaría un puesto de cuatro.
+if (allianceMismatches.length) {
+  console.warn(`aviso: ${allianceMismatches.length} alianza(s) cuyos equipos traen puestos distintos en round_robin — ` +
+    `se usa el del primero: ${allianceMismatches.slice(0, 5).join(' · ')}`);
 }
 
 if (problems.length) {

@@ -28,7 +28,9 @@ for(const{y}of seasons){
   const st={};codes.forEach(c=>st[c]={code:c,w:0,l:0,t:0,pts:0,n:0});
   ms.filter(m=>m.stage=='ranking').forEach(m=>[[m.red,m.rs,m.bs],[m.blue,m.bs,m.rs]].forEach(([tm,a,b])=>tm.forEach(c=>{const z=st[c];z.n++;z.pts+=a;a>b?z.w++:a<b?z.l++:z.t++})));
   S[y]=Object.values(st).map(z=>({...z,rp:z.w*2+z.t,avg:z.n?+(z.pts/z.n).toFixed(1):0})).sort((a,b)=>b.rp-a.rp||b.pts-a.pts).map((z,i)=>({...z,rank:i+1,cols:[['Ranking score',z.rp],['Avg score',z.avg],['Points',z.pts]]}));   // cols = criterios por temporada, como en los datos reales
-  AL[y]=[0,1,2].map(k=>S[y].slice(k*4,k*4+4).map(z=>z.code));   // alianzas de playoffs: 4 equipos
-  add('round_robin','rr',4,i=>[[0,1],[0,2],[1,2],[0,1]][i-1].map(k=>AL[y][k]));add('finals','f',2,()=>[AL[y][0],AL[y][1]]);
-  A[y]=AW.map(([name,desc,ty,tier])=>({name,desc,ty,tier,w:ty=='a'?AL[y]['gold silver bronze'.split(' ').indexOf(tier)]:shuffle(codes).slice(0,3)}));
+  // Alianzas de playoffs: 4 equipos y el puesto de la fase, con la forma del dato real
+  // (`{teams, rank, score, played}`). Los números son inventados, como todo el fixture.
+  AL[y]=[0,1,2].map((k,i)=>({teams:S[y].slice(k*4,k*4+4).map(z=>z.code),rank:i+1,score:600-i*7,played:4}));
+  add('round_robin','rr',4,i=>[[0,1],[0,2],[1,2],[0,1]][i-1].map(k=>AL[y][k].teams));add('finals','f',2,()=>[AL[y][0].teams,AL[y][1].teams]);
+  A[y]=AW.map(([name,desc,ty,tier])=>({name,desc,ty,tier,w:ty=='a'?AL[y]['gold silver bronze'.split(' ').indexOf(tier)].teams:shuffle(codes).slice(0,3)}));
 }

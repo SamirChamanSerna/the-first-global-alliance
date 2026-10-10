@@ -42,7 +42,9 @@ const read = (file) => {
  *                           `cols` son los criterios de desempate DE ESA temporada, en su
  *                           orden, con la etiqueta que fija rankings.labels.json. `w/l/t`
  *                           (y `n`, `avg`) solo existen si esa temporada trae récord.
- *   {year}/alliances.json   [[CODE, …], …]
+ *   {year}/alliances.json   [{teams: [CODE, …], rank, score, played}, …]   las alianzas de
+ *                           playoffs en orden; `rank`/`score`/`played` son su puesto en la
+ *                           fase de round robin y valen null mientras la API no lo publique
  *   {year}/awards.json      [{name, desc, ty, tier, w[]}]
  */
 function load() {

@@ -38,9 +38,13 @@ if (!fs.existsSync(path.join(DIR, 'teams.json')) || process.argv.includes('--tea
 }
 
 for (const y of list) {
-  // excludeMatchDetails=true es contraintuitivo: además de omitir el desglose por
-  // partido, es lo que hace que la API incluya `field` y `played`. Verificado.
-  const snapshot = await get(`${API}/v1?year=${y}&excludeMatchDetails=true`);
+  // excludeMatchDetails=false SIEMPRE: verificado contra la API que `field` y `played`
+  // —lo único que el pipeline necesita además de los equipos— vienen en los dos casos,
+  // así que pedir `true` no ahorraba nada y sí perdía el desglose (`details`) de los
+  // partidos ya jugados. Sin él, `normalize` no puede rellenar `breakdown` y una
+  // temporada en curso publicaba un 0 donde no había dato (regla 6: el hueco se declara,
+  // nunca se rellena con un cero). El atributo se añadió cuando la API sí lo omitía.
+  const snapshot = await get(`${API}/v1?year=${y}&excludeMatchDetails=false`);
   fs.writeFileSync(path.join(DIR, `${y}.json`), JSON.stringify(snapshot), 'utf8');
   const counts = Object.entries(snapshot)
     .map(([k, v]) => `${k}=${Array.isArray(v) ? v.length : '?'}`)

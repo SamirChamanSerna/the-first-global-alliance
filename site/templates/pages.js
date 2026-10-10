@@ -1,6 +1,6 @@
 // PLANTILLAS de las 10 pantallas. Cada una = composición de bloques; sin HTML de estilo propio.
 import {brand,t} from '../brand/brand.js';
-import {e,hero,flag,teamLink,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
+import {e,hero,flag,teamLink,teamCell,pip,box,boxes,kvr,dd,dt,matchList,matchRow,awardBlock,awardKey,scoreboard,breakdown,videoThumb,videoFallback,videoCard} from './blocks.js';
 import {urls,outPath} from './urls.js';
 import {seasons,T,codes,M,S,A,AL,AW,PH,ST} from './data.js';
 import {STREAMS_2026} from '../brand/streams.js';
@@ -24,8 +24,25 @@ const awList=(y,c)=>won(y,c).map(x=>kvr(x.n,pip(x.tr))).join('')||`<div class="m
 // equipos no pasa a playoffs, así que un «Did not play playoffs» repetido en cada bloque
 // de cada temporada es ruido, no información. Es una excepción deliberada a la regla 6
 // (decidida por el dueño): el hueco no se declara, simplemente no aparece.
-const al=(y,c)=>{const i=(AL[y]||[]).findIndex(g=>g.includes(c));
-  return i<0?'':kvr(`${t('alliance')} ${i+1}`,AL[y][i].map(k=>`<a href="${urls.team(k)}">${k}</a>`).join(' '))};
+const al=(y,c)=>{const i=(AL[y]||[]).findIndex(g=>g.teams.includes(c));
+  return i<0?'':kvr(`${t('alliance')} ${i+1}`,AL[y][i].teams.map(k=>`<a href="${urls.team(k)}">${k}</a>`).join(' '))};
+// Ranking de la fase de round robin: una fila por alianza, ordenadas por su puesto en esa
+// fase (y por número de alianza mientras no lo haya). El puesto, la puntuación y los
+// partidos jugados son de la ALIANZA —la API los repite en las cuatro filas de equipo— y
+// llegan a null hasta que publica `round_robin`, así que se declaran «No data» (regla 6) en
+// vez de esconder la columna o inventar un 0; el overlay en vivo (site/brand/live.js) los
+// rellena de `live.json` en cuanto el worker los reenvía. Donde no hay alianzas no se
+// imprime nada, ni un «No alliances»: la mayoría de las temporadas no las tienen y sería
+// ruido (misma excepción deliberada que en `al`). El `id` es el gancho del overlay, igual
+// que `#ranking-table`.
+const alTable=y=>{const g=(AL[y]||[]).map((a,i)=>({...a,n:i+1}));
+  if(!g.length)return '';
+  const head=[[t('rank'),1],[t('alliance')],[t('rankingScore'),1],[t('played'),1],
+    ...[1,2,3,4].map(i=>[t('teamN').replace('{n}',i)])];
+  const rows=g.slice().sort((a,b)=>(a.rank??Infinity)-(b.rank??Infinity)||a.n-b.n)
+    .map(a=>[a.rank??t('noData'),`${t('alliance')} ${a.n}`,a.score??t('noData'),a.played??t('noData'),
+      ...[0,1,2,3].map(i=>a.teams[i]?teamCell(a.teams[i]):'')]);
+  return `<h3>${t('alliances')}</h3><div id="alliances-table">${dt(head,rows)}</div>`};
 const R={gold:0,silver:1,bronze:2,honorable:3,awarded:4},nm=c=>teamLink(c,T[c][0]);
 const cells=a=>a.ty=='a'?[[a.w.map(nm).join(', '),a.tier]]:a.w.map((c,i)=>[nm(c),tierOf(a,i)]);
 // Un premio del catálogo puede no existir en todos los años (el catálogo es la unión),
@@ -68,7 +85,7 @@ const sName=y=>sn(y)?.name||String(y);
 const teamsOf=y=>(y?(sn(y)?.teams||t('noData')):codes.length);
 // Temporadas en las que el equipo llegó a la fase de round robin (está en alguna
 // alianza). No es el número de partidos jugados.
-const rrSeasons=c=>Y.filter(z=>(AL[z]||[]).some(g=>g.includes(c))).length;
+const rrSeasons=c=>Y.filter(z=>(AL[z]||[]).some(g=>g.teams.includes(c))).length;
 const place=s=>[s.city,s.country].filter(Boolean).join(', ');
 const when=s=>[place(s),s.dates].filter(Boolean).join(' · ');
 const countryCell=s=>s.country?`${flag(s.iso)} ${s.country}`:t('noData');
@@ -127,6 +144,10 @@ const insLive=y=>{
   ],1)
   +`<div class="stream-bar"><span>${t('mainBroadcast')}:</span>${dayBtns}<a class="stream-btn" href="${STREAMS_2026.playlist}" target="_blank" rel="noopener">▶ ${t('playlist')} ↗</a><a class="stream-btn on" href="${urls.gameday()}">⚡ ${t('gamedayTitle')}</a></div>`
   +revealBlock(y)
+  // La tabla de alianzas de la fase que se está jugando: es lo que pide la especificación
+  // (§2, «Playoffs / Round Robin: tabla de alianzas clasificadas») para la página de la
+  // temporada. Va entre el vídeo de revelación y el tracker, antes de los partidos.
+  +alTable(y)
   +`<div class="bar"><h3>${t('liveTracker')}</h3><input type="search" id="match-filter" placeholder="${t('search')}" aria-label="${t('search')}"></div>`
   +`<div id="on-deck-section"${onDeck.length?'':' hidden'}><h3>${t('onDeck')}</h3><div class="on-deck-matches" id="on-deck-container">${onDeck.map(m=>matchRow(m)).join('')}</div></div>`
   +`<div id="completed-section"${completed.length?'':' hidden'}><h3>${t('completed')}</h3><div id="completed-match-list">${completed.slice().reverse().map(m=>matchRow(m)).join('')}</div></div>`
@@ -178,7 +199,10 @@ const noComp=()=>`<p class="note">${t('noCompetition')}</p>`;
 // Y una temporada que existe pero todavía no tiene datos (2026, viva) declara su hueco
 // en vez de pintar una tabla sin filas o un div vacío.
 const rankings=y=>bar(`${t('topRank')} ${y}`,sel(y,z=>urls.rankings(z)))
-  +(onlyAwards(y)?noComp():S[y].length?rank(y):`<p class="note">${t('noData')}</p>`);
+  // Las alianzas van arriba y la tabla de puestos debajo. El `id` no es decorativo: el
+  // overlay en vivo (site/brand/live.js) busca `table.dt` para rellenar los puestos, y
+  // sin él encontraba esta primera tabla y le escribía el ranking de equipos encima.
+  +(onlyAwards(y)?noComp():S[y].length?alTable(y)+`<div id="ranking-table">${rank(y)}</div>`:`<p class="note">${t('noData')}</p>`);
 const matches=y=>bar(`${t('matches')} ${y}`,sel(y,z=>urls.matches(z)))
   +(onlyAwards(y)?noComp():M[y].length?`<div>${matchList(M[y])}</div>`:`<p class="note">${t('noMatchData')}</p>`);
 const gameday=()=>{

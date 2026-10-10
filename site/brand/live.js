@@ -205,7 +205,44 @@
       });
     }
 
-    // 4. Consulta periódica de /live.json
+    // 4. Tablas `dt` del ranking: dos ayudas que usan la tabla de puestos y la de alianzas.
+    // Localiza una fila por el alpha-2 de su bandera: el código de la API (HPE, ANT…) no es
+    // el del roster (10, ATG), y el nombre del archivo de bandera ES el alpha-2, así que la
+    // bandera de la celda es el puente (mismo criterio que scripts/lib/codes.js). La tabla
+    // de alianzas lleva cuatro banderas por fila, así que se indexan todas.
+    function rowsByFlag(tbody) {
+      const byFlag = new Map();
+      tbody.querySelectorAll('tr').forEach((tr) => {
+        tr.querySelectorAll('img.fl').forEach((img) => {
+          const stem = (img.getAttribute('src') || '').split('/').pop().replace(/\.svg$/i, '').toLowerCase();
+          if (stem && !byFlag.has(stem)) byFlag.set(stem, tr);
+        });
+      });
+      return (a2) => {
+        if (!a2) return null;
+        const direct = byFlag.get(a2);
+        if (direct) return direct;
+        // Los equipos especiales usan un asset con prefijo: 10 → 10_hope.
+        for (const [stem, tr] of byFlag) if (stem.startsWith(a2 + '_')) return tr;
+        return null;
+      };
+    }
+
+    // Reordena una tabla `dt` por su primera columna, que es el puesto. Las filas que
+    // siguen sin puesto —el build las dejó en «No data»— se van al final y conservan su
+    // orden: el centinela es Infinity, no un número, para que ninguna se cuele entre los
+    // líderes.
+    function sortByRank(tbody) {
+      const rankOf = (tr) => {
+        const n = parseInt(tr.cells[0]?.textContent, 10);
+        return Number.isNaN(n) ? Infinity : n;
+      };
+      [...tbody.rows]
+        .sort((a, b) => { const x = rankOf(a), y = rankOf(b); return x === y ? 0 : x - y; })
+        .forEach((tr) => tbody.appendChild(tr));
+    }
+
+    // 5. Consulta periódica de /live.json
     async function update() {
       try {
         const res = await fetch(liveUrl, { cache: 'no-cache' });
@@ -395,29 +432,15 @@
         // desempates aplicados, así que aquí no se calcula nada: solo se rellenan las filas
         // que el build dejó en «No data». Nunca se crean filas.
         if (data.rankings && data.rankings.length > 0) {
-          const table = document.querySelector('table.dt');
+          // `#ranking-table` acota la búsqueda a la tabla de puestos: en /rankings/ la
+          // página abre con la tabla de alianzas, que también es `table.dt`, y un
+          // `querySelector('table.dt')` a secas le escribía encima el ranking de equipos.
+          // El `||` mantiene el comportamiento de antes en cualquier otra página.
+          const table = document.querySelector('#ranking-table table.dt') || document.querySelector('table.dt');
           if (table && window.location.pathname.includes('/rankings/2026/')) {
             const tbody = table.querySelector('tbody');
             if (tbody) {
-              // El código de la API (HPE, ANT…) no es el del roster (10, ATG): el puente es
-              // el alpha-2, que es justo el nombre del archivo de bandera de la fila. Mismo
-              // criterio que scripts/lib/codes.js.
-              const byFlag = new Map();
-              tbody.querySelectorAll('tr').forEach((tr) => {
-                const img = tr.querySelector('img.fl');
-                if (!img) return;
-                const stem = (img.getAttribute('src') || '').split('/').pop().replace(/\.svg$/i, '').toLowerCase();
-                if (stem) byFlag.set(stem, tr);
-              });
-              const rowFor = (a2) => {
-                if (!a2) return null;
-                const direct = byFlag.get(a2);
-                if (direct) return direct;
-                // Los equipos especiales usan un asset con prefijo: 10 → 10_hope.
-                for (const [stem, tr] of byFlag) if (stem.startsWith(a2 + '_')) return tr;
-                return null;
-              };
-
+              const rowFor = rowsByFlag(tbody);
               data.rankings.forEach((r) => {
                 // El puente es countryCode (alpha-2), que es el nombre del archivo de
                 // bandera de la fila; `code` es el alpha-3 de la API (HPE, ANT…).
@@ -438,17 +461,33 @@
                 }
               });
 
-              // Reordenar por puesto. Las filas que siguen sin puesto se van al final y
-              // conservan su orden alfabético: el centinela es Infinity, no un número, para
-              // que ninguna fila con «No data» se cuele entre los líderes.
-              const rankOf = (tr) => {
-                const n = parseInt(tr.cells[0]?.textContent, 10);
-                return Number.isNaN(n) ? Infinity : n;
-              };
-              [...tbody.rows]
-                .sort((a, b) => { const x = rankOf(a), y = rankOf(b); return x === y ? 0 : x - y; })
-                .forEach((tr) => tbody.appendChild(tr));
+              // Reordenar por puesto: las filas que siguen sin puesto se van al final.
+              sortByRank(tbody);
             }
+          }
+        }
+
+        // Tabla de alianzas de la fase (`round_robin`). El build la deja con «No data» en
+        // Rank / Ranking score / Played porque esas filas las publica la API después del
+        // sorteo; aquí se rellenan y la tabla se reordena por puesto. Como las cuatro filas
+        // de una alianza traen el mismo puesto, la fila se localiza por cualquiera de sus
+        // cuatro equipos.
+        if (data.roundRobin && data.roundRobin.length) {
+          const table = document.querySelector('#alliances-table table.dt');
+          const tbody = table && table.querySelector('tbody');
+          if (tbody) {
+            const rowFor = rowsByFlag(tbody);
+            data.roundRobin.forEach((s) => {
+              const tr = rowFor(String(s.countryCode || s.code || '').toLowerCase().split('_')[0]);
+              if (!tr) return;
+              const cells = tr.querySelectorAll('td');
+              const put = (i, v) => { if (cells[i] && v != null) cells[i].textContent = v; };
+              // Columnas: 0 Rank · 1 Alliance · 2 Ranking score · 3 Played · 4-7 los equipos.
+              put(0, s.rank);
+              put(2, s.rankingScore);
+              put(3, s.played);
+            });
+            sortByRank(tbody);
           }
         }
       } catch {
