@@ -12,8 +12,13 @@ export const brand = {
   // refugiados usa un asset especial. La traducción la hace data.js → flagFile().
   flagPath: (name) => `/flags/${String(name).toLowerCase()}.svg`,
   lang: "en",                          // PENDIENTE: idioma de la interfaz (en / es)
+  locale: "en_US",                     // og:locale
   themeColor: "#3f51b5",               // debe coincidir con --brand (el <meta> no puede leer CSS)
   favicon: "/brand/favicon.svg",
+  // Dominio de producción: canonical, og:url y sitemap necesitan URLs absolutas.
+  siteUrl: "https://tfga.fgcmexico.com",
+  // PENDIENTE: imagen 1200×630 para compartir. Vacío = twitter:card "summary".
+  ogImage: "",
 
   // Icono oficial del proyecto (docs/web-style-guide/tfga-icon.svg).
   // Es una silueta RELLENA y el viewBox NO es cuadrado (600x523). La orientación
@@ -21,7 +26,7 @@ export const brand = {
   // fuera del viewBox). No añadir preserveAspectRatio="none". Sin colores propios.
   logoSvg: '<svg class="logo" viewBox="0 0 600 523" aria-hidden="true"><g transform="translate(0 523) scale(.05 -.05)" fill="currentColor" stroke="none"><path d="M5790 9968 c-2490 -260 -4352 -2240 -4424 -4705 l-12 -386 230 173 230 174 13 223 c7 123 19 248 28 278 l15 55 180 -120 c219 -146 191 -147 434 5 226 140 226 118 1 251 -188 112 -488 328 -501 362 -19 51 138 479 289 782 193 389 601 992 657 972 11 -4 115 -74 231 -155 116 -81 300 -196 410 -256 109 -59 202 -110 206 -113 3 -2 -22 -93 -57 -201 -97 -303 -257 -1036 -232 -1062 4 -4 116 47 248 113 l240 120 33 156 c46 216 169 652 190 673 9 9 105 -12 214 -47 719 -230 813 -235 1298 -65 219 77 465 161 545 188 l145 47 -1 1037 -1 1036 66 -14 c496 -107 1036 -663 1418 -1459 l84 -174 72 11 c186 30 361 79 361 102 0 107 -460 897 -680 1168 -127 156 -127 156 81 72 457 -185 1324 -744 1294 -835 -11 -33 -210 -174 -421 -297 -206 -121 -207 -128 -13 -87 199 42 1090 170 1184 170 108 0 103 9 -199 320 -777 804 -1700 1288 -2766 1450 -201 31 -918 56 -1090 38z m165 -1493 l-5 -1025 -140 6 c-477 21 -1430 237 -1430 324 0 58 287 606 429 821 258 389 637 723 969 853 202 79 183 186 177 -979z m-1245 740 c-258 -317 -420 -574 -617 -980 -79 -162 -148 -295 -154 -295 -57 -1 -685 412 -674 443 41 118 834 627 1262 809 244 105 250 106 183 23z"/><path d="M10800 8047 c-1674 -120 -3013 -378 -4520 -871 -3282 -1073 -5873 -2874 -6243 -4340 -254 -1002 609 -1461 2221 -1184 92 16 175 34 185 40 20 12 -223 308 -253 308 -187 1 -572 102 -722 190 -1001 586 651 2350 3522 3760 1660 815 3444 1437 5620 1960 308 74 564 138 568 142 9 9 -231 5 -378 -5z"/><path d="M10054 7570 c-221 -58 -213 -41 -113 -212 171 -292 439 -940 439 -1059 0 -113 -1214 -819 -1407 -819 -11 0 -19 68 -54 460 -30 346 -185 1182 -228 1235 -6 7 -400 -117 -415 -132 -7 -7 8 -94 34 -194 124 -479 241 -1469 179 -1526 -97 -92 -1190 -277 -1844 -314 l-245 -13 0 682 c0 375 -7 682 -15 682 -8 -1 -105 -39 -215 -86 l-200 -85 -5 -597 -6 -596 -244 13 c-473 26 -1086 112 -1442 202 -64 16 -135 29 -158 29 -40 0 -367 -187 -596 -341 l-111 -75 7 -137 c22 -452 100 -1024 201 -1472 22 -96 36 -175 31 -175 -110 0 -1058 453 -1360 651 -93 60 -176 109 -186 109 -20 0 -295 -297 -371 -400 l-47 -64 66 -153 c850 -1984 2944 -3181 5061 -2894 3367 458 5207 4100 3604 7136 -117 223 -97 214 -360 145z m486 -2190 c37 -456 -64 -1351 -167 -1478 -133 -164 -1586 -915 -1649 -853 -4 4 16 111 45 237 98 438 191 1197 191 1565 l0 141 225 86 c392 151 978 460 1235 651 l70 53 14 -66 c8 -36 24 -187 36 -336z m-6276 -628 c455 -102 1126 -192 1433 -192 76 0 166 -6 201 -12 l62 -13 0 -934 c0 -514 -4 -938 -8 -943 -55 -54 -1497 130 -1744 223 -109 41 -348 1330 -348 1872 l0 103 89 -27 c50 -15 191 -49 315 -77z m4245 -67 c-44 -642 -235 -1716 -317 -1784 -97 -80 -1682 -301 -1777 -247 -8 5 -15 430 -15 944 l0 936 105 13 c58 7 153 13 211 13 311 0 1011 101 1454 209 383 93 352 101 339 -84z m-5899 -1686 c355 -178 622 -289 960 -399 244 -80 230 -67 321 -300 161 -413 423 -884 651 -1171 65 -81 118 -152 118 -157 0 -5 -92 31 -205 80 -781 342 -1456 907 -1905 1597 -158 242 -326 541 -298 528 10 -4 171 -84 358 -178z m7411 -11 c-466 -872 -1238 -1572 -2158 -1957 -165 -69 -168 -60 -37 103 240 298 494 754 664 1189 l75 193 303 105 c363 125 820 324 1052 457 94 54 178 99 187 100 9 1 -30 -84 -86 -190z m-5271 -678 c325 -55 599 -86 950 -106 l250 -14 5 -720 c6 -847 19 -775 -129 -737 -533 137 -1087 719 -1416 1488 l-71 164 66 -13 c36 -8 191 -35 345 -62z m3270 62 c0 -92 -304 -642 -493 -893 -312 -415 -795 -756 -1072 -759 l-55 0 0 737 0 737 273 13 c348 17 751 63 1057 122 268 51 290 54 290 43z"/></g></svg>',
 
-  // Solo rutas que existen en 03-pages.md. "Teams" apunta a /search/ (no hay índice de equipos en el MVP).
+  // Rutas principales del nav. /search/ no aparece aquí: se llega por el buscador.
   nav: [
     { key: "insights", label: "Insights", href: "/insights/" },
     { key: "teams",    label: "Teams",    href: "/teams/" },
@@ -36,8 +41,8 @@ export const brand = {
     { label: "Awards",   href: "/awards/" },
   ],
   attribution: "Data provided by FIRST Global.",
-  coverageDisclaimer: "",              // PENDIENTE: texto legal/cobertura del pie
-  license: "",                         // PENDIENTE: licencia de los datos y del sitio
+  coverageDisclaimer: "Unofficial project. Not affiliated with FIRST Global.",
+  license: "MIT License.",
 
   // Emoji + texto SIEMPRE juntos (nunca solo uno de los dos).
   medals: {
@@ -46,6 +51,25 @@ export const brand = {
     bronze:    { emoji: "🥉", label: "Bronze" },
     honorable: { emoji: "",   label: "Honorable" },   // PENDIENTE: símbolo propio
     awarded:   { emoji: "",   label: "Awarded" },    // premio sin lugar (non-tiered)
+  },
+
+  // Meta descripciones. Frases completas con marcadores {clave}: se traducen como
+  // una unidad, igual que las etiquetas de la interfaz.
+  meta: {
+    home: "Explore FIRST Global Challenge results since 2017: teams, awards, rankings, matches and match breakdowns.",
+    insights: "Historical FIRST Global Challenge awards by season, plus medal totals and award-winning teams.",
+    season: "{name} at the {year} FIRST Global Challenge in {place}: awards, top-ranked teams, playoff results and match scores.",
+    seasonAwards: "{name} ({year}): awards only; no physical FIRST Global Challenge was held that season.",
+    rankings: "{year} FIRST Global Challenge rankings: full team standings, ranking scores and qualification results.",
+    matches: "All {year} FIRST Global Challenge matches with scores, alliances, fields and video links.",
+    match: "{label} at the {year} FIRST Global Challenge: red and blue alliances, final score and breakdown.",
+    team: "{name} ({code}) FIRST Global Challenge history: matches, awards, best rank and results by season.",
+    teamSeason: "{name} at the {year} FIRST Global Challenge: rank, record, matches and awards.",
+    awards: "All-time FIRST Global Challenge awards table: gold, silver, bronze and honorable mentions by team.",
+    teams: "Directory of {count} FIRST Global Challenge teams by continent, with seasons played and team pages.",
+    gameday: "GameDay: watch FIRST Global Challenge streams by field and season.",
+    search: "Search FIRST Global Challenge teams, countries and seasons.",
+    notFound: "The page you are looking for does not exist. Use the menu to browse seasons, teams, awards or matches.",
   },
 
   // Todo texto fijo de la interfaz. Los templates usan t("clave"), nunca texto literal.
@@ -80,7 +104,6 @@ export const brand = {
     onDeck: "Active fields (Fields 1–5)",
     koreaTime: "All times in Korea Standard Time (KST / UTC+9)",
     eta: "ETA",
-    allAwards: "Historical awards by team and year",
     winningTeams: "Award-winning teams",
     liveStreams: "Live streams",
     mainBroadcast: "Main broadcast",
@@ -88,6 +111,7 @@ export const brand = {
     playlist: "Full Playlist",
     watchField: "Watch stream",
     gamedayTitle: "GameDay Live",
+    seasonStreams: "Season streams",
     selectStream: "Select a stream to watch",
     presets: "Presets",
     singleStream: "1 Stream",
@@ -100,6 +124,7 @@ export const brand = {
     noResults: "No results found",
     searchPrompt: "Type a team name, country, or season year…",
     allTeams: "All teams",
+    notFound: "Page not found",
   },
 };
 
@@ -107,4 +132,11 @@ export const brand = {
 export function t(key) {
   if (!(key in brand.labels)) throw new Error(`Falta la etiqueta de interfaz: "${key}" (añadir en brand.js)`);
   return brand.labels[key];
+}
+
+/** Meta descripción con marcadores. Falla en el build si falta la plantilla. */
+export function metaText(key, vars = {}) {
+  const s = brand.meta[key];
+  if (!s) throw new Error(`Falta la meta descripción: "${key}" (añadir en brand.js)`);
+  return s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
 }

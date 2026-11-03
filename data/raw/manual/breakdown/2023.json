@@ -1,0 +1,11 @@
+{
+  "year": 2023,
+  "rows": [
+    { "label": "Hydrogen points", "red": "redHydrogenPoints", "blue": "blueHydrogenPoints" },
+    { "label": "Oxygen points", "red": "redOxygenPoints", "blue": "blueOxygenPoints" },
+    { "label": "Alignment", "red": "redAlignment", "blue": "blueAlignment" },
+    { "label": "Robot 1 proficiency", "red": "redOneProficiency", "blue": "blueOneProficiency" },
+    { "label": "Robot 2 proficiency", "red": "redTwoProficiency", "blue": "blueTwoProficiency" },
+    { "label": "Robot 3 proficiency", "red": "redThreeProficiency", "blue": "blueThreeProficiency" }
+  ]
+}

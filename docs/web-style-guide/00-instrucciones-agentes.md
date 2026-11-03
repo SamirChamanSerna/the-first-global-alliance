@@ -9,16 +9,16 @@
 2. `02-guia-de-estilos.md` (reglas y decisiones de diseño).
 3. `demo-team-match.html` (ábrelo en light y dark, a 1280 px y a 390 px).
 4. `01-descripcion.md` (qué se ve en las páginas de referencia de TBA; solo consulta).
-5. La especificación funcional del proyecto (pantallas y contenido) y `02-data-contract.md` (forma de los datos).
+5. La especificación funcional del proyecto (pantallas y contenido) y `site/templates/data.js` (forma de los datos).
 
 | Tema | Manda |
 |---|---|
 | Aspecto: markup, CSS, colores | `demo-team-match.html` y los archivos de `site/` |
 | Reglas y decisiones de diseño | `02-guia-de-estilos.md` |
 | Rutas y contenido de cada pantalla | la especificación funcional (§2 de este archivo la resume) |
-| Forma de los datos | `02-data-contract.md` |
+| Forma de los datos | `site/templates/data.js` |
 
-**`03-pages.md` está obsoleto en rutas y plantillas.** De ahí solo se conservan como principios, mientras no contradigan lo anterior: declarar la cobertura cuando un dato es parcial, no mostrar estados vacíos por falta de datos, y funcionar sin JavaScript.
+**La antigua `03-pages.md` está obsoleta en rutas y plantillas.** De ella solo se conservan como principios, mientras no contradigan lo anterior: declarar la cobertura cuando un dato es parcial, no mostrar estados vacíos por falta de datos, y funcionar sin JavaScript.
 Si dos fuentes se contradicen, **no decidas**: repórtalo.
 
 ## 1. Reglas inviolables
@@ -90,7 +90,7 @@ Banderas: `brand.flagPath(iso)` → `/flags/{iso}.svg`, **en minúsculas (supues
 
 ```
 docs/web-style-guide/   00 (este) · 01 · 02 · demo-team-match.html
-docs/discovery/         01–06: arquitectura, fuentes, datos raw, pipeline, plan, claves
+docs/                   api-notes.md · new-season.md · README.md
 site/brand/             tokens.css · brand.js · favicon.svg        ← MAESTROS
 site/css/components.css estilos de todos los bloques (solo var(--…))
 site/templates/urls.js    único módulo que arma rutas del sitio
@@ -105,7 +105,7 @@ data/raw/manual/          datos a mano (CSV) · data/processed/ = entrada del bu
 Previsualizar: `node site/build.js` y abrir `site/dist/index.html` (requiere Node 20+; `site/package.json` ya declara módulos ES). El CSS final es **un solo archivo** (`site.css` = `tokens.css` + `components.css`).
 
 ### Forma de los datos que consumen las plantillas
-`pages.js` importa de `mock.js` estas estructuras. La capa de datos real debe exponerlas **con la misma forma** (mapeando desde `02-data-contract.md`):
+`pages.js` importa de `mock.js` estas estructuras. La capa de datos real debe exponerlas **con la misma forma** (mapeando desde `site/templates/data.js`):
 
 | Nombre | Forma |
 |---|---|
@@ -113,7 +113,7 @@ Previsualizar: `node site/build.js` y abrir `site/dist/index.html` (requiere Nod
 | `T[code]` | `[nombre, continente]` |
 | `PH[year][code]` | URL de la foto del equipo **en esa temporada** (hotlink externo, `http(s)`). Ausente = marcador del marco `.photo` |
 | `M[y][]` (partidos) | `{id, href, y, stage: ranking\|round_robin\|finals, label, field, time, red[], blue[], rs, bs, bd[4], video}`; `rs`/`bs` = `null` si no se ha jugado |
-| `S[y][]` (posiciones) | `{code, rank, cols: [[etiqueta, valor]…]}` y, **solo si esa temporada trae récord**, `w, l, t, n, avg`. `cols` son los criterios de desempate de ESA temporada, en su orden: cambian cada año y su etiqueta la fija `data/raw/manual/rankings.labels.json` |
+| `S[y][]` (posiciones) | `{code, rank, cols: [[etiqueta, valor]…]}` y, **solo si esa temporada trae récord**, `w, l, t, n, avg`. `cols` son los criterios de desempate de ESA temporada, en su orden: cambian cada año y su etiqueta la fija `data/raw/manual/rankings/{year}.json` |
 | `AL[y][]` (alianzas) | arreglo de alianzas; cada una, arreglo de códigos. La posición + 1 = número de alianza |
 | `A[y][]` (premios) | `{name, desc, ty: 'a'\|'p'\|'n', tier, w[]}`: `a` alianza (un tono para todos), `p` podio (oro-plata-bronce), `n` sin lugar |
 

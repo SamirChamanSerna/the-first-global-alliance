@@ -1,0 +1,202 @@
+[
+ {
+  "award": "FIRST Global Discover and Recover Award",
+  "description": "Overall Winning Alliances of the Solutions Challenge",
+  "type": "alliance",
+  "teams": [
+   "USA",
+   "ZWE",
+   "PHL",
+   "TUN",
+   "CAN",
+   "GRC"
+  ]
+ },
+ {
+  "award": "FIRST Global Grand Challenge Award - Economy",
+  "description": "Winning alliances in each Category of the Solutions Challenge",
+  "type": "alliance",
+  "teams": [
+   "CHL",
+   "IND",
+   "SYC",
+   "URY"
+  ]
+ },
+ {
+  "award": "FIRST Global Grand Challenge Award - Education",
+  "description": "Winning alliances in each Category of the Solutions Challenge",
+  "type": "alliance",
+  "teams": [
+   "PHL",
+   "TUN",
+   "BRA",
+   "ZAF",
+   "POL",
+   "YEM"
+  ]
+ },
+ {
+  "award": "FIRST Global Grand Challenge Award - Environment",
+  "description": "Winning alliances in each Category of the Solutions Challenge",
+  "type": "alliance",
+  "teams": [
+   "USA",
+   "ZWE",
+   "IRN",
+   "SGP",
+   "NGA",
+   "PSE"
+  ]
+ },
+ {
+  "award": "FIRST Global Grand Challenge Award - Health",
+  "description": "Winning alliances in each Category of the Solutions Challenge",
+  "type": "alliance",
+  "teams": [
+   "CAN",
+   "GRC",
+   "BLR",
+   "GHA",
+   "AUS",
+   "HRV"
+  ]
+ },
+ {
+  "award": "FIRST Global Challenge Award - Economy",
+  "description": "Winning Teams for Phase 1 of the Solutions Challenge",
+  "type": "podium",
+  "winners": {
+   "gold": "IND",
+   "silver": "URY",
+   "bronze": "CHL"
+  }
+ },
+ {
+  "award": "FIRST Global Challenge Award - Education",
+  "description": "Winning Teams for Phase 1 of the Solutions Challenge",
+  "type": "podium",
+  "winners": {
+   "gold": "BRA",
+   "silver": "LVA",
+   "bronze": "KHM"
+  }
+ },
+ {
+  "award": "FIRST Global Challenge Award - Environment",
+  "description": "Winning Teams for Phase 1 of the Solutions Challenge",
+  "type": "podium",
+  "winners": {
+   "gold": "TTO",
+   "silver": "USA",
+   "bronze": "KOR"
+  }
+ },
+ {
+  "award": "FIRST Global Challenge Award - Health",
+  "description": "Winning Teams for Phase 1 of the Solutions Challenge",
+  "type": "podium",
+  "winners": {
+   "gold": "ROU",
+   "silver": "GRC",
+   "bronze": "GMB"
+  }
+ },
+ {
+  "award": "Rajaâ Cherkaoui El Moursli Award for Courageous Achievement",
+  "description": "Awarded to teams that exhibit a \"can-do\" attitude throughout the Challenge, even under difficult circumstances, or when things do not go as planned.",
+  "type": "non-tiered",
+  "teams": [
+   "BRA",
+   "SDN",
+   "ZWE"
+  ]
+ },
+ {
+  "award": "Francisco José de Caldas Award for Sustainable Excellence",
+  "description": "Awarded to individuals who helped to create strong and sustainable FIRST Global programs",
+  "type": "non-tiered",
+  "teams": []
+ },
+ {
+  "award": "Outstanding Mentor Award",
+  "description": "Awarded to mentors who were committed to their team and inspired them to keep going, despite any challenges.",
+  "type": "non-tiered",
+  "teams": [
+   "BRA",
+   "CHL",
+   "IND",
+   "IRQ",
+   "ROU",
+   "SDN",
+   "TUN",
+   "ZAF"
+  ]
+ },
+ {
+  "award": "Judges Award",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "AFG",
+   "GUY"
+  ]
+ },
+ {
+  "award": "Prizes",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "AGO",
+   "ARG",
+   "BGD",
+   "BOL",
+   "BIH",
+   "CPV",
+   "KHM",
+   "DJI",
+   "SLV",
+   "ETH",
+   "GAB",
+   "GEO",
+   "GHA",
+   "GUM",
+   "GTM",
+   "GNB",
+   "GUY",
+   "HND",
+   "IND",
+   "IRL",
+   "JAM",
+   "JPN",
+   "KAZ",
+   "XKX",
+   "LBY",
+   "MDG",
+   "MYS",
+   "MDA",
+   "MNG",
+   "MOZ",
+   "NLD",
+   "NIC",
+   "PSE",
+   "QAT",
+   "ROU",
+   "SAU",
+   "SRB",
+   "SYC",
+   "SVK",
+   "SVN",
+   "ZAF",
+   "ESP",
+   "SDN",
+   "CHE",
+   "TTO",
+   "TKM",
+   "USA",
+   "VEN",
+   "VNM",
+   "YEM"
+  ]
+ }
+]

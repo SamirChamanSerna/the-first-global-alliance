@@ -3,7 +3,7 @@
 // Genera las 11 pantallas desde site/templates/. La fuente de datos la decide
 // site/templates/data.js: data/processed/ si existe, si no el fixture mock.
 import fs from 'fs';import {fileURLToPath} from 'url';
-import {pages} from './templates/pages.js';import {layout} from './templates/blocks.js';import {source} from './templates/data.js';
+import {pages} from './templates/pages.js';import {layout} from './templates/blocks.js';import {source,seasons} from './templates/data.js';import {brand,t,metaText} from './brand/brand.js';
 // data/processed/ no está en el repositorio (se genera). Si hay datos crudos pero no
 // procesados, casi siempre es que falta `normalize` — y sin este corte el sitio se
 // construiría con el fixture, es decir, con datos de PRUEBA, sin avisar a nadie.
@@ -18,20 +18,29 @@ if(source==='fixture'&&!process.argv.includes('--fixture')&&fs.existsSync(fileUR
 const o=fileURLToPath(new URL('./dist/',import.meta.url)),r=f=>fs.readFileSync(new URL(f,import.meta.url));
 fs.rmSync(o,{recursive:true,force:true,maxRetries:10,retryDelay:100});
 const w=(f,d)=>{fs.mkdirSync(o+f.replace(/[^/]*$/,''),{recursive:true});fs.writeFileSync(o+f,d)};
-const iso=new Set();let n=0;
+const iso=new Set();let n=0;const sitemap=[];
 // `[\w-]+`, no `\w+`: los assets regionales llevan guion (`14_europe`, `11_south-america`).
 // Con `\w+` no se detectaban, así que no se copiaban a dist/ y salían como <img> roto.
-for(const p of pages()){const h=layout(p);for(const m of h.matchAll(/flags\/([\w-]+)\.svg/g))iso.add(m[1]);w(p.path+'index.html',h);n++}
-w('site.css',r('./brand/tokens.css')+'\n'+r('./css/components.css'));w('brand/favicon.svg',r('./brand/favicon.svg'));w('live.js',r('./brand/live.js'));
+for(const p of pages()){const h=layout(p);for(const m of h.matchAll(/flags\/([\w-]+)\.svg/g))iso.add(m[1]);w(p.path+'index.html',h);if(!p.noindex)sitemap.push(p.path===''?`${brand.siteUrl}/`:`${brand.siteUrl}/${p.path}`);n++}
+// 404 y SEO de sitio: sitemap y robots se generan del mismo listado de rutas.
+w('404.html',layout({title:t('notFound'),path:'',active:'',latest:seasons[0].y,sx:[],body:`<div class="bar"><h1>${t('notFound')}</h1></div><p class="muted">${metaText('notFound')}</p>`,desc:metaText('notFound'),noindex:true}));
+w('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap.map(u=>`<url><loc>${u.replace(/&/g,'&amp;')}</loc></url>`).join('\n')}\n</urlset>\n`);
+w('robots.txt',`User-agent: *\nAllow: /\nSitemap: ${brand.siteUrl}/sitemap.xml\n`);
+w('site.css',r('./brand/tokens.css')+'\n'+r('./css/components.css'));w('brand/favicon.svg',r('./brand/favicon.svg'));w('ui.js',r('./brand/ui.js'));
+// El overlay live solo existe mientras alguna temporada esté en modo live. Sin él,
+// `live.js` y `live.json` no se publican y las páginas no los piden.
+const hasLive=seasons.some(s=>s.mode==='live');
+if(hasLive)w('live.js',r('./brand/live.js'));
 // _headers lo lee Cloudflare Pages del raíz de la salida. El HTML y las banderas pueden
-// cachearse, pero `live.js` y `site.css` son justo los dos archivos que cambian cada vez
-// que tocamos el overlay o los estilos: bajo una ruta fija Pages los servía con 4 h de
-// caché (max-age=14400), así que quien ya hubiera entrado seguía con la versión vieja
-// hasta cuatro horas. Con max-age=0 se revalidan siempre —Pages contesta 304 si no han
-// cambiado, así que no cuesta ancho de banda— y un cambio se ve al instante.
-w('_headers','/live.js\n  Cache-Control: public, max-age=0, must-revalidate\n\n/site.css\n  Cache-Control: public, max-age=0, must-revalidate\n');
+// cachearse, pero los archivos que cambian con cada build se revalidan siempre: con
+// max-age=0, Pages contesta 304 si no han cambiado, así que no cuesta ancho de banda.
+let headers='/site.css\n  Cache-Control: public, max-age=0, must-revalidate\n\n/ui.js\n  Cache-Control: public, max-age=0, must-revalidate\n';
+if(hasLive)headers+='\n/live.js\n  Cache-Control: public, max-age=0, must-revalidate\n';
+headers+='\n/flags/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/brand/*\n  Cache-Control: public, max-age=31536000, immutable\n';
+headers+='\n/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n';
+w('_headers',headers);
 const liveJsonPath=fileURLToPath(new URL('./../data/processed/live.json',import.meta.url));
-if(fs.existsSync(liveJsonPath))w('live.json',fs.readFileSync(liveJsonPath,'utf8'));
+if(hasLive&&fs.existsSync(liveJsonPath))w('live.json',fs.readFileSync(liveJsonPath,'utf8'));
 // Banderas: se copian las reales de site/flags/ (espejadas del repositorio del
 // proyecto con scripts/fetch-flags.js). Solo se genera un marcador para las que
 // falten, así el sitio nunca muestra un <img> roto.

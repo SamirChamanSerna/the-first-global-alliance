@@ -1,0 +1,17 @@
+{
+ "year": 2024,
+ "fields": [
+  {
+   "field": "rankingScore",
+   "label": "Ranking score"
+  },
+  {
+   "field": "highestScore",
+   "label": "Highest points"
+  },
+  {
+   "field": "foodSecuredPoints",
+   "label": "Total food secured points"
+  }
+ ]
+}

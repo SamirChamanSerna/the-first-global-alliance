@@ -1,0 +1,21 @@
+{
+ "year": 2018,
+ "fields": [
+  {
+   "field": "rankingPoints",
+   "label": "Ranking points"
+  },
+  {
+   "field": "totalPoints",
+   "label": "Total points"
+  },
+  {
+   "field": "coopertitionPoints",
+   "label": "Coopertition points"
+  },
+  {
+   "field": "parkingPoints",
+   "label": "Parking points"
+  }
+ ]
+}

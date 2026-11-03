@@ -1,0 +1,17 @@
+{
+ "year": 2023,
+ "fields": [
+  {
+   "field": "rankingScore",
+   "label": "Ranking score"
+  },
+  {
+   "field": "highestScore",
+   "label": "Highest points"
+  },
+  {
+   "field": "oxyHydroPoints",
+   "label": "Total hydrogen/oxygen points"
+  }
+ ]
+}

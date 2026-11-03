@@ -1,0 +1,17 @@
+{
+  "year": 2025,
+  "rows": [
+    { "label": "Biodiversity units (red ecosystem)", "global": "biodiversityUnitsRedSideEcosystem", "column": "red" },
+    { "label": "Biodiversity units (center ecosystem)", "global": "biodiversityUnitsCenterEcosystem", "column": "both" },
+    { "label": "Biodiversity units (blue ecosystem)", "global": "biodiversityUnitsBlueSideEcosystem", "column": "blue" },
+    { "label": "Biodiversity distribution factor", "global": "biodiversityDistributionFactor", "column": "both", "format": "percent" },
+    { "label": "Biodiversity distributed", "global": "biodiversityDistributed", "column": "both" },
+    { "label": "Barriers in mitigator", "red": "barriersInRedMitigator", "blue": "barriersInBlueMitigator" },
+    { "label": "All barriers cleared", "global": "allBarriersCleared", "column": "both" },
+    { "label": "Coopertition", "global": "coopertition", "column": "both" },
+    { "label": "Robot 1 parking", "red": "redRobotOneParking", "blue": "blueRobotOneParking" },
+    { "label": "Robot 2 parking", "red": "redRobotTwoParking", "blue": "blueRobotTwoParking" },
+    { "label": "Robot 3 parking", "red": "redRobotThreeParking", "blue": "blueRobotThreeParking" },
+    { "label": "Protection multiplier", "red": "redProtectionMultiplier", "blue": "blueProtectionMultiplier", "format": "multiplier" }
+  ]
+}

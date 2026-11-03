@@ -1,0 +1,13 @@
+{
+  "year": 2024,
+  "rows": [
+    { "label": "Reservoir conserved", "red": "redResevoirConserved", "blue": "blueResevoirConserved" },
+    { "label": "Food produced", "red": "redFoodProduced", "blue": "blueFoodProduced" },
+    { "label": "Robot 1 parked", "red": "redRobotOneParked", "blue": "blueRobotOneParked" },
+    { "label": "Robot 2 parked", "red": "redRobotTwoParked", "blue": "blueRobotTwoParked" },
+    { "label": "Robot 3 parked", "red": "redRobotThreeParked", "blue": "blueRobotThreeParked" },
+    { "label": "Food secured", "global": "foodSecured", "column": "both" },
+    { "label": "Coopertition", "global": "coopertition", "column": "both" },
+    { "label": "Field balanced", "global": "fieldBalanced", "column": "both" }
+  ]
+}

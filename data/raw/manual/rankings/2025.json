@@ -1,0 +1,17 @@
+{
+ "year": 2025,
+ "fields": [
+  {
+   "field": "rankingScore",
+   "label": "Ranking score"
+  },
+  {
+   "field": "highestScore",
+   "label": "Highest points"
+  },
+  {
+   "field": "protectionPoints",
+   "label": "Protection points"
+  }
+ ]
+}

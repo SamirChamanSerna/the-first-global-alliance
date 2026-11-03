@@ -1,0 +1,46 @@
+// Configuración del Worker que publica /live.json durante una temporada viva.
+// Ver worker/README.md para el despliegue y el apagado al archivar la temporada.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+
+  // Nombre exacto del Worker en el dashboard. Si no coincide, Wrangler crea un
+  // segundo Worker y el cron viejo sigue corriendo.
+  "name": "fgc-live-poller",
+  "account_id": "9bce53d4bb385cdab6c1072df07813bd",
+
+  "main": "worker/worker.js",
+  "compatibility_date": "2026-11-01",
+
+  // Único interruptor de temporada del Worker. Cambiarlo al empezar una
+  // temporada nueva; el repositorio no se lee desde Cloudflare.
+  "vars": {
+    "SEASON_YEAR": "2026"
+  },
+
+  // El id del namespace LIVE_DATA (no es un secreto).
+  "kv_namespaces": [
+    {
+      "binding": "LIVE_DATA",
+      "id": "dc6a4775b2904ef09f3c5f1e8532e33e"
+    }
+  ],
+
+  // 2026 está archivada: sin cron. Al empezar una temporada viva, poner
+  // ["*/2 * * * *"] (cada 2 minutos; Cloudflare no baja de 1 minuto).
+  "triggers": {
+    "crons": []
+  },
+
+  // El Worker sirve /live.json en el dominio del sitio. El build estático ya no
+  // publica ese archivo cuando no hay temporada viva.
+  "routes": [
+    {
+      "pattern": "tfga.fgcmexico.com/live.json",
+      "zone_name": "fgcmexico.com"
+    }
+  ],
+
+  "observability": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,2219 @@
+{
+ "matches": [],
+ "rankings": [
+  {
+   "rank": 1,
+   "team": {
+    "country": "KAZ",
+    "countryCode": "kz",
+    "name": "Kazakhstan"
+   },
+   "rankingScore": 337,
+   "highestScore": 549,
+   "carbonPoints": 1216
+  },
+  {
+   "rank": 2,
+   "team": {
+    "country": "MEX",
+    "countryCode": "mx",
+    "name": "Mexico"
+   },
+   "rankingScore": 328,
+   "highestScore": 497,
+   "carbonPoints": 1194
+  },
+  {
+   "rank": 3,
+   "team": {
+    "country": "PER",
+    "countryCode": "pe",
+    "name": "Peru"
+   },
+   "rankingScore": 312,
+   "highestScore": 549,
+   "carbonPoints": 1187
+  },
+  {
+   "rank": 4,
+   "team": {
+    "country": "BOL",
+    "countryCode": "bo",
+    "name": "Bolivia"
+   },
+   "rankingScore": 220,
+   "highestScore": 427,
+   "carbonPoints": 963
+  },
+  {
+   "rank": 5,
+   "team": {
+    "country": "SEN",
+    "countryCode": "sn",
+    "name": "Senegal"
+   },
+   "rankingScore": 203,
+   "highestScore": 355,
+   "carbonPoints": 985
+  },
+  {
+   "rank": 6,
+   "team": {
+    "country": "LTU",
+    "countryCode": "lt",
+    "name": "Lithuania"
+   },
+   "rankingScore": 202,
+   "highestScore": 505,
+   "carbonPoints": 940
+  },
+  {
+   "rank": 7,
+   "team": {
+    "country": "TKM",
+    "countryCode": "tm",
+    "name": "Turkmenistan"
+   },
+   "rankingScore": 199,
+   "highestScore": 357,
+   "carbonPoints": 891
+  },
+  {
+   "rank": 8,
+   "team": {
+    "country": "UZB",
+    "countryCode": "uz",
+    "name": "Uzbekistan"
+   },
+   "rankingScore": 191,
+   "highestScore": 350,
+   "carbonPoints": 945
+  },
+  {
+   "rank": 9,
+   "team": {
+    "country": "ISR",
+    "countryCode": "il",
+    "name": "Israel"
+   },
+   "rankingScore": 188,
+   "highestScore": 295,
+   "carbonPoints": 955
+  },
+  {
+   "rank": 10,
+   "team": {
+    "country": "KOR",
+    "countryCode": "kr",
+    "name": "Republic of Korea"
+   },
+   "rankingScore": 187,
+   "highestScore": 481,
+   "carbonPoints": 961
+  },
+  {
+   "rank": 11,
+   "team": {
+    "country": "KWT",
+    "countryCode": "KWT",
+    "name": "KWT"
+   },
+   "rankingScore": 187,
+   "highestScore": 394,
+   "carbonPoints": 998
+  },
+  {
+   "rank": 12,
+   "team": {
+    "country": "TUR",
+    "countryCode": "tr",
+    "name": "Türkiye"
+   },
+   "rankingScore": 185,
+   "highestScore": 497,
+   "carbonPoints": 871
+  },
+  {
+   "rank": 13,
+   "team": {
+    "country": "HUN",
+    "countryCode": "hu",
+    "name": "Hungary"
+   },
+   "rankingScore": 185,
+   "highestScore": 295,
+   "carbonPoints": 1034
+  },
+  {
+   "rank": 14,
+   "team": {
+    "country": "BLZ",
+    "countryCode": "BLZ",
+    "name": "BLZ"
+   },
+   "rankingScore": 180,
+   "highestScore": 394,
+   "carbonPoints": 943
+  },
+  {
+   "rank": 15,
+   "team": {
+    "country": "JOR",
+    "countryCode": "jo",
+    "name": "Jordan"
+   },
+   "rankingScore": 179,
+   "highestScore": 357,
+   "carbonPoints": 827
+  },
+  {
+   "rank": 16,
+   "team": {
+    "country": "LKA",
+    "countryCode": "LKA",
+    "name": "LKA"
+   },
+   "rankingScore": 176,
+   "highestScore": 255,
+   "carbonPoints": 992
+  },
+  {
+   "rank": 17,
+   "team": {
+    "country": "UKR",
+    "countryCode": "ua",
+    "name": "Ukraine"
+   },
+   "rankingScore": 174,
+   "highestScore": 258,
+   "carbonPoints": 898
+  },
+  {
+   "rank": 18,
+   "team": {
+    "country": "EST",
+    "countryCode": "ee",
+    "name": "Estonia"
+   },
+   "rankingScore": 173,
+   "highestScore": 411,
+   "carbonPoints": 791
+  },
+  {
+   "rank": 19,
+   "team": {
+    "country": "CHE",
+    "countryCode": "CHE",
+    "name": "CHE"
+   },
+   "rankingScore": 173,
+   "highestScore": 284,
+   "carbonPoints": 817
+  },
+  {
+   "rank": 20,
+   "team": {
+    "country": "PRI",
+    "countryCode": "PRI",
+    "name": "PRI"
+   },
+   "rankingScore": 172,
+   "highestScore": 406,
+   "carbonPoints": 818
+  },
+  {
+   "rank": 21,
+   "team": {
+    "country": "POL",
+    "countryCode": "pl",
+    "name": "Poland"
+   },
+   "rankingScore": 172,
+   "highestScore": 282,
+   "carbonPoints": 762
+  },
+  {
+   "rank": 22,
+   "team": {
+    "country": "IDN",
+    "countryCode": "IDN",
+    "name": "IDN"
+   },
+   "rankingScore": 171,
+   "highestScore": 427,
+   "carbonPoints": 823
+  },
+  {
+   "rank": 23,
+   "team": {
+    "country": "TON",
+    "countryCode": "TON",
+    "name": "TON"
+   },
+   "rankingScore": 171,
+   "highestScore": 385,
+   "carbonPoints": 914
+  },
+  {
+   "rank": 24,
+   "team": {
+    "country": "MNE",
+    "countryCode": "me",
+    "name": "Montenegro"
+   },
+   "rankingScore": 171,
+   "highestScore": 298,
+   "carbonPoints": 883
+  },
+  {
+   "rank": 25,
+   "team": {
+    "country": "ROU",
+    "countryCode": "ro",
+    "name": "Romania"
+   },
+   "rankingScore": 171,
+   "highestScore": 258,
+   "carbonPoints": 940
+  },
+  {
+   "rank": 26,
+   "team": {
+    "country": "GTM",
+    "countryCode": "GTM",
+    "name": "GTM"
+   },
+   "rankingScore": 170,
+   "highestScore": 406,
+   "carbonPoints": 808
+  },
+  {
+   "rank": 27,
+   "team": {
+    "country": "PSE",
+    "countryCode": "PSE",
+    "name": "PSE"
+   },
+   "rankingScore": 170,
+   "highestScore": 338,
+   "carbonPoints": 868
+  },
+  {
+   "rank": 28,
+   "team": {
+    "country": "STP",
+    "countryCode": "st",
+    "name": "Sao Tome and Principe"
+   },
+   "rankingScore": 168,
+   "highestScore": 505,
+   "carbonPoints": 841
+  },
+  {
+   "rank": 29,
+   "team": {
+    "country": "IND",
+    "countryCode": "in",
+    "name": "India"
+   },
+   "rankingScore": 168,
+   "highestScore": 309,
+   "carbonPoints": 734
+  },
+  {
+   "rank": 30,
+   "team": {
+    "country": "BWA",
+    "countryCode": "BWA",
+    "name": "BWA"
+   },
+   "rankingScore": 167,
+   "highestScore": 394,
+   "carbonPoints": 901
+  },
+  {
+   "rank": 31,
+   "team": {
+    "country": "FRA",
+    "countryCode": "fr",
+    "name": "France"
+   },
+   "rankingScore": 166,
+   "highestScore": 411,
+   "carbonPoints": 902
+  },
+  {
+   "rank": 32,
+   "team": {
+    "country": "MDA",
+    "countryCode": "md",
+    "name": "Republic of Moldova"
+   },
+   "rankingScore": 166,
+   "highestScore": 240,
+   "carbonPoints": 895
+  },
+  {
+   "rank": 33,
+   "team": {
+    "country": "URY",
+    "countryCode": "URY",
+    "name": "URY"
+   },
+   "rankingScore": 165,
+   "highestScore": 344,
+   "carbonPoints": 791
+  },
+  {
+   "rank": 34,
+   "team": {
+    "country": "LAO",
+    "countryCode": "la",
+    "name": "Lao People’s Democratic Republic"
+   },
+   "rankingScore": 165,
+   "highestScore": 324,
+   "carbonPoints": 848
+  },
+  {
+   "rank": 35,
+   "team": {
+    "country": "KIR",
+    "countryCode": "ki",
+    "name": "Kiribati"
+   },
+   "rankingScore": 165,
+   "highestScore": 316,
+   "carbonPoints": 901
+  },
+  {
+   "rank": 36,
+   "team": {
+    "country": "SUR",
+    "countryCode": "sr",
+    "name": "Suriname"
+   },
+   "rankingScore": 164,
+   "highestScore": 469,
+   "carbonPoints": 815
+  },
+  {
+   "rank": 37,
+   "team": {
+    "country": "THA",
+    "countryCode": "th",
+    "name": "Thailand"
+   },
+   "rankingScore": 163,
+   "highestScore": 300,
+   "carbonPoints": 825
+  },
+  {
+   "rank": 38,
+   "team": {
+    "country": "SYC",
+    "countryCode": "SYC",
+    "name": "SYC"
+   },
+   "rankingScore": 162,
+   "highestScore": 292,
+   "carbonPoints": 752
+  },
+  {
+   "rank": 39,
+   "team": {
+    "country": "KGZ",
+    "countryCode": "kg",
+    "name": "Kyrgyzstan"
+   },
+   "rankingScore": 161,
+   "highestScore": 469,
+   "carbonPoints": 792
+  },
+  {
+   "rank": 40,
+   "team": {
+    "country": "BIH",
+    "countryCode": "ba",
+    "name": "Bosnia and Herzegovina"
+   },
+   "rankingScore": 161,
+   "highestScore": 436,
+   "carbonPoints": 830
+  },
+  {
+   "rank": 41,
+   "team": {
+    "country": "EGY",
+    "countryCode": "eg",
+    "name": "Egypt"
+   },
+   "rankingScore": 161,
+   "highestScore": 283,
+   "carbonPoints": 904
+  },
+  {
+   "rank": 42,
+   "team": {
+    "country": "LVA",
+    "countryCode": "LVA",
+    "name": "LVA"
+   },
+   "rankingScore": 161,
+   "highestScore": 243,
+   "carbonPoints": 801
+  },
+  {
+   "rank": 43,
+   "team": {
+    "country": "10",
+    "countryCode": "10_hope",
+    "name": "Hope (Refugees)"
+   },
+   "rankingScore": 160,
+   "highestScore": 433,
+   "carbonPoints": 749
+  },
+  {
+   "rank": 44,
+   "team": {
+    "country": "NAM",
+    "countryCode": "na",
+    "name": "Namibia"
+   },
+   "rankingScore": 160,
+   "highestScore": 260,
+   "carbonPoints": 896
+  },
+  {
+   "rank": 45,
+   "team": {
+    "country": "JPN",
+    "countryCode": "jp",
+    "name": "Japan"
+   },
+   "rankingScore": 159,
+   "highestScore": 406,
+   "carbonPoints": 760
+  },
+  {
+   "rank": 46,
+   "team": {
+    "country": "CRI",
+    "countryCode": "CRI",
+    "name": "CRI"
+   },
+   "rankingScore": 158,
+   "highestScore": 357,
+   "carbonPoints": 826
+  },
+  {
+   "rank": 47,
+   "team": {
+    "country": "ZMB",
+    "countryCode": "ZMB",
+    "name": "ZMB"
+   },
+   "rankingScore": 158,
+   "highestScore": 357,
+   "carbonPoints": 819
+  },
+  {
+   "rank": 48,
+   "team": {
+    "country": "SRB",
+    "countryCode": "rs",
+    "name": "Serbia"
+   },
+   "rankingScore": 158,
+   "highestScore": 338,
+   "carbonPoints": 852
+  },
+  {
+   "rank": 49,
+   "team": {
+    "country": "DNK",
+    "countryCode": "DNK",
+    "name": "DNK"
+   },
+   "rankingScore": 158,
+   "highestScore": 263,
+   "carbonPoints": 858
+  },
+  {
+   "rank": 50,
+   "team": {
+    "country": "ARG",
+    "countryCode": "ar",
+    "name": "Argentina"
+   },
+   "rankingScore": 157,
+   "highestScore": 226,
+   "carbonPoints": 825
+  },
+  {
+   "rank": 51,
+   "team": {
+    "country": "GNQ",
+    "countryCode": "GNQ",
+    "name": "GNQ"
+   },
+   "rankingScore": 156,
+   "highestScore": 267,
+   "carbonPoints": 916
+  },
+  {
+   "rank": 52,
+   "team": {
+    "country": "QAT",
+    "countryCode": "qa",
+    "name": "Qatar"
+   },
+   "rankingScore": 156,
+   "highestScore": 240,
+   "carbonPoints": 789
+  },
+  {
+   "rank": 53,
+   "team": {
+    "country": "CUB",
+    "countryCode": "cu",
+    "name": "Cuba"
+   },
+   "rankingScore": 155,
+   "highestScore": 324,
+   "carbonPoints": 848
+  },
+  {
+   "rank": 54,
+   "team": {
+    "country": "SVK",
+    "countryCode": "sk",
+    "name": "Slovakia"
+   },
+   "rankingScore": 155,
+   "highestScore": 300,
+   "carbonPoints": 884
+  },
+  {
+   "rank": 55,
+   "team": {
+    "country": "ATG",
+    "countryCode": "ATG",
+    "name": "ATG"
+   },
+   "rankingScore": 153,
+   "highestScore": 385,
+   "carbonPoints": 875
+  },
+  {
+   "rank": 56,
+   "team": {
+    "country": "CYP",
+    "countryCode": "cy",
+    "name": "Cyprus"
+   },
+   "rankingScore": 152,
+   "highestScore": 284,
+   "carbonPoints": 819
+  },
+  {
+   "rank": 57,
+   "team": {
+    "country": "ZWE",
+    "countryCode": "ZWE",
+    "name": "ZWE"
+   },
+   "rankingScore": 152,
+   "highestScore": 282,
+   "carbonPoints": 788
+  },
+  {
+   "rank": 58,
+   "team": {
+    "country": "BRA",
+    "countryCode": "br",
+    "name": "Brazil"
+   },
+   "rankingScore": 151,
+   "highestScore": 237,
+   "carbonPoints": 832
+  },
+  {
+   "rank": 59,
+   "team": {
+    "country": "MWI",
+    "countryCode": "MWI",
+    "name": "MWI"
+   },
+   "rankingScore": 150,
+   "highestScore": 436,
+   "carbonPoints": 779
+  },
+  {
+   "rank": 60,
+   "team": {
+    "country": "AUS",
+    "countryCode": "au",
+    "name": "Australia"
+   },
+   "rankingScore": 149,
+   "highestScore": 350,
+   "carbonPoints": 767
+  },
+  {
+   "rank": 61,
+   "team": {
+    "country": "SWZ",
+    "countryCode": "sz",
+    "name": "Eswatini"
+   },
+   "rankingScore": 149,
+   "highestScore": 344,
+   "carbonPoints": 853
+  },
+  {
+   "rank": 62,
+   "team": {
+    "country": "HKG",
+    "countryCode": "hk",
+    "name": "Hong Kong, China"
+   },
+   "rankingScore": 147,
+   "highestScore": 292,
+   "carbonPoints": 805
+  },
+  {
+   "rank": 63,
+   "team": {
+    "country": "USA",
+    "countryCode": "us",
+    "name": "United States of America"
+   },
+   "rankingScore": 147,
+   "highestScore": 263,
+   "carbonPoints": 800
+  },
+  {
+   "rank": 64,
+   "team": {
+    "country": "IRQ",
+    "countryCode": "iq",
+    "name": "Iraq"
+   },
+   "rankingScore": 147,
+   "highestScore": 260,
+   "carbonPoints": 682
+  },
+  {
+   "rank": 65,
+   "team": {
+    "country": "CZE",
+    "countryCode": "cz",
+    "name": "Czechia"
+   },
+   "rankingScore": 147,
+   "highestScore": 243,
+   "carbonPoints": 800
+  },
+  {
+   "rank": 66,
+   "team": {
+    "country": "PAN",
+    "countryCode": "pa",
+    "name": "Panama"
+   },
+   "rankingScore": 147,
+   "highestScore": 240,
+   "carbonPoints": 776
+  },
+  {
+   "rank": 67,
+   "team": {
+    "country": "LUX",
+    "countryCode": "lu",
+    "name": "Luxembourg"
+   },
+   "rankingScore": 146,
+   "highestScore": 316,
+   "carbonPoints": 763
+  },
+  {
+   "rank": 68,
+   "team": {
+    "country": "BGR",
+    "countryCode": "BGR",
+    "name": "BGR"
+   },
+   "rankingScore": 146,
+   "highestScore": 295,
+   "carbonPoints": 787
+  },
+  {
+   "rank": 69,
+   "team": {
+    "country": "SLV",
+    "countryCode": "SLV",
+    "name": "SLV"
+   },
+   "rankingScore": 145,
+   "highestScore": 378,
+   "carbonPoints": 795
+  },
+  {
+   "rank": 70,
+   "team": {
+    "country": "SDN",
+    "countryCode": "SDN",
+    "name": "SDN"
+   },
+   "rankingScore": 145,
+   "highestScore": 218,
+   "carbonPoints": 911
+  },
+  {
+   "rank": 71,
+   "team": {
+    "country": "OMN",
+    "countryCode": "OMN",
+    "name": "OMN"
+   },
+   "rankingScore": 144,
+   "highestScore": 338,
+   "carbonPoints": 766
+  },
+  {
+   "rank": 72,
+   "team": {
+    "country": "JAM",
+    "countryCode": "jm",
+    "name": "Jamaica"
+   },
+   "rankingScore": 144,
+   "highestScore": 250,
+   "carbonPoints": 761
+  },
+  {
+   "rank": 73,
+   "team": {
+    "country": "BTN",
+    "countryCode": "BTN",
+    "name": "BTN"
+   },
+   "rankingScore": 143,
+   "highestScore": 309,
+   "carbonPoints": 817
+  },
+  {
+   "rank": 74,
+   "team": {
+    "country": "ISL",
+    "countryCode": "is",
+    "name": "Iceland"
+   },
+   "rankingScore": 142,
+   "highestScore": 549,
+   "carbonPoints": 744
+  },
+  {
+   "rank": 75,
+   "team": {
+    "country": "ITA",
+    "countryCode": "it",
+    "name": "Italy"
+   },
+   "rankingScore": 142,
+   "highestScore": 433,
+   "carbonPoints": 758
+  },
+  {
+   "rank": 76,
+   "team": {
+    "country": "AGO",
+    "countryCode": "AGO",
+    "name": "AGO"
+   },
+   "rankingScore": 142,
+   "highestScore": 411,
+   "carbonPoints": 771
+  },
+  {
+   "rank": 77,
+   "team": {
+    "country": "CPV",
+    "countryCode": "cv",
+    "name": "Cabo Verde"
+   },
+   "rankingScore": 141,
+   "highestScore": 295,
+   "carbonPoints": 743
+  },
+  {
+   "rank": 78,
+   "team": {
+    "country": "LSO",
+    "countryCode": "LSO",
+    "name": "LSO"
+   },
+   "rankingScore": 140,
+   "highestScore": 357,
+   "carbonPoints": 742
+  },
+  {
+   "rank": 79,
+   "team": {
+    "country": "NZL",
+    "countryCode": "nz",
+    "name": "New Zealand"
+   },
+   "rankingScore": 139,
+   "highestScore": 481,
+   "carbonPoints": 713
+  },
+  {
+   "rank": 80,
+   "team": {
+    "country": "VCT",
+    "countryCode": "VCT",
+    "name": "VCT"
+   },
+   "rankingScore": 139,
+   "highestScore": 295,
+   "carbonPoints": 785
+  },
+  {
+   "rank": 81,
+   "team": {
+    "country": "MLT",
+    "countryCode": "mt",
+    "name": "Malta"
+   },
+   "rankingScore": 138,
+   "highestScore": 324,
+   "carbonPoints": 732
+  },
+  {
+   "rank": 82,
+   "team": {
+    "country": "MHL",
+    "countryCode": "mh",
+    "name": "Marshall Islands"
+   },
+   "rankingScore": 138,
+   "highestScore": 215,
+   "carbonPoints": 799
+  },
+  {
+   "rank": 83,
+   "team": {
+    "country": "BGD",
+    "countryCode": "BGD",
+    "name": "BGD"
+   },
+   "rankingScore": 137,
+   "highestScore": 207,
+   "carbonPoints": 779
+  },
+  {
+   "rank": 84,
+   "team": {
+    "country": "NIC",
+    "countryCode": "NIC",
+    "name": "NIC"
+   },
+   "rankingScore": 136,
+   "highestScore": 305,
+   "carbonPoints": 755
+  },
+  {
+   "rank": 85,
+   "team": {
+    "country": "DEU",
+    "countryCode": "DEU",
+    "name": "DEU"
+   },
+   "rankingScore": 136,
+   "highestScore": 291,
+   "carbonPoints": 722
+  },
+  {
+   "rank": 86,
+   "team": {
+    "country": "LBN",
+    "countryCode": "lb",
+    "name": "Lebanon"
+   },
+   "rankingScore": 136,
+   "highestScore": 258,
+   "carbonPoints": 747
+  },
+  {
+   "rank": 87,
+   "team": {
+    "country": "PAK",
+    "countryCode": "pk",
+    "name": "Pakistan"
+   },
+   "rankingScore": 136,
+   "highestScore": 248,
+   "carbonPoints": 745
+  },
+  {
+   "rank": 88,
+   "team": {
+    "country": "MUS",
+    "countryCode": "MUS",
+    "name": "MUS"
+   },
+   "rankingScore": 135,
+   "highestScore": 267,
+   "carbonPoints": 843
+  },
+  {
+   "rank": 89,
+   "team": {
+    "country": "BRN",
+    "countryCode": "bh",
+    "name": "Bahrain"
+   },
+   "rankingScore": 135,
+   "highestScore": 207,
+   "carbonPoints": 849
+  },
+  {
+   "rank": 90,
+   "team": {
+    "country": "PHL",
+    "countryCode": "PHL",
+    "name": "PHL"
+   },
+   "rankingScore": 133,
+   "highestScore": 378,
+   "carbonPoints": 692
+  },
+  {
+   "rank": 91,
+   "team": {
+    "country": "PNG",
+    "countryCode": "pg",
+    "name": "Papua New Guinea"
+   },
+   "rankingScore": 133,
+   "highestScore": 253,
+   "carbonPoints": 705
+  },
+  {
+   "rank": 92,
+   "team": {
+    "country": "NLD",
+    "countryCode": "NLD",
+    "name": "NLD"
+   },
+   "rankingScore": 133,
+   "highestScore": 165,
+   "carbonPoints": 831
+  },
+  {
+   "rank": 93,
+   "team": {
+    "country": "BMU",
+    "countryCode": "BMU",
+    "name": "BMU"
+   },
+   "rankingScore": 132,
+   "highestScore": 292,
+   "carbonPoints": 641
+  },
+  {
+   "rank": 94,
+   "team": {
+    "country": "LBY",
+    "countryCode": "LBY",
+    "name": "LBY"
+   },
+   "rankingScore": 132,
+   "highestScore": 291,
+   "carbonPoints": 713
+  },
+  {
+   "rank": 95,
+   "team": {
+    "country": "NGA",
+    "countryCode": "NGA",
+    "name": "NGA"
+   },
+   "rankingScore": 132,
+   "highestScore": 283,
+   "carbonPoints": 782
+  },
+  {
+   "rank": 96,
+   "team": {
+    "country": "IRN",
+    "countryCode": "IRN",
+    "name": "IRN"
+   },
+   "rankingScore": 132,
+   "highestScore": 243,
+   "carbonPoints": 665
+  },
+  {
+   "rank": 97,
+   "team": {
+    "country": "SLE",
+    "countryCode": "sl",
+    "name": "Sierra Leone"
+   },
+   "rankingScore": 132,
+   "highestScore": 228,
+   "carbonPoints": 775
+  },
+  {
+   "rank": 98,
+   "team": {
+    "country": "KNA",
+    "countryCode": "KNA",
+    "name": "KNA"
+   },
+   "rankingScore": 132,
+   "highestScore": 219,
+   "carbonPoints": 804
+  },
+  {
+   "rank": 99,
+   "team": {
+    "country": "MDG",
+    "countryCode": "MDG",
+    "name": "MDG"
+   },
+   "rankingScore": 131,
+   "highestScore": 196,
+   "carbonPoints": 742
+  },
+  {
+   "rank": 100,
+   "team": {
+    "country": "HND",
+    "countryCode": "HND",
+    "name": "HND"
+   },
+   "rankingScore": 130,
+   "highestScore": 258,
+   "carbonPoints": 726
+  },
+  {
+   "rank": 101,
+   "team": {
+    "country": "ETH",
+    "countryCode": "et",
+    "name": "Ethiopia"
+   },
+   "rankingScore": 129,
+   "highestScore": 255,
+   "carbonPoints": 764
+  },
+  {
+   "rank": 102,
+   "team": {
+    "country": "GRC",
+    "countryCode": "GRC",
+    "name": "GRC"
+   },
+   "rankingScore": 129,
+   "highestScore": 219,
+   "carbonPoints": 760
+  },
+  {
+   "rank": 103,
+   "team": {
+    "country": "TJK",
+    "countryCode": "tj",
+    "name": "Tajikistan"
+   },
+   "rankingScore": 129,
+   "highestScore": 201,
+   "carbonPoints": 767
+  },
+  {
+   "rank": 104,
+   "team": {
+    "country": "VUT",
+    "countryCode": "VUT",
+    "name": "VUT"
+   },
+   "rankingScore": 129,
+   "highestScore": 184,
+   "carbonPoints": 797
+  },
+  {
+   "rank": 105,
+   "team": {
+    "country": "GNB",
+    "countryCode": "GNB",
+    "name": "GNB"
+   },
+   "rankingScore": 128,
+   "highestScore": 240,
+   "carbonPoints": 736
+  },
+  {
+   "rank": 106,
+   "team": {
+    "country": "DJI",
+    "countryCode": "dj",
+    "name": "Djibouti"
+   },
+   "rankingScore": 127,
+   "highestScore": 268,
+   "carbonPoints": 759
+  },
+  {
+   "rank": 107,
+   "team": {
+    "country": "MRT",
+    "countryCode": "MRT",
+    "name": "MRT"
+   },
+   "rankingScore": 127,
+   "highestScore": 253,
+   "carbonPoints": 798
+  },
+  {
+   "rank": 108,
+   "team": {
+    "country": "VNM",
+    "countryCode": "VNM",
+    "name": "VNM"
+   },
+   "rankingScore": 127,
+   "highestScore": 219,
+   "carbonPoints": 732
+  },
+  {
+   "rank": 109,
+   "team": {
+    "country": "ZAF",
+    "countryCode": "ZAF",
+    "name": "ZAF"
+   },
+   "rankingScore": 127,
+   "highestScore": 190,
+   "carbonPoints": 746
+  },
+  {
+   "rank": 110,
+   "team": {
+    "country": "SYR",
+    "countryCode": "sy",
+    "name": "Syrian Arab Republic"
+   },
+   "rankingScore": 126,
+   "highestScore": 324,
+   "carbonPoints": 690
+  },
+  {
+   "rank": 111,
+   "team": {
+    "country": "FJI",
+    "countryCode": "FJI",
+    "name": "FJI"
+   },
+   "rankingScore": 126,
+   "highestScore": 183,
+   "carbonPoints": 833
+  },
+  {
+   "rank": 112,
+   "team": {
+    "country": "BRB",
+    "countryCode": "BRB",
+    "name": "BRB"
+   },
+   "rankingScore": 125,
+   "highestScore": 234,
+   "carbonPoints": 706
+  },
+  {
+   "rank": 113,
+   "team": {
+    "country": "FSM",
+    "countryCode": "fm",
+    "name": "Federated States of Micronesia"
+   },
+   "rankingScore": 125,
+   "highestScore": 218,
+   "carbonPoints": 700
+  },
+  {
+   "rank": 114,
+   "team": {
+    "country": "TZA",
+    "countryCode": "TZA",
+    "name": "TZA"
+   },
+   "rankingScore": 125,
+   "highestScore": 213,
+   "carbonPoints": 776
+  },
+  {
+   "rank": 115,
+   "team": {
+    "country": "NER",
+    "countryCode": "NER",
+    "name": "NER"
+   },
+   "rankingScore": 124,
+   "highestScore": 292,
+   "carbonPoints": 731
+  },
+  {
+   "rank": 116,
+   "team": {
+    "country": "TUN",
+    "countryCode": "tn",
+    "name": "Tunisia"
+   },
+   "rankingScore": 124,
+   "highestScore": 243,
+   "carbonPoints": 725
+  },
+  {
+   "rank": 117,
+   "team": {
+    "country": "CHL",
+    "countryCode": "CHL",
+    "name": "CHL"
+   },
+   "rankingScore": 124,
+   "highestScore": 180,
+   "carbonPoints": 750
+  },
+  {
+   "rank": 118,
+   "team": {
+    "country": "GRD",
+    "countryCode": "GRD",
+    "name": "GRD"
+   },
+   "rankingScore": 124,
+   "highestScore": 180,
+   "carbonPoints": 729
+  },
+  {
+   "rank": 119,
+   "team": {
+    "country": "NPL",
+    "countryCode": "NPL",
+    "name": "NPL"
+   },
+   "rankingScore": 123,
+   "highestScore": 246,
+   "carbonPoints": 675
+  },
+  {
+   "rank": 120,
+   "team": {
+    "country": "AFG",
+    "countryCode": "af",
+    "name": "Afghanistan"
+   },
+   "rankingScore": 123,
+   "highestScore": 245,
+   "carbonPoints": 681
+  },
+  {
+   "rank": 121,
+   "team": {
+    "country": "HRV",
+    "countryCode": "HRV",
+    "name": "HRV"
+   },
+   "rankingScore": 123,
+   "highestScore": 196,
+   "carbonPoints": 727
+  },
+  {
+   "rank": 122,
+   "team": {
+    "country": "MKD",
+    "countryCode": "mk",
+    "name": "North Macedonia"
+   },
+   "rankingScore": 122,
+   "highestScore": 316,
+   "carbonPoints": 744
+  },
+  {
+   "rank": 123,
+   "team": {
+    "country": "CAN",
+    "countryCode": "ca",
+    "name": "Canada"
+   },
+   "rankingScore": 122,
+   "highestScore": 258,
+   "carbonPoints": 614
+  },
+  {
+   "rank": 124,
+   "team": {
+    "country": "COL",
+    "countryCode": "co",
+    "name": "Colombia"
+   },
+   "rankingScore": 122,
+   "highestScore": 223,
+   "carbonPoints": 708
+  },
+  {
+   "rank": 125,
+   "team": {
+    "country": "FIN",
+    "countryCode": "fi",
+    "name": "Finland"
+   },
+   "rankingScore": 121,
+   "highestScore": 190,
+   "carbonPoints": 733
+  },
+  {
+   "rank": 126,
+   "team": {
+    "country": "SVN",
+    "countryCode": "SVN",
+    "name": "SVN"
+   },
+   "rankingScore": 121,
+   "highestScore": 182,
+   "carbonPoints": 709
+  },
+  {
+   "rank": 127,
+   "team": {
+    "country": "PRY",
+    "countryCode": "PRY",
+    "name": "PRY"
+   },
+   "rankingScore": 120,
+   "highestScore": 221,
+   "carbonPoints": 732
+  },
+  {
+   "rank": 128,
+   "team": {
+    "country": "VEN",
+    "countryCode": "ve",
+    "name": "Venezuela"
+   },
+   "rankingScore": 120,
+   "highestScore": 185,
+   "carbonPoints": 752
+  },
+  {
+   "rank": 129,
+   "team": {
+    "country": "KEN",
+    "countryCode": "ke",
+    "name": "Kenya"
+   },
+   "rankingScore": 120,
+   "highestScore": 183,
+   "carbonPoints": 824
+  },
+  {
+   "rank": 130,
+   "team": {
+    "country": "ECU",
+    "countryCode": "ec",
+    "name": "Ecuador"
+   },
+   "rankingScore": 120,
+   "highestScore": 172,
+   "carbonPoints": 683
+  },
+  {
+   "rank": 131,
+   "team": {
+    "country": "MOZ",
+    "countryCode": "mz",
+    "name": "Mozambique"
+   },
+   "rankingScore": 119,
+   "highestScore": 284,
+   "carbonPoints": 740
+  },
+  {
+   "rank": 132,
+   "team": {
+    "country": "ARM",
+    "countryCode": "am",
+    "name": "Armenia"
+   },
+   "rankingScore": 119,
+   "highestScore": 184,
+   "carbonPoints": 776
+  },
+  {
+   "rank": 133,
+   "team": {
+    "country": "ESP",
+    "countryCode": "es",
+    "name": "Spain"
+   },
+   "rankingScore": 118,
+   "highestScore": 158,
+   "carbonPoints": 724
+  },
+  {
+   "rank": 134,
+   "team": {
+    "country": "DOM",
+    "countryCode": "do",
+    "name": "Dominican Republic"
+   },
+   "rankingScore": 116,
+   "highestScore": 250,
+   "carbonPoints": 713
+  },
+  {
+   "rank": 135,
+   "team": {
+    "country": "ALB",
+    "countryCode": "al",
+    "name": "Albania"
+   },
+   "rankingScore": 116,
+   "highestScore": 175,
+   "carbonPoints": 666
+  },
+  {
+   "rank": 136,
+   "team": {
+    "country": "TCD",
+    "countryCode": "TCD",
+    "name": "TCD"
+   },
+   "rankingScore": 114,
+   "highestScore": 185,
+   "carbonPoints": 569
+  },
+  {
+   "rank": 137,
+   "team": {
+    "country": "MLI",
+    "countryCode": "ml",
+    "name": "Mali"
+   },
+   "rankingScore": 113,
+   "highestScore": 239,
+   "carbonPoints": 688
+  },
+  {
+   "rank": 138,
+   "team": {
+    "country": "AZE",
+    "countryCode": "az",
+    "name": "Azerbaijan"
+   },
+   "rankingScore": 113,
+   "highestScore": 228,
+   "carbonPoints": 622
+  },
+  {
+   "rank": 139,
+   "team": {
+    "country": "ARE",
+    "countryCode": "ARE",
+    "name": "ARE"
+   },
+   "rankingScore": 113,
+   "highestScore": 219,
+   "carbonPoints": 593
+  },
+  {
+   "rank": 140,
+   "team": {
+    "country": "BHS",
+    "countryCode": "BHS",
+    "name": "BHS"
+   },
+   "rankingScore": 113,
+   "highestScore": 190,
+   "carbonPoints": 728
+  },
+  {
+   "rank": 141,
+   "team": {
+    "country": "DZA",
+    "countryCode": "DZA",
+    "name": "DZA"
+   },
+   "rankingScore": 113,
+   "highestScore": 180,
+   "carbonPoints": 744
+  },
+  {
+   "rank": 142,
+   "team": {
+    "country": "KHM",
+    "countryCode": "KHM",
+    "name": "KHM"
+   },
+   "rankingScore": 111,
+   "highestScore": 183,
+   "carbonPoints": 708
+  },
+  {
+   "rank": 143,
+   "team": {
+    "country": "GUM",
+    "countryCode": "gu",
+    "name": "Guam"
+   },
+   "rankingScore": 111,
+   "highestScore": 172,
+   "carbonPoints": 739
+  },
+  {
+   "rank": 144,
+   "team": {
+    "country": "BLR",
+    "countryCode": "by",
+    "name": "Belarus"
+   },
+   "rankingScore": 111,
+   "highestScore": 160,
+   "carbonPoints": 626
+  },
+  {
+   "rank": 145,
+   "team": {
+    "country": "XKX",
+    "countryCode": "XKX",
+    "name": "XKX"
+   },
+   "rankingScore": 110,
+   "highestScore": 175,
+   "carbonPoints": 725
+  },
+  {
+   "rank": 146,
+   "team": {
+    "country": "PRT",
+    "countryCode": "PRT",
+    "name": "PRT"
+   },
+   "rankingScore": 110,
+   "highestScore": 162,
+   "carbonPoints": 700
+  },
+  {
+   "rank": 147,
+   "team": {
+    "country": "MYS",
+    "countryCode": "MYS",
+    "name": "MYS"
+   },
+   "rankingScore": 109,
+   "highestScore": 175,
+   "carbonPoints": 687
+  },
+  {
+   "rank": 148,
+   "team": {
+    "country": "TGO",
+    "countryCode": "TGO",
+    "name": "TGO"
+   },
+   "rankingScore": 109,
+   "highestScore": 158,
+   "carbonPoints": 696
+  },
+  {
+   "rank": 149,
+   "team": {
+    "country": "AUT",
+    "countryCode": "at",
+    "name": "Austria"
+   },
+   "rankingScore": 109,
+   "highestScore": 153,
+   "carbonPoints": 665
+  },
+  {
+   "rank": 150,
+   "team": {
+    "country": "GMB",
+    "countryCode": "GMB",
+    "name": "GMB"
+   },
+   "rankingScore": 107,
+   "highestScore": 245,
+   "carbonPoints": 609
+  },
+  {
+   "rank": 151,
+   "team": {
+    "country": "ERI",
+    "countryCode": "er",
+    "name": "Eritrea"
+   },
+   "rankingScore": 107,
+   "highestScore": 180,
+   "carbonPoints": 695
+  },
+  {
+   "rank": 152,
+   "team": {
+    "country": "GBR",
+    "countryCode": "gb",
+    "name": "Great Britain"
+   },
+   "rankingScore": 107,
+   "highestScore": 180,
+   "carbonPoints": 689
+  },
+  {
+   "rank": 153,
+   "team": {
+    "country": "LBR",
+    "countryCode": "lr",
+    "name": "Liberia"
+   },
+   "rankingScore": 105,
+   "highestScore": 230,
+   "carbonPoints": 683
+  },
+  {
+   "rank": 154,
+   "team": {
+    "country": "GEO",
+    "countryCode": "ge",
+    "name": "Georgia"
+   },
+   "rankingScore": 104,
+   "highestScore": 153,
+   "carbonPoints": 621
+  },
+  {
+   "rank": 155,
+   "team": {
+    "country": "CIV",
+    "countryCode": "ci",
+    "name": "Côte d’Ivoire"
+   },
+   "rankingScore": 104,
+   "highestScore": 150,
+   "carbonPoints": 678
+  },
+  {
+   "rank": 156,
+   "team": {
+    "country": "MAR",
+    "countryCode": "ma",
+    "name": "Morocco"
+   },
+   "rankingScore": 103,
+   "highestScore": 213,
+   "carbonPoints": 667
+  },
+  {
+   "rank": 157,
+   "team": {
+    "country": "NOR",
+    "countryCode": "no",
+    "name": "Norway"
+   },
+   "rankingScore": 100,
+   "highestScore": 183,
+   "carbonPoints": 687
+  },
+  {
+   "rank": 158,
+   "team": {
+    "country": "DMA",
+    "countryCode": "dm",
+    "name": "Dominica"
+   },
+   "rankingScore": 100,
+   "highestScore": 140,
+   "carbonPoints": 657
+  },
+  {
+   "rank": 159,
+   "team": {
+    "country": "BFA",
+    "countryCode": "BFA",
+    "name": "BFA"
+   },
+   "rankingScore": 93,
+   "highestScore": 137,
+   "carbonPoints": 627
+  },
+  {
+   "rank": 160,
+   "team": {
+    "country": "CYM",
+    "countryCode": "CYM",
+    "name": "CYM"
+   },
+   "rankingScore": 92,
+   "highestScore": 162,
+   "carbonPoints": 566
+  },
+  {
+   "rank": 161,
+   "team": {
+    "country": "BEN",
+    "countryCode": "bj",
+    "name": "Benin"
+   },
+   "rankingScore": 92,
+   "highestScore": 156,
+   "carbonPoints": 621
+  }
+ ],
+ "round_robin": [],
+ "finals": [],
+ "alliances_round_robin": [],
+ "alliances_finals": [],
+ "awards": [
+  {
+   "name": "FIRST Global Winning Alliance Award",
+   "description": "Awarded to the four teams in the winning alliance in the final match",
+   "gold": {
+    "country": "Lithuania",
+    "countryCode": "LT"
+   },
+   "silver": null,
+   "bronze": null,
+   "other": [
+    {
+     "country": "Belize",
+     "countryCode": "BZ",
+     "class": "gold"
+    },
+    {
+     "country": "Switzerland",
+     "countryCode": "CH",
+     "class": "gold"
+    },
+    {
+     "country": "Botswana",
+     "countryCode": "BW",
+     "class": "gold"
+    }
+   ],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 1
+  },
+  {
+   "name": "FIRST Global Finalist Alliance - Runner Up",
+   "description": ".",
+   "gold": null,
+   "silver": {
+    "country": "Mexico",
+    "countryCode": "MX"
+   },
+   "bronze": null,
+   "other": [
+    {
+     "country": "Republic of Korea",
+     "countryCode": "KR",
+     "class": "silver"
+    },
+    {
+     "country": "Tonga",
+     "countryCode": "TO",
+     "class": "silver"
+    },
+    {
+     "country": "Tanzania",
+     "countryCode": "TZ",
+     "class": "silver"
+    }
+   ],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 2
+  },
+  {
+   "name": "FIRST Global Finalist Alliance - Second Runner Up",
+   "description": ".",
+   "gold": null,
+   "silver": null,
+   "bronze": {
+    "country": "Senegal",
+    "countryCode": "SN"
+   },
+   "other": [
+    {
+     "country": "Hungary",
+     "countryCode": "HU",
+     "class": "bronze"
+    },
+    {
+     "country": "North Macedonia",
+     "countryCode": "MK",
+     "class": "bronze"
+    },
+    {
+     "country": "Puerto Rico",
+     "countryCode": "PR",
+     "class": "bronze"
+    }
+   ],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 3
+  },
+  {
+   "name": "FIRST Global Grand Challenge Award",
+   "description": "Awarded to teams that accrue the most cumulative points over the course of the competition",
+   "gold": {
+    "country": "Kazakhstan",
+    "countryCode": "KZ"
+   },
+   "silver": {
+    "country": "Mexico",
+    "countryCode": "MX"
+   },
+   "bronze": {
+    "country": "Peru",
+    "countryCode": "PE"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 4
+  },
+  {
+   "name": "Zhang Heng Award for Engineering Design",
+   "description": "Awarded to teams whose robot exhibits excellent engineering and displays elegance and effectiveness during the Challenge",
+   "gold": {
+    "country": "Sri Lanka",
+    "countryCode": "LK"
+   },
+   "silver": {
+    "country": "Iran",
+    "countryCode": "IR"
+   },
+   "bronze": {
+    "country": "Netherlands",
+    "countryCode": "NL"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 5
+  },
+  {
+   "name": "Ustad Ahmad Lahori Award for Innovation in Engineering",
+   "description": "Awarded to teams that demonstrate creativity and innovation in building their robot to complete an aspect of the Challenge",
+   "gold": {
+    "country": "Moldova",
+    "countryCode": "MD"
+   },
+   "silver": {
+    "country": "Hong Kong, China",
+    "countryCode": "HK"
+   },
+   "bronze": {
+    "country": "Vietnam",
+    "countryCode": "VN"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 6
+  },
+  {
+   "name": "Dr. Mae Jemison Award for International Unity",
+   "description": "Awarded to teams that emulate the best qualities of FIRST Global by breaking down barriers, demonstrating Gracious Professionalism, and building bridges with fellow teams",
+   "gold": {
+    "country": "Jordan",
+    "countryCode": "JO"
+   },
+   "silver": {
+    "country": "Australia",
+    "countryCode": "AU"
+   },
+   "bronze": {
+    "country": "Nigeria",
+    "countryCode": "NG"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 7
+  },
+  {
+   "name": "Rajaâ Cherkaoui El Moursli Award for Courageous Achievement",
+   "description": "Awarded to teams that exhibit a “can-do” attitude throughout the Challenge, even under difficult circumstances, or when things do not go as planned",
+   "gold": {
+    "country": "Ukraine",
+    "countryCode": "UA"
+   },
+   "silver": {
+    "country": "Liberia",
+    "countryCode": "LR"
+   },
+   "bronze": {
+    "country": "Team Hope (Refugees)",
+    "countryCode": "10"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 8
+  },
+  {
+   "name": "Francisco José de Caldas Award for Sustainable Excellence",
+   "description": "Awarded to an individual who helped contribute to strong and sustainable FIRST Global programs",
+   "gold": {
+    "recipientName": "Team Spyder"
+   },
+   "silver": {
+    "recipientName": "Jackie & Mike Bezos"
+   },
+   "bronze": {
+    "recipientName": "will.i.am"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 9
+  },
+  {
+   "name": "Al-Khwarizmi Award for Outstanding Supporter",
+   "description": "Awarded to institutions, sponsors, or governments that assisted\na FIRST Global team",
+   "gold": {
+    "country": "Kazakhstan",
+    "countryCode": "KZ",
+    "recipientName": "USTEM Robotics"
+   },
+   "silver": {
+    "country": "Kosovo",
+    "countryCode": "XK",
+    "recipientName": "The University for Business and Technology"
+   },
+   "bronze": {
+    "country": "Jamaica",
+    "countryCode": "JM",
+    "recipientName": "The United Jamaica Alumni Association"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 10
+  },
+  {
+   "name": "Sofia Kovalevskaya Award for International Journey",
+   "description": "Awarded to teams that documented and shared their FIRST Global experience with the rest of the FIRST Global community",
+   "gold": {
+    "country": "India",
+    "countryCode": "IN"
+   },
+   "silver": {
+    "country": "Palestine",
+    "countryCode": "PS"
+   },
+   "bronze": {
+    "country": "Chile",
+    "countryCode": "CL"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 11
+  },
+  {
+   "name": "Albert Einstein Award for FIRST Global International Excellence",
+   "description": "Awarded to teams whose robots performed the best during the FIRST Global Challenge and exemplified all tenets of the FIRST Global community",
+   "gold": {
+    "country": "Mexico",
+    "countryCode": "MX"
+   },
+   "silver": {
+    "country": "Jamaica",
+    "countryCode": "JM"
+   },
+   "bronze": {
+    "country": "Germany",
+    "countryCode": "DE"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 12
+  },
+  {
+   "name": "XPRIZE Innovator Award",
+   "description": "Awarded to teams who developed their own innovative solutions to combat climate change as part of the New Technology Experience: Carbon Countermeasures.",
+   "gold": {
+    "country": "Zimbabwe",
+    "countryCode": "ZW"
+   },
+   "silver": {
+    "country": "Indonesia",
+    "countryCode": "ID"
+   },
+   "bronze": {
+    "country": "Greece",
+    "countryCode": "GR"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 13
+  },
+  {
+   "name": "Clara Barton Award for Helping Hands",
+   "description": "Awarded to teams who help other teams in a time of need",
+   "gold": {
+    "country": "Algeria",
+    "countryCode": "DZ"
+   },
+   "silver": {
+    "country": "Palestine",
+    "countryCode": "PS"
+   },
+   "bronze": {
+    "country": "Slovenia",
+    "countryCode": "SI"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 14
+  },
+  {
+   "name": "Katherine Johnson Award for Engineering Documentation",
+   "description": "Awarded to teams that demonstrate the journey they took in building their robot",
+   "gold": {
+    "country": "Greece",
+    "countryCode": "GR"
+   },
+   "silver": {
+    "country": "Indonesia",
+    "countryCode": "ID"
+   },
+   "bronze": {
+    "country": "Canada",
+    "countryCode": "CA"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 15
+  },
+  {
+   "name": "International Enthusiasm Award",
+   "description": "Awarded to teams who support each other and other teams throughout the Challenge",
+   "gold": {
+    "country": "Tunisia",
+    "countryCode": "TN"
+   },
+   "silver": {
+    "country": "Kenya",
+    "countryCode": "KE"
+   },
+   "bronze": {
+    "country": "Georgia",
+    "countryCode": "GE"
+   },
+   "other": [],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 16
+  },
+  {
+   "name": "Judges Award - Technical",
+   "description": "During the course of the competition, the judging panel may decide a team’s unique efforts, performance or dynamics merit recognition",
+   "gold": null,
+   "silver": null,
+   "bronze": null,
+   "other": [
+    {
+     "country": "Kazakhstan",
+     "countryCode": "KZ",
+     "class": null
+    },
+    {
+     "country": "Slovakia",
+     "countryCode": "SK",
+     "class": null
+    },
+    {
+     "country": "Zambia",
+     "countryCode": "ZM",
+     "class": null
+    }
+   ],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 17
+  },
+  {
+   "name": "Judges Award - Non-Technical",
+   "description": "During the course of the competition, the judging panel may decide a team’s unique efforts, performance or dynamics merit recognition",
+   "gold": null,
+   "silver": null,
+   "bronze": null,
+   "other": [
+    {
+     "country": "Eswatini",
+     "countryCode": "SZ",
+     "class": null
+    },
+    {
+     "country": "Turkmenistan",
+     "countryCode": "TM",
+     "class": null
+    },
+    {
+     "country": "Algeria",
+     "countryCode": "DZ",
+     "class": null
+    }
+   ],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 18
+  },
+  {
+   "name": "Outstanding Mentor Award",
+   "description": "Awarded to mentors who went above and beyond the call of duty for their team",
+   "gold": null,
+   "silver": null,
+   "bronze": null,
+   "other": [
+    {
+     "country": "Bangladesh",
+     "countryCode": "BD",
+     "class": null
+    },
+    {
+     "country": "Bosnia and Herzegovina",
+     "countryCode": "BA",
+     "class": null
+    },
+    {
+     "country": "Chile",
+     "countryCode": "CL",
+     "class": null
+    },
+    {
+     "country": "Germany",
+     "countryCode": "DE",
+     "class": null
+    },
+    {
+     "country": "Guatemala",
+     "countryCode": "GT",
+     "class": null
+    },
+    {
+     "country": "Malaysia",
+     "countryCode": "MY",
+     "class": null
+    },
+    {
+     "country": "Palestine",
+     "countryCode": "PS",
+     "class": null
+    },
+    {
+     "country": "Tunisia",
+     "countryCode": "TN",
+     "class": null
+    }
+   ],
+   "eventKey": "FGC_2022-FGC-CMP",
+   "sortOrder": 19
+  }
+ ]
+}

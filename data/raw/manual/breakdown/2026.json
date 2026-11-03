@@ -1,0 +1,15 @@
+{
+  "year": 2026,
+  "rows": [
+    { "label": "Suppression units", "red": "wildfireInRedSuppressionUnit", "blue": "wildfireInBlueSuppressionUnit" },
+    { "label": "Climb multiplier", "red": "redClimbMultiplier", "blue": "blueClimbMultiplier", "format": "multiplier" },
+    { "label": "Multiplied suppression", "red": "wildfireInRedSuppressionUnit", "blue": "wildfireInBlueSuppressionUnit", "multiply": { "red": "redClimbMultiplier", "blue": "blueClimbMultiplier" }, "format": "ceil" },
+    { "label": "Partner climb points", "red": "redPartnerClimbPoints", "blue": "bluePartnerClimbPoints" },
+    { "label": "Extinguisher", "global": "wildfireInExtinguisher", "column": "both" },
+    { "label": "Coopertition", "global": "coopertition", "column": "both" },
+    { "label": "Coopertition knockdown bonus", "global": "coopertitionKnockdownBonus", "column": "both" },
+    { "label": "Robot 1 brace state", "red": "redRobotOneBraceState", "blue": "blueRobotOneBraceState", "format": "fixed2" },
+    { "label": "Robot 2 brace state", "red": "redRobotTwoBraceState", "blue": "blueRobotTwoBraceState", "format": "fixed2" },
+    { "label": "Robot 3 brace state", "red": "redRobotThreeBraceState", "blue": "blueRobotThreeBraceState", "format": "fixed2" }
+  ]
+}

@@ -1,103 +1,150 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in
+this repository.
 
 ## What this is
 
-A static site that archives **FIRST Global Challenge** results (seasons, teams, awards, rankings, matches), modeled on The Blue Alliance. Deliberately KISS: no framework, no bundler, no dependencies, no remote fonts, works with JavaScript disabled. The only remote images are team photos, which are hotlinked from FIRST (never mirrored) and always degrade to the UI placeholder — see the data gotchas. 11 screens, defined in `docs/discovery/00-…-Especificación-del-Proyecto.md` §2 and `docs/web-style-guide/00-instrucciones-agentes.md` §2.
+A static archive of **FIRST Global Challenge** results (2017–2026), modelled on The Blue
+Alliance. No framework, no bundler, no client-side dependencies and no remote fonts. The
+site works with JavaScript disabled. It is deployed at <https://tfga.fgcmexico.com/>.
 
 ## Commands
 
 ```bash
-node scripts/fetch-archive.js [years…]  # download raw API responses → data/raw/api/
-node scripts/normalize.js               # data/raw/ → data/processed/ (validates, fails loudly)
-node site/build.js                      # data/processed/ → site/dist/ (requires Node 20+)
+node scripts/normalize.js          # data/raw/ → data/processed/ (validates, fails loudly)
+node site/build.js                 # data/processed/ → site/dist/
+node scripts/dev.js                # local server on :3000 with live reload
 
-node scripts/poll-live.js [--watch]     # live.json → data/processed/ + site/dist/ (live layer)
-node scripts/dev.js                     # local server on :3000, live reload, refreshes live.json
+node scripts/fetch-archive.js [years…]   # refresh API snapshots → data/raw/api/
+node scripts/fetch-flags.js              # mirror flags → site/flags/
+node scripts/fetch-playlist-thumbs.js    # fill playlist thumbnails
+node scripts/check.js                    # design/token checks
+node --test                              # pipeline regression tests
 
-node scripts/make-manual-templates.js   # create empty CSV templates for hand-entered data
+node scripts/poll-live.js [--watch]      # live overlay while a season is live
 ```
 
-Data pipeline: `fetch` → `normalize` → `build`. Only `data/raw/` (the source) and `site/flags/` (mirrored assets) are versioned — `data/processed/` and `site/dist/` are generated and gitignored, so **`normalize` must run before `build`** after a fresh clone or on a deploy. `build` refuses to run when raw data exists but processed does not, rather than silently publishing the fixture; pass `--fixture` to build the mock site on purpose.
+The pipeline is `fetch → normalize → build`. `data/processed/` and `site/dist/` are
+generated and gitignored; `normalize` must run before `build` after a fresh clone. The
+build refuses to publish the mock fixture when `data/raw/` exists; pass `--fixture` to
+build the mock site on purpose.
 
-`scripts/poll-live.js` and `worker/worker.js` are **twins**: the same transform of the live snapshot, one run locally and one on Cloudflare's cron. Edit one and you must edit the other, or the site behaves differently locally than in production — and the client (`site/brand/live.js`) only fills from `live.json`, so a field missing in one is a field missing in half your testing.
+`site/dist/` and `data/processed/` are **never hand-edited**. Edit `data/raw/`,
+`scripts/`, `site/templates/`, `site/brand/`, `site/css/` or `worker/`.
 
-The build prints which data source it used (`processed` or `fixture`). Then open `site/dist/index.html`. There is no test suite, linter, or package manager — `site/package.json` exists only to declare `"type": "module"`.
+## Data pipeline (JSON only)
 
-`site/dist/` is committed on purpose so the site can be previewed and published without building, but it is **generated output** — wiped and rewritten on every build, never hand-edit it. Edit `site/templates/`, `site/brand/`, or `site/css/` instead. Both `site/dist/` and `data/` are deliberately tracked; `.gitignore` says so at the top.
+Every season has one API-shaped snapshot:
 
-**Path handling on Windows:** always use `fileURLToPath(new URL(…, import.meta.url))`, never `URL.pathname` — `pathname` yields `/C:/…` and `fs.mkdirSync` then fails with `ENOENT: mkdir 'C:\C:\…'`. This bug broke the build once; it is fixed in `site/build.js`.
+- `data/raw/api/{year}.json` — verbatim response of `https://api.first.global/v1?year=YYYY`
+  for the trusted seasons (2023–2026).
+- `data/raw/manual/snapshots/{year}.json` — same shape, built from hand-maintained data
+  for the untrusted seasons (2017–2022).
 
-Verification greps (from the delivery checklist, §9 of the agent instructions) — all three should return empty:
+`seasons.json` decides which one to read with `source: "api" | "manual"`. `mode` is
+`archived`, `live` or `awards-only`; only a `live` season turns on the overlay and the live
+GameDay.
 
-```bash
-grep -nE '#[0-9a-fA-F]{3,8}\b|rgba?\(' site/css/components.css       # no literal colors outside tokens.css
-grep -rn 'style=' site/templates                                     # no inline styles
-grep -rn 'The FIRST Global Alliance' site --include=*.js | grep -v brand.js
+The rest of the manual inputs are JSON in `data/raw/manual/`:
+
 ```
+seasons.json          team metadata, dates, mode, source
+teams.json            roster, continent, flag key
+photos.json           one photo per (season, team)
+playlists.json        one YouTube playlist per season
+awards/{year}.json    team awards for seasons where the API has none
+breakdown/{year}.json match-breakdown rows for a season
+rankings/{year}.json  ordered ranking columns and labels
+streams/{year}.json   field/day streams for the live season
+videos/{year}.json    video extractor output
+```
+
+The full shapes are in `data/raw/manual/README.md`.
 
 ## Architecture
 
-A tiny template engine, evaluated at build time; everything is string concatenation. Data flows one way:
-
 ```
 data/raw/  ──normalize.js──►  data/processed/  ─┐
-  (api + manual CSVs)                            ├→ templates/data.js → pages.js → blocks.js → dist/*.html
-                          mock/mock.js (fixture) ┘     (source select)
+                                                ├→ templates/data.js → pages.js → blocks.js → dist/*.html
+                    mock/mock.js (fixture) ─────┘
 ```
 
-- **`site/templates/data.js`** is the only module that reads data. It loads `data/processed/` when present and falls back to the `site/mock/mock.js` fixture otherwise, so the site always builds — with real data or with test data. `pages.js` imports from here, never from `mock.js`. Expected processed files are documented at the top of the module.
-- **`site/mock/mock.js`** is the fixture and the reference for the data contract: `seasons[]`, `T[code] → [name, continent]`, `PH[year][code] → url` (one photo per team **and season**, hotlinked externally), `M[y][]` (matches), `S[y][]` (standings — `{code, rank, cols: [[label, value]…]}`, plus `w/l/t/n/avg` only when that season has a record), `AL[y][]` (the round-robin alliances, each `{teams, rank, score, played}` — `rank`/`score`/`played` are that alliance's standing in the phase and are `null` until the API publishes `round_robin`), `A[y][]` (awards), `AW[]` (award catalogue, as `[name, desc, ty, tier]` tuples). Real data must expose the **same shapes** — see `00-instrucciones-agentes.md` §4. Award types are `ty: 'a'` (alliance, one tier) / `'p'` (podium, gold-silver-bronze) / `'n'` (non-tiered). Alliance size is 3 in qualifiers, 4 in round robin/playoffs/finals — derive it from `red[]`/`blue[]` lengths, never hardcode it.
-- **`site/templates/urls.js`** is the only module that builds site URLs (`urls.team(code, year)`, `urls.match(id)`, …), plus `outPath(url)` to turn a URL into its output file path. Templates must not construct paths themselves. The one exception is `brand.nav[].href` in `brand.js`, which the spec allows as precomputed config.
-- **`site/templates/pages.js`** has one function per screen (`home`, `ins`, `teams`, `awards`, `rankings`, `matches`, `gameday`, `th`, `ts`, `mp`) and the exported `pages()` that assembles the full route list. It is dense, terse, and variable-heavy (`Y`, `L`, `sn`, `tl`, `cnt`, `won`) — read it slowly before editing. `alTable(y)` is the shared round-robin alliances table: `rankings` and `insLive` both call it.
-- **`site/templates/blocks.js`** holds the shared markup (`dt`, `matchRow`, `matchList`, `scoreboard`, `breakdown`, `awardBlock`, `box/boxes`, `dd`, `kvr`, `pip`, `hero`) plus `layout()`, which wraps a page in nav/footer and rewrites absolute internal `/links` to relative `index.html` paths so `dist/` opens straight from disk.
-- **`site/brand/brand.js`** is the identity master: name, tagline, logo SVG, nav, footer, flag path, medals, and **every UI string** under `labels`. `t(key)` throws at build time on a missing key — that's intentional, it keeps stray literals out.
-- **`site/brand/tokens.css`** is the only place colors, typography, and radii may be defined (`light-dark(a, b)`); **`site/css/components.css`** may only use `var(--…)`. The build concatenates both into a single `dist/site.css`.
-
-Changing the brand means editing exactly three files: `brand.js`, `tokens.css` (and keeping `brand.themeColor` in sync with `--brand`), and `favicon.svg` — never `components.css`.
+- **`site/templates/data.js`** is the only module that reads processed data. It falls back
+  to the fixture in `site/mock/mock.js` when `data/processed/` is incomplete.
+- **`site/templates/urls.js`** is the only module that builds site URLs.
+- **`site/templates/pages.js`** has one function per screen and the exported `pages()`. It
+  is dense and variable-heavy; read it slowly.
+- **`site/templates/blocks.js`** holds shared markup and `layout()`, which wraps a page in
+  nav/footer, emits SEO metadata and rewrites absolute internal links to relative ones.
+- **`site/brand/brand.js`** is the identity master: name, logo, nav, labels (`t()`), meta
+  descriptions (`metaText()`) and medals. `t()` and `metaText()` throw at build time on a
+  missing key.
+- **`site/brand/tokens.css`** is the only place colors, typography and radii are defined.
+  `site/css/components.css` may only use `var(--…)`. The build concatenates both into
+  `dist/site.css`.
+- **`site/brand/ui.js`** is the always-loaded UI script (search). **`site/brand/live.js`**
+  is only published when a season is `live`.
+- **`worker/worker.js`** and **`scripts/poll-live.js`** are twins: the same transform of
+  the live snapshot, one on Cloudflare's cron and one locally. Edit both or the site
+  behaves differently locally and in production. `wrangler.jsonc` sets `SEASON_YEAR`.
 
 ## Non-negotiable rules
 
-`docs/web-style-guide/00-instrucciones-agentes.md` is the operative spec; read it before touching templates. Its rules, condensed:
-
-1. **Copy, don't rewrite.** Markup comes from `blocks.js` or from `docs/web-style-guide/demo-team-match.html` (components are delimited by `<!-- @component:NAME -->`). Don't redesign components.
-2. **CSS class names are the API** — don't rename or invent them. A new component needs a written proposal in `docs/web-style-guide/05-componentes-pendientes.md` and approval first.
-3. No `style=` attributes. No literal colors/flows/radii outside `tokens.css`. No literal brand or UI text in templates — use `t("key")` and `brand.*`.
+1. **Copy, don't rewrite.** Markup comes from `blocks.js` or from
+   `docs/web-style-guide/demo-team-match.html`. Don't redesign components.
+2. **CSS class names are the API.** Don't rename or invent them. A new component needs a
+   proposal in `docs/web-style-guide/05-componentes-pendientes.md` and approval.
+3. No `style=` attributes. No literal colors/radii outside `tokens.css`. No literal UI text
+   in templates: use `t("key")` and `brand.*`.
 4. **Light and dark differ only in color**; desktop and mobile differ only in layout.
-5. **No JS required.** JS (sortable `dt` tables, theme toggle) only enhances; initial order must be correct in the HTML.
-6. **Missing data is an explicit state** ("No data", "No awards") — never `0`, never `0–0`, never a blank. **One deliberate exception:** a team that did not reach the playoffs shows no alliance row at all (no "Did not play playoffs") — most teams never reach them, so it would be noise on every season block.
-7. **Don't invent data or field names.** The style guide calls this `SIN EVIDENCIA`: if a value isn't evidenced, say so and ask.
-8. Winning alliance gets the saturated tone, losing the faint one — in `matchRow` and `scoreboard` the tone follows *who won*, in `breakdown` it marks *total vs detail* rows.
-9. A specific match is always rendered with the standard `matchRow`; never as prose or an ad-hoc table. In Insights, the video card goes **below** the row.
-10. Awards on team pages always show the tier (`kvr` + `pip`); counts only on `/awards/` and Team Overview KPIs.
-
-If two docs contradict each other, **stop and report it** — don't pick one.
+5. **No JS required.** JS (sortable tables, theme toggle, live overlay) only enhances; the
+   initial order must be correct in the HTML.
+6. **Missing data is an explicit state** ("No data", "No awards"), never `0`, never `0–0`,
+   never a blank. The one deliberate exception: a team that did not reach the playoffs
+   shows no alliance row at all.
+7. **Don't invent data or field names.** If a value is not evidenced, say so and ask.
+8. Winning alliance gets the saturated tone, losing the faint one.
+9. A specific match is always rendered with `matchRow`, never as prose or an ad-hoc table.
+10. Awards on team pages always show the tier (`kvr` + `pip`).
 
 ## Conventions and gotchas
 
-- **Code comments, docs, and commit messages are in Spanish; UI strings are in English** (via `brand.labels`). Keep that split. English is primary but every label must stay translatable: whole phrases with placeholders, never a string glued together from fragments (see `docs/discovery/01-hybrid-architecture.md`).
-- Site URLs are absolute while rendering (`/team/MEX/`); `layout()` rewrites them to relative `index.html` paths at the end, so `dist/` opens straight from disk. Build them through `urls.js` — never inline a path in a template.
-- Flags live in `site/flags/`, mirrored by `node scripts/fetch-flags.js`. Two things to know: they are named by **alpha-2** (`mx.svg`, not `mex.svg`), resolved through `flags.json` + `data.js` → `flagFile()`; and the source is **flag-icons** (MIT), with results.first.global used only for the codes flag-icons lacks. Using results.first.global for everything costs 47 MB — see `docs/discovery/02-data-sources.md`. The build copies real flags and only draws a grey placeholder for what is missing, so no page shows a broken image.
-- The logo in `brand.logoSvg` is the official icon. It is a **filled** mark with a non-square `viewBox` (600×523) whose orientation depends on its `<g transform>` — do not strip the transform or add `preserveAspectRatio="none"`, and keep `.logo` as `fill:currentColor;stroke:none`.
-- `docs/web-style-guide/03-pages.md` is **obsolete** for routes and templates; only three of its principles survive (declare partial coverage, no empty states for missing data, work without JS).
-- Doc precedence: markup/CSS appearance → `demo-team-match.html` and `site/`; design rules → `02-guia-de-estilos.md`; routes and screen content → the functional spec; value shape → the data contract.
-- `docs/discovery/01-hybrid-architecture.md` … `06-join-keys.md` plan the move from mock data to real data: static archive for past seasons, a DB-backed live layer for the current one, the raw-data standard, the pipeline, the staged plan, and the join-key standard for hand-entered data. `06` is authoritative for identifiers — in particular **`teamKey` is reassigned every season and is never a join key**; teams are identified by ISO alpha-3. Read them before changing how data reaches the templates.
+- **Code comments and commit messages are in Spanish; public documentation and UI
+  strings are in English.** UI strings live in `brand.labels` / `brand.meta` and are
+  whole phrases with placeholders, never fragments glued together. The original visual
+  guide in `docs/web-style-guide/` remains in Spanish.
+- **Path handling on Windows:** use `fileURLToPath(new URL(…, import.meta.url))`, never
+  `URL.pathname` (it yields `/C:/…` and breaks `mkdir`).
+- **Flags** are named by alpha-2 (`mx.svg`), resolved through `flags.json` and
+  `data.js → flagFile()`. They come from flag-icons (MIT); results.first.global is only
+  the fallback for codes flag-icons lacks.
+- **Team codes are messy.** The roster code is canonical; competition codes are bridged
+  through alpha-2 by `scripts/lib/codes.js`. **Never join on `teamKey`** — it is reassigned
+  every season.
+- **Photos are per (team, season)**, hotlinked from FIRST and never mirrored. A missing
+  row is the normal "no photo" state.
+- **Videos:** `video` is the exact deep link (or null), `stream` the field stream of that
+  match's own day (or null). A match with neither shows no play button.
+- **Breakdown is season-specific.** `data/raw/manual/breakdown/{year}.json` declares the
+  rows; the API's `details` fields are scalar red/blue fields, not tuples.
+- **Ranking columns are season-specific.** `data/raw/manual/rankings/{year}.json` fixes
+  their order and labels.
+- **Awards to individuals, mentors or institutions are excluded** from the site. The
+  source files keep them for the record.
+- **2020 and 2021** had no competition: awards only. **2017–2019 and 2022** have no match
+  records; 2022's API team association is corrupt and is not used.
+- **2026 is archived.** The Worker and `live.js` are dormant until a new season is set to
+  `live`.
 
-## Data gotchas
+## Documentation map
 
-- **Country codes are messy.** `api.first.global` uses two alpha-3 spaces that disagree between sources *and between years* (`ATG`/`ANT`, `HPE`/`10`). The roster's code is canonical; `scripts/lib/codes.js` bridges via alpha-2. Never join on `teamKey` — it is reassigned every season. See `docs/discovery/06-join-keys.md`.
-- **Awards identify countries by name and alpha-2, never alpha-3**, and alliance awards put their captain in the slot matching their own tier (`silver` for the silver award), not always in `gold`.
-- **Team photos are per (team, year), never per team.** Members change every season, so `photos.csv` is keyed `(year, team_code)` and feeds `PH[year][code]`; there is no team-level photo. URLs are hotlinked from FIRST (never mirrored) and only `http(s)://` is accepted — a bad scheme fails the build rather than being dropped, because the row is an explicit claim that the URL is that team's photo. A missing row is the normal "no photo" state and renders the `.photo` placeholder.
-- **2020 and 2021 exist in neither the API nor any fetch** — awards included. Those seasons are hand-entered.
-- **A match's fallback video is the stream of that match's own day**, not the one playing now: the day is derived as the position of the date in the season's API schedule, and `streams.csv` counts days, so the two have to agree. The build warns when an extracted deep link is not the stream declared for that match's day and field — that warning means one of the two files is wrong. `video` is the exact link (or empty), `stream` the field fallback (or empty); no link at all renders no play button. The GameDay follows the highest day in `streams.csv`, so rolling it over is just adding rows.
-- **`fetch-archive.js` always asks for `excludeMatchDetails=false`.** Verified against the API: `field` and `played` — the only things the pipeline needs besides the teams — come in *both* modes, so `true` saved nothing and did lose `details`. Without it `normalize` cannot fill `breakdown`, and a live season then publishes a `0` where there is no datum instead of the declared gap (rule 6).
-- **A new phase reaches the site by re-running the pipeline, not by the overlay.** `node scripts/fetch-archive.js 2026 && node scripts/normalize.js && node site/build.js`: round-robin matches, their alliances and, when the API publishes them, the finals come in through the raw snapshot. `site/brand/live.js` only writes scores and ranks **into rows the build already emitted** — it never creates a row, so a phase the build does not know about cannot appear from `live.json` alone.
+- `README.md` — public overview, quick start, limitations, license.
+- `docs/architecture.md` — data flow, modules and the live layer.
+- `docs/api-notes.md` — API structure, code spaces, missing data and quirks.
+- `docs/new-season.md` — the checklist for a new season, live and archive.
+- `data/raw/manual/README.md` — the manual JSON formats and validation rules.
+- `docs/web-style-guide/` — the visual specification, style guide and canonical demo.
+- `worker/README.md` — Worker deployment and teardown.
 
-## Known gaps
-
-- What is still missing is input only a human can supply, not code: `teams.csv` has the social/contact columns empty for all 213 rows and `continent` empty for one team (`10`, the refugee team, which has no country — `/teams/` lists it in a final `No continent` group, drawn only when some team lacks one). Two others the ISO list cannot decide — Taiwan (`TW`, listed with an empty region) and Kosovo (`XK`, no ISO alpha-2) — are fixed by an explicit `OVERRIDE` map in `scripts/fetch-continents.js`; without it `TPE` and `KOS` had no continent and silently disappeared from `/teams/` even though every other screen linked to them. `videos.csv` is still an empty, unwired template, though 2026 is **not** video-less: the deep links come from the extractor's own file, not from it — 259 qualification matches have one (`data/raw/manual/2026/2026.json`) — and all 356 matches fall back to their own field's stream (`data/raw/manual/2026/streams.csv`, days 1–3). 2020/2021 (no competition) have no match or award records; 2026 has its 356 matches — 340 qualifications and 16 round-robin, from the API — plus the 8 round-robin alliances and the ranking, but no awards yet and no finals until that phase is published, and no round-robin standings either (`round_robin` is still `[]`, so the alliances table on `/rankings/2026/` shows its Rank / Ranking score / Played columns as "No data" while the four team columns are full — 2024 and 2025 render it complete). Those three columns are the one value the build and the overlay both know how to produce: `normalize` derives them from the raw snapshot, and the worker carries the same `round_robin` rows as `roundRobin` so `live.js` can fill the rows the build already emitted and re-sort them — no rebuild needed once the API publishes them, but the worker must be redeployed for its payload to carry them. Not bugs — just missing input. See `docs/discovery/05-plan.md` S2.
-
-## Open decisions (don't silently resolve these)
-
-Search-results page, venue map, the **multi-photo** carousel (one photo per team and season already ships; several per season is deferred), real GameDay, breakdown row types, the "Honorable" medal symbol, and whether award counts mix honorable mentions with non-tiered awards. §8 and §9 of `00-instrucciones-agentes.md` list the full set; `docs/discovery/05-plan.md` tracks what is settled (English primary, Cloudflare KV, per-season breakdown map, photos hotlinked) and what is not.
+If two docs contradict each other, **stop and report it** — don't pick one.

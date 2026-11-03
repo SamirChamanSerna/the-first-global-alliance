@@ -1,0 +1,9 @@
+{
+  "year": 2026,
+  "fields": [
+    { "field": "rankingScore", "label": "Ranking score" },
+    { "field": "highestScore", "label": "Highest points" },
+    { "field": "climbPoints", "label": "Climb points" },
+    { "field": "played", "label": "Played" }
+  ]
+}

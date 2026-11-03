@@ -156,7 +156,7 @@ Reglas técnicas:
 - La página debe ser **completamente usable con las imágenes bloqueadas**. Si una imagen falla o falta: caja plana `--surface` con el texto, sin shimmer ni esqueleto animado.
 - Tamaños orientativos (propuesta): foto ≤ ≈ 150 KB, miniatura ≈ 320×180 y ≤ ≈ 40 KB, formato WebP/JPEG.
 - Hover: sin zoom, sin elevación, sin transición. Visor/lightbox: solo si es instantáneo y opcional; si no, enlace a la imagen.
-- Nota de tensión: `03-pages.md §4.6` pide "una petición por página". Se interpreta como **una petición de documento + CSS compartido**; las imágenes son peticiones diferidas y opcionales.
+- Nota de tensión: la especificación funcional §4.6 pide "una petición por página". Se interpreta como **una petición de documento + CSS compartido**; las imágenes son peticiones diferidas y opcionales.
 
 ### 3.16 Tarjeta de video
 Click en el video: enlace externo a la URL (con la marca de tiempo si existe), `rel="noopener"`. Embeber el reproductor al hacer clic es una mejora opcional con JS, ⚠️ pendiente de decidir.
@@ -198,9 +198,9 @@ Fila de enlaces separados por "/", selector de tema (sol/luna) a la derecha, lí
 
 ### 3.19 Página de match (`match`) *(v2)*
 
-**Referencia:** en la beta el match es una **ventana modal sobre la página de equipo** (URL `/match/<id>`). **Aquí es una página completa** (`/matches/<year>/<stage>/<id>/`) que funciona sin JS; el modal se descarta porque depende de JS. ⚠️ Confirmar.
+**Referencia:** en la beta el match es una **ventana modal sobre la página de equipo** (URL `/match/<id>`). **Aquí es una página completa** (`/match/{year}_{stage}{id}/`) que funciona sin JS; el modal se descarta porque depende de JS. ⚠️ Confirmar.
 
-**Orden (escritorio):** título → dos columnas [desglose ≈ 47% | video ≈ 53%] → contexto (otros matches del campo ese día, según `03-pages.md §3.6`). Móvil (propuesta, sin referencia): marcador → video → desglose → contexto.
+**Orden (escritorio):** título → dos columnas [desglose ≈ 47% | video ≈ 53%] → contexto (otros matches del campo ese día, según la especificación funcional §3.6). Móvil (propuesta, sin referencia): marcador → video → desglose → contexto.
 
 **1. Título.** Texto en `--link`, negrita, ≈ 22–24 px: "Quals 6 - Magnolia Regional 2026" → FGC: nombre del match + temporada. Debajo: hora programada (del venue y del visitante), campo y resultado.
 
@@ -220,14 +220,12 @@ Filas de ≈ 40 px (escala de captura; medir). Chips: borde 1 px, radio 999, 12 
 
 **4. Video.** Es la página donde el video es contenido principal. La referencia incrusta el reproductor de YouTube (16:9, radio ≈ 8). ⚠️ Decidir entre: iframe directo (como la referencia; arrastra scripts de terceros) o la **tarjeta de §3.16 (A o B) que carga el reproductor al hacer clic**. Recomendación: tarjeta con carga al clic.
 
-**5. Implicación para los datos.** En TBA las filas, etiquetas y tipo de fila están programadas por temporada. En `03-pages.md §3.6` el desglose se pinta de forma genérica, "sin código por año", y ahí **no existe `kind`**. Para reproducir esta tabla el pipeline debe entregar `breakdown.rows[] = { label, red, blue, kind, lead }`:
-- `lead` (`"red"`, `"blue"` o `null`) se calcula en el build comparando los valores.
-- `kind` lo aporta una **overlay por temporada** (datos, no código; mismo mecanismo que `pipeline/overlays/videos/<year>.json`).
-- Sin overlay, todas las filas son `detail`.
-⚠️ Decisión pendiente; afecta a `02-data-contract.md`.
+**5. Implicación para los datos.** El desglose es por temporada: `data/raw/manual/breakdown/{year}.json` declara las filas (etiqueta y campos `red`/`blue`/`global`, con su formato) y `normalize` las convierte en `[label, red, blue]`.
+- No hay `kind` ni `lead`: el orden y el formato los fija el mapa de esa temporada.
+- Los vídeos por partido viven en `data/raw/manual/videos/{year}.json`.
 
 ### 3.20 Hero de la Home (`hero`) *(v3)*
-Logo SVG (≈ 96 px, `currentColor`), nombre del sitio (≈ 44 px; 32 px en móvil) y eslogan (≈ 18 px, `--muted`), **todo centrado**, sin degradado, sombra ni animación. Los textos salen de `brand.js` (`name`, `tagline`, `logoSvg`). Solo existe en la Home; debajo van mapa, sedes y KPIs.
+Logo SVG (≈ 96 px, `currentColor`), nombre del sitio (≈ 44 px; 32 px en móvil) y eslogan (≈ 18 px, `--muted`), **todo centrado**, sin degradado, sombra ni animación. Los textos salen de `brand.js` (`name`, `tagline`, `logoSvg`). Solo existe en la Home; debajo van sedes y KPIs.
 
 ### 3.21 Bloque de premios (`awardBlock` + `awardKey`) *(v3)*
 Referencia: imagen de premios del usuario. Cada premio es un recuadro con borde fino (radio `--r-cell`): **nombre** en negrita centrado, **descripción** en cursiva gris, y debajo una fila de celdas con el color del lugar. En escritorio van en 2 columnas (`.aws`), en móvil en 1. Encima, la leyenda **KEY**: Gold / 1st, Silver / 2nd, Bronze / 3rd, Non-tiered.
@@ -331,6 +329,6 @@ Por indicación del usuario, **solo cambian los colores** (fondo `#1C1C1E`, tabl
 10. ¿Overlay por temporada con `kind` para el desglose, o todas las filas como `detail`? (afecta al contrato de datos)
 
 ### Decisiones resueltas
-- **Rutas:** mandan las de la especificación funcional nueva (ver `00-instrucciones-agentes.md §2`); `03-pages.md` quedó obsoleto en rutas y plantillas.
+- **Rutas:** mandan las de la especificación funcional nueva (ver `00-instrucciones-agentes.md §2`); la antigua `03-pages.md` quedó obsoleta en rutas y plantillas.
 - **KPIs de Team Overview:** se mantienen, junto con la lista completa de premios por año.
 - **Tamaño de alianza:** 3 en clasificatorias, 4 en round robin, playoffs y finales.

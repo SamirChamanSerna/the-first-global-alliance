@@ -7,12 +7,13 @@ export const codes=Object.keys(T);
 // reales solo admiten http(s) (lo valida scripts/normalize.js).
 export const PH={2025:{MEX:'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%203%22%3E%3Crect%20width=%224%22%20height=%223%22%20fill=%22%23d8d8d8%22/%3E%3Crect%20y=%221.8%22%20width=%224%22%20height=%221.2%22%20fill=%22%238a8a8a%22/%3E%3C/svg%3E'}};
 // Streams por campo y día, con la misma forma que data/processed/{año}/streams.json.
-// El fixture no tiene datos de 2026 (sus temporadas son 2022-2025), pero el GameDay sí
-// está fijado a 2026, así que se le da un juego mínimo para que la barra de campos se
-// dibuje también sin datos reales. Los ids son ficticios a propósito: un fixture no
-// debe llevar datos reales que envejezcan.
+// Los ids son ficticios a propósito: un fixture no debe llevar datos reales que envejezcan.
 export const ST={2026:{year:2026,latest:1,days:[{day:1,fields:Object.fromEntries([1,2,3,4,5].map(n=>[`Field ${n}`,{id:`mockfield${n}`,url:`https://www.youtube.com/watch?v=mockfield${n}`}]))}]}};
-export const seasons=[{y:2025,city:'Panama City',iso:'PAN',country:'Panama',dates:'Oct 29 – Nov 1, 2025'},{y:2024,city:'Athens',iso:'GRC',country:'Greece',dates:'Sep 25–28, 2024'},{y:2023,city:'Singapore',iso:'SGP',country:'Singapore',dates:'Oct 10–13, 2023'},{y:2022,city:'Geneva',iso:'CHE',country:'Switzerland',dates:'Oct 13–16, 2022'}].map(s=>({...s,name:`Mock Challenge ${s.y}`}));
+// Playlist de la temporada más reciente del fixture. El GameDay archivado pinta una
+// tarjeta por temporada; sin esto el fixture mostraría «No data».
+const MOCK_THUMB='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2016%209%22%3E%3Crect%20width=%2216%22%20height=%229%22%20fill=%22%23d8d8d8%22/%3E%3C/svg%3E';
+export const PL={2025:{url:'#',title:'Mock Challenge 2025',thumbnail:MOCK_THUMB}};
+export const seasons=[{y:2025,city:'Panama City',iso:'PAN',country:'Panama',dates:'Oct 29 – Nov 1, 2025'},{y:2024,city:'Athens',iso:'GRC',country:'Greece',dates:'Sep 25–28, 2024'},{y:2023,city:'Singapore',iso:'SGP',country:'Singapore',dates:'Oct 10–13, 2023'},{y:2022,city:'Geneva',iso:'CHE',country:'Switzerland',dates:'Oct 13–16, 2022'}].map(s=>({...s,name:`Mock Challenge ${s.y}`,mode:'archived',teams:null}));
 let seed=11;const rnd=n=>(seed=seed*48271%2147483647)%n;
 const shuffle=a=>a.map(x=>[rnd(1e6),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
 export const M={},S={},A={},AL={};

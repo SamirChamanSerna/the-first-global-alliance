@@ -6,8 +6,8 @@
 //
 // El alpha-2 SÍ coincide siempre (`ag`, `10`), así que es el puente.
 //
-// **El roster manda**: es el código que ve quien rellena teams.csv y el que el sitio
-// usa en las URLs. Aquí se traduce todo lo demás a ese espacio. Ver 06-join-keys.md.
+// **El roster manda**: es el código que ve quien rellena teams.json y el que el sitio
+// usa en las URLs. Aquí se traduce todo lo demás a ese espacio. Ver docs/api-notes.md.
 //
 // Consecuencia asumida y documentada: `ANT` es un ISO retirado y `10` no es un ISO.
 // Se corrigen en origen cuando el roster se arregle, no aquí.
