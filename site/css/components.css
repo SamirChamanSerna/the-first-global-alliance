@@ -167,13 +167,17 @@ h1{font-size:26px}
 .tn-rw{background:var(--rw)}.tn-bl{background:var(--bl)}.ev+.ev{margin-top:20px}
 
 /* --- v4: hero, premios --- */
-.hero{text-align:center;padding:48px 0 32px}.hero .logo{width:96px;height:96px}.hero h1{font-size:44px;margin:12px 0 6px}.hero p{font-size:18px;margin:0}
+.hero{text-align:center;padding:48px 0 32px}.hero .logo{width:96px;height:96px}.hero .hero-name{font-size:44px;margin:12px 0 6px}.hero p{font-size:18px;margin:0}
 .t-gold{background:var(--gold)}.t-silver{background:var(--silver)}.t-bronze{background:var(--bronze)}.t-awarded{background:var(--tier)}
 .key{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 14px}.key span{padding:2px 10px;border-radius:var(--r-pill);font-size:13px}
 .aws{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.aw{border:1px solid var(--border);border-radius:var(--r-cell);overflow:hidden;text-align:center}
 .aw b{display:block;padding:8px 10px 2px}.aw i{display:block;padding:0 12px 8px;color:var(--muted);font-size:13px}.aw-r{display:flex;flex-wrap:wrap;border-top:1px solid var(--border)}
 .aw-r span{flex:1 1 30%;padding:6px 8px;border-left:1px solid var(--border)}.aw-r span:first-child{border-left:0}
-@media(max-width:900px){.aws{grid-template-columns:1fr}.hero h1{font-size:32px}.hero{padding:28px 0 20px}}
+/* Enlaces sobre fondos de premio o texto atenuado: el azul de --link no contrasta
+   con esos fondos. Heredar el color y subrayar mantiene el contraste y distingue
+   el enlace sin depender solo del color. */
+.aw-r span a,p.muted a{color:inherit;text-decoration:underline}
+@media(max-width:900px){.aws{grid-template-columns:1fr}.hero .hero-name{font-size:32px}.hero{padding:28px 0 20px}}
 .live-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--live);background:var(--live-bg);padding:2px 8px;border-radius:var(--r-pill);letter-spacing:.05em}
 .player-wrap{position:relative;aspect-ratio:16/9;background:var(--thumb-bg);border-radius:var(--r-box);overflow:hidden;margin:16px 0}
 .player-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -206,7 +210,7 @@ h1{font-size:26px}
 .t{gap:2px}
 .fl{width:14px;height:10px}
 .title h1{font-size:22px}
-.hero h1{font-size:26px}
+.hero .hero-name{font-size:26px}
 .hero{padding:24px 0 16px}
 .boxes{gap:8px}
 .boxes.c3{grid-template-columns:1fr 1fr}

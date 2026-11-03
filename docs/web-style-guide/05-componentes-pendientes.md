@@ -1,7 +1,7 @@
 # 05 — Componentes pendientes
 
 > Estado: **abierto**. Lo que se documenta aquí no está en `demo-team-match.html` ni en `blocks.js`, y no se construye hasta que haya aprobación (`00-instrucciones-agentes.md` §8).
-> Pendientes conocidos que todavía no tienen ficha aquí: página de resultados de búsqueda, carrusel de fotos, GameDay, tipos de fila del desglose, símbolo de "Honorable".
+> Pendientes conocidos que todavía no tienen ficha aquí: carrusel de fotos, mapa de sedes (descartado) y símbolo de "Honorable".
 
 ---
 

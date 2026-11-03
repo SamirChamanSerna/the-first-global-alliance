@@ -1,6 +1,6 @@
 // ÚNICO módulo que construye rutas del sitio. Los templates no arman URLs a mano.
 // Rutas: docs/web-style-guide/00-instrucciones-agentes.md §2
-// Slug de match ({year}_{stage}{id}): docs/discovery/06-join-keys.md
+// Slug de match ({year}_{stage}{id}): docs/api-notes.md
 import {brand} from '../brand/brand.js';
 import {flagFile} from './data.js';
 

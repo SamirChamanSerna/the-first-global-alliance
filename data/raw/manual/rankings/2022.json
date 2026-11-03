@@ -1,0 +1,17 @@
+{
+ "year": 2022,
+ "fields": [
+  {
+   "field": "rankingScore",
+   "label": "Ranking score"
+  },
+  {
+   "field": "highestScore",
+   "label": "Highest score"
+  },
+  {
+   "field": "carbonPoints",
+   "label": "Carbon points"
+  }
+ ]
+}

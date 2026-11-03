@@ -1,0 +1,17 @@
+{
+ "year": 2017,
+ "fields": [
+  {
+   "field": "cumulativePoints",
+   "label": "Cumulative points"
+  },
+  {
+   "field": "matchPoints",
+   "label": "Match points"
+  },
+  {
+   "field": "highScore",
+   "label": "High score"
+  }
+ ]
+}

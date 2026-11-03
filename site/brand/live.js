@@ -1,107 +1,20 @@
 // site/brand/live.js
-// Live Overlay (temporada 2026).
+// Live Overlay (temporada en vivo).
 // Convierte horarios a la hora local del cliente, calcula ETA, filtra países/canchas y consulta /live.json sin recargar.
 
 (function () {
   function init() {
-    // 0. Buscador global (en cabecera y página /search/)
-    const navForm = document.querySelector('.nav form');
-    const navInput = document.querySelector('.nav input[type="search"]');
-
-    if (navForm && navInput) {
-      navForm.addEventListener('submit', (e) => {
-        const val = navInput.value.trim();
-        if (!val) {
-          e.preventDefault();
-          return;
-        }
-
-        // Si es un año exacto (e.g. 2024, 2026), redirigir a esa temporada
-        if (/^20\d{2}$/.test(val)) {
-          e.preventDefault();
-          const cssLink = document.querySelector('link[rel="stylesheet"]');
-          const pre = cssLink ? cssLink.getAttribute('href').replace(/site\.css.*$/, '') : './';
-          window.location.href = `${pre}insights/${val}/index.html`;
-          return;
-        }
-
-        // Si coincide exactamente con un equipo en el DOM
-        const cleanVal = val.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
-        const teamLink = Array.from(document.querySelectorAll('a[href*="/team/"]')).find((a) => {
-          const tText = (a.textContent || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim();
-          return tText === cleanVal || a.getAttribute('href').includes(`/team/${cleanVal}/`);
-        });
-
-        if (teamLink) {
-          e.preventDefault();
-          window.location.href = teamLink.getAttribute('href');
-          return;
-        }
-      });
-    }
-
-    // Lógica específica para /search/
-    const searchPageInput = document.getElementById('search-page-input');
-    const searchResults = document.getElementById('search-results');
-    if (searchPageInput && searchResults) {
-      function filterSearch(term) {
-        const q = (term || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim();
-        const rows = document.querySelectorAll('#search-results table.dt tbody tr');
-        let visible = 0;
-        rows.forEach((row) => {
-          if (!q) {
-            row.hidden = false;
-            visible++;
-            return;
-          }
-          const text = (row.textContent || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
-          const match = text.includes(q);
-          row.hidden = !match;
-          if (match) visible++;
-        });
-
-        let noMsg = document.getElementById('search-no-results');
-        if (visible === 0 && q) {
-          if (!noMsg) {
-            noMsg = document.createElement('p');
-            noMsg.id = 'search-no-results';
-            noMsg.className = 'note';
-            noMsg.textContent = 'No results found.';
-            searchResults.appendChild(noMsg);
-          }
-          noMsg.hidden = false;
-        } else if (noMsg) {
-          noMsg.hidden = true;
-        }
-      }
-
-      const params = new URLSearchParams(window.location.search);
-      const q = params.get('q') || '';
-      if (q) {
-        searchPageInput.value = q;
-        filterSearch(q);
-      }
-
-      searchPageInput.addEventListener('input', () => {
-        const val = searchPageInput.value.trim();
-        filterSearch(val);
-        try {
-          const url = new URL(window.location);
-          if (val) url.searchParams.set('q', val);
-          else url.searchParams.delete('q');
-          window.history.replaceState({}, '', url);
-        } catch {}
-      });
-    }
-
-    // Comprobar si la página actual muestra contenido de la temporada 2026
-    const is2026 =
-      document.querySelector('[data-season="2026"]') ||
-      document.querySelector('[data-match^="2026_"]') ||
-      window.location.pathname.includes('/2026/') ||
+    // La temporada viva la declara el build en <html data-live-year="…">.
+    // Sin ese atributo no hay overlay: el script no debería haberse cargado.
+    const liveYear = document.documentElement.dataset.liveYear;
+    if (!liveYear) return;
+    const isLive =
+      document.querySelector(`[data-season="${liveYear}"]`) ||
+      document.querySelector(`[data-match^="${liveYear}_"]`) ||
+      window.location.pathname.includes(`/${liveYear}/`) ||
       window.location.pathname.includes('/gameday/');
 
-    if (!is2026) return;
+    if (!isLive) return;
 
     // Añadir distintivo LIVE en la barra de título si no existe ya
     const bar = document.querySelector('.bar');
@@ -253,7 +166,7 @@
         const playedList = data.matches.filter((m) => m.played && m.rs !== null && m.bs !== null);
         const unplayedList = data.matches.filter((m) => !m.played || m.rs === null || m.bs === null);
 
-        // Actualizar KPIs de partidos en Insights 2026
+        // Actualizar KPIs de partidos en Insights de la temporada viva
         const kpiComp = document.getElementById('kpi-completed');
         const kpiUpc = document.getElementById('kpi-upcoming');
         if (kpiComp) kpiComp.textContent = playedList.length;
@@ -353,8 +266,8 @@
           });
         });
 
-        // Actualizar estadísticas de equipo en la sección 2026
-        const teamSection = document.querySelector('section.ev[data-season="2026"]');
+        // Actualizar estadísticas de equipo en la sección de la temporada viva
+        const teamSection = document.querySelector(`section.ev[data-season="${liveYear}"]`);
         if (teamSection) {
           const teamMatch = window.location.pathname.match(/\/team\/([A-Z0-9_]+)/i);
           const teamCode = teamMatch ? teamMatch[1].toUpperCase() : null;
@@ -428,7 +341,7 @@
           }
         }
 
-        // Actualizar Rankings 2026. La API ya publica el ranking oficial, con sus
+        // Actualizar el ranking de la temporada viva. La API ya publica el ranking oficial, con sus
         // desempates aplicados, así que aquí no se calcula nada: solo se rellenan las filas
         // que el build dejó en «No data». Nunca se crean filas.
         if (data.rankings && data.rankings.length > 0) {
@@ -437,7 +350,7 @@
           // `querySelector('table.dt')` a secas le escribía encima el ranking de equipos.
           // El `||` mantiene el comportamiento de antes en cualquier otra página.
           const table = document.querySelector('#ranking-table table.dt') || document.querySelector('table.dt');
-          if (table && window.location.pathname.includes('/rankings/2026/')) {
+          if (table && window.location.pathname.includes(`/rankings/${liveYear}/`)) {
             const tbody = table.querySelector('tbody');
             if (tbody) {
               const rowFor = rowsByFlag(tbody);

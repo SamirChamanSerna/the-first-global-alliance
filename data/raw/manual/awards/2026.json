@@ -1,0 +1,373 @@
+[
+ {
+  "award": "FIRST Global Winning Alliance Award - Gold",
+  "description": "Awarded to the four teams in the winning alliance in the final match.",
+  "type": "alliance",
+  "tier": "gold",
+  "teams": [
+   "UZB",
+   "MDA",
+   "VEN",
+   "ESA"
+  ]
+ },
+ {
+  "award": "FIRST Global Finalist Alliance - Silver",
+  "description": "Awarded to the four-team alliance who placed second in the final match.",
+  "type": "alliance",
+  "tier": "silver",
+  "teams": [
+   "UAE",
+   "JPN",
+   "HKG",
+   "LUX"
+  ]
+ },
+ {
+  "award": "FIRST Global Finalist Alliance - Bronze",
+  "description": "Awarded to the four-team alliance who placed third.",
+  "type": "alliance",
+  "tier": "bronze",
+  "teams": [
+   "CHN",
+   "TKM",
+   "CAY",
+   "TUR"
+  ]
+ },
+ {
+  "award": "Albert Einstein Award for FIRST Global International Excellence",
+  "description": "Awarded to teams whose robots performed the best during the FIRST Global Challenge and exemplified all tenets of the FIRST Global community.",
+  "type": "podium",
+  "winners": {
+   "gold": "MEX",
+   "silver": "ROU",
+   "bronze": "TUR"
+  }
+ },
+ {
+  "award": "FIRST Global Grand Challenge Award",
+  "description": "Awarded to teams that accrue the most cumulative points over the course of the competition.",
+  "type": "podium",
+  "winners": {
+   "gold": "UZB",
+   "silver": "CHN",
+   "bronze": "MEX"
+  }
+ },
+ {
+  "award": "FIRST Global Innovator Award, in honor of Fred Smith",
+  "description": "Awarded to the top teams for their New Technology Experience projects, which research and develop solutions to detect, combat, and prevent wildfires.",
+  "type": "podium",
+  "winners": {
+   "gold": "CAY",
+   "silver": "MDA",
+   "bronze": "SVK"
+  },
+  "honorableMentions": [
+   "LBN",
+   "VIE"
+  ]
+ },
+ {
+  "award": "New Technology Experience Advertisements",
+  "description": "Recognizes the teams who created outstanding advertisements for their New Technology Experience project.",
+  "type": "podium",
+  "winners": {
+   "gold": "MDA",
+   "silver": "POL",
+   "bronze": "TOG"
+  }
+ },
+ {
+  "award": "Zhang Heng Award for Engineering Design",
+  "description": "Awarded to teams whose robot exhibits excellent engineering and displays elegance and effectiveness during the Challenge.",
+  "type": "podium",
+  "winners": {
+   "gold": "HKG",
+   "silver": "MDA",
+   "bronze": "JPN"
+  }
+ },
+ {
+  "award": "Katherine Johnson Award for Engineering Documentation",
+  "description": "Awarded to teams that demonstrate the journey they took in building their robot.",
+  "type": "podium",
+  "winners": {
+   "gold": "CHN",
+   "silver": "POL",
+   "bronze": "NGR"
+  }
+ },
+ {
+  "award": "Ustad Ahmad Lahori Award for Innovation in Engineering",
+  "description": "Awarded to teams that demonstrate creativity and innovation in building their robot to complete an aspect of the Challenge.",
+  "type": "podium",
+  "winners": {
+   "gold": "JAM",
+   "silver": "SRB",
+   "bronze": "GRE"
+  }
+ },
+ {
+  "award": "Jackie Bezos Award for International Enthusiasm",
+  "description": "Awarded to teams who support each other and other teams throughout the Challenge.",
+  "type": "podium",
+  "winners": {
+   "gold": "ALG",
+   "silver": "TUN",
+   "bronze": "SWE"
+  }
+ },
+ {
+  "award": "Dr. Mae Jemison Award for International Unity",
+  "description": "Awarded to teams that emulate the best qualities of FIRST Global by breaking down barriers, demonstrating Gracious Professionalism, and building bridges with fellow teams.",
+  "type": "podium",
+  "winners": {
+   "gold": "VEN",
+   "silver": "KGZ",
+   "bronze": "KEN"
+  }
+ },
+ {
+  "award": "Rajaâ Cherkaoui El Moursli Award for Courageous Achievement",
+  "description": "Awarded to teams that exhibit a “can-do” attitude throughout the Challenge, even under difficult circumstances, or when things do not go as planned.",
+  "type": "podium",
+  "winners": {
+   "gold": "SUD",
+   "silver": "SYR",
+   "bronze": "PHI"
+  }
+ },
+ {
+  "award": "Judges Award",
+  "description": "During the course of the competition, the judging panel may decide a team’s unique efforts, performance or dynamics merit recognition.",
+  "type": "podium",
+  "winners": {
+   "gold": "RWA",
+   "silver": "ETH",
+   "bronze": "LBN"
+  }
+ },
+ {
+  "award": "Skills Challenge",
+  "description": "Awarded to the top-scoring teams in the Skills Challenge, which consists of a solo performance by a robot as it plays the Igniting Innovation robotics game",
+  "type": "podium",
+  "winners": {
+   "gold": "UZB",
+   "silver": "TKM",
+   "bronze": "ESP"
+  }
+ },
+ {
+  "award": "Francisco José de Caldas Award for Sustainable Excellence",
+  "description": "Awarded to an individual who helped contribute to strong and sustainable FIRST Global programs.",
+  "type": "individual",
+  "winners": {
+   "1st": "Terrell Burch",
+   "2nd": "Paula Monge",
+   "3rd": "Sheryl Will"
+  }
+ },
+ {
+  "award": "Video Storytelling Award",
+  "description": "Recognizes teams that impactfully told their story through their team profile video.",
+  "type": "non-tiered",
+  "teams": [
+   "ALB",
+   "ALG",
+   "BEN",
+   "BHU",
+   "BIH",
+   "BRA",
+   "CPV",
+   "TPE",
+   "COL",
+   "COK",
+   "CIV",
+   "COD",
+   "EGY",
+   "ESA",
+   "GBR",
+   "IND",
+   "IRQ",
+   "IRL",
+   "JPN",
+   "KOS",
+   "LBN",
+   "MAS",
+   "MEX",
+   "MDA",
+   "MNE",
+   "PLE",
+   "CHN",
+   "PHI",
+   "POL",
+   "PUR",
+   "ROU",
+   "SEY",
+   "SVK",
+   "SWE",
+   "STP",
+   "TUN",
+   "TUR",
+   "URU",
+   "VIE",
+   "YEM"
+  ]
+ },
+ {
+  "award": "Margaret and Woodie Flowers Mentorship Award",
+  "description": "Awarded to mentors who went above and beyond the call of duty for their team.",
+  "type": "mentorship",
+  "winner": {
+   "name": "Kelvin Gitau",
+   "team": "KEN"
+  },
+  "finalists": [
+   {
+    "name": "Anes Hadziomerovic",
+    "team": "BIH"
+   },
+   {
+    "name": "Ilia Kutcyi",
+    "team": "RUS"
+   },
+   {
+    "name": "Chidzani Matebu",
+    "team": "BOT"
+   },
+   {
+    "name": "Martin Hronsky",
+    "team": "SVK"
+   },
+   {
+    "name": "Nawres Naser",
+    "team": "IRQ"
+   },
+   {
+    "name": "Olorode Atanley",
+    "team": "TOG"
+   },
+   {
+    "name": "Elita Hajrizi",
+    "team": "KOS"
+   },
+   {
+    "name": "Faten Khalfallah",
+    "team": "TUN"
+   },
+   {
+    "name": "Daouda Hamadou",
+    "team": "NIG"
+   }
+  ]
+ },
+ {
+  "award": "Social Media Challenge Award",
+  "description": "Awarded to teams that have participated in a majority of the online Social Media Challenges hosted throughout the season.",
+  "type": "non-tiered",
+  "teams": [
+   "ALB",
+   "ALG",
+   "ANG",
+   "AUT",
+   "BAN",
+   "BLR",
+   "BEL",
+   "BIZ",
+   "BEN",
+   "BHU",
+   "BIH",
+   "BRA",
+   "BUR",
+   "CPV",
+   "CAM",
+   "CAN",
+   "CAY",
+   "CHI",
+   "TPE",
+   "COL",
+   "COM",
+   "COD",
+   "COK",
+   "CRC",
+   "CIV",
+   "CRO",
+   "DOM",
+   "EGY",
+   "ESA",
+   "EST",
+   "ETH",
+   "FRA",
+   "GEO",
+   "GER",
+   "GBR",
+   "GRE",
+   "GRN",
+   "GUA",
+   "GBS",
+   "GUY",
+   "HON",
+   "HUN",
+   "IND",
+   "INA",
+   "IRQ",
+   "IRL",
+   "ITA",
+   "JAM",
+   "JPN",
+   "JOR",
+   "KEN",
+   "KOR",
+   "KOS",
+   "LBN",
+   "LBR",
+   "LBA",
+   "LTU",
+   "MAD",
+   "MAS",
+   "MLT",
+   "MRI",
+   "MEX",
+   "MDA",
+   "MNE",
+   "MYA",
+   "NAM",
+   "NEP",
+   "NED",
+   "NIG",
+   "NGR",
+   "MKD",
+   "OMA",
+   "PLE",
+   "PAR",
+   "PER",
+   "PHI",
+   "POL",
+   "PUR",
+   "QAT",
+   "ROU",
+   "RWA",
+   "SKN",
+   "STP",
+   "SRB",
+   "SEY",
+   "SVK",
+   "SLO",
+   "RSA",
+   "SSD",
+   "SUD",
+   "SWE",
+   "SYR",
+   "TTO",
+   "TUN",
+   "TUR",
+   "TKM",
+   "UAE",
+   "URU",
+   "VIE",
+   "YEM"
+  ]
+ }
+]

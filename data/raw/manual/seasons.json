@@ -1,0 +1,122 @@
+[
+ {
+  "year": 2017,
+  "name": "H2O Flow",
+  "city": "Washington, D.C.",
+  "country": "United States",
+  "iso": "USA",
+  "dates": "16–18 July 2017",
+  "revealVideo": "https://youtu.be/ceNUHzIwbeg",
+  "mode": "archived",
+  "source": "manual",
+  "teams": null
+ },
+ {
+  "year": 2018,
+  "name": "Energy Impact",
+  "city": "Mexico City",
+  "country": "Mexico",
+  "iso": "MEX",
+  "dates": "16–18 August 2018",
+  "revealVideo": "https://youtu.be/FPDQhhv11KY",
+  "mode": "archived",
+  "source": "manual",
+  "teams": null
+ },
+ {
+  "year": 2019,
+  "name": "Ocean Opportunities",
+  "city": "Dubai",
+  "country": "United Arab Emirates",
+  "iso": "ARE",
+  "dates": "24–27 October 2019",
+  "revealVideo": "https://youtu.be/R6d5f5gFarw",
+  "mode": "archived",
+  "source": "manual",
+  "teams": null
+ },
+ {
+  "year": 2020,
+  "name": "CONNECTING COMMUNITIES",
+  "city": "",
+  "country": "",
+  "iso": "",
+  "dates": "",
+  "revealVideo": "https://youtu.be/aK4hFw8K8yQ",
+  "mode": "awards-only",
+  "source": "manual",
+  "teams": 175
+ },
+ {
+  "year": 2021,
+  "name": "DISCOVER & RECOVER",
+  "city": "",
+  "country": "",
+  "iso": "",
+  "dates": "",
+  "revealVideo": "https://youtu.be/qMLNDFObn40",
+  "mode": "awards-only",
+  "source": "manual",
+  "teams": 177
+ },
+ {
+  "year": 2022,
+  "name": "Carbon Capture",
+  "city": "Geneva",
+  "country": "Switzerland",
+  "iso": "CHE",
+  "dates": "13–16 October 2022",
+  "revealVideo": "https://youtu.be/JDt6d5cg8eo",
+  "mode": "archived",
+  "source": "manual",
+  "teams": null
+ },
+ {
+  "year": 2023,
+  "name": "Hydrogen Horizons",
+  "city": "Singapore",
+  "country": "Singapore",
+  "iso": "SGP",
+  "dates": "7–10 October 2023",
+  "revealVideo": "https://youtu.be/Wbi0bUzhsGs",
+  "mode": "archived",
+  "source": "api",
+  "teams": null
+ },
+ {
+  "year": 2024,
+  "name": "Feeding the Future",
+  "city": "Athens",
+  "country": "Greece",
+  "iso": "GRC",
+  "dates": "26–29 September 2024",
+  "revealVideo": "https://youtu.be/VoT_eVi7vQ0",
+  "mode": "archived",
+  "source": "api",
+  "teams": null
+ },
+ {
+  "year": 2025,
+  "name": "Eco Equilibrium",
+  "city": "Panama City",
+  "country": "Panama",
+  "iso": "PAN",
+  "dates": "29 October – 1 November 2025",
+  "revealVideo": "https://youtu.be/ssNS1lYT1Fs",
+  "mode": "archived",
+  "source": "api",
+  "teams": null
+ },
+ {
+  "year": 2026,
+  "name": "Igniting Innovation",
+  "city": "Incheon",
+  "country": "Republic of Korea",
+  "iso": "KOR",
+  "dates": "7–10 October 2026",
+  "revealVideo": "https://youtu.be/F9NJbtEffco",
+  "mode": "archived",
+  "source": "api",
+  "teams": null
+ }
+]

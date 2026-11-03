@@ -10,7 +10,7 @@
 // Por qué no se usa results.first.global para todo: son exportaciones de Inkscape a
 // 1600x960 con escudos en detalle, 47 MB en total y hasta 1,3 MB por archivo — la
 // página de equipos bajaría 45 MB. flag-icons pesa 2 MB y su bandera mediana es de
-// 0,8 KB. Ver docs/discovery/02-data-sources.md.
+// 0,8 KB. Ver docs/api-notes.md.
 //
 // Idempotente: lo que ya está descargado no se vuelve a pedir.
 // site/build.js copia estas a dist/ y solo genera un marcador para las que falten.

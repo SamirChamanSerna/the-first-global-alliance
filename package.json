@@ -4,16 +4,25 @@
   "description": "Historical archive and static site for the FIRST Global Challenge",
   "type": "module",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "node scripts/dev.js",
     "build": "node site/build.js",
     "build:fixture": "node site/build.js --fixture",
     "normalize": "node scripts/normalize.js",
     "check": "node scripts/check.js",
+    "test": "node --test",
     "poll:live": "node scripts/poll-live.js",
     "poll:live:watch": "node scripts/poll-live.js --watch",
     "fetch:archive": "node scripts/fetch-archive.js",
     "fetch:flags": "node scripts/fetch-flags.js",
-    "templates:manual": "node scripts/make-manual-templates.js"
+    "fetch:playlist-thumbs": "node scripts/fetch-playlist-thumbs.js",
+    "worker:dev": "wrangler dev --test-scheduled",
+    "worker:deploy": "wrangler deploy",
+    "worker:tail": "wrangler tail",
+    "worker:kv:create": "wrangler kv namespace create LIVE_DATA"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
   }
 }

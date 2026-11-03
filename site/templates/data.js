@@ -4,8 +4,8 @@
 // Si no existe, cae al fixture site/mock/mock.js y el build produce el sitio de
 // prueba. Es a propósito: el sitio se puede construir y revisar sin datos reales.
 //
-// Forma de los datos (idéntica en ambos casos): docs/discovery/03-raw-data-standard.md
-// Claves y convenciones: docs/discovery/06-join-keys.md
+// Forma de los datos (idéntica en ambos casos): data/raw/manual/README.md
+// Claves y convenciones: docs/api-notes.md
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -40,12 +40,13 @@ const read = (file) => {
  *                           enlaces de cada campo y día; `latest` es el día en juego
  *   {year}/rankings.json    [{code, rank, cols: [[etiqueta, valor]…], w?, l?, t?, n?, avg?}]
  *                           `cols` son los criterios de desempate DE ESA temporada, en su
- *                           orden, con la etiqueta que fija rankings.labels.json. `w/l/t`
+ *                           orden, con la etiqueta que fija data/raw/manual/rankings/{year}.json. `w/l/t`
  *                           (y `n`, `avg`) solo existen si esa temporada trae récord.
  *   {year}/alliances.json   [{teams: [CODE, …], rank, score, played}, …]   las alianzas de
  *                           playoffs en orden; `rank`/`score`/`played` son su puesto en la
  *                           fase de round robin y valen null mientras la API no lo publique
  *   {year}/awards.json      [{name, desc, ty, tier, w[]}]
+ *   playlists.json          {year: {url, title, thumbnail?}}  una playlist por temporada
  */
 function load() {
   const seasons = read('seasons.json');
@@ -75,7 +76,7 @@ function load() {
   // Las fotos son opcionales: un processed/ sin photos.json sigue sirviendo y las
   // páginas caen a su marcador. Hacerlas obligatorias mandaría al fixture cualquier
   // data/processed/ generado antes de que existiera este archivo.
-  return {seasons, T, codes: Object.keys(T), M, S, A, AL, ST, AW: read('awards.json') ?? [], PH: read('photos.json') ?? {}};
+  return {seasons, T, codes: Object.keys(T), M, S, A, AL, ST, AW: read('awards.json') ?? [], PH: read('photos.json') ?? {}, PL: read('playlists.json') ?? {}};
 }
 
 const real = load();
@@ -96,6 +97,9 @@ export const PH = d.PH ?? {};
 /** Enlaces de los streams por temporada (día → campo). El fixture trae un juego mínimo
  *  para que la barra de campos del GameDay también se vea sin datos reales. */
 export const ST = d.ST ?? {};
+/** Playlist de YouTube de cada temporada: {year: {url, title, thumbnail?}}.
+ *  Es lo que pinta el GameDay en modo archivado; null = esa temporada no tiene. */
+export const PL = d.PL ?? {};
 
 /**
  * Código de país → nombre del archivo de bandera. El repositorio real de banderas

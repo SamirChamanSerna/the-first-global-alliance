@@ -1,80 +1,126 @@
-# The-First-Global-Alliance
+# The FIRST Global Alliance
 
-A static archive of **FIRST Global Challenge** results (seasons, teams, awards, rankings,
-matches), modeled on The Blue Alliance. No framework, no bundler, no dependencies: the
-output is plain HTML + one CSS file and works with JavaScript disabled.
+An unofficial, static archive of **FIRST Global Challenge** results (2017–2026), modelled
+on The Blue Alliance. Seasons, teams, awards, rankings, matches and match breakdowns in
+plain HTML, with no framework, no bundler and no client-side dependencies.
 
-## Requirements
+**Live site:** <https://tfga.fgcmexico.com/>
 
-Node 20+ — only to build. The generated site is static.
+> **Non-affiliation notice.** This is an independent, volunteer-run project. It is not
+> affiliated with, endorsed by or operated by FIRST, FIRST Global or The Blue Alliance.
+> FIRST Global Challenge and related names and marks belong to their owners. Results are
+> retrieved from FIRST Global's public results API; team photographs and video thumbnails
+> are linked from their original sources and remain the property of their owners.
 
-## Build
+## Features
 
-The pipeline is `fetch → normalize → build`. `data/raw/` is the source of truth;
-`data/processed/` and `site/dist/` are **generated and not versioned**, so after a fresh
-clone you must run `normalize` before `build`:
+- **Insights** — one page per season, plus a cross-season overview of awards and medals.
+- **Teams** — directory by continent and a full history page for every team.
+- **Awards** — the all-time medal table and the awards of each season.
+- **Rankings** — the official ranking of each season, with its own tie-break columns.
+- **Matches** — every match with its alliances, score and, where available, a video link.
+- **Match detail** — a per-season score breakdown, with the fields that actually exist for
+  that game.
+- **GameDay** — live streams while a season is live; afterwards, one playlist per season.
+- **Search** — a static index of teams and seasons.
+- Light and dark themes, keyboard-sortable tables and a layout that works without
+  JavaScript.
 
-```bash
-node scripts/normalize.js   # data/raw/  → data/processed/   (validates, fails loudly)
-node site/build.js          # processed/ → site/dist/        (prints which source it used)
-```
+## Tech stack
 
-Then open **`site/dist/index.html`**. Internal links are rewritten to relative paths, so
-the site works straight from disk — no server needed.
+- **Build:** Node.js 20+ and plain JavaScript. No framework, bundler or runtime dependency.
+- **Output:** static HTML, one CSS file and a small optional UI script.
+- **Hosting:** any static host; the production site uses Cloudflare Pages.
+- **Live layer:** a Cloudflare Worker + KV that publishes `live.json` only while a season
+  is marked `live`. Archived seasons need no runtime at all.
 
-`build` refuses to run when raw data exists but processed does not, instead of silently
-publishing mock data. To build the mock site on purpose:
-
-```bash
-node site/build.js --fixture
-```
-
-Optional data steps (only when you want to refresh or add input):
-
-```bash
-node scripts/fetch-archive.js [years…]  # download raw API responses → data/raw/api/
-node scripts/fetch-flags.js             # mirror the team flags      → site/flags/
-node scripts/make-manual-templates.js   # create empty CSV templates for hand-entered data
-```
-
-Hand-entered data (seasons, team continents, photos, videos, 2017–2023 matches) lives in
-`data/raw/manual/` — see `data/raw/manual/README.md`.
-
-## Serve locally (optional)
-
-Opening the file from disk is enough. Use a server only if you want real URLs:
+## Quick start
 
 ```bash
-node scripts/normalize.js && node site/build.js   # first: a server serves, it does not build
-npx --yes serve site/dist          # or:  python -m http.server -d site/dist
+node scripts/normalize.js   # data/raw/ → data/processed/
+node site/build.js          # data/processed/ → site/dist/
 ```
 
-A static server serves `site/dist/` exactly as it is on disk. It does **not** run the
-pipeline, so after touching anything in `data/raw/` run `normalize` **and** `build` before
-serving — otherwise you are looking at the previous build and wondering why your change is
-not there.
+Open **`site/dist/index.html`**. Internal links are relative, so the site works straight
+from disk.
 
-It also leaves the live overlay frozen. `dist/live.json` is the copy `build` takes from
-`data/processed/live.json`, so on a static server the 2026 scores of the Live Match Tracker
-never move. To watch them update while you work:
+The same commands are available through npm:
 
 ```bash
-node scripts/dev.js          # dev server on :3000: live reload, rebuilds on change, refreshes the overlay
-node scripts/poll-live.js --watch   # or just refresh the snapshot: once, or every 45 s
+npm run normalize
+npm run build
+npm run dev          # local server on :3000 with live reload
+npm run check        # design/token checks
+npm test             # pipeline regression tests
 ```
 
-`dev.js` watches `site/templates`, `site/brand`, `site/css` and `data/processed`, so it
-rebuilds on a template change but **not** on a change in `data/raw/` — running `normalize` is
-still yours to do.
+`data/processed/` and `site/dist/` are generated and gitignored. After a fresh clone,
+`normalize` must run before `build`. The build refuses to publish the mock fixture when
+`data/raw/` exists; pass `--fixture` to build the mock site on purpose.
 
-## Editing
+Optional data refreshes:
+
+```bash
+npm run fetch:archive -- 2023 2024 2025 2026   # refresh API snapshots
+npm run fetch:flags                            # mirror team flags
+npm run fetch:playlist-thumbs                  # refresh YouTube playlist thumbnails
+```
+
+## Repository structure
 
 | Path | What it is |
 |---|---|
-| `site/templates/` | the pages and shared blocks (`pages.js`, `blocks.js`, `data.js`, `urls.js`) |
-| `site/brand/` | identity master: `brand.js` (name, nav, **every UI string**), `tokens.css` (colors, type, radii) |
-| `site/css/components.css` | component styles — only `var(--…)`, never literal colors |
-| `data/raw/` | the source data (API snapshots + hand-entered CSVs) |
-| `site/dist/` | generated — wiped and rewritten on every build, never hand-edit |
+| `data/raw/api/` | Verbatim snapshots of the FIRST Global results API. |
+| `data/raw/manual/` | Hand-maintained JSON: season metadata, teams, photos, awards, rankings, breakdowns, streams, playlists. |
+| `data/processed/` | Generated by `normalize`; the input of the build. |
+| `scripts/` | Fetch, normalize, flags, playlist thumbnails and development helpers. |
+| `site/templates/` | Pages and shared blocks (`pages.js`, `blocks.js`, `data.js`, `urls.js`). |
+| `site/brand/` | Identity, labels and tokens (`brand.js`, `tokens.css`, `ui.js`). |
+| `site/css/` | Component styles. Only `var(--…)`, never literal colors. |
+| `site/flags/` | Mirrored flag assets (flag-icons, MIT). |
+| `site/dist/` | Generated static site. |
+| `worker/` | Cloudflare Worker for the live overlay. |
+| `wrangler.jsonc` | Worker deployment configuration. |
+| `docs/` | API notes, the new-season checklist and the visual style guide. |
 
-Conventions, the data contract and the non-negotiable rules are in **`CLAUDE.md`**.
+See [`docs/architecture.md`](docs/architecture.md) for the data flow and a module-by-module
+map.
+
+## Data sources and attribution
+
+- **Results:** the public FIRST Global results API at `https://api.first.global`.
+- **Flags:** [flag-icons](https://github.com/lipis/flag-icons) (MIT), with a few assets
+  from `results.first.global` for the codes flag-icons does not have.
+- **Team photos:** hotlinked from FIRST; never copied into this repository.
+- **Videos:** linked from YouTube; thumbnails are YouTube's own images.
+- **Manual metadata:** season names, venues, dates, team continents, ranking criteria and
+  breakdown maps live in `data/raw/manual/` and are maintained by hand.
+
+See [`docs/api-notes.md`](docs/api-notes.md) for the API's quirks and missing data.
+
+## Limitations
+
+- **2020 and 2021** had no physical competition. Only awards exist for those seasons.
+- **2017–2019 and 2022** are hand-entered from sources other than the API because the API
+  is not reliable for them. There are no match records for those seasons.
+- **2023–2026** come from the API. 2026 is archived after the Incheon event.
+- **Awards to individuals and mentors** are intentionally excluded from team medal counts.
+- **Video links** exist only where the extractor found them (2025 and 2026). 2023 and 2024
+  matches have no video link.
+- Some hotlinked team photos may disappear; the layout falls back to a placeholder frame.
+- Three continental-team flags (13, 15 and 16) are drawn as placeholders because
+  flag-icons does not provide those assets.
+- Third-party data and assets keep their original attribution; see
+  [`LICENSE-DATA.md`](LICENSE-DATA.md).
+
+## License
+
+This repository is released under the **MIT License** (see [`LICENSE`](LICENSE)).
+Third-party components keep their original licenses and attribution; see
+[`LICENSE-DATA.md`](LICENSE-DATA.md).
+
+## Contributing
+
+Small fixes and data corrections are welcome. Read [`CONTRIBUTING.md`](CONTRIBUTING.md)
+and [`docs/new-season.md`](docs/new-season.md) first. For a new season, that checklist is
+the whole process.

@@ -7,6 +7,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { exec } from 'node:child_process';
 import { fetchLiveSnapshot } from './poll-live.js';
+import { seasons } from '../site/templates/data.js';
+
+// Sin una temporada en modo live no hay overlay que refrescar.
+const hasLive = seasons.some((s) => s.mode === 'live');
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'site', 'dist');
@@ -158,10 +162,12 @@ server.listen(PORT, async () => {
     triggerBuild();
   }
 
-  // Actualizar live.json al inicio
-  try {
-    await fetchLiveSnapshot();
-  } catch (err) {
-    console.warn('Aviso: no se pudo actualizar live.json al inicio:', err.message);
+  // Actualizar live.json al inicio, solo si hay temporada viva.
+  if (hasLive) {
+    try {
+      await fetchLiveSnapshot();
+    } catch (err) {
+      console.warn('Aviso: no se pudo actualizar live.json al inicio:', err.message);
+    }
   }
 });

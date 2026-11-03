@@ -1,0 +1,80 @@
+{
+ "year": 2026,
+ "days": [
+  {
+   "day": 1,
+   "fields": {
+    "Field 1": {
+     "id": "OYWoZl6scbM",
+     "url": "https://www.youtube.com/watch?v=OYWoZl6scbM&list=PLU01kG-VN6qw&index=1&pp=iAQB"
+    },
+    "Field 2": {
+     "id": "jJ5DHNJrpc4",
+     "url": "https://www.youtube.com/watch?v=jJ5DHNJrpc4&list=PLU01kG-VN6qw&index=2&pp=iAQB"
+    },
+    "Field 3": {
+     "id": "-jA1YanHcB8",
+     "url": "https://www.youtube.com/watch?v=-jA1YanHcB8&list=PLU01kG-VN6qw&index=3&pp=iAQB"
+    },
+    "Field 4": {
+     "id": "C7MIYhOdYS4",
+     "url": "https://www.youtube.com/watch?v=C7MIYhOdYS4&list=PLU01kG-VN6qw&index=4&pp=iAQB"
+    },
+    "Field 5": {
+     "id": "rQO7Ml3pYxk",
+     "url": "https://www.youtube.com/watch?v=rQO7Ml3pYxk&list=PLU01kG-VN6qw&index=5&pp=iAQB"
+    }
+   }
+  },
+  {
+   "day": 2,
+   "fields": {
+    "Field 1": {
+     "id": "tkQpTnlTcu8",
+     "url": "https://www.youtube.com/watch?v=tkQpTnlTcu8&list=PLU01kG-VN6qw&index=6&pp=iAQB"
+    },
+    "Field 2": {
+     "id": "F_kvVyXWrZU",
+     "url": "https://www.youtube.com/watch?v=F_kvVyXWrZU&list=PLU01kG-VN6qw&index=7&pp=iAQB"
+    },
+    "Field 3": {
+     "id": "YNKPPyYxfJM",
+     "url": "https://www.youtube.com/watch?v=YNKPPyYxfJM&list=PLU01kG-VN6qw&index=8&pp=iAQB"
+    },
+    "Field 4": {
+     "id": "ZkFxxa22V5g",
+     "url": "https://www.youtube.com/watch?v=ZkFxxa22V5g&list=PLU01kG-VN6qw&index=9&pp=iAQB"
+    },
+    "Field 5": {
+     "id": "onEdqqlQjaQ",
+     "url": "https://www.youtube.com/watch?v=onEdqqlQjaQ&list=PLU01kG-VN6qw&index=10&pp=iAQB"
+    }
+   }
+  },
+  {
+   "day": 3,
+   "fields": {
+    "Field 1": {
+     "id": "jKX6kQnTp7g",
+     "url": "https://www.youtube.com/watch?v=jKX6kQnTp7g&list=PLU01kG-VN6qw&index=11&pp=iAQB"
+    },
+    "Field 2": {
+     "id": "P4tHKmWGoS0",
+     "url": "https://www.youtube.com/watch?v=P4tHKmWGoS0&list=PLU01kG-VN6qw&index=12&pp=iAQB"
+    },
+    "Field 3": {
+     "id": "3H32iaSLciE",
+     "url": "https://www.youtube.com/watch?v=3H32iaSLciE&list=PLU01kG-VN6qw&index=13&pp=iAQB"
+    },
+    "Field 4": {
+     "id": "u9lpqA9azkM",
+     "url": "https://www.youtube.com/watch?v=u9lpqA9azkM&list=PLU01kG-VN6qw&index=14&pp=iAQB"
+    },
+    "Field 5": {
+     "id": "-zWoaHmeZ38",
+     "url": "https://www.youtube.com/watch?v=-zWoaHmeZ38&list=PLU01kG-VN6qw&index=15&pp=iAQB"
+    }
+   }
+  }
+ ]
+}

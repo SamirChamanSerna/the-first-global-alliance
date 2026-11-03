@@ -5,7 +5,7 @@
 // Un archivo crudo se puede volver a descargar; por eso no se edita a mano.
 //
 // Sin argumentos descarga los años con datos completos y los años de solo premios.
-// Ver docs/discovery/02-data-sources.md para la matriz de confiabilidad.
+// Ver docs/api-notes.md para la matriz de confiabilidad.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,10 +15,10 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIR = path.join(ROOT, 'data', 'raw', 'api');
 const API = 'https://api.first.global';
 
-// 2024-2025: todo. 2017-2019 y 2022-2023: solo los premios son confiables.
-// 2020 y 2021 no existen en la API (no hubo competencia) — ver 05-plan.md.
-const FULL_YEARS = [2024, 2025, 2026];
-const AWARDS_YEARS = [2017, 2018, 2019, 2022, 2023];
+// 2023-2026: todo. 2017-2019 y 2022: la API no es fiable; solo se conservan sus
+// premios y el ranking se mantiene a mano. 2020 y 2021 no existen en la API.
+const FULL_YEARS = [2023, 2024, 2025, 2026];
+const AWARDS_YEARS = [2017, 2018, 2019, 2022];
 
 const years = process.argv.slice(2).map(Number).filter(Boolean);
 const list = years.length ? years : [...new Set([...FULL_YEARS, ...AWARDS_YEARS])].sort((a, b) => a - b);
@@ -31,6 +31,8 @@ async function get(url) {
 
 fs.mkdirSync(DIR, {recursive: true});
 
+// OJO: /v1/teams devuelve solo el roster vigente. El teams.json guardado conserva
+// además equipos históricos; no lo sobrescribas con --teams sin revisar el diff.
 if (!fs.existsSync(path.join(DIR, 'teams.json')) || process.argv.includes('--teams')) {
   const teams = await get(`${API}/v1/teams`);
   fs.writeFileSync(path.join(DIR, 'teams.json'), JSON.stringify(teams, null, 1), 'utf8');

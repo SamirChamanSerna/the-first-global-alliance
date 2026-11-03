@@ -1,0 +1,147 @@
+[
+ {
+  "award": "FIRST Global Grand Challenge Award",
+  "description": "Awarded to teams that accrue the most cumulative points over the course of the season.",
+  "type": "podium",
+  "winners": {
+   "gold": "BGD",
+   "silver": "CHL",
+   "bronze": "DZA"
+  }
+ },
+ {
+  "award": "Sofia Kovalevskaya Award for International Journey",
+  "description": "Awarded to teams that documented and shared their FIRST Global experience with the rest of the FIRST Global community.",
+  "type": "non-tiered",
+  "teams": [
+   "NGA",
+   "CHL",
+   "MDG"
+  ]
+ },
+ {
+  "award": "Outstanding Mentor Award",
+  "description": "Awarded to mentors who were committed to their team and inspired them to keep going, despite any challenges.",
+  "type": "non-tiered",
+  "teams": [
+   "CHL",
+   "GMB",
+   "HND",
+   "IRN",
+   "IRQ",
+   "KEN",
+   "MDG",
+   "PSE",
+   "PRY",
+   "SRB",
+   "TUR"
+  ]
+ },
+ {
+  "award": "Prize Package #1",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "BGD"
+  ]
+ },
+ {
+  "award": "Prize Package #2",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "CHL"
+  ]
+ },
+ {
+  "award": "Prize Package #3",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "DZA",
+   "IND",
+   "MDG",
+   "OMN",
+   "ZAF"
+  ]
+ },
+ {
+  "award": "Prize Package #4",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "AGO",
+   "GRC",
+   "PSE",
+   "KNA",
+   "SVN"
+  ]
+ },
+ {
+  "award": "Prize Package #5",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "ARG",
+   "BOL",
+   "ECU",
+   "GMB",
+   "GUY",
+   "IRQ",
+   "JAM",
+   "LVA",
+   "MEX",
+   "MDA",
+   "MNE",
+   "NAM",
+   "RUS",
+   "ESP"
+  ]
+ },
+ {
+  "award": "Prize Package #6",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "GTM",
+   "XKX",
+   "NPL",
+   "PRI",
+   "VNM"
+  ]
+ },
+ {
+  "award": "Prize Package #7",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "ALB",
+   "KHM",
+   "HND",
+   "MYS",
+   "MNG",
+   "NGA",
+   "POL",
+   "QAT",
+   "SYR",
+   "VEN"
+  ]
+ },
+ {
+  "award": "Prize Package #8",
+  "description": "",
+  "type": "non-tiered",
+  "teams": [
+   "COL",
+   "HUN",
+   "IRN",
+   "LBY",
+   "PRY",
+   "SRB",
+   "LKA",
+   "SUR",
+   "TKM",
+   "YEM"
+  ]
+ }
+]

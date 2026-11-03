@@ -13,7 +13,13 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST_LIVE = path.join(ROOT, 'site', 'dist', 'live.json');
 const PROCESSED_LIVE = path.join(ROOT, 'data', 'processed', 'live.json');
-const API = 'https://api.first.global/v1?year=2026&excludeMatchDetails=false';
+
+// La temporada viva sale de seasons.json; SEASON_YEAR permite forzar otra.
+const seasonsFile = path.join(ROOT, 'data', 'raw', 'manual', 'seasons.json');
+const seasons = fs.existsSync(seasonsFile) ? JSON.parse(fs.readFileSync(seasonsFile, 'utf8')) : [];
+const liveSeason = seasons.find((s) => s.mode === 'live');
+const YEAR = Number(process.env.SEASON_YEAR) || liveSeason?.y;
+const API = `https://api.first.global/v1?year=${YEAR}&excludeMatchDetails=false`;
 
 const STAGES = {
   t2: { stage: 'ranking', letter: 'q' },
@@ -22,6 +28,7 @@ const STAGES = {
 };
 
 export async function fetchLiveSnapshot() {
+  if (!YEAR) throw new Error('No hay temporada live en data/raw/manual/seasons.json (ni SEASON_YEAR definido)');
   const res = await fetch(API);
   if (!res.ok) throw new Error(`HTTP ${res.status} al consultar ${API}`);
   const data = await res.json();
@@ -35,14 +42,16 @@ export async function fetchLiveSnapshot() {
         .map((p) => p.country);
 
     return {
-      id: `2026_${st.letter}${m.id}`,
+      id: `${YEAR}_${st.letter}${m.id}`,
       played: !!m.played,
       rs: m.played ? m.redScore : null,
       bs: m.played ? m.blueScore : null,
       ast: m.actualStartTime || null,
       red: side(11, 14),
       blue: side(21, 24),
-      // Desglose matemático del partido, solo si ya se jugó.
+      // Desglose matemático del partido, solo si ya se jugó. Este bloque es el de
+      // 2026: al empezar otra temporada hay que actualizarlo junto a
+      // data/raw/manual/breakdown/{year}.json y al gemelo worker/worker.js.
       bd: (m.played && m.details) ? [
         [m.details.wildfireInRedSuppressionUnit || 0, m.details.wildfireInBlueSuppressionUnit || 0],
         ['x' + (m.details.redClimbMultiplier || 1).toFixed(2), 'x' + (m.details.blueClimbMultiplier || 1).toFixed(2)],
@@ -57,7 +66,7 @@ export async function fetchLiveSnapshot() {
 
   // Pass-through del ranking. `code` es el alpha-3 de la API (HPE, ANT…), que NO es el del
   // roster; `countryCode` es el alpha-2, el único puente fiable, y es lo que usa el cliente
-  // para localizar la fila por su bandera (ver docs/discovery/06-join-keys.md).
+  // para localizar la fila por su bandera (ver docs/api-notes.md).
   const rankings = (data.rankings || []).map((r) => ({
     code: r.team?.country ?? null,
     countryCode: r.team?.countryCode ?? null,
@@ -82,7 +91,7 @@ export async function fetchLiveSnapshot() {
   }));
 
   const payload = {
-    season: 2026,
+    season: YEAR,
     updatedAt: new Date().toISOString(),
     matchesCount: matches.length,
     playedCount: matches.filter((m) => m.played).length,

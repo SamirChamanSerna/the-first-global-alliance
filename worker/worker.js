@@ -2,7 +2,9 @@
 // worker no recalcula nada: reenvía data.rankings tal cual. Reimplementar la media de los
 // mejores partidos era justo el bug (sumaba todos los partidos jugados).
 // `excludeMatchDetails=false` es necesario para el desglose (`bd`) de cada partido.
-const API = 'https://api.first.global/v1?year=2026&excludeMatchDetails=false';
+// La temporada viva se configura en wrangler.jsonc (`vars.SEASON_YEAR`). El
+// Worker no lee el repositorio: este es el único sitio donde se cambia el año.
+const apiUrl = (year) => `https://api.first.global/v1?year=${year}&excludeMatchDetails=false`;
 
 const STAGES = {
   t2: { stage: 'ranking', letter: 'q' },
@@ -10,8 +12,9 @@ const STAGES = {
   t4: { stage: 'finals', letter: 'f' }
 };
 
-async function fetchAndProcessLive() {
-  const res = await fetch(API);
+async function fetchAndProcessLive(env) {
+  const year = Number(env?.SEASON_YEAR) || 2026;
+  const res = await fetch(apiUrl(year));
   if (!res.ok) return null;
   const data = await res.json();
 
@@ -24,14 +27,16 @@ async function fetchAndProcessLive() {
         .map((p) => p.country);
 
     return {
-      id: `2026_${st.letter}${m.id}`,
+      id: `${year}_${st.letter}${m.id}`,
       played: !!m.played,
       rs: m.played ? m.redScore : null,
       bs: m.played ? m.blueScore : null,
       ast: m.actualStartTime || null,
       red: side(11, 14),
       blue: side(21, 24),
-      // Desglose matemático del partido, solo si ya se jugó.
+      // Desglose matemático del partido, solo si ya se jugó. Este bloque es el de
+      // 2026: al empezar otra temporada hay que actualizarlo junto a
+      // data/raw/manual/breakdown/{year}.json y al gemelo scripts/poll-live.js.
       bd: (m.played && m.details) ? [
         [m.details.wildfireInRedSuppressionUnit || 0, m.details.wildfireInBlueSuppressionUnit || 0],
         ['x' + (m.details.redClimbMultiplier || 1).toFixed(2), 'x' + (m.details.blueClimbMultiplier || 1).toFixed(2)],
@@ -46,7 +51,7 @@ async function fetchAndProcessLive() {
 
   // Pass-through del ranking. `code` es el alpha-3 de la API (HPE, ANT…), que NO es el del
   // roster; `countryCode` es el alpha-2, el único puente fiable, y es lo que usa el cliente
-  // para localizar la fila por su bandera (ver docs/discovery/06-join-keys.md).
+  // para localizar la fila por su bandera (ver docs/api-notes.md).
   const rankings = (data.rankings || []).map((r) => ({
     code: r.team?.country ?? null,
     countryCode: r.team?.countryCode ?? null,
@@ -63,7 +68,7 @@ async function fetchAndProcessLive() {
   // Standings de la fase en curso (`round_robin`), reenviados tal cual los publica la API.
   // Son filas POR EQUIPO —las cuatro de una alianza repiten el mismo rank/rankingScore/
   // played— y el cliente las coloca en la tabla de alianzas cruzando por alpha-2, que es
-  // el nombre del archivo de bandera de cada celda de equipo (ver docs/discovery/06).
+  // el nombre del archivo de bandera de cada celda de equipo (ver docs/api-notes.md).
   // `wins/losses/ties` y `highestScore` llegan a 0 con 4 partidos jugados: no son dato.
   const roundRobin = (data.round_robin || []).map((r) => ({
     code: r.team?.country ?? null,
@@ -74,7 +79,7 @@ async function fetchAndProcessLive() {
   }));
 
   const payload = {
-    season: 2026,
+    season: year,
     updatedAt: new Date().toISOString(),
     matchesCount: matches.length,
     playedCount: matches.filter((m) => m.played).length,
@@ -88,9 +93,12 @@ async function fetchAndProcessLive() {
 
 export default {
   async scheduled(event, env, ctx) {
-    const jsonStr = await fetchAndProcessLive();
-    if (jsonStr) {
-      await env.LIVE_DATA.put('live_json', jsonStr);
+    try {
+      const jsonStr = await fetchAndProcessLive(env);
+      if (jsonStr) await env.LIVE_DATA.put('live_json', jsonStr);
+    } catch (err) {
+      // Deja rastro en `wrangler tail`; el último snapshot válido sigue en KV.
+      console.error('live worker:', err);
     }
   },
 
